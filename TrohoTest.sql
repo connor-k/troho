@@ -1,5 +1,3 @@
-#now() for timestamp
-
 USE Troho;
 
 INSERT INTO HousingLocations (locationName, textAddress, description, imageURLs, floorplanURLs, gpsLatitude, gpsLongitude, distanceToCampus) VALUES ('First House', '123 30th St', 'A nice house.', 'path/to/images', 'path/to/floorplans', '0', '123', '10|12');

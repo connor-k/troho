@@ -33,14 +33,16 @@ CREATE TABLE Users (
 );
 
 CREATE TABLE Friends (
-  userID int(10) PRIMARY KEY NOT NULL,
+  associationID int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  userID int(10) NOT NULL,
   friendID int(10) NOT NULL,
   FOREIGN KEY (userID) REFERENCES Users(userID),
   FOREIGN KEY (friendID) REFERENCES Users(userID)
 );
 
 CREATE TABLE Surveys (
-  userID int(10) PRIMARY KEY NOT NULL,
+  surveyID int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  userID int(10) NOT NULL,
   question1 int(1) NOT NULL,
   question2 int(1) NOT NULL,
   question3 int(1) NOT NULL,
@@ -50,7 +52,8 @@ CREATE TABLE Surveys (
 );
 
 CREATE TABLE Reviews (
-  locationID int(10) PRIMARY KEY NOT NULL,
+  reviewID int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  locationID int(10) NOT NULL,
   userID int(10) NOT NULL,
   managementScore int(1) NOT NULL,
   amenitiesScore int(1) NOT NULL,
