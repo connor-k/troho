@@ -1,0 +1,88 @@
+.cover-element {
+	//display: inline-block;
+	height: 250px;
+	text-align: center;
+	position: relative;
+	margin: auto;
+
+}
+
+.cover-img {
+	margin-top:75px;
+	height:100px;
+	width: auto;
+}
+
+#log-in-line {
+	vertical-align: middle;
+	padding-bottom: 10px;
+	margin: 0px 2px;
+	width: 1px;
+	display: inline-block;
+	height: 24px;
+	background-color:#c0504d;
+}
+
+#log-in, #sign-up {
+	vertical-align:middle;
+	font-family: Indie Flower;
+	font-size: 32px;
+	display:inline;
+	color: #c0504d;
+}
+
+.log-div {
+	/position: absolute;
+	float: right;
+	margin-top: -200px;
+	margin-right: 50px;
+}
+
+.search-bar {
+
+}
+
+.bar {
+	margin: 0px 35%;
+	width:30%;
+	
+}
+
+.house-card {
+	position: relative;
+	margin:auto;
+	//background-color:#B0B0B0;
+	//background-color: #c0504d;
+	//background-color:rgba(192,80,77,.2);
+	box-shadow: 0px 2px 5px rgba(0,0,0,.2);
+	border-radius: 5px;
+	height: 200px;
+	width: 200px;
+}
+
+.house-title {
+	//color:#B0B0B0;
+	//color: #c0504d;
+	color:rgba(192,80,77,.8);
+	text-align: center;
+	font-size: 32px;
+	font-family: Indie Flower;
+}
+
+.star-container {
+	margin: -10px auto 0px auto;
+	position: relative;
+	text-align: center;
+}
+
+.star {
+	display:inline-block;
+	width:35px;
+	height: auto;
+}
+
+
+
+
+
+
