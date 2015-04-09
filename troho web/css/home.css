@@ -1,15 +1,21 @@
+.content {
+	background-color: #c0504d
+}
+
 .cover-element {
-	//display: inline-block;
 	height: 250px;
 	text-align: center;
 	position: relative;
 	margin: auto;
+	margin-bottom:60px;
 
 }
 
 .cover-img {
-	margin-top:75px;
-	height:100px;
+	position: absolute;
+	display: inline-block;
+	margin-top:120px;
+	height:80px;
 	width: auto;
 }
 
@@ -32,20 +38,45 @@
 }
 
 .log-div {
-	/position: absolute;
+	//position: absolute;
 	float: right;
-	margin-top: -200px;
+	margin-top: -60px;
 	margin-right: 50px;
 }
 
 .search-bar {
+	background-color: rgba(0,0,0,0);
+	outline: 0;
+	border-width: 0px;
+	width: 180px;
+	font-size: 32px;
+	margin-left:0px;
+	color: #ffcc00;
+	font-family: Indie Flower;
 
 }
 
+::-webkit-input-placeholder {
+   color: #ffcc00;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #ffcc00;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #ffcc00; 
+}
+
+:-ms-input-placeholder {  
+   color: #ffcc00;
+}
+
 .bar {
-	margin: 0px 35%;
-	width:30%;
-	
+	margin: -55px 130px;
+	/width: 100px;
+	background: rgba(0,0,0,0);
+
 }
 
 .house-card {
@@ -54,6 +85,9 @@
 	//background-color:#B0B0B0;
 	//background-color: #c0504d;
 	//background-color:rgba(192,80,77,.2);
+	//background-color: #ffcc00;
+	//background-color: #CCC;
+	background-color:white;
 	box-shadow: 0px 2px 5px rgba(0,0,0,.2);
 	border-radius: 5px;
 	height: 200px;
@@ -62,8 +96,8 @@
 
 .house-title {
 	//color:#B0B0B0;
-	//color: #c0504d;
-	color:rgba(192,80,77,.8);
+	color: #c0504d;
+	//color:rgba(192,80,77,.8);
 	text-align: center;
 	font-size: 32px;
 	font-family: Indie Flower;
@@ -81,8 +115,45 @@
 	height: auto;
 }
 
+.footer {
+	background-color: #c0504d;
+}
 
+.logo-wrapper {
+	text-align: center;
+	position: relative;
+	margin:auto;
+}
 
+.header {
+	color: #c0504d;
+	position: fixed;
+	width:100%;
+	box-shadow: 0px 2px 5px rgba(0,0,0,.2);
+	//background-color: white;
+	z-index: 100;
+	background-color: #CCC;
 
+}
 
+.headbar {
+	position: relative;
+	top-margin:50px;
+
+}
+
+.search-container {
+	margin-top: 140px;
+	margin-bottom: 100px;
+	height:200px;
+	margin-left:35%;
+	width:30%;
+}
+
+.housing-options {
+	font-family: Indie Flower;
+	font-size: 36px;
+	font-color: #c0504d;
+	text-align: center;
+}
 
