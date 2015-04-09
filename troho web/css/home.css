@@ -124,7 +124,7 @@ p, h1, div {
 }
 
 .logo-wrapper {
-	box-shadow: 0px 2px 5px rgba(0,0,0,.2);
+	/box-shadow: 0px 2px 5px rgba(0,0,0,.2);
 	text-align: center;
 	position: relative;
 	margin:auto;
