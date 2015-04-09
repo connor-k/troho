@@ -1,3 +1,7 @@
+p, h1, div {
+	font-family: Gill Sans
+}
+
 .content {
 	background-color: #c0504d
 }
@@ -31,7 +35,6 @@
 
 #log-in, #sign-up {
 	vertical-align:middle;
-	font-family: Indie Flower;
 	font-size: 32px;
 	display:inline;
 	color: #c0504d;
@@ -52,8 +55,6 @@
 	font-size: 32px;
 	margin-left:0px;
 	color: #ffcc00;
-	font-family: Indie Flower;
-
 }
 
 ::-webkit-input-placeholder {
@@ -96,11 +97,11 @@
 
 .house-title {
 	//color:#B0B0B0;
-	color: #c0504d;
+	//color: #c0504d;
 	//color:rgba(192,80,77,.8);
+	color:white;
 	text-align: center;
 	font-size: 32px;
-	font-family: Indie Flower;
 }
 
 .star-container {
@@ -143,17 +144,32 @@
 }
 
 .search-container {
-	margin-top: 140px;
-	margin-bottom: 100px;
+	margin-top: 160px;
+	margin-bottom: 160px;
 	height:200px;
 	margin-left:35%;
 	width:30%;
 }
 
 .housing-options {
-	font-family: Indie Flower;
 	font-size: 36px;
 	font-color: #c0504d;
 	text-align: center;
 }
 
+.search-image {
+	display:inline;
+	position: relative;
+	padding: 15px;
+	border-radius:30px;
+	border-style: solid;
+	border-width: 1px;
+	font-size:32px;
+	color: #ffcc00;
+}
+
+.image-container {
+	  position: absolute;
+  margin-top: -80px;
+  margin-left: 180px;
+}

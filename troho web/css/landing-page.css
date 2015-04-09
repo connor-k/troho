@@ -21,6 +21,10 @@ h6 {
     font-weight: 700;
 }
 
+div {
+    font-family: Indie Flower
+}
+
 .topnav {
     font-size: 14px; 
 }
@@ -30,17 +34,26 @@ h6 {
     font-weight: 400;
 }
 
-.intro-header {
-    padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
-    padding-bottom: 50px;
+.line-across {
+
+    margin-top: 1px;
+    margin-bottom: 1px;
+    background-color:#ffcc00;
+}
+
+.housing-image {
 /*	width: 300px;*/
 /*	height:300 px;*/
-    text-align: center;
-    color: #f8f8f8;
-/*		padding-left: 0px;*/
     background: url(../img/gateway.jpeg) no-repeat center center;
-/*    background-size: cover;*/
-	height:400px;
+    width: 400px;
+    height: 300px;
+    //position: relative;
+    margin: 50px auto;
+}
+
+.house-images-table {
+    display: table;
+    width: 100%;
 }
 
 .intro-message {
@@ -87,6 +100,17 @@ h6 {
     .intro-divider {
         width: 100%;
     }
+}
+
+.housing-image-container {
+    display: table-cell;
+    position: relative;
+    margin: auto;
+    width:100%;
+    box-shadow: 0px 2px 5px rgba(0,0,0,.2);
+    background-color: #CCC;
+    height:400px;
+    vertical-align: middle;
 }
 
 .network-name {
@@ -174,13 +198,14 @@ p.copyright {
 }
 
 hr { 
-    display: block;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
+    /display: block;
+    margin-top: 1px;
+    margin-bottom: 1px;
 /*    margin-left: auto;*/
 /*    margin-right: auto;*/
-    border-style: inset;
-    border-width: 1px;
+    /border-style: inset;
+    /border-width: 1px;
+    background-color:#ffcc00;
 }
 
 #trologo {
@@ -198,19 +223,19 @@ hr {
 	font-size: 5em;
 	text-align: center;
 	width:inherit;
-	color: maroon;
-/*	text-*/
-/*	text-decoration: underline;*/
-/*	height = */
+    color: #c0504d;
+
 }
 
 #nameContainer {
-	padding-top: 60px;
+	/padding-top: 60px;
 /*	max-height: 35 0px;*/
+    margin-top: 170px;
 	height: 310px;
 }
 
 #addressText {
+    color: #ffcc00;
 	text-align: center;
 	font-size: 3em;
 }
@@ -219,13 +244,15 @@ hr {
 	text-align: center;
 /*	padding-top: 0px;*/
 	font-size: 3em;
-	color:grey;
+    color: #c0504d;
+	//color:#CCC;
 }
 
 .rating {
 	text-align: center;
 	font-size: 1.5em;
-	color: gray;
+    color: #c0504d;
+	//color: #CCC;
 }
 
 #descriptionText {
