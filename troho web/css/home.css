@@ -108,6 +108,7 @@ p, h1, div {
 	margin: -10px auto 0px auto;
 	position: relative;
 	text-align: center;
+	width:200px;
 }
 
 .star {
