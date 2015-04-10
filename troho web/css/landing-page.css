@@ -56,10 +56,9 @@ div {
     background: url(../img/gateway.jpeg) no-repeat center center;
     box-shadow: 0px 2px 5px rgba(0,0,0,.5);
 
-    width: 400px;
-    height: 300px;
-    //position: relative;
-    margin: 50px auto;
+    width: 380px;
+    height: 280px;
+    position: relative;
 }
 
 .house-images-table {
@@ -125,6 +124,18 @@ div {
 
     height:400px;
     vertical-align: middle;
+}
+
+.housing-image-card {
+
+    box-shadow: 0px 2px 5px rgba(192,80,77,.2);
+    padding: 10px;
+    border-radius: 5px;
+    width: 400px;
+    height: 300px;
+    margin: 30px auto;
+    position: relative;
+
 }
 
 .network-name {
@@ -234,8 +245,8 @@ hr {
 }
 
 #introText {
-    font-weight: normal;
-	font-size: 5em;
+    font-weight: lighter;
+	font-size: 4em;
 	text-align: center;
 	width:inherit;
     /color: #c0504d;
@@ -246,15 +257,15 @@ hr {
 
 #nameContainer {
     width: 100%;
-    margin-top: 170px;
-	height: 310px;
+    margin-top: 120px;
 }
 
 #addressText {
-    font-weight: normal;
-    //color: #ffcc00;
+    font-weight: lighter;
+    color: #ffcc00;
 	text-align: center;
-	font-size: 3em;
+	font-size: 2em;
+    margin: 20px auto;
 }
 
 #ratingTextBig {
@@ -265,6 +276,7 @@ hr {
 	//color:#CCC;
     /color: #ff8800;
     color:white;
+    position: relative;
 }
 
 .rating {
