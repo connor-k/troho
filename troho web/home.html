@@ -42,7 +42,7 @@
 						<!-- <input type="text" name="search" placeholder="Find a house"> -->
 					<div>
 				        <div class=" bar">
-				            <input type="text" class="search-bar" placeholder="Find a house!" name="house">
+				            <input type="text" id = "search" class="search-bar" placeholder="Find a house!" name="house">
 				        </div>
 					</div>
 					<div class = "image-container">
@@ -194,6 +194,14 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+
+    <script>
+		$(window).load(function() {
+		  //var htmlString = $( this ).html();
+		  $("#search").focus();
+		});
+
+    </script>
 
 </body>
 
