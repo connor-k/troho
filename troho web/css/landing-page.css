@@ -251,16 +251,17 @@ hr {
 }
 
 .scrolling-description-row {
-    margin-top: 20px;
+    //margin-top: 20px;
     padding-top: 5px;
     font-size: 18px;
-    padding-left: 23px;
     height: 200px;
+
 }
 
 .single-review {
     margin-top:40px;
     margin-bottom: 40px;
+    border-radius: 5px;
     border-style: solid;
     border-width: 1px;
     width: 80%;
@@ -270,10 +271,8 @@ hr {
 
 .reviewer-info-row {
 
-    height: 80px;
+    height: 60px;
     width: 100%;
-    background-color: yellow;
-
 }
 
 .reviewer-image-and-name {
@@ -281,16 +280,30 @@ hr {
 }
 
 .reviewer-username {
+    margin-top: -10px;
+    display: inline;
+    font-size: 36px;
+}
 
+.reviewer-image {
+    height: 80px;
+    margin-top: -7px;
+}
+
+.reviewer-image-wrapper {
+    margin-top: 5px;
+    height: 60px;
+    width: 60px;
+    display: inline-block;
+    border-radius:60px;
+    overflow: hidden;
 }
 
 .filter-row {
     border-radius:5px 5px 0 0;
-    //background-color: black;
     height: 80px;
     padding: 0px 10px;
     margin: 0px;
-    //background-color: rgba(125,125,125,1);
     background-color: #FFCC00;
     color:black;
 }
@@ -299,11 +312,24 @@ hr {
     text-align: center;
     border-style: solid;
     border-radius: 5px;
-    border-width: 1px;
+    border-width: .5px;
     height: 40px;
     margin-top: 20px;
     background-color: white;
     /background-color: rgba(100,100,100,.4);
+    opacity: .6;
+}
+
+.filter-button:hover {
+    opacity: 1;
+}
+
+.filter-button.active {
+    opacity: 1;
+}
+
+.filter-specifier {
+    padding-top: 10px;
 }
 
 #firstRowDescription {
