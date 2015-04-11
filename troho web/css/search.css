@@ -68,6 +68,11 @@ li {
 	text-align: center;
 }
 
+.house-image {
+	//width:100%;
+	width:340px;
+}
+
 .search-descriptor {
 	color: #ffcc00;
 	font-size: 30px;
