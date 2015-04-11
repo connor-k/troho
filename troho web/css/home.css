@@ -171,9 +171,8 @@ p, h1, div {
 }
 
 .image-container {
-	/position: absolute;
 	text-align: center;
   	margin-top: -130px;
   	width: 40%;
-  	margin-left:30%;
+  	margin-left:30.5%;
 }

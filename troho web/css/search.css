@@ -74,6 +74,7 @@ li {
 }
 
 .search-descriptor {
-	color: #ffcc00;
+	/color: #ffcc00;
+	color: white;
 	font-size: 30px;
 }
