@@ -203,6 +203,7 @@ hr {
 
 .rating-tab {
     /color:#ffcc00;
+    overflow-x:auto;
     display: table-cell;
     padding: 0px 45px;
     vertical-align: middle;
@@ -267,6 +268,7 @@ hr {
     border-radius: 5px;
     //border-style: solid;
     //border-width: 1px;
+    overflow-y:auto; 
     width: 80%;
     margin-left: 10%;
 
@@ -274,7 +276,7 @@ hr {
 
 .reviewer-info-row {
 
-    height: 60px;
+    min-height: 60px;
     width: 100%;
 }
 
@@ -311,6 +313,7 @@ hr {
 }
 
 .filter-row {
+    overflow-x: scroll;
     border-radius:5px 5px 0 0;
     height: 80px;
     padding: 0px 10px;
