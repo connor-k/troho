@@ -285,17 +285,21 @@ hr {
 }
 
 .filter-row {
-    border-radius:5px;
-    background-color: black;
+    border-radius:5px 5px 0 0;
+    //background-color: black;
     height: 80px;
     padding: 0px 10px;
     margin: 0px;
+    //background-color: rgba(125,125,125,1);
+    background-color: #FFCC00;
 }
 
 .filter-button {
     border-style: solid;
     border-width: 1;
     height: 40px;
+    margin-top: 20px;
+    /background-color: rgba(100,100,100,.4);
 }
 
 #firstRowDescription {
