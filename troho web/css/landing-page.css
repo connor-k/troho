@@ -292,13 +292,17 @@ hr {
     margin: 0px;
     //background-color: rgba(125,125,125,1);
     background-color: #FFCC00;
+    color:black;
 }
 
 .filter-button {
+    text-align: center;
     border-style: solid;
-    border-width: 1;
+    border-radius: 5px;
+    border-width: 1px;
     height: 40px;
     margin-top: 20px;
+    background-color: white;
     /background-color: rgba(100,100,100,.4);
 }
 
