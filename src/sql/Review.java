@@ -18,6 +18,22 @@ public class Review {
 	public int communityChillFactorScore;
 	
 	/** Other relevant information about this review */
+	public String comment;
 	public int rentPaid;
 	public String timeWritten;
+	
+	Review(int reviewKey, int userKey, int managementScore, int amenitiesScore, int locationScore,
+			int noiseScore, int communityChillFactorScore, String comment, int rentPaid,
+			String timeWritten) {
+		this.reviewKey = reviewKey;
+		this.userKey = userKey;
+		this.managementScore = managementScore;
+		this.amenitiesScore = amenitiesScore;
+		this.locationScore = locationScore;
+		this.noiseScore = noiseScore;
+		this.communityChillFactorScore = communityChillFactorScore;
+		this.comment = comment;
+		this.rentPaid = rentPaid;
+		this.timeWritten = timeWritten;
+	}
 }

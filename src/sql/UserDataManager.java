@@ -5,13 +5,77 @@
 
 package sql;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.LinkedList;
+import java.util.List;
+
 public class UserDataManager {
-	/** 
+	/** Create a new entry in the Users table
 	 * @param name The user's name
 	 * @param email The user's email address (@usc.edu)
+	 * @return the User created or that already existed in the db
 	 */
-	public static void createUser(String name, String email) {
-		//TODO Create a new user if they don't exist, otherwise return existing user. May need to split, determine validation.
+	public static User createUser(String name, String email, String location) {
+		User user = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
+			// Make sure the email isn't already registered to someone
+			Statement st = conn.createStatement();
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM Users WHERE email=?");
+			ps.setString(1, email);
+			ResultSet rs = ps.executeQuery();
+			if (!rs.next()) {
+				// Safe, create new user
+				st = conn.createStatement();
+			} else {
+				if (!rs.getString("userName").equals(name)) {
+					System.out.println("Invalid login! Name did not match name associated with email.");
+				} else {
+					System.out.println("Retrieving existing user from db.");
+					user = new User();
+					user.userKey = rs.getInt("userKey");
+					user.name = name;
+					user.email = email;
+					user.currentLocation = HousingDataManager.getHousingLocation(rs.getInt("housingKey"));
+					user.surveyPreferences = new int[5];
+					st = conn.createStatement();
+					ps = conn.prepareStatement("SELECT * FROM Surveys WHERE userID=?");
+					ps.setInt(1, user.userKey);
+					rs = ps.executeQuery();
+					for (int i = 1; i <= 5; ++i) {
+						user.surveyPreferences[i] = rs.getInt("question" + i);
+					}
+					st = conn.createStatement();
+					ps = conn.prepareStatement("SELECT * FROM Reviews WHERE userID=?");
+					ps.setInt(1, user.userKey);
+					rs = ps.executeQuery();
+					List<Review> reviewsWritten = new LinkedList<Review>();
+					while (rs.next()) {
+						reviewsWritten.add(new Review(rs.getInt("reviewKey"), user.userKey,
+								rs.getInt("managementScore"), rs.getInt("amenitiesScore"),
+								rs.getInt("locationScore"), rs.getInt("noiseScore"),
+								rs.getInt("communityChillFactorScore"), rs.getString("textComment"),
+								rs.getInt("rentPaid"), rs.getString("timeWritten")));
+					}
+					//TODO friends!
+				}
+			}
+			rs.close();
+			st.close();
+			conn.close();
+		} catch (SQLException sqle) {
+			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
+		}
+		
+		return user;
 	}
 
 	/** 
@@ -32,76 +96,10 @@ public class UserDataManager {
 
 	/** 
 	 * @param userKey SQL database key for this user
-	 * @param scores the integer rating for the 5 categories.
-	 * @param rentPaid the rent paid by the user (currently optional)
-	 * @see Review
-	 */
-	public static void addReview(int userKey, String[] scores, String rentPaid) {
-
-	}
-
-	/** 
-	 * @param userKey SQL database key for this user
 	 * @param surveyPoints the survey points between 0 and 10 allocated by the user for the 5 categories
 	 */
 	public static void setSurveyPoints(int userKey, String[] surveyPoints) {
 
 	}
 	
-	/** 
-	 * @param userKey SQL database key for this user
-	 * @return the current point allocations for the five survey categories
-	 */
-	public static int[] getSurveyPoints(int userKey) {
-
-	}
-	
-	/** 
-	 * @param userKey SQL database key for this user
-	 * @return the name of the user
-	 */
-	public static String getName(int userKey) {
-
-	}
-
-	/** 
-	 * @param userKey SQL database key for this user
-	 * @return the email of the user
-	 */
-	public static String getEmail(int userKey) {
-
-	}
-	
-	/** 
-	 * @param userKey SQL database key for this user
-	 * @return the Facebook ID associated with this user
-	 */
-	public static String getFacebookID(int userKey) {
-
-	}
-
-	/** 
-	 * @param userKey SQL database key for this user
-	 * @return the name of the housing location that this user lives
-	 */
-	public static String getLocation(int userKey) {
-
-	}
-	
-	/** 
-	 * @param userKey SQL database key for this user
-	 * @return an array of the userKeys for all of this user's friends
-	 */
-	public static int[] getFriends(int userKey) {
-
-	}
-
-	/** 
-	 * @param userKey SQL database key for this user
-	 * @return all reviews written by this user
-	 */
-	public static Review[] getReviews(int userKey) {
-
-	}
-
 }
