@@ -79,7 +79,7 @@ li {
     overflow-y:auto; 
     width: 80%;
     margin-left: 10%;
-    height:400px;
+    min-height:400px;
 }
 
 .results-container {
