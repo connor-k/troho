@@ -8,7 +8,7 @@ CREATE TABLE HousingLocations (
   locationID int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   locationName varchar(50) NOT NULL,
   textAddress varchar(70) NOT NULL,
-  description varchar(500) NOT NULL,
+  description varchar(500) NOT NULL, 
   imageURLs varchar(500) NOT NULL,
   floorplanURLs varchar(500), # currently don't require these
   gpsLatitude varchar(10) NOT NULL, #TODO may want to change to a different identifier
@@ -55,6 +55,7 @@ CREATE TABLE Reviews (
   reviewID int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   locationID int(10) NOT NULL,
   userID int(10) NOT NULL,
+  textComment varchar(500) NOT NULL,
   managementScore int(1) NOT NULL,
   amenitiesScore int(1) NOT NULL,
   locationScore int(1) NOT NULL,
