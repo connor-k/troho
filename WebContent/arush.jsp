@@ -2,9 +2,11 @@
 <%@page import="com.java.Data.Review"%>
 
 <%@page import="java.util.List"%>
-
-
-
+<%@page import="java.lang.String"%>
+<% 
+	String name = request.getParameter("name");
+	HousingDataManager hdm = new HousingDataManager(); 
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,22 +50,8 @@
     </div>
 
     <br>
-    
-	   <!--<div class="row">
-            <div class="col-lg-12">
-				<div id="introText">
-					<p>Gateway Apartments</p>
-				</div>
-			</div>
-		</div>-->
-			<!--<div class="col-sm-12 line-across"> 
-			</div>-->
-            <!--<div id="introText">
-                    <p>Gateway Apartments</p>
-                </div>-->
-    <div>
         <div id = "top-text-wrap">
-            <p id = "introText">Gateway Apartments</p>
+            <p id = "introText"><%= name %></p>
                     <!-- </div> -->
                     <!-- <div> -->
             <p id="addressText">3335 S. Figueroa St.</p>
@@ -314,15 +302,6 @@
 							}
 					 	}
 					%>
-
-                <!--     <div class="col-lg-12 single-review">
-
-                        <div class = "reviewer-info-row">
-                            
-                        </div>
-
-                        <p class="scrolling-description-row">Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div> -->
 
                 </div>
 

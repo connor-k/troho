@@ -35,7 +35,7 @@ p, h1, div {
 
 #log-in, #sign-up {
 	vertical-align:middle;
-	font-size: 32px;
+	font-size: 24px;
 	display:inline;
 	//color: #c0504d;
 	/background-color: rgb(72,72,72,1);
@@ -130,7 +130,6 @@ p, h1, div {
 }
 
 .header {
-	color: #c0504d;
 	position: fixed;
 	width:100%;
 	height:80px;

@@ -209,7 +209,7 @@
         <div class = "container-fluid">
 
             <div class = "row">
-                <div class = "col-lg-12" style = "padding-top: 80px; padding-bottom: 40px; font-size:36px; color:white; text-align:center">Reviews</div>
+                <div class = "col-lg-12" style = "padding-top: 80px; padding-bottom: 40px; font-size:40px; color:white; text-align:center">Reviews</div>
             </div>
 
             <div class = "row">
@@ -218,37 +218,37 @@
                     <div class = "filter-row">
                         <div class = "col-lg-2">
                             <div class = "filter-button">
-                                Management   
+                                <div class = "filter-specifier">Management</div>
                             </div>
                         </div>
 
                         <div class = "col-lg-2">
                             <div class = "filter-button"> 
-                                Noise  
+                                <div class = "filter-specifier">Noise</div>  
                             </div>
                         </div>
 
                         <div class = "col-lg-2">
                             <div class = "filter-button">   
-                                Location
+                                <div class = "filter-specifier">Location</div>
                             </div>
                         </div>
 
                         <div class = "col-lg-2">
                             <div class = "filter-button">  
-                                Chill 
+                                <div class = "filter-specifier">Chillness</div>
                             </div>
                         </div>
 
                         <div class = "col-lg-2">
                             <div class = "filter-button"> 
-                                <p>Amenities</p>
+                                <div class = "filter-specifier">Amenities</div>
                             </div>
                         </div>
 
                         <div class = "col-lg-2">
                             <div class = "filter-button">
-                                Price   
+                                <div class = "filter-specifier">Price</div>
                             </div>
                         </div>
                     </div>
@@ -266,11 +266,18 @@
                         <div class = "reviewer-info-row">
 
                             <div class = "reviewer-image-and-name">
-                                <div class = "reviewer-image">
+                                
+                                <div class = "reviewer-image-wrapper">
+                                <img src = "./img/CalvinHackSC.jpg" class = "reviewer-image"/>
                                 </div>
 
+
                                 <div class = "reviewer-username">
-                                    Calvin LeGassick
+                                    <div class = "reviewer-username-row">
+                                        <div class = "reviewer-username-cell">
+                                        Calvin LeGassick
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -282,7 +289,44 @@
                     <div class="col-lg-12 single-review">
 
                         <div class = "reviewer-info-row">
-                            
+                            <div class = "reviewer-image-and-name">
+                                
+                                <div class = "reviewer-image-wrapper">
+                                <img src = "./img/CalvinHackSC.jpg" class = "reviewer-image"/>
+                                </div>
+
+
+                                <div class = "reviewer-username">
+                                    <div class = "reviewer-username-row">
+                                        <div class = "reviewer-username-cell">
+                                        Calvin LeGassick
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="scrolling-description-row">Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+
+                    <div class="col-lg-12 single-review">
+
+                        <div class = "reviewer-info-row">
+                            <div class = "reviewer-image-and-name">
+                                
+                                <div class = "reviewer-image-wrapper">
+                                <img src = "./img/CalvinHackSC.jpg" class = "reviewer-image"/>
+                                </div>
+
+
+                                <div class = "reviewer-username">
+                                    <div class = "reviewer-username-row">
+                                        <div class = "reviewer-username-cell">
+                                        Calvin LeGassick
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <p class="scrolling-description-row">Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -309,6 +353,14 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+
+    <script>
+
+        $(".filter-button").click(function() {
+            $(this).toggleClass("active");
+        });
+
+    </script
 
 </body>
 
