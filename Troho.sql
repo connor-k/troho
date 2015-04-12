@@ -44,11 +44,11 @@ CREATE TABLE Friends (
 CREATE TABLE Surveys (
   surveyID int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   userID int(10) NOT NULL,
-  question1 int(1) NOT NULL,
-  question2 int(1) NOT NULL,
-  question3 int(1) NOT NULL,
-  question4 int(1) NOT NULL,
-  question5 int(1) NOT NULL,
+  managementSurveyScore int(1) NOT NULL,
+  amenitiesSurveyScore int(1) NOT NULL,
+  locationSurveyScore int(1) NOT NULL,
+  noiseSurveyScore int(1) NOT NULL,
+  communityChillFactorSurveyScore int(1) NOT NULL,
   FOREIGN KEY (userID) REFERENCES Users(userID)
 );
 

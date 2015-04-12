@@ -12,7 +12,7 @@ INSERT INTO Friends (userId, friendID) VALUES ('1', '2');
 INSERT INTO Friends (userId, friendID) VALUES ('2', '1');
 SELECT * FROM Friends;
 
-INSERT INTO Surveys (userID, question1, question2, question3, question4, question5) VALUES ('1', '10', '10', '5', '0', '0');
+INSERT INTO Surveys (userID, managementSurveyScore, amenitiesSurveyScore, locationSurveyScore, noiseSurveyScore, communityChillFactorSurveyScore) VALUES ('1', '10', '10', '5', '0', '0');
 SELECT * FROM Surveys;
 
 INSERT INTO Reviews (housingKey, userID, textComment, managementScore, amenitiesScore, locationScore, noiseScore, communityChillFactorScore, timeWritten) VALUES ('1', '2', 'my comment', '5', '5', '5', '4', '5', now());
