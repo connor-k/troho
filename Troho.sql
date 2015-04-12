@@ -14,8 +14,9 @@ CREATE TABLE HousingLocations (
   floorplanURLs varchar(500), # currently don't require these
   gpsLatitude varchar(10) NOT NULL, #TODO may want to change to a different identifier
   gpsLongitude varchar(10) NOT NULL,
-  distanceToCampus varchar(10) NOT NULL,
-  # Average ratings so we don't recalculate every time the page is viewed
+  minutesWalking int(2) NOT NULL,
+  minutesBiking int(2) NOT NULL,
+  # Average ratings 2o we don't recalculate every time the page is viewed
   averageManagement varchar(4),
   averageAmenities varchar(4),
   averageLocation varchar(4),
@@ -29,7 +30,7 @@ CREATE TABLE Users (
   userName varchar(50) NOT NULL,
   email varchar(50) NOT NULL,
   housingKey int(10),
-  facebookID varchar(50) NOT NULL, #TODO will probably need to change this
+  facebookID varchar(17) NOT NULL,
   FOREIGN KEY (housingKey) REFERENCES HousingLocations(housingKey)
 );
 

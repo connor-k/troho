@@ -43,25 +43,31 @@ public class UserDataManager {
 					user.name = name;
 					user.email = email;
 					user.currentLocation = HousingDataManager.getHousingLocation(rs.getInt("housingKey"));
-					user.surveyPreferences = new int[5];
 					st = conn.createStatement();
-					ps = conn.prepareStatement("SELECT * FROM Surveys WHERE userID=?");
+					ps = conn.prepareStatement("SELECT * FROM Surveys WHERE userKey=?");
 					ps.setInt(1, user.userKey);
 					rs = ps.executeQuery();
-					for (int i = 1; i <= 5; ++i) {
-						user.surveyPreferences[i] = rs.getInt("question" + i);
+					if (rs.next()) {
+						user.managementSurveyScore = rs.getInt("managementSurveyScore");
+						user.amenitiesSurveyScore = rs.getInt("amenitiesSurveyScore");
+						user.locationSurveyScore = rs.getInt("locationSurveyScore");
+						user.noiseSurveyScore = rs.getInt("noiseSurveyScore");
+						user.communityChillFactorSurveyScore = rs.getInt("communityChillFactorSurveyScore");
 					}
 					st = conn.createStatement();
-					ps = conn.prepareStatement("SELECT * FROM Reviews WHERE userID=?");
+					ps = conn.prepareStatement("SELECT * FROM Reviews WHERE userKey=?");
 					ps.setInt(1, user.userKey);
 					rs = ps.executeQuery();
-					List<Review> reviewsWritten = new LinkedList<Review>();
+					List<Review> reviews = new LinkedList<Review>();
 					while (rs.next()) {
-						reviewsWritten.add(new Review(rs.getInt("reviewKey"), user.userKey,
+						reviews.add(new Review(rs.getInt("reviewID"), user.userKey,
 								rs.getInt("managementScore"), rs.getInt("amenitiesScore"),
 								rs.getInt("locationScore"), rs.getInt("noiseScore"),
 								rs.getInt("communityChillFactorScore"), rs.getString("textComment"),
 								rs.getInt("rentPaid"), rs.getString("timeWritten")));
+					}
+					if (!reviews.isEmpty()) {
+						user.reviewsWritten = reviews.toArray(new Review[reviews.size()]);
 					}
 					//TODO friends!
 				}
@@ -74,7 +80,7 @@ public class UserDataManager {
 		} catch (ClassNotFoundException cnfe) {
 			System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
 		}
-		
+
 		return user;
 	}
 
@@ -101,5 +107,5 @@ public class UserDataManager {
 	public static void setSurveyPoints(int userKey, String[] surveyPoints) {
 
 	}
-	
+
 }

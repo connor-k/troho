@@ -17,14 +17,25 @@ public class HousingLocation {
 	public String imageURL;
 	public String floorplanURL;
 	public String[] gpsCoordinates;
-	public String distanceToCampus;
+	public int minutesWalking;
+	public int minutesBiking;
 	public int overallScore;
 	public int managementScore;
 	public int amenitiesScore;
 	public int locationScore;
 	public int noiseScore;
 	public int communityChillFactorScore;
+	public double averageRent;
 	
 	/** Reviews for this location */
 	public Review[] reviews;
+	
+	/** Overrides toString
+	 * @Override
+	 * @return String representation of HousingLocation object
+	 */
+	@Override
+	public String toString() {
+		return "HousingLocation: name: " + locationName + " type: " + type;
+	}
 }
