@@ -20,7 +20,7 @@ public class UserDataManager {
 	 * @param email The user's email address (@usc.edu)
 	 * @return the User created or that already existed in the db
 	 */
-	public static User createUser(String name, String email, String location) {
+	public static User createUser(String name, String email, String location, String facebookID) {
 		User user = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -33,19 +33,30 @@ public class UserDataManager {
 			if (!rs.next()) {
 				// Safe, create new user
 				st = conn.createStatement();
+				ps = conn.prepareStatement("INSERT INTO Users (userName, housingKey, email, facebookID) VALUES (?, ?, ?, ?);");
+				ps.setString(1, name);
+				ps.setInt(2, Integer.parseInt(location)); //TODO location must be housing key, validate
+				ps.setString(3, email);
+				ps.setString(4, facebookID);
+				ps.executeUpdate();
+				user = new User();
+				user.facebookID = facebookID;
+				user.name = name;
+				user.email = email;
+				user.currentLocation = HousingDataManager.getHousingLocation(Integer.parseInt(location)); //TODO
 			} else {
 				if (!rs.getString("userName").equals(name)) {
 					System.out.println("Invalid login! Name did not match name associated with email.");
 				} else {
 					System.out.println("Retrieving existing user from db.");
 					user = new User();
-					user.userKey = rs.getInt("userKey");
+					user.facebookID = facebookID;
 					user.name = name;
 					user.email = email;
 					user.currentLocation = HousingDataManager.getHousingLocation(rs.getInt("housingKey"));
 					st = conn.createStatement();
-					ps = conn.prepareStatement("SELECT * FROM Surveys WHERE userKey=?");
-					ps.setInt(1, user.userKey);
+					ps = conn.prepareStatement("SELECT * FROM Surveys WHERE facebookID=?");
+					ps.setString(1, user.facebookID);
 					rs = ps.executeQuery();
 					if (rs.next()) {
 						user.managementSurveyScore = rs.getInt("managementSurveyScore");
@@ -55,12 +66,12 @@ public class UserDataManager {
 						user.communityChillFactorSurveyScore = rs.getInt("communityChillFactorSurveyScore");
 					}
 					st = conn.createStatement();
-					ps = conn.prepareStatement("SELECT * FROM Reviews WHERE userKey=?");
-					ps.setInt(1, user.userKey);
+					ps = conn.prepareStatement("SELECT * FROM Reviews WHERE facebookID=?");
+					ps.setString(1, user.facebookID);
 					rs = ps.executeQuery();
 					List<Review> reviews = new LinkedList<Review>();
 					while (rs.next()) {
-						reviews.add(new Review(rs.getInt("reviewID"), user.userKey,
+						reviews.add(new Review(rs.getInt("reviewID"), user.facebookID,
 								rs.getInt("managementScore"), rs.getInt("amenitiesScore"),
 								rs.getInt("locationScore"), rs.getInt("noiseScore"),
 								rs.getInt("communityChillFactorScore"), rs.getString("textComment"),
@@ -85,26 +96,18 @@ public class UserDataManager {
 	}
 
 	/** 
-	 * @param userKey SQL database key for this user
+	 * @param facebookID SQL database key for this user
 	 * @param location The location this user lives
 	 */
-	public static void setLocation(int userKey, String location) {
+	public static void setLocation(int facebookID, String location) {
 
 	}
 
 	/** 
-	 * @param userKey SQL database key for this user
-	 * @param facebookID the Facebook ID for this user
-	 */
-	public static void setFacebookID(int userKey, String facebookID) {
-
-	}
-
-	/** 
-	 * @param userKey SQL database key for this user
+	 * @param facebookID SQL database key for this user
 	 * @param surveyPoints the survey points between 0 and 10 allocated by the user for the 5 categories
 	 */
-	public static void setSurveyPoints(int userKey, String[] surveyPoints) {
+	public static void setSurveyPoints(int facebookID, String[] surveyPoints) {
 
 	}
 
