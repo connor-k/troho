@@ -8,12 +8,12 @@ INSERT INTO Users (userName, email, facebookID) VALUES ('Steve', 'asdf@asdf.asdf
 INSERT INTO Users (userName, housingKey, email, facebookID) VALUES ('John', 2, 'asdf@asdf.asdf', '23rfsajkdf');
 SELECT * FROM Users;
 
-INSERT INTO Friends (userId, friendID) VALUES ('1', '2');
-INSERT INTO Friends (userId, friendID) VALUES ('2', '1');
+INSERT INTO Friends (userKey, friendID) VALUES ('1', '2');
+INSERT INTO Friends (userKey, friendID) VALUES ('2', '1');
 SELECT * FROM Friends;
 
-INSERT INTO Surveys (userID, managementSurveyScore, amenitiesSurveyScore, locationSurveyScore, noiseSurveyScore, communityChillFactorSurveyScore) VALUES ('1', '10', '10', '5', '0', '0');
+INSERT INTO Surveys (userKey, managementSurveyScore, amenitiesSurveyScore, locationSurveyScore, noiseSurveyScore, communityChillFactorSurveyScore) VALUES ('1', '10', '10', '5', '0', '0');
 SELECT * FROM Surveys;
 
-INSERT INTO Reviews (housingKey, userID, textComment, managementScore, amenitiesScore, locationScore, noiseScore, communityChillFactorScore, timeWritten) VALUES ('1', '2', 'my comment', '5', '5', '5', '4', '5', now());
+INSERT INTO Reviews (housingKey, userKey, textComment, managementScore, amenitiesScore, locationScore, noiseScore, communityChillFactorScore, timeWritten) VALUES ('1', '2', 'my comment', '5', '5', '5', '4', '5', now());
 SELECT * FROM Reviews;

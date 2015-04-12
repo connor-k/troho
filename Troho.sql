@@ -25,7 +25,7 @@ CREATE TABLE HousingLocations (
 );
 
 CREATE TABLE Users (
-  userID int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  userKey int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   userName varchar(50) NOT NULL,
   email varchar(50) NOT NULL,
   housingKey int(10),
@@ -35,27 +35,27 @@ CREATE TABLE Users (
 
 CREATE TABLE Friends (
   associationID int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  userID int(10) NOT NULL,
+  userKey int(10) NOT NULL,
   friendID int(10) NOT NULL,
-  FOREIGN KEY (userID) REFERENCES Users(userID),
-  FOREIGN KEY (friendID) REFERENCES Users(userID)
+  FOREIGN KEY (userKey) REFERENCES Users(userKey),
+  FOREIGN KEY (friendID) REFERENCES Users(userKey)
 );
 
 CREATE TABLE Surveys (
   surveyID int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  userID int(10) NOT NULL,
+  userKey int(10) NOT NULL,
   managementSurveyScore int(1) NOT NULL,
   amenitiesSurveyScore int(1) NOT NULL,
   locationSurveyScore int(1) NOT NULL,
   noiseSurveyScore int(1) NOT NULL,
   communityChillFactorSurveyScore int(1) NOT NULL,
-  FOREIGN KEY (userID) REFERENCES Users(userID)
+  FOREIGN KEY (userKey) REFERENCES Users(userKey)
 );
 
 CREATE TABLE Reviews (
   reviewID int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   housingKey int(10) NOT NULL,
-  userID int(10) NOT NULL,
+  userKey int(10) NOT NULL,
   textComment varchar(500) NOT NULL,
   managementScore int(1) NOT NULL,
   amenitiesScore int(1) NOT NULL,
@@ -65,5 +65,5 @@ CREATE TABLE Reviews (
   rentPaid int(4), # add NOT NULL if we want to enforce them saying
   timeWritten TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
   FOREIGN KEY (housingKey) REFERENCES HousingLocations(housingKey),
-  FOREIGN KEY (userID) REFERENCES Users(userID)
+  FOREIGN KEY (userKey) REFERENCES Users(userKey)
 );
