@@ -24,6 +24,7 @@ public class HousingLocation {
 	public int locationScore;
 	public int noiseScore;
 	public int communityChillFactorScore;
+	public double averageRent;
 	
 	/** Reviews for this location */
 	public Review[] reviews;
