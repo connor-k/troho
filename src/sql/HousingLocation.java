@@ -9,19 +9,16 @@ public class HousingLocation {
 	/** The SQL key for this housing location */
 	public int housingKey;
 	
-	/** Type of location */
+	/** Data about this location */
 	public HousingType type;
-	
-	/** The five review sections */
-	public int managementScore;
-	public int amenitiesScore;
-	public int locationScore;
-	public int noiseScore;
-	public int communityChillFactorScore;
-	
-	/** Other relevant information about this review */
-	public int rentPaid;
-	public String timeWritten;
+	public String locationName;
+	public String address;
+	public String description;
+	public String imageURL;
+	public String floorplanURL;
+	public String[] gpsCoordinates;
+	public String distanceToCampus;
+	public int[] averageRatings;
 	
 	/** Reviews for this location */
 	public Review[] reviews;
