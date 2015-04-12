@@ -7,7 +7,7 @@ package sql;
 
 public class User {
 	/** The SQL key for this user */
-	public int userKey;
+	public String facebookID;
 	
 	/** Data about this user */
 	public String name;

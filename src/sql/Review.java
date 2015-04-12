@@ -8,7 +8,7 @@ package sql;
 public class Review {
 	/** The SQL key for this review and the user who wrote it */
 	public int reviewKey;
-	public int userKey;
+	public String facebookID;
 	
 	/** The five review sections */
 	public int managementScore;
@@ -22,11 +22,11 @@ public class Review {
 	public int rentPaid;
 	public String timeWritten;
 	
-	Review(int reviewKey, int userKey, int managementScore, int amenitiesScore, int locationScore,
+	Review(int reviewKey, String facebookID, int managementScore, int amenitiesScore, int locationScore,
 			int noiseScore, int communityChillFactorScore, String comment, int rentPaid,
 			String timeWritten) {
 		this.reviewKey = reviewKey;
-		this.userKey = userKey;
+		this.facebookID = facebookID;
 		this.managementScore = managementScore;
 		this.amenitiesScore = amenitiesScore;
 		this.locationScore = locationScore;
@@ -43,7 +43,7 @@ public class Review {
 	 */
 	@Override
 	public String toString() {
-		return "Review:\n reviewKey: " + reviewKey + "\n userKey: " + userKey + "\n email: "
+		return "Review:\n reviewKey: " + reviewKey + "\n facebookID: " + facebookID + "\n email: "
 				+ "\n review scores: " + managementScore + "|" + amenitiesScore + "|"
 				+ locationScore + "|" + noiseScore + "|" + communityChillFactorScore
 				+ "\n comment: " + comment + "\n rent: " + rentPaid + "\n time: " + timeWritten;
