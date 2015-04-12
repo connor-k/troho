@@ -5,7 +5,7 @@ CREATE DATABASE Troho;
 USE Troho;
 
 CREATE TABLE HousingLocations (
-  locationID int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  housingKey int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   housingType int(1) NOT NULL,
   locationName varchar(50) NOT NULL,
   textAddress varchar(70) NOT NULL,
@@ -28,9 +28,9 @@ CREATE TABLE Users (
   userID int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   userName varchar(50) NOT NULL,
   email varchar(50) NOT NULL,
-  currentLocationID int(10),
+  housingKey int(10),
   facebookID varchar(50) NOT NULL, #TODO will probably need to change this
-  FOREIGN KEY (currentLocationID) REFERENCES HousingLocations(locationID)
+  FOREIGN KEY (housingKey) REFERENCES HousingLocations(housingKey)
 );
 
 CREATE TABLE Friends (
@@ -54,7 +54,7 @@ CREATE TABLE Surveys (
 
 CREATE TABLE Reviews (
   reviewID int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  locationID int(10) NOT NULL,
+  housingKey int(10) NOT NULL,
   userID int(10) NOT NULL,
   textComment varchar(500) NOT NULL,
   managementScore int(1) NOT NULL,
@@ -64,6 +64,6 @@ CREATE TABLE Reviews (
   communityChillFactorScore int(1) NOT NULL,
   rentPaid int(4), # add NOT NULL if we want to enforce them saying
   timeWritten TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
-  FOREIGN KEY (locationID) REFERENCES HousingLocations(locationID),
+  FOREIGN KEY (housingKey) REFERENCES HousingLocations(housingKey),
   FOREIGN KEY (userID) REFERENCES Users(userID)
 );
