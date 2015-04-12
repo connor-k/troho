@@ -6,6 +6,7 @@ USE Troho;
 
 CREATE TABLE HousingLocations (
   locationID int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  housingType int(1) NOT NULL,
   locationName varchar(50) NOT NULL,
   textAddress varchar(70) NOT NULL,
   description varchar(500) NOT NULL, 
