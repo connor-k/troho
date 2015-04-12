@@ -13,7 +13,11 @@ public class User {
 	public String name;
 	public String email;
 	public HousingLocation currentLocation;
-	public int[] surveyPreferences;
+	public int managementSurveyScore;
+	public int amenitiesSurveyScore;
+	public int locationSurveyScore;
+	public int noiseSurveyScore;
+	public int communityChillFactorSurveyScore;
 	public Review[] reviewsWritten;
 	public User[] friends;
 	//TODO may need something like verified (account/email)
