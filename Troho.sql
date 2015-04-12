@@ -5,10 +5,11 @@ CREATE DATABASE Troho;
 USE Troho;
 
 CREATE TABLE HousingLocations (
-  locationID int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  housingKey int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  housingType int(1) NOT NULL,
   locationName varchar(50) NOT NULL,
   textAddress varchar(70) NOT NULL,
-  description varchar(500) NOT NULL,
+  description varchar(500) NOT NULL, 
   imageURLs varchar(500) NOT NULL,
   floorplanURLs varchar(500), # currently don't require these
   gpsLatitude varchar(10) NOT NULL, #TODO may want to change to a different identifier
@@ -24,37 +25,38 @@ CREATE TABLE HousingLocations (
 );
 
 CREATE TABLE Users (
-  userID int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  userKey int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   userName varchar(50) NOT NULL,
   email varchar(50) NOT NULL,
-  currentLocationID int(10),
+  housingKey int(10),
   facebookID varchar(50) NOT NULL, #TODO will probably need to change this
-  FOREIGN KEY (currentLocationID) REFERENCES HousingLocations(locationID)
+  FOREIGN KEY (housingKey) REFERENCES HousingLocations(housingKey)
 );
 
 CREATE TABLE Friends (
   associationID int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  userID int(10) NOT NULL,
+  userKey int(10) NOT NULL,
   friendID int(10) NOT NULL,
-  FOREIGN KEY (userID) REFERENCES Users(userID),
-  FOREIGN KEY (friendID) REFERENCES Users(userID)
+  FOREIGN KEY (userKey) REFERENCES Users(userKey),
+  FOREIGN KEY (friendID) REFERENCES Users(userKey)
 );
 
 CREATE TABLE Surveys (
   surveyID int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  userID int(10) NOT NULL,
-  question1 int(1) NOT NULL,
-  question2 int(1) NOT NULL,
-  question3 int(1) NOT NULL,
-  question4 int(1) NOT NULL,
-  question5 int(1) NOT NULL,
-  FOREIGN KEY (userID) REFERENCES Users(userID)
+  userKey int(10) NOT NULL,
+  managementSurveyScore int(1) NOT NULL,
+  amenitiesSurveyScore int(1) NOT NULL,
+  locationSurveyScore int(1) NOT NULL,
+  noiseSurveyScore int(1) NOT NULL,
+  communityChillFactorSurveyScore int(1) NOT NULL,
+  FOREIGN KEY (userKey) REFERENCES Users(userKey)
 );
 
 CREATE TABLE Reviews (
   reviewID int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  locationID int(10) NOT NULL,
-  userID int(10) NOT NULL,
+  housingKey int(10) NOT NULL,
+  userKey int(10) NOT NULL,
+  textComment varchar(500) NOT NULL,
   managementScore int(1) NOT NULL,
   amenitiesScore int(1) NOT NULL,
   locationScore int(1) NOT NULL,
@@ -62,6 +64,6 @@ CREATE TABLE Reviews (
   communityChillFactorScore int(1) NOT NULL,
   rentPaid int(4), # add NOT NULL if we want to enforce them saying
   timeWritten TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
-  FOREIGN KEY (locationID) REFERENCES HousingLocations(locationID),
-  FOREIGN KEY (userID) REFERENCES Users(userID)
+  FOREIGN KEY (housingKey) REFERENCES HousingLocations(housingKey),
+  FOREIGN KEY (userKey) REFERENCES Users(userKey)
 );
