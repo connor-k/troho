@@ -22,4 +22,16 @@ public class User {
 	public User[] friends;
 	//TODO may need something like verified (account/email)
 	
+	/** Overrides toString
+	 * @Override
+	 * @return String representation of User object
+	 */
+	@Override
+	public String toString() {
+		return "User:\n name: " + name + "\n email: " + email + "\n survey scores: "
+				+ managementSurveyScore + "|" + amenitiesSurveyScore + "|" + locationSurveyScore
+				+ "|" + noiseSurveyScore + "|" + communityChillFactorSurveyScore + "\n reviews: "
+				+ reviewsWritten + "\n friends: " + friends + "\n location: " + currentLocation;
+	}
+	
 }

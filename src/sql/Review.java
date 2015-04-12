@@ -36,4 +36,16 @@ public class Review {
 		this.rentPaid = rentPaid;
 		this.timeWritten = timeWritten;
 	}
+	
+	/** Overrides toString
+	 * @Override
+	 * @return String representation of Review object
+	 */
+	@Override
+	public String toString() {
+		return "Review:\n reviewKey: " + reviewKey + "\n userKey: " + userKey + "\n email: "
+				+ "\n review scores: " + managementScore + "|" + amenitiesScore + "|"
+				+ locationScore + "|" + noiseScore + "|" + communityChillFactorScore
+				+ "\n comment: " + comment + "\n rent: " + rentPaid + "\n time: " + timeWritten;
+	}
 }

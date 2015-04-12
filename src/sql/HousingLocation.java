@@ -27,4 +27,13 @@ public class HousingLocation {
 	
 	/** Reviews for this location */
 	public Review[] reviews;
+	
+	/** Overrides toString
+	 * @Override
+	 * @return String representation of HousingLocation object
+	 */
+	@Override
+	public String toString() {
+		return "HousingLocation: name: " + locationName + " type: " + type;
+	}
 }
