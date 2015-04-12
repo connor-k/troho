@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 
+import com.java.Data.*;
+import com.java.facebook.FBConnection;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
@@ -36,11 +39,12 @@ public class FirstServlet extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
     	//Get user_name and pass_word from the JSP page 
-    	String username=request.getParameter("firstname"); 
-    	String password=request.getParameter("lastname"); 
-    	//Print the above got values in console 
-    	System.out.println("The username is" +username); 
-    	System.out.println("\nand the password is" +password); 
+//    	String username=request.getParameter("firstname"); 
+//    	String password=request.getParameter("lastname");
+//    	
+//    	//Print the above got values in console 
+//    	System.out.println("The username is" +username); 
+//    	System.out.println("\nand the password is" +password); 
 	}
     
 
@@ -58,11 +62,25 @@ public class FirstServlet extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String username=request.getParameter("firstname"); 
-    	String password=request.getParameter("lastname"); 
+    	String firstname =request.getParameter("firstname"); 
+    	String lastname =request.getParameter("lastname"); 
+    	String email=request.getParameter("email"); 
+    	String housing=request.getParameter("housing"); 
+    	String code = request.getParameter("code");
+    	
     	//Print the above got values in console 
-    	System.out.println("The username is " +username); 
-    	System.out.println("and the password is " +password);    
+    	System.out.println("The first name is " + firstname); 
+    	System.out.println("The last name is " + lastname); 
+    	System.out.println("and the email is  " + email);    
+    	System.out.println("and the housing is " + housing);
+    	System.out.println("and the code is " + code);
+    	
+    	String fullname = firstname + lastname;
+    	
+    	FBConnection fbConnection = new FBConnection();
+    	
+    	UserDataManager um = new UserDataManager();
+    	
     	
     	try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -82,6 +100,7 @@ public class FirstServlet extends HttpServlet {
     	catch (ClassNotFoundException cnfe) {
 			System.out.println ("ClassNotFoundException: " + cnfe.getMessage());
 		}
+		
     	
     }
  
