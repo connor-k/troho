@@ -7,6 +7,8 @@
 	height: 300px;
 	border-radius: 150px;
 	background: url(../img/calvin.jpg) no-repeat;
+	position: relative;
+	margin:auto;
 }
 
 .user-info-container {

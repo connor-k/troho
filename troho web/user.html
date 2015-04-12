@@ -26,74 +26,83 @@
 	<br>
 
 	<div class = "container-fluid">
-		<div class = "row" style = "margin-top:80px">
-			<div class = "col-lg-4 user-image-container">
+		<div class = "row" style = "margin-top:160px; min-height:480px;">
+			<div class = "col-lg-6 col-sm-4 user-image-container">
 				<div class = "user-image-wrapper">
 				</div>
 			</div>
 
-			<div class = "col-lg-8 user-info-container">
-				<p style = "font-size:40px"> Calvin LeGassick
-				</p>
+			<div class = "col-lg-6 col-sm-8 user-info-container">
+				<div style = "text-align:center">
+					<p style = "font-size:40px"> Calvin LeGassick
+					</p>
 
-				<p style = "font-size:24px"> legassic@usc.edu
-				</p>
+					<p style = "font-size:24px"> legassic@usc.edu
+					</p>
 
-				<p style = "font-size:18px"> Off-campus Housing
-				</p>
+					<p style = "font-size:18px"> Off-campus Housing
+					</p>
+				</div>
 
 			</div>
 		</div>
 
-		<div class = "row">
-			<div>Friend Map</div>
-			<div id="map-canvas" style = "width:500px;height:400px;background-color: #CCC;"></div>
-		</div>
+		
+			<div class = "row">
+				<div style = "background-color: #c05049; text-align:center;">
+					<p style = "color:#ffcc00;font-size:36px;">Friend Map</p>
 
-		<div class = "row">
-			<div>Set Preferences</div>
-			<div class = "slider-wrapper">
-				<p>Pref</p>
-				<div class = "slider">
-					
+					<div style = "text-align:center;">
+						<div id="map-canvas" style = "display:inline-block;width:500px;height:400px;background-color: #CCC;"></div>
+					</div>
 				</div>
 			</div>
 
-			<div class = "slider-wrapper">
-				<p>Pref</p>
-				<div class = "slider">
-					
+			<div class = "row">
+				<div style = "background-color: #c05049;">
+					<div>Set Preferences</div>
+					<div class = "slider-wrapper">
+						<p>Pref</p>
+						<div class = "slider">
+							
+						</div>
+					</div>
+
+					<div class = "slider-wrapper">
+						<p>Pref</p>
+						<div class = "slider">
+							
+						</div>
+					</div>
+
+					<div class = "slider-wrapper">
+						<p>Pref</p>
+						<div class = "slider">
+							
+						</div>
+					</div>
+
+					<div class = "slider-wrapper">
+						<p>Pref</p>
+						<div class = "slider">
+							
+						</div>
+					</div>
+
+					<div class = "slider-wrapper">
+						<p>Pref</p>
+						<div class = "slider">
+							
+						</div>
+					</div>
+
+					<div class = "save-sliders">
+						SAVE PREFERENCES
+					</div>
+
 				</div>
+
 			</div>
-
-			<div class = "slider-wrapper">
-				<p>Pref</p>
-				<div class = "slider">
-					
-				</div>
-			</div>
-
-			<div class = "slider-wrapper">
-				<p>Pref</p>
-				<div class = "slider">
-					
-				</div>
-			</div>
-
-			<div class = "slider-wrapper">
-				<p>Pref</p>
-				<div class = "slider">
-					
-				</div>
-			</div>
-
-			<div class = "save-sliders">
-				SAVE PREFERENCES
-			</div>
-
-		</div>
-
-
 
 	</div>
 
@@ -171,8 +180,16 @@
       			title: 'W. 27th Place'
   			});
 
+  			var webMarker = new google.maps.Marker({
+     			position: new google.maps.LatLng(34.024719, -118.287704),
+     			map: map,
+      			title: 'W. 27th Place'
+  			});
+
+  			
+
   			/*var allMarkers = [gatewayMarker, northMarker, westMarker, iconMarker, shrineMarker,
-  			parksideMarker, lorenzoMarker, cardinalMarker];*/
+  			parksideMarker, lorenzoMarker, cardinalMarker, webMarker];*/
 
   			/*var allMarkers = [];
 
@@ -184,6 +201,7 @@
   			allMarkers[5] = parksideMarker;
   			allMarkers[6] = lorenzoMarker;
   			allMarkers[7] = cardinalMarker;
+  			allMarkers[8] = webMarker;
   			*/
 
 			/*google.maps.event.addListener(allMarkers[i], 'mouseover', function() {
