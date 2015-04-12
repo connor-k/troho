@@ -18,7 +18,12 @@ public class HousingLocation {
 	public String floorplanURL;
 	public String[] gpsCoordinates;
 	public String distanceToCampus;
-	public int[] averageRatings;
+	public int overallScore;
+	public int managementScore;
+	public int amenitiesScore;
+	public int locationScore;
+	public int noiseScore;
+	public int communityChillFactorScore;
 	
 	/** Reviews for this location */
 	public Review[] reviews;
