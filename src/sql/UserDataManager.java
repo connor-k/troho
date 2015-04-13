@@ -1,6 +1,7 @@
 /** UserDataManager Class
  * CSCI 201 Final Project - Troho
  * Description: Interface between our User SQL data and JSP
+ * TODO: go through and validate data everywhere, i.e. users exist etc
  */
 
 package sql;
@@ -44,6 +45,22 @@ public class UserDataManager {
 				user.name = name;
 				user.email = email;
 				user.currentLocation = HousingDataManager.getHousingLocation(Integer.parseInt(location)); //TODO
+				
+				// Create an entry for their survey with default values
+				rs.close();
+				ps.close();
+				st = conn.createStatement();
+				ps = conn.prepareStatement("INSERT INTO Surveys (facebookID, managementSurveyScore, "
+						+ "amenitiesSurveyScore, locationSurveyScore, noiseSurveyScore, "
+						+ "communityChillFactorSurveyScore) VALUES (?, 5, "
+						+ "5, 5, 5, 5);");
+				ps.setString(1, facebookID);
+				ps.executeUpdate();
+				user.managementSurveyScore = 5;
+				user.amenitiesSurveyScore = 5;
+				user.locationSurveyScore = 5;
+				user.noiseSurveyScore = 5;
+				user.communityChillFactorSurveyScore = 5;
 			} else {
 				if (!rs.getString("userName").equals(name)) {
 					System.out.println("Invalid login! Name did not match name associated with email.");
@@ -99,16 +116,50 @@ public class UserDataManager {
 	 * @param facebookID SQL database key for this user
 	 * @param location The location this user lives
 	 */
-	public static void setLocation(int facebookID, String location) {
-
+	public static void setLocation(String facebookID, String location) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
+			Statement st = conn.createStatement();
+			PreparedStatement ps = conn.prepareStatement("UPDATE Users SET housingKey=? WHERE facebookID=?");
+			ps.setInt(1, Integer.parseInt(location)); //TODO
+			ps.setString(2, facebookID);
+			ps.executeUpdate();
+			st.close();
+			conn.close();
+		} catch (SQLException sqle) {
+			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
+		}
 	}
 
 	/** 
 	 * @param facebookID SQL database key for this user
 	 * @param surveyPoints the survey points between 0 and 10 allocated by the user for the 5 categories
 	 */
-	public static void setSurveyPoints(int facebookID, String[] surveyPoints) {
-
+	public static void setSurveyPoints(String facebookID, String[] surveyPoints) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
+			// Make sure the email isn't already registered to someone
+			Statement st = conn.createStatement();
+			PreparedStatement ps = conn.prepareStatement("UPDATE Surveys SET managementSurveyScore=?, amenitiesSurveyScore=?, locationSurveyScore=?, noiseSurveyScore=?, communityChillFactorSurveyScore=? WHERE facebookID=?");
+			ps.setInt(1, Integer.parseInt(surveyPoints[0]));
+			ps.setInt(2, Integer.parseInt(surveyPoints[1]));
+			ps.setInt(3, Integer.parseInt(surveyPoints[2]));
+			ps.setInt(4, Integer.parseInt(surveyPoints[3]));
+			ps.setInt(5, Integer.parseInt(surveyPoints[4]));
+			ps.setString(6, facebookID);
+			ps.executeUpdate();
+			ps.close();
+			st.close();
+			conn.close();
+		} catch (SQLException sqle) {
+			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
+		}
 	}
 
 }

@@ -12,6 +12,7 @@ INSERT INTO Friends (facebookID, friendID) VALUES ('2weuhfdsu2j34f1d4', '12rehfd
 INSERT INTO Friends (facebookID, friendID) VALUES ('12rehfdsu2j34f1d4', '2weuhfdsu2j34f1d4');
 SELECT * FROM Friends;
 
+INSERT INTO Surveys (facebookID, managementSurveyScore, amenitiesSurveyScore, locationSurveyScore, noiseSurveyScore, communityChillFactorSurveyScore) VALUES ('12rehfdsu2j34f1d4', '5', '5', '5', '5', '5');
 INSERT INTO Surveys (facebookID, managementSurveyScore, amenitiesSurveyScore, locationSurveyScore, noiseSurveyScore, communityChillFactorSurveyScore) VALUES ('2weuhfdsu2j34f1d4', '10', '10', '5', '0', '0');
 SELECT * FROM Surveys;
 

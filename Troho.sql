@@ -43,7 +43,7 @@ CREATE TABLE Friends (
 
 CREATE TABLE Surveys (
   surveyID int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  facebookID varchar(17) NOT NULL,
+  facebookID varchar(50) NOT NULL,
   managementSurveyScore int(1) NOT NULL,
   amenitiesSurveyScore int(1) NOT NULL,
   locationSurveyScore int(1) NOT NULL,
