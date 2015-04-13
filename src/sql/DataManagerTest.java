@@ -28,6 +28,7 @@ public class DataManagerTest {
 		// Existing locations
 		System.out.println(HousingDataManager.getHousingLocation(1));
 		System.out.println(HousingDataManager.getHousingLocation(2));
+		System.out.println(HousingDataManager.getHousingLocation("First House"));
 		//TODO new location
 	}
 

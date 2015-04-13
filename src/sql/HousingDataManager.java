@@ -76,7 +76,7 @@ public class HousingDataManager {
 				List<Review> reviews = new LinkedList<Review>();
 				int count = 0;
 				while (rs.next()) {
-					reviews.add(ReviewDataManager.getReview(rs.getInt("reviewKey")));
+					reviews.add(ReviewDataManager.getReview(rs.getInt("reviewID")));
 					hl.managementScore += reviews.get(count).managementScore;
 					hl.amenitiesScore += reviews.get(count).amenitiesScore;
 					hl.locationScore += reviews.get(count).locationScore;
@@ -95,6 +95,38 @@ public class HousingDataManager {
 					hl.reviews = reviews.toArray(new Review[reviews.size()]);
 					hl.overallScore = (hl.managementScore + hl.amenitiesScore + hl.locationScore + hl.noiseScore + hl.communityChillFactorScore)/5;
 				}
+			}
+			rs.close();
+			ps.close();
+			st.close();
+			conn.close();
+		} catch (SQLException sqle) {
+			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
+		}
+
+		return hl;
+	}
+	
+	/** 
+	 * @param housingName the name of this housing location
+	 * @return a HousingLocation object with all the housing data
+	 * @see HousingLocation
+	 */
+	public static HousingLocation getHousingLocation(String housingName) {
+		HousingLocation hl = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
+			// Make sure the email isn't already registered to someone
+			Statement st = conn.createStatement();
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM HousingLocations WHERE locationName=?");
+			ps.setString(1, housingName);
+			ResultSet rs = ps.executeQuery();
+			// If house for this key exists
+			if (rs.next()) {
+				hl = getHousingLocation(rs.getInt("housingKey"));
 			}
 			rs.close();
 			ps.close();
