@@ -16,7 +16,8 @@ public class HousingLocation {
 	public String description;
 	public String imageURL;
 	public String floorplanURL;
-	public String[] gpsCoordinates;
+	public String gpsLatitude;
+	public String gpsLongitude;
 	public int minutesWalking;
 	public int minutesBiking;
 	public int overallScore;

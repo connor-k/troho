@@ -20,8 +20,19 @@ public class DataManagerTest {
 		// New user
 		System.out.println(UserDataManager.createUser("NewUserAlex", "alex@asdf.asdf", "2", "2348hfdsu2j34f1d4"));
 	}
+	
+	/** Test the HousingDataManager
+	 * Test looking up houses
+	 */
+	public static void housingDataTest() {
+		// Existing locations
+		System.out.println(HousingDataManager.getHousingLocation(1));
+		System.out.println(HousingDataManager.getHousingLocation(2));
+		//TODO new location
+	}
 
 	public static void main(String[] args) {
 		userDataTest();
+		housingDataTest();
 	}
 }

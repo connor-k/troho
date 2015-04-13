@@ -88,7 +88,7 @@ public class UserDataManager {
 					rs = ps.executeQuery();
 					List<Review> reviews = new LinkedList<Review>();
 					while (rs.next()) {
-						reviews.add(new Review(rs.getInt("reviewID"), user.facebookID,
+						reviews.add(new Review(rs.getInt("reviewID"), rs.getInt("housingKey"), user.facebookID,
 								rs.getInt("managementScore"), rs.getInt("amenitiesScore"),
 								rs.getInt("locationScore"), rs.getInt("noiseScore"),
 								rs.getInt("communityChillFactorScore"), rs.getString("textComment"),
