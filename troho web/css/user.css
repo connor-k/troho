@@ -1,12 +1,18 @@
 .save-sliders {
-	background-color: #CCC;
+	background-color: #c05049;
 	border-radius:5px;
 	position: relative;
-	margin: auto;
 	width: 60%;
-	/margin-left: 20%;
+	color:#ffcc00;
 	padding:10px;
-	margin: 25px 20%;
+	margin-left:20%;
+	margin-top:20px;
+	
+}
+
+.save-sliders:active {
+	background-color: #ffcc00;
+	color:#c05409;
 }
 
 .user-image-container {
@@ -31,21 +37,37 @@
 }
 
 .slider {
-	width:20% !important;
-	margin-left:40%;
+	width:70% !important;
+	margin-left:15%;
 }
 
 .slider-wrapper {
 	font-size: 24px;
+	margin:10px 0px;
 }
 
 .preferences-wrapper {
+	height: 570px;
 	margin-top:20px;
 	background-color: white;
 	width:25%;
 	margin-left:37.5%;
 	border-radius:10px;
 	box-shadow: 0px 2px 5px rgba(0,0,0,.2);
+	/min-width: 200px;
+}
+
+.tick {
+	color:#ffcc00;
+	display: inline;
+	width:10%;
+	float:left;
+}
+
+.slider-ticks {
+	width: 72%;
+  	margin-left: 14%;
+  	height: 30px;
 }
 
 
