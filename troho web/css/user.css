@@ -54,7 +54,7 @@
 	margin-left:37.5%;
 	border-radius:10px;
 	box-shadow: 0px 2px 5px rgba(0,0,0,.2);
-	/min-width: 200px;
+	min-width: 220px;
 }
 
 .tick {
