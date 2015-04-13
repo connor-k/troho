@@ -398,6 +398,54 @@
 
 			});*/
 
+			google.maps.event.addListener(gatewayMarker, 'mouseover', function() {
+
+					
+						var scale = Math.pow(2, map.getZoom());
+						var nw = new google.maps.LatLng(
+						    map.getBounds().getNorthEast().lat(),
+						    map.getBounds().getSouthWest().lng()
+						);
+						var worldCoordinateNW = map.getProjection().fromLatLngToPoint(nw);
+						var worldCoordinate = map.getProjection().fromLatLngToPoint(gatewayMarker.getPosition());
+						/*var pixelOffset = new google.maps.Point(
+						    Math.floor((worldCoordinate.x - worldCoordinateNW.x) * scale),
+						    Math.floor((worldCoordinate.y - worldCoordinateNW.y) * scale)
+						);*/
+
+						var x = Math.floor((worldCoordinate.x - worldCoordinateNW.x) * scale) + 500;
+						var y = Math.floor((worldCoordinate.y - worldCoordinateNW.y) * scale) + 600;
+
+						console.log(x + "," + y);
+
+				    //$(document).click(function(e){
+
+				        //var x = e.pageX + 'px';
+				        //var y = e.pageY + 'px';
+
+				        var img = $('<img src="" alt="myimage" />');
+				        var div = $('<div>').css({
+				            "position": "absolute",                    
+				            "left": x,
+				            "top": y
+				        });
+				        div.addClass('markerToRemove');
+
+				        div.append(img);
+				        $(document.body).append(div);        
+				    //});
+
+
+
+					
+			});
+
+			google.maps.event.addListener(gatewayMarker, 'mouseout', function() {
+				//$(document).remove($('markerToRemove'));
+				//$('markerToRemove').parent().remove('markerToRemove');
+				$(".markerToRemove").remove();
+			});
+
 
   		}
 
