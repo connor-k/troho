@@ -19,7 +19,7 @@ public class UserDataManager {
 	/** Create a new entry in the Users table
 	 * @param name The user's name
 	 * @param email The user's email address (@usc.edu)
-	 * @return the User created or that already existed in the db
+	 * @return the User created or that already existed in tphe db
 	 */
 	public static User createUser(String name, String email, String location, String facebookID) {
 		User user = null;
@@ -139,26 +139,40 @@ public class UserDataManager {
 	 * @param surveyPoints the survey points between 0 and 10 allocated by the user for the 5 categories
 	 */
 	public static void setSurveyPoints(String facebookID, String[] surveyPoints) {
+		Connection conn = null;
+		Statement st = null;
+		PreparedStatement ps = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
-			// Make sure the email isn't already registered to someone
-			Statement st = conn.createStatement();
-			PreparedStatement ps = conn.prepareStatement("UPDATE Surveys SET managementSurveyScore=?, amenitiesSurveyScore=?, locationSurveyScore=?, noiseSurveyScore=?, communityChillFactorSurveyScore=? WHERE facebookID=?");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
+			st = conn.createStatement();
+			ps = conn.prepareStatement("UPDATE Surveys SET managementSurveyScore=?, "
+					+ "amenitiesSurveyScore=?, locationSurveyScore=?, noiseSurveyScore=?, "
+					+ "communityChillFactorSurveyScore=? WHERE facebookID=?");
 			ps.setInt(1, Integer.parseInt(surveyPoints[0]));
 			ps.setInt(2, Integer.parseInt(surveyPoints[1]));
 			ps.setInt(3, Integer.parseInt(surveyPoints[2]));
 			ps.setInt(4, Integer.parseInt(surveyPoints[3]));
 			ps.setInt(5, Integer.parseInt(surveyPoints[4]));
 			ps.setString(6, facebookID);
-			ps.executeUpdate();
-			ps.close();
-			st.close();
-			conn.close();
+			int result = ps.executeUpdate();
+			if (result == 0) {
+				System.out.println("UserDataManager.setSurveyPoints: FacebookID " + facebookID + " not in database, no changes made.");
+			}
 		} catch (SQLException sqle) {
 			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
 		} catch (ClassNotFoundException cnfe) {
 			System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) { /* Do nothing */ }
+			try {
+				st.close();
+			} catch (SQLException e) { /* Do nothing */ }
+			try {
+				conn.close();
+			} catch (SQLException e) { /* Do nothing */ }
 		}
 	}
 
