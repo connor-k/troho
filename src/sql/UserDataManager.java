@@ -114,23 +114,45 @@ public class UserDataManager {
 
 	/** 
 	 * @param facebookID SQL database key for this user
-	 * @param location The location this user lives
+	 * @param housingKey the housingKey for where this user lives. 
 	 */
-	public static void setLocation(String facebookID, String location) {
+	public static void setLocation(String facebookID, int housingKey) {
+		Connection conn = null;
+		Statement st = null;
+		PreparedStatement ps = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
-			Statement st = conn.createStatement();
-			PreparedStatement ps = conn.prepareStatement("UPDATE Users SET housingKey=? WHERE facebookID=?");
-			ps.setInt(1, Integer.parseInt(location)); //TODO
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
+			st = conn.createStatement();
+			ps = conn.prepareStatement("UPDATE Users SET housingKey=? WHERE facebookID=?");
+			ps.setInt(1, housingKey);
 			ps.setString(2, facebookID);
-			ps.executeUpdate();
-			st.close();
-			conn.close();
+			// Catch this executeUpdate separately because, if it happens, is because invalid housingKey
+			try {
+				int result = ps.executeUpdate();
+				if (result == 0) {
+					System.out.println("UserDataManager.setLocation: FacebookID " 
+							+ facebookID + " not in database, no changes made.");
+				}
+			} catch (SQLException sqle) {
+				System.out.println("UserDataManager.setLocation: invalid housingKey " 
+						+ housingKey + ", no changes made");
+			}
 		} catch (SQLException sqle) {
+			// Note if an invalid housingKey was passed in, 
 			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
 		} catch (ClassNotFoundException cnfe) {
 			System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) { /* Do nothing */ }
+			try {
+				st.close();
+			} catch (SQLException e) { /* Do nothing */ }
+			try {
+				conn.close();
+			} catch (SQLException e) { /* Do nothing */ }
 		}
 	}
 
