@@ -19,7 +19,7 @@ public class User {
 	public int noiseSurveyScore;
 	public int communityChillFactorSurveyScore;
 	public Review[] reviewsWritten;
-	public User[] friends;
+	public String[] friendIDs;
 	//TODO may need something like verified (account/email)
 	
 	/** Overrides toString
@@ -28,10 +28,11 @@ public class User {
 	 */
 	@Override
 	public String toString() {
-		return "User:\n name: " + name + "\n email: " + email + "\n survey scores: "
-				+ managementSurveyScore + "|" + amenitiesSurveyScore + "|" + locationSurveyScore
-				+ "|" + noiseSurveyScore + "|" + communityChillFactorSurveyScore + "\n reviews: "
-				+ reviewsWritten + "\n friends: " + friends + "\n location: " + currentLocation;
+		return "User:\n name: " + name + "\n email: " + email + "\n facebookID: " + facebookID
+				+ "\n survey scores: " + managementSurveyScore + "|" + amenitiesSurveyScore + "|" 
+				+ locationSurveyScore + "|" + noiseSurveyScore + "|" 
+				+ communityChillFactorSurveyScore + "\n reviews: "
+				+ reviewsWritten + "\n friends: " + friendIDs + "\n location: " + currentLocation;
 	}
 	
 }
