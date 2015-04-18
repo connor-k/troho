@@ -28,9 +28,15 @@ public class HousingDataManager {
 	 * @param minutesWalking How long it takes to walk to campus from this location
 	 * @param minutesBiking How long it takes to bike to campus from this location
 	 */
-	public void createHousingLocation(HousingType type, String name, String address, 
+	public static void createHousingLocation(HousingType type, String name, String address, 
 			String description, String iconURL, String floorplanURL, String gpsLatitude,
 			String gpsLongitude, String minutesWalking, String minutesBiking) {
+		// Make sure the location doesn't exist already
+		if (getHousingLocation(name) != null) {
+			System.out.println("HousingLocation with name " + name + " already exists, no changes"
+					+ " made.");
+			return;
+		}
 		Connection conn = null;
 		Statement st = null;
 		PreparedStatement ps = null;
@@ -60,8 +66,8 @@ public class HousingDataManager {
 			ps.setString(6, floorplanURL);
 			ps.setString(7, gpsLatitude);
 			ps.setString(8, gpsLongitude);
-			ps.setString(9, minutesWalking);
-			ps.setString(10, minutesBiking);
+			ps.setInt(9, Integer.parseInt(minutesWalking));
+			ps.setInt(10, Integer.parseInt(minutesBiking));
 			ps.executeUpdate();
 		} catch (SQLException sqle) {
 			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
@@ -103,10 +109,10 @@ public class HousingDataManager {
 				hl = new HousingLocation();
 				hl.housingKey = housingKey;
 				switch(rs.getInt("housingType")) {
-				case 0:
+				case 1:
 					hl.type = HousingType.APARTMENT;
 					break;
-				case 1:
+				case 2:
 					hl.type = HousingType.DORM;
 					break;
 				default:
@@ -159,6 +165,8 @@ public class HousingDataManager {
 					hl.reviews = reviews.toArray(new Review[reviews.size()]);
 					hl.overallScore = (hl.managementScore + hl.amenitiesScore + hl.locationScore + hl.noiseScore + hl.communityChillFactorScore)/5;
 				}
+			} else {
+				System.out.println("No location with key " + housingKey + " exists.");
 			}
 		} catch (SQLException sqle) {
 			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
@@ -188,30 +196,40 @@ public class HousingDataManager {
 	 * @see HousingLocation
 	 */
 	public static HousingLocation getHousingLocation(String housingName) {
-		HousingLocation hl = null;
+		return getHousingLocation(getHousingKey(housingName));
+	}
+	
+	/** Get the integer key for a housing location
+	 * @param housingName The name of this location
+	 * @return The integer housingKey
+	 */
+	public static int getHousingKey(String housingName) {
+		int housingKey = -1;
 		Connection conn = null;
 		Statement st = null;
 		PreparedStatement ps = null;
+		ResultSet rs = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
 			st = conn.createStatement();
 			ps = conn.prepareStatement("SELECT * FROM HousingLocations WHERE locationName=?");
 			ps.setString(1, housingName);
-			ResultSet rs = ps.executeQuery();
+			rs = ps.executeQuery();
 			// If house for this key exists
 			if (rs.next()) {
-				hl = getHousingLocation(rs.getInt("housingKey"));
+				housingKey = rs.getInt("housingKey");
+			} else {
+				System.out.println("No location with name " + housingName + " exists.");
 			}
-			rs.close();
-			ps.close();
-			st.close();
-			conn.close();
 		} catch (SQLException sqle) {
 			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
 		} catch (ClassNotFoundException cnfe) {
 			System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
 		} finally {
+			try {
+				rs.close();
+			} catch (SQLException e) { /* Do nothing */ }
 			try {
 				ps.close();
 			} catch (SQLException e) { /* Do nothing */ }
@@ -222,8 +240,7 @@ public class HousingDataManager {
 				conn.close();
 			} catch (SQLException e) { /* Do nothing */ }
 		}
-
-		return hl;
+		return housingKey;
 	}
 
 }

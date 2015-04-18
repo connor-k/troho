@@ -1,10 +1,10 @@
 USE Troho;
 
-INSERT INTO HousingLocations (housingType, locationName, textAddress, description, imageURLs, floorplanURLs, gpsLatitude, gpsLongitude, minutesWalking, minutesBiking) VALUES ('0', 'First House', '123 30th St', 'A nice house.', 'path/to/images', 'path/to/floorplans', '0', '123', '10','12');
-INSERT INTO HousingLocations (housingType, locationName, textAddress, description, imageURLs, floorplanURLs, gpsLatitude, gpsLongitude, minutesWalking, minutesBiking) VALUES ('1', 'Second House', '124 30th St', 'A marginally worse house.', 'path/to/images', 'path/to/floorplans', '0', '123', '10','12');
+INSERT INTO HousingLocations (housingType, locationName, textAddress, description, imageURLs, floorplanURLs, gpsLatitude, gpsLongitude, minutesWalking, minutesBiking) VALUES (3, 'First House', '123 30th St', 'A nice house.', 'path/to/images', 'path/to/floorplans', '0', '123', 10, 12);
+INSERT INTO HousingLocations (housingType, locationName, textAddress, description, imageURLs, floorplanURLs, gpsLatitude, gpsLongitude, minutesWalking, minutesBiking) VALUES (3, 'Second House', '124 30th St', 'A marginally worse house.', 'path/to/images', 'path/to/floorplans', '0', '123', 10, 12);
 SELECT * FROM HousingLocations;
 
-INSERT INTO Users (userName, email, facebookID) VALUES ('Steve', 'steve@asdf.asdf', '2weuhfdsu2j34f1d4');
+INSERT INTO Users (userName, housingKey, email, facebookID) VALUES ('Steve', 1, 'steve@asdf.asdf', '2weuhfdsu2j34f1d4');
 INSERT INTO Users (userName, housingKey, email, facebookID) VALUES ('John', 2, 'john@asdf.asdf', '12rehfdsu2j34f1d4');
 SELECT * FROM Users;
 

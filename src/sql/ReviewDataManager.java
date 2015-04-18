@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 
 public class ReviewDataManager {
 	/** Store a review in the db
@@ -21,6 +22,22 @@ public class ReviewDataManager {
 	 * @param rent The rent paid by the user (currently optional)
 	 */
 	public static void createReview(int housingKey, String facebookID, String comment, String[] ratings, String rent) {
+		// Ensure they haven't already written a review
+		HousingLocation hl = HousingDataManager.getHousingLocation(housingKey);
+		if (hl != null) {
+			if (hl.reviews != null) {
+				for (int i = 0; i < hl.reviews.length; ++i) {
+					if (hl.reviews[i].facebookID.equals(facebookID)) {
+						System.out.println("ReviewDataManager.createReview: facebookID " + facebookID
+								+ " has already reviewed housingKey " + housingKey + ", no changes"
+								+ " made");
+						return;
+					}
+				}
+			}
+		} else {
+			System.out.println("ReviewDataManager.createReview: invalid housingKey, no changes made");
+		}
 		Connection conn = null;
 		Statement st = null;
 		PreparedStatement ps = null;
@@ -36,9 +53,38 @@ public class ReviewDataManager {
 			ps.setString(2, facebookID);
 			ps.setString(3, comment);
 			for (int i = 4; i <= 8; ++i) {
-				ps.setString(4 + i, ratings[4 - i]);
+				ps.setString(i, ratings[i - 4]);
 			}
 			ps.setInt(9, Integer.parseInt(rent));
+			ps.executeUpdate();
+
+			// Now update that housinglocation's average rating fields
+			try {
+				ps.close();
+			} catch (SQLException e) { /* Do nothing */ }
+			try {
+				st.close();
+			} catch (SQLException e) { /* Do nothing */ }
+			st = conn.createStatement();
+			ps = conn.prepareStatement("UPDATE HousingLocations SET averageManagement=?, "
+					+ "averageAmenities=?, averageLocation=?, averageNoise=?, "
+					+ "averageCommunityChillFactor=?, averageRent=? WHERE housingKey=?");
+			if (hl.reviews != null) {
+				ps.setString(1, new DecimalFormat("#.##").format((hl.managementScore / hl.reviews.length + Integer.parseInt(ratings[0])) * (hl.reviews.length + 1)));
+				ps.setString(2, new DecimalFormat("#.##").format((hl.amenitiesScore / hl.reviews.length + Integer.parseInt(ratings[1])) * (hl.reviews.length + 1)));
+				ps.setString(3, new DecimalFormat("#.##").format((hl.locationScore / hl.reviews.length + Integer.parseInt(ratings[2])) * (hl.reviews.length + 1)));
+				ps.setString(4, new DecimalFormat("#.##").format((hl.noiseScore / hl.reviews.length + Integer.parseInt(ratings[3])) * (hl.reviews.length + 1)));
+				ps.setString(5, new DecimalFormat("#.##").format((hl.communityChillFactorScore / hl.reviews.length + Integer.parseInt(ratings[4])) * (hl.reviews.length + 1)));
+				ps.setString(6, new DecimalFormat("#.##").format((hl.averageRent + Integer.parseInt(rent)) / hl.reviews.length * (hl.reviews.length + 1)));
+			} else {
+				ps.setString(1, new DecimalFormat("#.##").format(hl.managementScore));
+				ps.setString(2, new DecimalFormat("#.##").format(hl.amenitiesScore));
+				ps.setString(3, new DecimalFormat("#.##").format(hl.locationScore));
+				ps.setString(4, new DecimalFormat("#.##").format(hl.noiseScore));
+				ps.setString(5, new DecimalFormat("#.##").format(hl.communityChillFactorScore));
+				ps.setString(6, new DecimalFormat("#.##").format(hl.averageRent));
+			}
+			ps.setInt(7, housingKey);
 			ps.executeUpdate();
 		} catch (SQLException sqle) {
 			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
@@ -55,9 +101,8 @@ public class ReviewDataManager {
 				conn.close();
 			} catch (SQLException e) { /* Do nothing */ }
 		}
-		//TODO handle overwriting an existing review if wanted
 	}
-	
+
 	/** 
 	 * @param reviewKey the database key to this review
 	 * @return a Review object with all the Review data
@@ -88,8 +133,8 @@ public class ReviewDataManager {
 		} catch (ClassNotFoundException cnfe) {
 			System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
 		}
-		
+
 		return review;
 	}
-	
+
 }

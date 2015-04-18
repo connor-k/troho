@@ -31,8 +31,8 @@ public class User {
 		return "User:\n name: " + name + "\n email: " + email + "\n facebookID: " + facebookID
 				+ "\n survey scores: " + managementSurveyScore + "|" + amenitiesSurveyScore + "|" 
 				+ locationSurveyScore + "|" + noiseSurveyScore + "|" 
-				+ communityChillFactorSurveyScore + "\n reviews: "
-				+ reviewsWritten + "\n friends: " + friendIDs + "\n location: " + currentLocation;
+				+ communityChillFactorSurveyScore + "\n reviews: " + reviewsWritten 
+				+ "\n friends: " + friendIDs + "\n location: " + currentLocation.locationName;
 	}
 	
 }

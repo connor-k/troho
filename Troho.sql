@@ -12,8 +12,8 @@ CREATE TABLE HousingLocations (
   description varchar(500) NOT NULL, 
   imageURLs varchar(500) NOT NULL,
   floorplanURLs varchar(500), # currently don't require these
-  gpsLatitude varchar(10) NOT NULL, #TODO may want to change to a different identifier
-  gpsLongitude varchar(10) NOT NULL,
+  gpsLatitude varchar(12) NOT NULL,
+  gpsLongitude varchar(12) NOT NULL,
   minutesWalking int(2) NOT NULL,
   minutesBiking int(2) NOT NULL,
   # Average ratings so we don't recalculate every time the page is viewed

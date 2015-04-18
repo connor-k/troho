@@ -73,7 +73,7 @@ public class UserDataManager {
 			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
 		} catch (ClassNotFoundException cnfe) {
 			System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
-		}  finally {
+		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) { /* Do nothing */ }

@@ -41,15 +41,58 @@ public class DataManagerTest {
 	 * Test looking up houses
 	 */
 	public static void housingDataTest() {
-		// Existing locations
-		System.out.println(HousingDataManager.getHousingLocation(1));
-		System.out.println(HousingDataManager.getHousingLocation(2));
-		System.out.println(HousingDataManager.getHousingLocation("First House"));
-		//TODO new location
+		System.out.println("\nTesting the HousingDataManager class ---");
+		// Create a new location
+		System.out.println("\nCreating a new location (Gateway Apartments)");
+		HousingDataManager.createHousingLocation(HousingType.APARTMENT, "Gateway Apartments",
+				"335 S Figuroa St", "Apartments close to campus.", "images/icons/Gateway.png",
+				"images/floorplans/Gateway.png", "-118.2797771", "34.0233683", "10", "5");
+		
+		// Get an existing location
+		// By name
+		System.out.println("\nGetting Gateway by name");
+		HousingLocation hl = HousingDataManager.getHousingLocation("Gateway Apartments");
+		System.out.println(hl);
+		// By key
+		System.out.println("\nGetting Gateway by key");
+		hl = HousingDataManager.getHousingLocation(3);
+		System.out.println(hl);
+		
+		// Get another location
+		System.out.println("\n Getting a different house");
+		hl = HousingDataManager.getHousingLocation("First House");
+		System.out.println(hl);
+		
+		// Try to get an invalid house
+		System.out.println("\n Trying to get an invalid house");
+		hl = HousingDataManager.getHousingLocation("asdf");
+		System.out.println("Done testing HousingDataManager class ---\n");
+	}
+	
+	/** Test the ReviewDataManager
+	 */
+	public static void reviewDataTest() {
+		System.out.println("\nTesting the ReviewDataManager class ---");
+		// Create a review
+		System.out.println("\nCreating a new review for Gateway Apartments");
+		
+		// Get an existing location
+		System.out.println("\nGetting Gateway by name");
+		HousingLocation hl = HousingDataManager.getHousingLocation("Gateway Apartments");
+		System.out.println(hl);
+
+		// Create review for that location
+		String[] ratings = {"5", "4", "5", "3", "5"};
+		ReviewDataManager.createReview(hl.housingKey, "2weuhfdsu2j34f1d4", "Nice place to live, close to campus.", ratings, "1000");
+		// Update hl to hold the new data
+		hl = HousingDataManager.getHousingLocation("Gateway Apartments");
+		System.out.println(hl);
+		System.out.println("Done testing ReviewDataManager class ---");
 	}
 
 	public static void main(String[] args) {
 		userDataTest();
 		housingDataTest();
+		reviewDataTest();
 	}
 }
