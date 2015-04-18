@@ -73,6 +73,13 @@ public class DataManagerTest {
 		// Try to get an invalid house
 		System.out.println("\n Trying to get an invalid house");
 		hl = HousingDataManager.getHousingLocation("asdf");
+		
+		// Select all houses
+		System.out.println("\n Printing all location names");
+		HousingLocation[] allLocations = HousingDataManager.getAllHousingLocations();
+		for (int i = 0; i < allLocations.length; ++i) {
+			System.out.println(allLocations[i].locationName);
+		}
 		System.out.println("Done testing HousingDataManager class ---\n");
 	}
 	

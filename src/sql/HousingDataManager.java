@@ -242,5 +242,40 @@ public class HousingDataManager {
 		}
 		return housingKey;
 	}
+	
+	/** Get all housing locations (e.g. to display on the main page)
+	 * @return An array with the locations
+	 */
+	public static HousingLocation[] getAllHousingLocations() {
+		List<HousingLocation> locations = new LinkedList<HousingLocation>();
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
+			ps = conn.prepareStatement("SELECT * FROM HousingLocations");
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				locations.add(getHousingLocation(rs.getInt("housingKey")));
+			}
+		} catch (SQLException sqle) {
+			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
+		} finally {
+			try {
+				rs.close();
+			} catch (SQLException e) { /* Do nothing */ }
+			try {
+				ps.close();
+			} catch (SQLException e) { /* Do nothing */ }
+			try {
+				conn.close();
+			} catch (SQLException e) { /* Do nothing */ }
+		}
+		
+		return locations.toArray(new HousingLocation[locations.size()]);
+	}
 
 }
