@@ -10,7 +10,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,12 +37,10 @@ public class HousingDataManager {
 			return;
 		}
 		Connection conn = null;
-		Statement st = null;
 		PreparedStatement ps = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
-			st = conn.createStatement();
 			ps = conn.prepareStatement("INSERT INTO HousingLocations (housingType, locationName, "
 					+ "textAddress, description, imageURLs, floorplanURLs, gpsLatitude, "
 					+ "gpsLongitude, minutesWalking, minutesBiking) VALUES (?, ?, ?, ?, ?, "
@@ -78,9 +75,6 @@ public class HousingDataManager {
 				ps.close();
 			} catch (SQLException e) { /* Do nothing */ }
 			try {
-				st.close();
-			} catch (SQLException e) { /* Do nothing */ }
-			try {
 				conn.close();
 			} catch (SQLException e) { /* Do nothing */ }
 		}
@@ -94,13 +88,11 @@ public class HousingDataManager {
 	public static HousingLocation getHousingLocation(int housingKey) {
 		HousingLocation hl = null;
 		Connection conn = null;
-		Statement st = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
-			st = conn.createStatement();
 			ps = conn.prepareStatement("SELECT * FROM HousingLocations WHERE housingKey=?");
 			ps.setInt(1, housingKey);
 			rs = ps.executeQuery();
@@ -136,10 +128,6 @@ public class HousingDataManager {
 				try {
 					ps.close();
 				} catch (SQLException e) { /* Do nothing */ }
-				try {
-					st.close();
-				} catch (SQLException e) { /* Do nothing */ }
-				st = conn.createStatement();
 				ps = conn.prepareStatement("Select * FROM Reviews WHERE housingKey=?");
 				ps.setInt(1, housingKey);
 				rs = ps.executeQuery();
@@ -180,9 +168,6 @@ public class HousingDataManager {
 				ps.close();
 			} catch (SQLException e) { /* Do nothing */ }
 			try {
-				st.close();
-			} catch (SQLException e) { /* Do nothing */ }
-			try {
 				conn.close();
 			} catch (SQLException e) { /* Do nothing */ }
 		}
@@ -206,13 +191,11 @@ public class HousingDataManager {
 	public static int getHousingKey(String housingName) {
 		int housingKey = -1;
 		Connection conn = null;
-		Statement st = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
-			st = conn.createStatement();
 			ps = conn.prepareStatement("SELECT * FROM HousingLocations WHERE locationName=?");
 			ps.setString(1, housingName);
 			rs = ps.executeQuery();
@@ -232,9 +215,6 @@ public class HousingDataManager {
 			} catch (SQLException e) { /* Do nothing */ }
 			try {
 				ps.close();
-			} catch (SQLException e) { /* Do nothing */ }
-			try {
-				st.close();
 			} catch (SQLException e) { /* Do nothing */ }
 			try {
 				conn.close();

@@ -39,12 +39,10 @@ public class ReviewDataManager {
 			System.out.println("ReviewDataManager.createReview: invalid housingKey, no changes made");
 		}
 		Connection conn = null;
-		Statement st = null;
 		PreparedStatement ps = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
-			st = conn.createStatement();
 			ps = conn.prepareStatement("INSERT INTO Reviews (housingKey, facebookID, textComment, "
 					+ "managementScore, amenitiesScore, locationScore, noiseScore, "
 					+ "communityChillFactorScore, rentPaid, timeWritten) VALUES (?, ?, ?, ?, ?, ?,"
@@ -62,10 +60,6 @@ public class ReviewDataManager {
 			try {
 				ps.close();
 			} catch (SQLException e) { /* Do nothing */ }
-			try {
-				st.close();
-			} catch (SQLException e) { /* Do nothing */ }
-			st = conn.createStatement();
 			ps = conn.prepareStatement("UPDATE HousingLocations SET averageManagement=?, "
 					+ "averageAmenities=?, averageLocation=?, averageNoise=?, "
 					+ "averageCommunityChillFactor=?, averageRent=? WHERE housingKey=?");
@@ -95,9 +89,6 @@ public class ReviewDataManager {
 				ps.close();
 			} catch (SQLException e) { /* Do nothing */ }
 			try {
-				st.close();
-			} catch (SQLException e) { /* Do nothing */ }
-			try {
 				conn.close();
 			} catch (SQLException e) { /* Do nothing */ }
 		}
@@ -114,7 +105,6 @@ public class ReviewDataManager {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
 			// Make sure the email isn't already registered to someone
-			Statement st = conn.createStatement();
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM Reviews WHERE reviewID=?");
 			ps.setInt(1, reviewKey);
 			ResultSet rs = ps.executeQuery();
@@ -126,7 +116,6 @@ public class ReviewDataManager {
 						rs.getInt("rentPaid"), rs.getString("timeWritten"));
 			}
 			ps.close();
-			st.close();
 			conn.close();
 		} catch (SQLException sqle) {
 			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
