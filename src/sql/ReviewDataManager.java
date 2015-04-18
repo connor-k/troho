@@ -13,14 +13,48 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ReviewDataManager {
-	/** 
-	 * @param facebookID the user who's writing this review
-	 * @param housingKey the location this review is for
-	 * @param ratings the integer scores given to each review category
-	 * @param comment the text comment associated with the review
-	 * @param rent the rent paid by the user (currently optional)
+	/** Store a review in the db
+	 * @param housingKey The location this review is for
+	 * @param facebookID The user who's writing this review
+	 * @param comment The text comment associated with the review
+	 * @param ratings The integer scores given to each review category
+	 * @param rent The rent paid by the user (currently optional)
 	 */
-	public static void createReview(int facebookID, int housingKey, String[] ratings, String comment, String rent) {
+	public static void createReview(int housingKey, String facebookID, String comment, String[] ratings, String rent) {
+		Connection conn = null;
+		Statement st = null;
+		PreparedStatement ps = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
+			st = conn.createStatement();
+			ps = conn.prepareStatement("INSERT INTO Reviews (housingKey, facebookID, textComment, "
+					+ "managementScore, amenitiesScore, locationScore, noiseScore, "
+					+ "communityChillFactorScore, rentPaid, timeWritten) VALUES (?, ?, ?, ?, ?, ?,"
+					+ " ?, ?, ?, now());");
+			ps.setInt(1, housingKey);
+			ps.setString(2, facebookID);
+			ps.setString(3, comment);
+			for (int i = 4; i <= 8; ++i) {
+				ps.setString(4 + i, ratings[4 - i]);
+			}
+			ps.setInt(9, Integer.parseInt(rent));
+			ps.executeUpdate();
+		} catch (SQLException sqle) {
+			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) { /* Do nothing */ }
+			try {
+				st.close();
+			} catch (SQLException e) { /* Do nothing */ }
+			try {
+				conn.close();
+			} catch (SQLException e) { /* Do nothing */ }
+		}
 		//TODO handle overwriting an existing review if wanted
 	}
 	
