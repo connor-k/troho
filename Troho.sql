@@ -12,11 +12,11 @@ CREATE TABLE HousingLocations (
   description varchar(500) NOT NULL, 
   imageURLs varchar(500) NOT NULL,
   floorplanURLs varchar(500), # currently don't require these
-  gpsLatitude varchar(10) NOT NULL, #TODO may want to change to a different identifier
-  gpsLongitude varchar(10) NOT NULL,
+  gpsLatitude varchar(12) NOT NULL,
+  gpsLongitude varchar(12) NOT NULL,
   minutesWalking int(2) NOT NULL,
   minutesBiking int(2) NOT NULL,
-  # Average ratings 2o we don't recalculate every time the page is viewed
+  # Average ratings so we don't recalculate every time the page is viewed
   averageManagement varchar(4),
   averageAmenities varchar(4),
   averageLocation varchar(4),
@@ -26,7 +26,7 @@ CREATE TABLE HousingLocations (
 );
 
 CREATE TABLE Users (
-  facebookID varchar(17) PRIMARY KEY NOT NULL,
+  facebookID varchar(50) PRIMARY KEY NOT NULL,
   userName varchar(50) NOT NULL,
   email varchar(50) NOT NULL,
   housingKey int(10),
@@ -35,8 +35,8 @@ CREATE TABLE Users (
 
 CREATE TABLE Friends (
   associationID int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  facebookID varchar(17) NOT NULL,
-  friendID varchar(17) NOT NULL,
+  facebookID varchar(50) NOT NULL,
+  friendID varchar(50) NOT NULL,
   FOREIGN KEY (facebookID) REFERENCES Users(facebookID),
   FOREIGN KEY (friendID) REFERENCES Users(facebookID)
 );
@@ -55,7 +55,7 @@ CREATE TABLE Surveys (
 CREATE TABLE Reviews (
   reviewID int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   housingKey int(10) NOT NULL,
-  facebookID varchar(17) NOT NULL,
+  facebookID varchar(50) NOT NULL,
   textComment varchar(500) NOT NULL,
   managementScore int(1) NOT NULL,
   amenitiesScore int(1) NOT NULL,
