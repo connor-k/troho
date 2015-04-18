@@ -1,12 +1,23 @@
-<%@page import="com.java.Data.HousingDataManager"%>
-<%@page import="com.java.Data.Review"%>
+<%@page import="sql.HousingDataManager"%>
+<%@page import="sql.Review"%>
+<%@page import="sql.HousingLocation"%>
 
 <%@page import="java.util.List"%>
 <%@page import="java.lang.String"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <% 
 	String name = request.getParameter("name");
-	HousingDataManager hdm = new HousingDataManager(); 
+	//HousingDataManager hdm = new HousingDataManager();
+    HousingLocation location = HousingDataManager.getHousingLocation(name);
+    if (location == null) {
+/*     	System.out.println(location);
+ */    	String redirectURL = "/troho/404.html";
+    	response.sendRedirect(redirectURL);
+    }
 %>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,7 +42,25 @@
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Indie Flower' rel='stylesheet' type='text/css'>
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-
+	<% if(location != null) {
+		
+	%>
+		<style>
+			.housing-image-card {
+		   		 position: relative;
+			  	background: url(<%=location.imageURL%>) no-repeat center center;
+			    background-size: cover;
+			    box-shadow: 0px 2px 5px rgba(0,0,0,.2);
+			    min-height: 550px;
+			    max-height: 650px;
+			    width: auto;
+			    margin: 60px auto 0px auto;
+			
+			}
+		</style>
+	<%
+	}
+	%>
 </head>
 
 <body>
@@ -50,11 +79,12 @@
     </div>
 
     <br>
+    <div>
         <div id = "top-text-wrap">
             <p id = "introText"><%= name %></p>
                     <!-- </div> -->
                     <!-- <div> -->
-            <p id="addressText">3335 S. Figueroa St.</p>
+            <p id="addressText"><%= location.address %></p>
         </div>
 
         <div style = "-webkit-filter: blur(0px);">
@@ -66,21 +96,6 @@
             </div>
         </div>
     </div>
-            		<!--<div class="row">
-			<div class="col-sm-12">
-				<p id="addressText">3335 S. Figueroa St.</p>
-			</div>
-		</div>-->
-    <!-- /.container -->
-
-    <!-- <a name="about"></a> -->
-    <!--<div class = "house-images-table">
-        <div class = "housing-image-container">
-            <div class="housing-image">
-                
-            </div>
-        </div>
-    </div>-->
 
     <div class = "rating-master-container">
 
@@ -167,6 +182,7 @@
                 <div class = "col-lg-1 col-md-0" ></div>
 
             </div>
+            
 
             <div class = "row">
                 <div class = "col-lg-1 col-md-0" ></div>
@@ -179,7 +195,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-8">
-                            <p class="descriptionRow">Price: 1000$/Month</p>
+                            <p class="descriptionRow">Price: <%= location.averageRent %>$/Month</p>
                         </div>
                     </div>
                     <div class="row">
@@ -189,11 +205,10 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <p class="descriptionRow">Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            <p class="descriptionRow">Description: <%= location.description %></p>
                         </div>
                     </div>
                 </div>
-
                  <div class = "col-lg-1 col-md-0" ></div>
                 
             </div>
@@ -203,7 +218,7 @@
         <div class = "container-fluid">
 
             <div class = "row">
-                <div class = "col-lg-12" style = "padding-top: 80px; padding-bottom: 40px; font-size:36px; color:white; text-align:center">Reviews</div>
+                <div class = "col-lg-12" style = "padding-top: 80px; padding-bottom: 40px; font-size:40px; color:white; text-align:center">Reviews</div>
             </div>
 
             <div class = "row">
@@ -212,37 +227,37 @@
                     <div class = "filter-row">
                         <div class = "col-lg-2">
                             <div class = "filter-button">
-                                Management   
+                                <div class = "filter-specifier">Management</div>
                             </div>
                         </div>
 
                         <div class = "col-lg-2">
                             <div class = "filter-button"> 
-                                Noise  
+                                <div class = "filter-specifier">Noise</div>  
                             </div>
                         </div>
 
                         <div class = "col-lg-2">
                             <div class = "filter-button">   
-                                Location
+                                <div class = "filter-specifier">Location</div>
                             </div>
                         </div>
 
                         <div class = "col-lg-2">
                             <div class = "filter-button">  
-                                Chill 
+                                <div class = "filter-specifier">Chillness</div>
                             </div>
                         </div>
 
                         <div class = "col-lg-2">
                             <div class = "filter-button"> 
-                                <p>Amenities</p>
+                                <div class = "filter-specifier">Amenities</div>
                             </div>
                         </div>
 
                         <div class = "col-lg-2">
                             <div class = "filter-button">
-                                Price   
+                                <div class = "filter-specifier">Price</div>
                             </div>
                         </div>
                     </div>
@@ -254,63 +269,93 @@
                 <div class = "col-lg-1 col-md-0" ></div>
 
                 <div class = "col-lg-10 col-md-12 reviews-container">
-                 <div class="col-lg-12 single-review">
-						
-						
-                        <div class = "reviewer-info-row">
-
-                            <div class = "reviewer-image-and-name">
-                                <div class = "reviewer-image">
-                                </div>
-
-                                <div class = "reviewer-username">
-                                    Calvin LeGassick
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <p class="scrolling-description-row">Description: Lorem Ipsum</p>
-                    </div>
-                     <% 
-						HousingDataManager hdm = new HousingDataManager();
-					 	Review[] list = hdm.getReviews(0);
-					 	if (list != null) { 
-						 	for (int i = 0; i < list.length; i++)
-						  	{
-						 		Review s = list[i];
-					 %>
+                    <!-- insert for loop here -->
+                    <%
+                    if (location.reviews != null) {
+	                    System.out.println("size: " + location.reviews.length);
+	                    for (int i =0; i < location.reviews.length; i++) {
+	                    	Review temp = location.reviews[i];
+                    
+                    %> 
                     <div class="col-lg-12 single-review">
-						
-						
+
                         <div class = "reviewer-info-row">
 
                             <div class = "reviewer-image-and-name">
-                                <div class = "reviewer-image">
+                                
+                                <div class = "reviewer-image-wrapper">
+                                <img src = "./img/CalvinHackSC.jpg" class = "reviewer-image"/>
                                 </div>
 
+
                                 <div class = "reviewer-username">
-                                    Calvin LeGassick
+                                    <div class = "reviewer-username-row">
+                                        <div class = "reviewer-username-cell">
+                                        Calvin LeGassick
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                         </div>
 
-                        <p class="scrolling-description-row">Description: <%out.println(s); %></p>
+                        <p class="scrolling-description-row">Description: <%=temp.comment %></p>
                     </div>
-                  	<%
-							}
-					 	}
+
+					<%
+						}  
+                    }
+					
 					%>
+                    <div class="col-lg-12 single-review">
 
-                </div>
+                        <div class = "reviewer-info-row">
+                            <div class = "reviewer-image-and-name">
+                                
+                                <div class = "reviewer-image-wrapper">
+                                <img src = "./img/CalvinHackSC.jpg" class = "reviewer-image"/>
+                                </div>
 
+
+                                <div class = "reviewer-username">
+                                    <div class = "reviewer-username-row">
+                                        <div class = "reviewer-username-cell">
+                                        Calvin LeGassick
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="scrolling-description-row">Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+
+                    <div class="col-lg-12 single-review">
+
+                        <div class = "reviewer-info-row">
+                            <div class = "reviewer-image-and-name">
+                                
+                                <div class = "reviewer-image-wrapper">
+                                <img src = "./img/CalvinHackSC.jpg" class = "reviewer-image"/>
+                                </div>
+
+
+                                <div class = "reviewer-username">
+                                    <div class = "reviewer-username-row">
+                                        <div class = "reviewer-username-cell">
+                                        Calvin LeGassick
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="scrolling-description-row">Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        </div>
+                    </div>
                  <div class = "col-lg-1 col-md-0" ></div>
-                
             </div>
-
         </div>
-
     </div>
 
     <div class = "footer">
@@ -324,6 +369,16 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+
+    <script>
+/*     $(function(){
+<%--  */    	('.housing-image-card').css("background", "url(<%=location.imageURL%>) no-repeat");
+ --%>/*     });
+ */        $(".filter-button").click(function() {
+            $(this).toggleClass("active");
+        });
+
+    </script>
 
 </body>
 

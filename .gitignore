@@ -1,3 +1,4 @@
-.DS_store
+.DS_Store
 .classpath
 .project
+*/.DS_Store
