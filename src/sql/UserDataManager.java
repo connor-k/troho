@@ -11,9 +11,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Vector;
 
 public class UserDataManager {
 	/** Create a new entry in the Users table
@@ -26,12 +26,10 @@ public class UserDataManager {
 	public static User createUser(String name, String email, int housingKey, String facebookID) {
 		User user = null;
 		Connection conn = null;
-		Statement st = null;
 		PreparedStatement ps = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
-			st = conn.createStatement();
 			ps = conn.prepareStatement("INSERT INTO Users (userName, housingKey, email, facebookID) VALUES (?, ?, ?, ?);");
 			ps.setString(1, name);
 			ps.setInt(2, housingKey);
@@ -50,10 +48,8 @@ public class UserDataManager {
 				try {
 					ps.close();
 				} catch (SQLException e) { /* Do nothing */ }
-				try {
-					st.close();
-				} catch (SQLException e) { /* Do nothing */ }
-				st = conn.createStatement();
+
+
 				ps = conn.prepareStatement("INSERT INTO Surveys (facebookID, managementSurveyScore, "
 						+ "amenitiesSurveyScore, locationSurveyScore, noiseSurveyScore, "
 						+ "communityChillFactorSurveyScore) VALUES (?, 5, "
@@ -73,13 +69,11 @@ public class UserDataManager {
 			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
 		} catch (ClassNotFoundException cnfe) {
 			System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
-		} finally {
+		}  finally {
 			try {
 				ps.close();
 			} catch (SQLException e) { /* Do nothing */ }
-			try {
-				st.close();
-			} catch (SQLException e) { /* Do nothing */ }
+
 			try {
 				conn.close();
 			} catch (SQLException e) { /* Do nothing */ }
@@ -95,13 +89,11 @@ public class UserDataManager {
 	public static User getUser(String facebookID) {
 		User user = null;
 		Connection conn = null;
-		Statement st = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
-			st = conn.createStatement();
 			ps = conn.prepareStatement("SELECT * FROM Users WHERE facebookID=?");
 			ps.setString(1, facebookID);
 			rs = ps.executeQuery();
@@ -120,10 +112,6 @@ public class UserDataManager {
 				try {
 					ps.close();
 				} catch (SQLException e) { /* Do nothing */ }
-				try {
-					st.close();
-				} catch (SQLException e) { /* Do nothing */ }
-				st = conn.createStatement();
 				ps = conn.prepareStatement("SELECT * FROM Surveys WHERE facebookID=?");
 				ps.setString(1, user.facebookID);
 				rs = ps.executeQuery();
@@ -142,10 +130,6 @@ public class UserDataManager {
 				try {
 					ps.close();
 				} catch (SQLException e) { /* Do nothing */ }
-				try {
-					st.close();
-				} catch (SQLException e) { /* Do nothing */ }
-				st = conn.createStatement();
 				ps = conn.prepareStatement("SELECT * FROM Reviews WHERE facebookID=?");
 				ps.setString(1, user.facebookID);
 				rs = ps.executeQuery();
@@ -164,10 +148,6 @@ public class UserDataManager {
 				try {
 					ps.close();
 				} catch (SQLException e) { /* Do nothing */ }
-				try {
-					st.close();
-				} catch (SQLException e) { /* Do nothing */ }
-				st = conn.createStatement();
 				ps = conn.prepareStatement("SELECT * FROM Friends WHERE facebookID=?");
 				ps.setString(1, user.facebookID);
 				rs = ps.executeQuery();
@@ -194,9 +174,6 @@ public class UserDataManager {
 				ps.close();
 			} catch (SQLException e) { /* Do nothing */ }
 			try {
-				st.close();
-			} catch (SQLException e) { /* Do nothing */ }
-			try {
 				conn.close();
 			} catch (SQLException e) { /* Do nothing */ }
 		}
@@ -210,12 +187,10 @@ public class UserDataManager {
 	 */
 	public static void setLocation(String facebookID, int housingKey) {
 		Connection conn = null;
-		Statement st = null;
 		PreparedStatement ps = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
-			st = conn.createStatement();
 			ps = conn.prepareStatement("UPDATE Users SET housingKey=? WHERE facebookID=?");
 			ps.setInt(1, housingKey);
 			ps.setString(2, facebookID);
@@ -240,8 +215,67 @@ public class UserDataManager {
 				ps.close();
 			} catch (SQLException e) { /* Do nothing */ }
 			try {
-				st.close();
+				conn.close();
 			} catch (SQLException e) { /* Do nothing */ }
+		}
+	}
+
+	/** 
+	 * @param facebookID SQL database key for this user
+	 * @param friends The array of Facebook IDs of this User's friends 
+	 */
+	public static void setFriends(String facebookID, String[] friends) {
+		User user = getUser(facebookID);
+		if (user == null) {
+			System.out.println("Invalid facebookID " + facebookID + ", no changes made.");
+			return;
+		}
+		List<String> friendsToAdd = new Vector<String>();
+		//TODO n^2 currently, improve
+		for (int i = 0; i < friends.length; ++i) {
+			boolean found = false;
+			if (user.friendIDs != null) {
+				for (int j = 0; j < user.friendIDs.length; ++j) {
+					if (friends[i].equals(user.friendIDs[j])) {
+						found = true;
+						break;
+					}
+				}
+			}
+			if (!found) {
+				friendsToAdd.add(friends[i]);
+			}
+		}
+		Connection conn = null;
+		PreparedStatement ps1 = null;
+		PreparedStatement ps2 = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
+			for (int i = 0; i < friendsToAdd.size(); ++i) {
+				ps1 = conn.prepareStatement("INSERT INTO Friends (facebookID, friendID) VALUES (?, ?);");
+				ps2 = conn.prepareStatement("INSERT INTO Friends (facebookID, friendID) VALUES (?, ?);");
+				ps1.setString(1, facebookID);
+				ps1.setString(2, friendsToAdd.get(i));
+				ps2.setString(1, friendsToAdd.get(i));
+				ps2.setString(2, facebookID);
+				// Catch this executeUpdate separately because, if it happens, is because invalid housingKey
+				try {
+					ps1.executeUpdate();
+					ps2.executeUpdate();
+				} catch (SQLException sqle) {
+					System.out.println("UserDataManager.setFriends: invalid keys " + facebookID 
+							+ "|" + friendsToAdd.get(i) + ", no changes made");
+				} finally {
+					ps1.close();
+					ps2.close();
+				}
+			}
+		} catch (SQLException sqle) { 
+			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
+		} finally {
 			try {
 				conn.close();
 			} catch (SQLException e) { /* Do nothing */ }
@@ -250,16 +284,14 @@ public class UserDataManager {
 
 	/** 
 	 * @param facebookID SQL database key for this user
-	 * @param surveyPoints The survey points between 0 and 10 allocated by the user for the 5 categories
+	 * @param surveyPoints he survey points between 0 and 10 allocated by the user for the 5 categories
 	 */
 	public static void setSurveyPoints(String facebookID, String[] surveyPoints) {
 		Connection conn = null;
-		Statement st = null;
 		PreparedStatement ps = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
-			st = conn.createStatement();
 			ps = conn.prepareStatement("UPDATE Surveys SET managementSurveyScore=?, "
 					+ "amenitiesSurveyScore=?, locationSurveyScore=?, noiseSurveyScore=?, "
 					+ "communityChillFactorSurveyScore=? WHERE facebookID=?");
@@ -280,9 +312,6 @@ public class UserDataManager {
 		} finally {
 			try {
 				ps.close();
-			} catch (SQLException e) { /* Do nothing */ }
-			try {
-				st.close();
 			} catch (SQLException e) { /* Do nothing */ }
 			try {
 				conn.close();
