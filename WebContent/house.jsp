@@ -10,9 +10,11 @@
 	String name = request.getParameter("name");
 	//HousingDataManager hdm = new HousingDataManager();
     HousingLocation location = HousingDataManager.getHousingLocation(name);
+    System.out.println(location);
     if (location == null) {
 /*     	System.out.println(location);
- */    	String redirectURL = "/troho/404.html";
+ */    System.out.println("In if");
+ 		String redirectURL = "/troho/404.html";
     	response.sendRedirect(redirectURL);
     }
 %>
@@ -65,18 +67,20 @@
 
 <body>
 
-    <div class = "header">
-        <div>
-            <img src = "./img/new-troho.png" style = "height:80px"/>
-        </div>
+    	<div class = "header">
+		<div>
+			<!-- <img src = "./img/troho-high-res.png" style = "height:80px"/> -->
+			<img src = "./img/new-troho.png" style = "height:80px"/>
+		</div>
 
-        <div class = "log-div">
-            <div id = "log-in">Log In</div>
-            <div id = "log-in-line"></div>
-            <div id = "sign-up">Sign Up</div>
-        </div>
+		<div class = "log-div">
+			<div id = "log-in">Log in with Facebook</div>
+			<img src = "./img/FacebookIcon.png" style = "height:40px;border-radius:10px;"/>
+			<!-- <div id = "log-in-line"></div> -->
+			<!-- <div id = "sign-up"></div> -->
+		</div>
 
-    </div>
+	</div>
 
     <br>
     <div>
@@ -104,9 +108,19 @@
     			<div class="col-lg-12" style = "padding:20px;">
     				<p id="ratingTextBig">Overall Rating</p>
                     <div class = "star-container">
+                        <% if (location != null) {
+                        	System.out.println("Score " + location.managementScore);
+                     			for (int i = 0; i < location.overallScore; i++) {
+                     	%>
+                        <img src = "./img/star.png" class = "star"/>
+<!--                         <img src = "./img/star.png" class = "star"/>
                         <img src = "./img/star.png" class = "star"/>
                         <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/>
+                        <img src = "./img/star.png" class = "star"/> -->
+                        <%
+                     			}
+                     	}
+                        %>
                      </div>
     			</div>
     		</div>
@@ -115,27 +129,52 @@
     			<div class="col-lg-4 col-md-12 rating-categories-container" style = "margin-left:-55px" >
     				<p class="rating">Management Rating</p>
                      <div class = "star-container" style = "display:inline-block; margin-left:15px; margin-top:3px; position:absolute;">
+                     	<% if (location != null) {
+                     			for (int i = 0; i < location.managementScore; i++) {
+                     	%>
+                        <img src = "./img/star.png" class = "star"/>
+<!--                         <img src = "./img/star.png" class = "star"/>
                         <img src = "./img/star.png" class = "star"/>
                         <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/>
+                        <img src = "./img/star.png" class = "star"/> -->
+                        <%
+                     			}
+                     	}
+                        %>
                      </div>
     			</div>
     			<div class="col-lg-4 col-md-12 rating-categories-container">
     				<p class="rating">Location Rating</p>
                      <div class = "star-container" style = "display:inline-block; margin-left:15px; margin-top:3px; position:absolute;">
+                        <% if (location != null) {
+                     			for (int i = 0; i < location.locationScore; i++) {
+                     	%>
+                        <img src = "./img/star.png" class = "star"/>
+<!--                         <img src = "./img/star.png" class = "star"/>
                         <img src = "./img/star.png" class = "star"/>
                         <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/>
+                        <img src = "./img/star.png" class = "star"/> -->
+                        <%
+                     			}
+                     	}
+                        %>
                      </div>
     			</div>
     			<div class="col-lg-4 col-md-12 rating-categories-container">
     				<p class="rating">Chill Rating</p>
                      <div class = "star-container" style = "display:inline-block; margin-left:15px; margin-top:3px; position:absolute;">
+                        <% if (location != null) {
+                     			for (int i = 0; i < location.communityChillFactorScore; i++) {
+                     	%>
+                        <img src = "./img/star.png" class = "star"/>
+<!--                         <img src = "./img/star.png" class = "star"/>
                         <img src = "./img/star.png" class = "star"/>
                         <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/>
+                        <img src = "./img/star.png" class = "star"/> -->
+                        <%
+                     			}
+                     	}
+                        %>
                      </div>
     			</div>
     		</div>
@@ -148,11 +187,6 @@
                 <div class = "col-lg-1 col-md-0" ></div>
 
                 <div class = "col-lg-10 col-md-12">
-
-                    <!-- <div class = "col-lg-2 rating-tab" style = "margin-left:12%"> -->
-                        <!-- Description -->
-                    <!-- </div> -->
-
                     <div class = "col-lg-3 col-md-3">
                         <div class = "rating-tab">
                         Description
@@ -195,7 +229,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-8">
-                            <p class="descriptionRow">Price: <%= location.averageRent %>$/Month</p>
+                            <p class="descriptionRow">Price: <%if (location != null) out.print(location.averageRent);  %>$/Month</p>
                         </div>
                     </div>
                     <div class="row">
@@ -205,7 +239,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <p class="descriptionRow">Description: <%= location.description %></p>
+                            <p class="descriptionRow">Description:<% if (location != null) out.print(location.description); %></p>
                         </div>
                     </div>
                 </div>
@@ -271,7 +305,7 @@
                 <div class = "col-lg-10 col-md-12 reviews-container">
                     <!-- insert for loop here -->
                     <%
-                    if (location.reviews != null) {
+                    if (location !=null && location.reviews != null) {
 	                    System.out.println("size: " + location.reviews.length);
 	                    for (int i =0; i < location.reviews.length; i++) {
 	                    	Review temp = location.reviews[i];
