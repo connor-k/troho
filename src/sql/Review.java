@@ -23,6 +23,8 @@ public class Review {
 	public int rentPaid;
 	public String timeWritten;
 	
+	/**  
+	 */
 	Review(int reviewKey, int housingKey, String facebookID, int managementScore, int amenitiesScore, int locationScore,
 			int noiseScore, int communityChillFactorScore, String comment, int rentPaid,
 			String timeWritten) {
@@ -45,9 +47,10 @@ public class Review {
 	 */
 	@Override
 	public String toString() {
-		return "Review:\n reviewKey: " + reviewKey + "\n housing key:" + housingKey + "\n facebookID: " + facebookID + "\n email: "
-				+ "\n review scores: " + managementScore + "|" + amenitiesScore + "|"
-				+ locationScore + "|" + noiseScore + "|" + communityChillFactorScore
-				+ "\n comment: " + comment + "\n rent: " + rentPaid + "\n time: " + timeWritten;
+		return "Review:\n reviewKey: " + reviewKey + "\n housing key:" + housingKey 
+				+ "\n facebookID: " + facebookID + "\n review scores: " + managementScore + "|" 
+				+ amenitiesScore + "|" + locationScore + "|" + noiseScore + "|" 
+				+ communityChillFactorScore + "\n comment: " + comment + "\n rent: " + rentPaid 
+				+ "\n time: " + timeWritten;
 	}
 }
