@@ -1,0 +1,80 @@
+.save-sliders {
+	background-color: #c05049;
+	border-radius:5px;
+	position: relative;
+	width: 60%;
+	color:#ffcc00;
+	padding:10px;
+	margin-left:20%;
+	margin-top:20px;
+	
+}
+
+.save-sliders:active {
+	background-color: #ffcc00;
+	color:#c05409;
+}
+
+.user-image-container {
+	//border-radius: 300px;
+}
+
+.user-image-wrapper {
+	width: 300px;
+	height: 300px;
+	border-radius: 150px;
+	background: url(../img/calvin.jpg) no-repeat;
+	position: relative;
+	margin:auto;
+}
+
+.user-info-container {
+
+}
+
+#ex1Slider .slider-selection {
+	background: #BABABA;
+}
+
+.slider {
+	width:70% !important;
+	margin-left:15%;
+}
+
+.slider-wrapper {
+	font-size: 24px;
+	margin:10px 0px;
+}
+
+.preferences-wrapper {
+	height: 570px;
+	margin-top:20px;
+	background-color: white;
+	width:25%;
+	margin-left:37.5%;
+	border-radius:10px;
+	box-shadow: 0px 2px 5px rgba(0,0,0,.2);
+	min-width: 220px;
+}
+
+.tick {
+	color:#ffcc00;
+	display: inline;
+	width:10%;
+	float:left;
+}
+
+.slider-ticks {
+	width: 72%;
+  	margin-left: 14%;
+  	height: 30px;
+}
+
+.friend-circle {
+	width: 80px;
+	height: auto;
+	border-radius:40px;
+	overflow: hidden;
+}
+
+
