@@ -17,7 +17,14 @@ public class DataManagerTest {
 		System.out.println("Trying to create a new user with Facebook ID 2348hfdsu2j34f1d4");
 		User alex = UserDataManager.createUser("NewUserAlex", "alex@asdf.asdf", 2, "2348hfdsu2j34f1d4");
 		System.out.println(alex);
-
+		
+		// Add friends
+		String[] friends = {"2weuhfdsu2j34f1d4", "12rehfdsu2j34f1d4"};
+		UserDataManager.setFriends("2348hfdsu2j34f1d4", friends);
+		// Get updates
+		alex = UserDataManager.getUser("2348hfdsu2j34f1d4");
+		System.out.println(alex);
+		
 		// Get information about an existing user
 		System.out.println("\nLooking up user with Facebook ID 2weuhfdsu2j34f1d4");
 		User john = UserDataManager.getUser("2weuhfdsu2j34f1d4");
@@ -45,7 +52,7 @@ public class DataManagerTest {
 		// Create a new location
 		System.out.println("\nCreating a new location (Gateway Apartments)");
 		HousingDataManager.createHousingLocation(HousingType.APARTMENT, "Gateway Apartments",
-				"335 S Figuroa St", "Apartments close to campus.", "images/icons/Gateway.png",
+				"3335 S Figuroa St", "Apartments close to campus.", "images/icons/Gateway.png",
 				"images/floorplans/Gateway.png", "-118.2797771", "34.0233683", "10", "5");
 		
 		// Get an existing location
@@ -66,6 +73,13 @@ public class DataManagerTest {
 		// Try to get an invalid house
 		System.out.println("\n Trying to get an invalid house");
 		hl = HousingDataManager.getHousingLocation("asdf");
+		
+		// Select all houses
+		System.out.println("\n Printing all location names");
+		HousingLocation[] allLocations = HousingDataManager.getAllHousingLocations();
+		for (int i = 0; i < allLocations.length; ++i) {
+			System.out.println(allLocations[i].locationName);
+		}
 		System.out.println("Done testing HousingDataManager class ---\n");
 	}
 	
