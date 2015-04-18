@@ -10,7 +10,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DecimalFormat;
 
 public class ReviewDataManager {
@@ -101,13 +100,16 @@ public class ReviewDataManager {
 	 */
 	public static Review getReview(int reviewKey) {
 		Review review = null;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
 			// Make sure the email isn't already registered to someone
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM Reviews WHERE reviewID=?");
+			ps = conn.prepareStatement("SELECT * FROM Reviews WHERE reviewID=?");
 			ps.setInt(1, reviewKey);
-			ResultSet rs = ps.executeQuery();
+			rs = ps.executeQuery();
 			if (rs.next()) {
 				review = new Review (reviewKey, rs.getInt("housingKey"), rs.getString("facebookID"),
 						rs.getInt("managementScore"), rs.getInt("amenitiesScore"),
@@ -115,12 +117,20 @@ public class ReviewDataManager {
 						rs.getInt("communityChillFactorScore"), rs.getString("textComment"),
 						rs.getInt("rentPaid"), rs.getString("timeWritten"));
 			}
-			ps.close();
-			conn.close();
 		} catch (SQLException sqle) {
 			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
 		} catch (ClassNotFoundException cnfe) {
 			System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
+		} finally {
+			try {
+				rs.close();
+			} catch (SQLException e) { /* Do nothing */ }
+			try {
+				ps.close();
+			} catch (SQLException e) { /* Do nothing */ }
+			try {
+				conn.close();
+			} catch (SQLException e) { /* Do nothing */ }
 		}
 
 		return review;
