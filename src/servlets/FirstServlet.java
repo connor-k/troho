@@ -10,7 +10,6 @@ import java.sql.Statement;
 import java.util.Date;
 
 import com.java.Data.*;
-import com.java.facebook.FBConnection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
@@ -77,7 +76,6 @@ public class FirstServlet extends HttpServlet {
     	
     	String fullname = firstname + lastname;
     	
-    	FBConnection fbConnection = new FBConnection();
     	
     	UserDataManager um = new UserDataManager();
     	
@@ -88,8 +86,8 @@ public class FirstServlet extends HttpServlet {
 			Statement st = conn.createStatement();
 //			ResultSet rs = st.executeQuery("SELECT * from Student where fname='" + name + "'");
 			PreparedStatement ps = conn.prepareStatement("INSERT INTO Users (userName, currentLocationID, email, facebookID) VALUES (?, 2, ?, '23rfsajkdf')");
-			ps.setString(1, username);
-			ps.setString(2, password);
+//			ps.setString(1, username);
+//			ps.setString(2, password);
 			ps.executeUpdate();
 			System.out.println("Worked?");
 			st.close();
