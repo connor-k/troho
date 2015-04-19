@@ -36,7 +36,8 @@
 
     <!-- Custom CSS -->
     <link href="css/landing-page.css" rel="stylesheet">
-    <link href="css/home.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+    <link href="css/header-bar.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -65,22 +66,29 @@
 
 <body>
 
-    	<div class = "header">
-		<div>
-			<!-- <img src = "./img/troho-high-res.png" style = "height:80px"/> -->
-			<img src = "./img/new-troho.png" style = "height:80px"/>
+	<script src="js/customFB.js">
+	</script>
+
+	<!-- Page Header -->
+	<div class="header">
+		<div id="troho-logo">
+			<img src="./img/new-troho.png" style="height: 80px" />
 		</div>
 
-		<div class = "log-div">
-			<div id = "log-in">Log in with Facebook</div>
-			<img src = "./img/FacebookIcon.png" style = "height:40px;border-radius:10px;"/>
-			<!-- <div id = "log-in-line"></div> -->
-			<!-- <div id = "sign-up"></div> -->
+		<div class="log-div">
+			<div id="log-in-sequence" onclick="logIn()" style="display: none">
+				<div id="log-in-message">Log in with Facebook</div>
+				<img id="log-in-button" src="./img/FacebookIcon.png" />
+			</div>
+			<div id="user-sequence" onclick="goToUser()">
+				<div id="welcome-message"></div>
+				<img id="profile-image" src=" "></img>
+			</div>
 		</div>
-
 	</div>
 
-    <br>
+
+	<br>
     <div>
         <div id = "top-text-wrap">
             <p id = "introText"><%= name %></p>

@@ -2,31 +2,44 @@
 <html>
 
 <head>
-<link rel="stylesheet" href="css/home.css">
-<link href="css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="css/header-bar.css">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	
 <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script> -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
+
+
 </head>
 
 <body>
 
-		<div class = "header">
-		<div>
-			<!-- <img src = "./img/troho-high-res.png" style = "height:80px"/> -->
-			<img src = "./img/new-troho.png" style = "height:80px"/>
+	<script src="js/customFB.js">
+	</script>
+
+	<!-- Page Header -->
+	<div class="header">
+		<div id="troho-logo">
+			<img src="./img/new-troho.png" style="height: 80px" />
 		</div>
 
-		<div class = "log-div">
-			<div id = "log-in">Log in with Facebook</div>
-			<img src = "./img/FacebookIcon.png" style = "height:40px;border-radius:10px;"/>
-			<!-- <div id = "log-in-line"></div> -->
-			<!-- <div id = "sign-up"></div> -->
+		<div class="log-div">
+			<div id="log-in-sequence" onclick="logIn()" style="display: none">
+				<div id="log-in-message">Log in with Facebook</div>
+				<img id="log-in-button" src="./img/FacebookIcon.png" />
+			</div>
+			<div id="user-sequence" onclick="goToUser()">
+				<div class="welcome" id="welcome-message"></div>
+				<img id="profile-image" src=" "></img>
+			</div>
 		</div>
-
 	</div>
+	
+	
 	<div class = "container-fluid">
-
 
 		<div class = "row" style = "margin-top:160px;">
 
