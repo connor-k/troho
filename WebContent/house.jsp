@@ -263,7 +263,7 @@
 
             <div class = "row">
                 <div class = "add-review-button">
-                    <div class = "col-lg-12" style = "padding-bottom: 40px; font-size:20px; color:white; text-align:center">Write your own!</div>
+                    <div class = "col-lg-12" style = "padding-top: 8px; padding-bottom: 40px; font-size:20px; color:white; text-align:center">Write your own!</div>
                 </div>
             </div>
 
