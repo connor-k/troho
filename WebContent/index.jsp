@@ -104,8 +104,8 @@
 							<img src = "./img/star.png" class = "star"/>
 						</div>
 					</div>
-					</a>
-					<a href="/troho/house.jsp?name=Icon Plaza">
+				</a>
+					<a href="/troho/house.jsp?name=Icon%20Plaza">
 					<div class = "col-lg-3"> 
 						<div class = "house-card"></div>
 						<p class = "house-title">Icon Plaza</p>
@@ -116,7 +116,7 @@
 						</div>
 					</div>
 					</a>
-					<a href="/troho/house.jsp?name=Cardinal Gardens">
+					<a href="/troho/house.jsp?name=Cardinal%20Gardens">
 					<div class = "col-lg-3"> 
 						<div class = "house-card"></div>
 						<p class = "house-title">Cardinal Gardens</p>
@@ -127,7 +127,7 @@
 						</div>
 					</div>
 					</a>
-					<a href="/troho/house.jsp?name=Trojan Hall">
+					<a href="/troho/house.jsp?name=Trojan%20Hall">
 					<div class = "col-lg-3"> 
 						<div class = "house-card"></div>
 						<p class = "house-title">Trojan Hall</p>

@@ -98,13 +98,14 @@
         </div>
 
         <div style = "-webkit-filter: blur(0px);">
-        <div class = "housing-image-card" style = "-webkit-filter:grayscale(1);">
-            <div style = "-webkit-filter: blur(2px);">
-            <!-- <div id="introText"> -->
-            <!-- <div id="introText"> -->
-            
-            </div>
-        </div>
+	        <div class = "housing-image-card" style = "-webkit-filter:grayscale(1);">
+	            <div style = "-webkit-filter: blur(2px);">
+	            <!-- <div id="introText"> -->
+	            <!-- <div id="introText"> -->
+	            
+	            </div>
+	        </div>
+	    </div>
     </div>
 
     <div class = "rating-master-container">
