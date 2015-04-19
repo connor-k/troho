@@ -1,6 +1,15 @@
 <%@page import="sql.UserDataManager"%>
 <%@page import="sql.User"%>
-
+<%
+	User user = null;
+	String fbID = request.getParameter("id");
+	if (fbID != null) {
+		user = UserDataManager.getUser(fbID);
+	} else {
+		String redirectURL = "/troho/404.html";
+    	response.sendRedirect(redirectURL);
+	}
+%>
 
 
 <!DOCTYPE html>
@@ -514,7 +523,8 @@
   		google.maps.event.addDomListener(window, 'load', initialize);
 
 	</script>
-
+	<script src="js/customFB.js">
+	</script>
 </body>
 
 </html>

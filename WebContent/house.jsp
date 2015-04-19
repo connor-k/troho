@@ -10,7 +10,7 @@
 	String name = request.getParameter("name");
 	//HousingDataManager hdm = new HousingDataManager();
     HousingLocation location = HousingDataManager.getHousingLocation(name);
-    if (location == null) {
+    if (name == null) {
     	System.out.println("In if");
  		String redirectURL = "/troho/404.html";
     	response.sendRedirect(redirectURL);
