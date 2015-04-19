@@ -7,7 +7,8 @@
 <link rel="stylesheet" href="css/header-bar.css">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+<script src="js/customFB.js">
+	</script>
 </head>
 
 
@@ -20,10 +21,14 @@
 		</div>
 
 		<div class = "log-div">
-			<div id = "log-in">Log in with Facebook</div>
-			<img src = "./img/FacebookIcon.png" style = "height:40px;border-radius:10px;"/>
-			<!-- <div id = "log-in-line"></div> -->
-			<!-- <div id = "sign-up"></div> -->
+			<div id="log-in-sequence" onclick="logIn()" style="display: none">
+				<div id="log-in-message">Log in with Facebook</div>
+				<img id="log-in-button" src="./img/FacebookIcon.png" />
+			</div>
+			<div id="user-sequence" onclick="goToUser()">
+				<div class="welcome" id="welcome-message"></div>
+				<img id="profile-image" src=" "></img>
+			</div>
 		</div>
 
 	</div>

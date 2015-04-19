@@ -22,29 +22,6 @@ p, h1, div {
 	width: auto;
 }
 
-::-webkit-input-placeholder {
-   color: #ffcc00;
-}
-
-:-moz-placeholder { /* Firefox 18- */
-   color: #ffcc00;  
-}
-
-::-moz-placeholder {  /* Firefox 19+ */
-   color: #ffcc00; 
-}
-
-:-ms-input-placeholder {  
-   color: #ffcc00;
-}
-
-.bar {
-	margin: -55px 95px;
-	/width: 95px;
-	background: rgba(0,0,0,0);
-
-}
-
 .house-card {
 	position: relative;
 	margin:auto;
@@ -53,11 +30,6 @@ p, h1, div {
 	border-radius: 5px;
 	height: 200px;
 	width: 200px;
-}
-
-.house-image {
-	//width:100%;
-	width:340px;
 }
 
 .house-title {
@@ -77,19 +49,6 @@ p, h1, div {
 	display:inline-block;
 	width:35px;
 	height: auto;
-}
-
-.footer {
-	background-color: #c0504d;
-	margin-bottom:0;
-	padding-bottom: 0;
-}
-
-.logo-wrapper {
-	/box-shadow: 0px 2px 5px rgba(0,0,0,.2);
-	text-align: center;
-	position: relative;
-	margin:auto;
 }
 
 .housing-options {
