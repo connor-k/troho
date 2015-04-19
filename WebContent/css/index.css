@@ -22,16 +22,6 @@ p, h1, div {
 	width: auto;
 }
 
-.search-bar {
-	background-color: rgba(0,0,0,0);
-	outline: 0;
-	border-width: 0px;
-	width: 180px;
-	font-size: 32px;
-	margin-left:0px;
-	color: #ffcc00;
-}
-
 ::-webkit-input-placeholder {
    color: #ffcc00;
 }
@@ -102,34 +92,8 @@ p, h1, div {
 	margin:auto;
 }
 
-.search-container {
-	/margin-top: 160px;
-	margin-bottom: 160px;
-	height:200px;
-	/margin-left:35%;
-	/width:30%;
-}
-
 .housing-options {
 	font-size: 36px;
 	font-color: #c0504d;
 	text-align: center;
-}
-
-.search-image {
-	display:inline;
-	position: relative;
-	padding: 15px;
-	border-radius:50px;
-	border-style: solid;
-	border-width: 1px;
-	font-size:32px;
-	color: #ffcc00;
-}
-
-.image-container {
-	text-align: center;
-  	margin-top: -130px;
-  	width: 40%;
-  	margin-left:30.5%;
 }
