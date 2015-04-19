@@ -1,0 +1,5 @@
+<servlet>
+    <servlet-name></servlet-name>
+    <servlet-class></servlet-class>
+    <load-on-startup>1</load-on-startup>
+</servlet>
