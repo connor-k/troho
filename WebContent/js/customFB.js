@@ -95,7 +95,6 @@
 				console.log(response.data.url);
  				document.getElementById('profile-image').setAttribute("src", response.data.url);
 			});
-			
 		}
 		
 		function updateHeaderNotLoggedIn() {
@@ -109,5 +108,5 @@
 				}, {scope: 'public_profile,user_friends, email'});
 		}
 		function goToUser() {
-			console.log("hey");
+			console.log("IMPLEMENT THIS FUNCTION");
 		}
