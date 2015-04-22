@@ -1,3 +1,10 @@
+.bar {
+	margin: -55px 95px;
+	/width: 95px;
+	background: rgba(0,0,0,0);
+
+}
+
 .header {
 	position: fixed;
 	width:100%;
@@ -10,6 +17,24 @@
 	position: relative;
 	top-margin:50px;
 } */
+
+.house-image {
+	//width:100%;
+	width:340px;
+}
+
+.image-container {
+	text-align: center;
+  	margin-top: -130px;
+  	width: 40%;
+  	margin-left:30.5%;
+}
+
+.footer {
+	background-color: #c0504d;
+	margin-bottom:0;
+	padding-bottom: 0;
+}
 
 #welcome-message, #log-in-message, #sign-up {
 	vertical-align:middle;
@@ -25,11 +50,37 @@
 	border-radius: 10px;
 }
 
+.logo-wrapper {
+	/box-shadow: 0px 2px 5px rgba(0,0,0,.2);
+	text-align: center;
+	position: relative;
+	margin:auto;
+}
+
 @media screen and (max-width: 150px) {
     div#welcome-message 
     {
         display: none;
     }
+}
+
+.search-container {
+	/margin-top: 160px;
+	margin-bottom: 160px;
+	height:200px;
+	/margin-left:35%;
+	/width:30%;
+}
+
+.search-image {
+	display:inline;
+	position: relative;
+	padding: 15px;
+	border-radius:50px;
+	border-style: solid;
+	border-width: 1px;
+	font-size:32px;
+	color: #ffcc00;
 }
 
 .log-div {
@@ -40,4 +91,30 @@
 	color:#ffcc00;
 	cursor: pointer;
 	cursor: hand;
+}
+
+.search-bar {
+	background-color: rgba(0,0,0,0);
+	outline: 0;
+	border-width: 0px;
+	width: 180px;
+	font-size: 32px;
+	margin-left:0px;
+	color: #ffcc00;
+}
+
+::-webkit-input-placeholder {
+   color: #ffcc00;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #ffcc00;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #ffcc00; 
+}
+
+:-ms-input-placeholder {  
+   color: #ffcc00;
 }

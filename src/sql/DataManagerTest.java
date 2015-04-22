@@ -12,19 +12,23 @@ public class DataManagerTest {
 	 */
 	public static void userDataTest() {
 		System.out.println("\nTesting the UserDataManager class ---");
-		
+
 		// Create a new user: pass the name, email, current housing location key, and Facebook id
 		System.out.println("Trying to create a new user with Facebook ID 2348hfdsu2j34f1d4");
 		User alex = UserDataManager.createUser("NewUserAlex", "alex@asdf.asdf", 2, "2348hfdsu2j34f1d4");
 		System.out.println(alex);
-		
+		// Verify that user (email valid).
+		if (alex != null) {
+			UserDataManager.verifyEmail(alex.facebookID);
+		}
+
 		// Add friends
 		String[] friends = {"2weuhfdsu2j34f1d4", "12rehfdsu2j34f1d4"};
 		UserDataManager.setFriends("2348hfdsu2j34f1d4", friends);
 		// Get updates
 		alex = UserDataManager.getUser("2348hfdsu2j34f1d4");
 		System.out.println(alex);
-		
+
 		// Get information about an existing user
 		System.out.println("\nLooking up user with Facebook ID 2weuhfdsu2j34f1d4");
 		User john = UserDataManager.getUser("2weuhfdsu2j34f1d4");
@@ -40,7 +44,17 @@ public class DataManagerTest {
 		String[] surveyPoints = {"10", "10", "0", "0", "5"};
 		UserDataManager.setSurveyPoints("2weuhfdsu2j34f1d4", surveyPoints);
 		System.out.println(john);
-		
+
+		// Create a new admin user: pass the name, email, current housing location key, and Facebook id, and true
+		System.out.println("Trying to create a new Admin user with Facebook ID 298o4ufjasid8ufi");
+		boolean isAdmin = true;
+		User adminUser = UserDataManager.createUser("NewAdminUser", "admin@asdf.asdf", 1, "298o4ufjasid8ufi", isAdmin);
+		System.out.println(adminUser);
+		// Verify that user (email valid)
+		UserDataManager.verifyEmail(adminUser.facebookID);
+		adminUser = UserDataManager.getUser(adminUser.facebookID);
+		System.out.println(adminUser);
+
 		System.out.println("Done testing UserDataManager class ---\n");
 	}
 
@@ -54,7 +68,7 @@ public class DataManagerTest {
 		HousingDataManager.createHousingLocation(HousingType.APARTMENT, "Gateway Apartments",
 				"3335 S Figuroa St", "Apartments close to campus.", "images/icons/Gateway.png",
 				"images/floorplans/Gateway.png", "-118.2797771", "34.0233683", "10", "5");
-		
+
 		// Get an existing location
 		// By name
 		System.out.println("\nGetting Gateway by name");
@@ -64,16 +78,16 @@ public class DataManagerTest {
 		System.out.println("\nGetting Gateway by key");
 		hl = HousingDataManager.getHousingLocation(3);
 		System.out.println(hl);
-		
+
 		// Get another location
 		System.out.println("\n Getting a different house");
 		hl = HousingDataManager.getHousingLocation("First House");
 		System.out.println(hl);
-		
+
 		// Try to get an invalid house
 		System.out.println("\n Trying to get an invalid house");
 		hl = HousingDataManager.getHousingLocation("asdf");
-		
+
 		// Select all houses
 		System.out.println("\n Printing all location names");
 		HousingLocation[] allLocations = HousingDataManager.getAllHousingLocations();
@@ -82,14 +96,14 @@ public class DataManagerTest {
 		}
 		System.out.println("Done testing HousingDataManager class ---\n");
 	}
-	
+
 	/** Test the ReviewDataManager
 	 */
 	public static void reviewDataTest() {
 		System.out.println("\nTesting the ReviewDataManager class ---");
 		// Create a review
 		System.out.println("\nCreating a new review for Gateway Apartments");
-		
+
 		// Get an existing location
 		System.out.println("\nGetting Gateway by name");
 		HousingLocation hl = HousingDataManager.getHousingLocation("Gateway Apartments");

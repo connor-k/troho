@@ -98,13 +98,14 @@
         </div>
 
         <div style = "-webkit-filter: blur(0px);">
-        <div class = "housing-image-card" style = "-webkit-filter:grayscale(1);">
-            <div style = "-webkit-filter: blur(2px);">
-            <!-- <div id="introText"> -->
-            <!-- <div id="introText"> -->
-            
-            </div>
-        </div>
+	        <div class = "housing-image-card" style = "-webkit-filter:grayscale(1);">
+	            <div style = "-webkit-filter: blur(2px);">
+	            <!-- <div id="introText"> -->
+	            <!-- <div id="introText"> -->
+	            
+	            </div>
+	        </div>
+	    </div>
     </div>
 
     <div class = "rating-master-container">
@@ -258,7 +259,13 @@
         <div class = "container-fluid">
 
             <div class = "row">
-                <div class = "col-lg-12" style = "padding-top: 80px; padding-bottom: 40px; font-size:40px; color:white; text-align:center">Reviews</div>
+                <div class = "col-lg-12" style = "padding-top: 80px; font-size:40px; color:white; text-align:center">Reviews</div>
+            </div>
+
+            <div class = "row">
+                <div class = "add-review-button">
+                    <div class = "col-lg-12" style = "padding-top: 8px; padding-bottom: 40px; font-size:20px; color:white; text-align:center">Write your own!</div>
+                </div>
             </div>
 
             <div class = "row">

@@ -30,6 +30,8 @@ CREATE TABLE Users (
   userName varchar(50) NOT NULL,
   email varchar(50) NOT NULL,
   housingKey int(10),
+  isAdmin bool NOT NULL,
+  verifiedEmail bool NOT NULL,
   FOREIGN KEY (housingKey) REFERENCES HousingLocations(housingKey)
 );
 

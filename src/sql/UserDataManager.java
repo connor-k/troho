@@ -30,7 +30,7 @@ public class UserDataManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
-			ps = conn.prepareStatement("INSERT INTO Users (userName, housingKey, email, facebookID) VALUES (?, ?, ?, ?);");
+			ps = conn.prepareStatement("INSERT INTO Users (userName, housingKey, email, facebookID, isAdmin, verifiedEmail) VALUES (?, ?, ?, ?, false, false);");
 			ps.setString(1, name);
 			ps.setInt(2, housingKey);
 			ps.setString(3, email);
@@ -42,6 +42,8 @@ public class UserDataManager {
 				user.facebookID = facebookID;
 				user.name = name;
 				user.email = email;
+				user.verifiedEmail = false;
+				user.isAdmin = false;
 				user.currentLocation = HousingDataManager.getHousingLocation(housingKey);
 
 				// Create an entry for their survey with default values
@@ -82,6 +84,78 @@ public class UserDataManager {
 		return user;
 	}
 
+	/** Create a new entry in the Users table. Overloaded to take in a boolean for if they're admin
+	 * @param name The user's name
+	 * @param email The user's email address (@usc.edu)
+	 * @param housingKey The key for the housing location where they live 
+	 * @param facebookID The Facebook ID to identify this user
+	 * @param isAdmin true if this is an admin user
+	 * @return The User created or that already existed in the db
+	 */
+	public static User createUser(String name, String email, int housingKey, String facebookID, boolean isAdmin) {
+		User user = createUser(name, email, housingKey, facebookID);
+		if (user != null && isAdmin) {
+			Connection conn = null;
+			PreparedStatement ps = null;
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
+				ps = conn.prepareStatement("UPDATE Users SET isAdmin=true WHERE facebookID=?");
+				ps.setString(1, facebookID);
+				int result = ps.executeUpdate();
+				if (result == 0) {
+					System.out.println("UserDataManager.createUser|Admin: FacebookID " 
+							+ facebookID + " not in database, couldn't set as admin.");
+				}
+				user.isAdmin = true;
+			} catch (SQLException sqle) {
+				System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
+			} catch (ClassNotFoundException cnfe) {
+				System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
+			} finally {
+				try {
+					ps.close();
+				} catch (SQLException e) { /* Do nothing */ }
+				try {
+					conn.close();
+				} catch (SQLException e) { /* Do nothing */ }
+			}
+		}
+
+		return user;
+	}
+
+	/** Verify the email of a user
+	 * @param facebookID SQL database key for this user
+	 */
+	public static void verifyEmail(String facebookID) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
+			ps = conn.prepareStatement("UPDATE Users SET verifiedEmail=true WHERE facebookID=?");
+			ps.setString(1, facebookID);
+			int result = ps.executeUpdate();
+			if (result == 0) {
+				System.out.println("UserDataManager.verifyEmail: FacebookID " 
+						+ facebookID + " not in database, no changes made.");
+			}
+		} catch (SQLException sqle) {
+			// Note if an invalid housingKey was passed in, 
+			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) { /* Do nothing */ }
+			try {
+				conn.close();
+			} catch (SQLException e) { /* Do nothing */ }
+		}
+	}
+
 	/** Get an existing user from the Users table
 	 * @param facebookID The Facebook id for this user
 	 * @return A User object that holds all relevant data
@@ -103,6 +177,8 @@ public class UserDataManager {
 				user.facebookID = facebookID;
 				user.name = rs.getString("userName");
 				user.email = rs.getString("email");
+				user.verifiedEmail = rs.getBoolean("verifiedEmail");
+				user.isAdmin = rs.getBoolean("isAdmin");
 				user.currentLocation = HousingDataManager.getHousingLocation(rs.getInt("housingKey"));
 
 				// Set survey preferences
