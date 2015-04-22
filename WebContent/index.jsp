@@ -19,6 +19,7 @@
 
 	<script src="js/customFB.js">
 	</script>
+	
 
 	<!-- Page Header -->
 	<div class="header">
@@ -168,7 +169,19 @@
 		$(window).load(function() {
 		  //var htmlString = $( this ).html();
 		  $("#search").focus();
+		 
+		  
+		  		  
 		});
+		
+		$('#troho-logo').click(function() {
+			var t = null;
+
+			  $.getJSON('http://localhost:8080/troho/FirstServlet', function (data) {
+			     	alert(data.test);
+			     	console.log("finished");
+			  });
+		})
 
     </script>
 
