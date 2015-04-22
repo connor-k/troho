@@ -88,15 +88,16 @@
 			<br>
 			
 			<div class = "row">
-				<div class = "col-lg-1">
-				</div>
-
+				<div class = "col-lg-1"></div>
 				
 				<div class = "col-lg-10">
+				
 				<% %>
 				<a href="/troho/house.jsp?name=Gateway%20Apartments">
 					<div class = "col-lg-3"> 
-						<div class = "house-card"></div>
+						<div class = "house-card">
+						<img src="./img/gateway.jpeg" height="200" width="200"></img>
+						</div>
 						<p class = "house-title">Gateway</p>
 						<div class = "star-container">
 							<img src = "./img/star.png" class = "star"/>
