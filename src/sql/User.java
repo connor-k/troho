@@ -12,6 +12,8 @@ public class User {
 	/** Data about this user */
 	public String name;
 	public String email;
+	public boolean verifiedEmail;
+	public boolean isAdmin;
 	public HousingLocation currentLocation;
 	public int managementSurveyScore;
 	public int amenitiesSurveyScore;
@@ -20,7 +22,6 @@ public class User {
 	public int communityChillFactorSurveyScore;
 	public Review[] reviewsWritten;
 	public String[] friendIDs;
-	//TODO may need something like verified (account/email)
 	
 	/** Overrides toString
 	 * @Override
@@ -29,10 +30,11 @@ public class User {
 	@Override
 	public String toString() {
 		return "User:\n name: " + name + "\n email: " + email + "\n facebookID: " + facebookID
-				+ "\n survey scores: " + managementSurveyScore + "|" + amenitiesSurveyScore + "|" 
-				+ locationSurveyScore + "|" + noiseSurveyScore + "|" 
-				+ communityChillFactorSurveyScore + "\n reviews: " + reviewsWritten 
-				+ "\n friends: " + friendIDs + "\n location: " + currentLocation.locationName;
+				+ "\n admin: " + isAdmin + "\n verified: " + verifiedEmail + "\n survey scores: "
+				+ managementSurveyScore + "|" + amenitiesSurveyScore + "|" + locationSurveyScore 
+				+ "|" + noiseSurveyScore + "|" + communityChillFactorSurveyScore + "\n reviews: " 
+				+ reviewsWritten + "\n friends: " + friendIDs + "\n location: " 
+				+ currentLocation.locationName;
 	}
 	
 }
