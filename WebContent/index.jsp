@@ -184,12 +184,13 @@
 		})
 		
 		$('#search').on('keydown', function(event) {
+			console.log(event.keyCode);
 			var fill = document.getElementById('fill-in');
 			var c = String.fromCharCode(event.which).toLowerCase();
 			
 			var currentVal = $('#search').val();
 			
-			if(event.keyCode !== 16) {
+			if(event.keyCode !== 16 && event.keyCode != 91 && event.keyCode != 93 ) {
 				if(event.keyCode == 46 || event.keyCode == 8) {
 					fill.value = currentVal.substring(0,currentVal.length-1) + 'test';
 				} else {
