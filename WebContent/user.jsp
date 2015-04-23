@@ -1,22 +1,44 @@
+<%@page import="sql.UserDataManager"%>
+<%@page import="sql.User"%>
+
+<%
+	User user = null;
+	String fbID = request.getParameter("id");
+	
+	fbID = "12rehfdsu2j34f1d4";
+	
+	
+	if (fbID != null) {
+		user = UserDataManager.getUser(fbID);
+	} else {
+		String redirectURL = "/troho/404.html";
+    	response.sendRedirect(redirectURL);
+	}
+%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
 
-<link rel="stylesheet" href="css/header-bar.css">
+<link rel="stylesheet" href="css/home.css">
 <link rel="stylesheet" href="css/user.css">
+<link href="css/header-bar.css" rel="stylesheet">
 <link href="css/bootstrap.min.css" rel="stylesheet">
-	<script src="js/customFB.js">
-	</script>
+
 </head>
 
-<body>	
-	<div class = "header">
-		<div>
-			<!-- <img src = "./img/troho-high-res.png" style = "height:80px"/> -->
-			<img src = "./img/new-troho.png" style = "height:80px"/>
+<body>
+
+	<script src="js/customFB.js">
+	</script>
+	
+	<div class="header">
+		<div id="troho-logo">
+			<a href="index.jsp"><img id="home-logo" src="./img/new-troho.png" /></a>
 		</div>
 
-		<div class = "log-div">
+		<div class="log-div">
 			<div id="log-in-sequence" onclick="logIn()" style="display: none">
 				<div id="log-in-message">Log in with Facebook</div>
 				<img id="log-in-button" src="./img/FacebookIcon.png" />
@@ -34,17 +56,14 @@
 	<div class = "container-fluid">
 		<div class = "row" style = "margin-top:120px; min-height:380px;">
 			<div class = "col-sm-4 user-image-container">
-				<div class = "user-image-wrapper">
-				</div>
+				<img id="user-image" src="<%= user.imageURL %>">	
 			</div>
 
 			<div class = "col-sm-8 user-info-container">
 				<div style = "text-align:center">
-					<p style = "font-size:40px"> Calvin LeGassick
-					</p>
+					<p style = "font-size:40px"> <%= user.name %> </p>
 
-					<p style = "font-size:24px"> legassic@usc.edu
-					</p>
+					<p style = "font-size:24px"> <%= user.email %> </p>
 
 					<p style = "font-size:18px"> Off-campus Housing
 					</p>

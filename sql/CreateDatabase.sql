@@ -27,8 +27,9 @@ CREATE TABLE HousingLocations (
 
 CREATE TABLE Users (
   facebookID varchar(50) PRIMARY KEY NOT NULL,
-  userName varchar(50) NOT NULL,
+  name varchar(50) NOT NULL,
   email varchar(50) NOT NULL,
+  imageURL varchar(500) NOT NULL,
   housingKey int(10),
   isAdmin bool NOT NULL,
   verifiedEmail bool NOT NULL,

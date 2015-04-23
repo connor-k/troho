@@ -8,9 +8,8 @@
 
 <% 
 	String name = request.getParameter("name");
-	//HousingDataManager hdm = new HousingDataManager();
     HousingLocation location = HousingDataManager.getHousingLocation(name);
-    if (location == null) {
+    if (name == null) {
     	System.out.println("In if");
  		String redirectURL = "/troho/404.html";
     	response.sendRedirect(redirectURL);
@@ -72,7 +71,7 @@
 	<!-- Page Header -->
 	<div class="header">
 		<div id="troho-logo">
-			<img src="./img/new-troho.png" style="height: 80px" />
+			<a href="index.jsp"><img id="home-logo" src="./img/new-troho.png" /></a>
 		</div>
 
 		<div class="log-div">
@@ -354,51 +353,6 @@
                     }
 					
 					%>
-                    <div class="col-lg-12 single-review">
-
-                        <div class = "reviewer-info-row">
-                            <div class = "reviewer-image-and-name">
-                                
-                                <div class = "reviewer-image-wrapper">
-                                <img src = "./img/CalvinHackSC.jpg" class = "reviewer-image"/>
-                                </div>
-
-
-                                <div class = "reviewer-username">
-                                    <div class = "reviewer-username-row">
-                                        <div class = "reviewer-username-cell">
-                                        Calvin LeGassick
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <p class="scrolling-description-row">Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
-
-                    <div class="col-lg-12 single-review">
-
-                        <div class = "reviewer-info-row">
-                            <div class = "reviewer-image-and-name">
-                                
-                                <div class = "reviewer-image-wrapper">
-                                <img src = "./img/CalvinHackSC.jpg" class = "reviewer-image"/>
-                                </div>
-
-
-                                <div class = "reviewer-username">
-                                    <div class = "reviewer-username-row">
-                                        <div class = "reviewer-username-cell">
-                                        Calvin LeGassick
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <p class="scrolling-description-row">Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        </div>
                     </div>
                  <div class = "col-lg-1 col-md-0" ></div>
             </div>

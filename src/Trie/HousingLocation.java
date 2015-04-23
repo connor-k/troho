@@ -3,7 +3,7 @@
  * Description: Combines all relevant data for a housing location.
  */
 
-package sql;
+package Trie;
 
 public class HousingLocation {
 	/** The SQL key for this housing location */
@@ -16,6 +16,16 @@ public class HousingLocation {
 	public String description;
 	public String imageURL;
 	public String floorplanURL;
+<<<<<<< HEAD:src/Trie/HousingLocation.java
+	public String[] gpsCoordinates;
+	public String distanceToCampus;
+	public int overallScore;
+	public int managementScore;
+	public int amenitiesScore;
+	public int locationScore;
+	public int noiseScore;
+	public int communityChillFactorScore;
+=======
 	public String gpsLatitude;
 	public String gpsLongitude;
 	public int minutesWalking;
@@ -26,6 +36,7 @@ public class HousingLocation {
 	public double locationScore;
 	public double noiseScore;
 	public double communityChillFactorScore;
+>>>>>>> master:src/sql/HousingLocation.java
 	public double averageRent;
 
 	/** Reviews for this location */
@@ -56,3 +67,6 @@ public class HousingLocation {
 				+ "\n average rent: " + averageRent + formatReviews();
 	}
 }
+
+
+

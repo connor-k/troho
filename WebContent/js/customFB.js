@@ -95,6 +95,11 @@
 				console.log(response.data.url);
  				document.getElementById('profile-image').setAttribute("src", response.data.url);
 			});
+			
+			FB.api('/me/picture', function(response) {
+				console.log(response.data.url);
+ 				document.getElementById('profile-image').setAttribute("src", response.data.url);
+			});
 		}
 		
 		function updateHeaderNotLoggedIn() {
@@ -109,4 +114,6 @@
 		}
 		function goToUser() {
 			console.log("IMPLEMENT THIS FUNCTION");
+			// create servlet to do this
+			// send FB id with page
 		}

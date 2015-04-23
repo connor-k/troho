@@ -1,4 +1,4 @@
-package sql;
+package Trie;
 
 public enum HousingType {
 	APARTMENT, DORM, HOUSE
