@@ -1,5 +1,6 @@
 <%@page import="sql.UserDataManager"%>
 <%@page import="sql.User"%>
+
 <%
 	User user = null;
 	String fbID = request.getParameter("id");
@@ -22,18 +23,25 @@
 
 </head>
 
-<body>	
-	<div class = "header">
+<body>
+
+	<script src="js/customFB.js">
+	</script>
+	
+	<div class="header">
 		<div>
-			<!-- <img src = "./img/troho-high-res.png" style = "height:80px"/> -->
-			<img src = "./img/new-troho.png" style = "height:80px"/>
+			<img src="./img/new-troho.png" style="height: 80px" />
 		</div>
 
-		<div class = "log-div">
-			<div id = "log-in">Log in with Facebook</div>
-			<img src = "./img/FacebookIcon.png" style = "height:40px;border-radius:10px;"/>
-			<!-- <div id = "log-in-line"></div> -->
-			<!-- <div id = "sign-up"></div> -->
+		<div class="log-div">
+			<div id="log-in-sequence" onclick="logIn()" style="display: none">
+				<div id="log-in-message">Log in with Facebook</div>
+				<img id="log-in-button" src="./img/FacebookIcon.png" />
+			</div>
+			<div id="user-sequence" onclick="goToUser()">
+				<div class="welcome" id="welcome-message"></div>
+				<img id="profile-image" src=" "></img>
+			</div>
 		</div>
 
 	</div>
