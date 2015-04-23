@@ -34,7 +34,7 @@
 	</script>
 	
 	<div class="header">
-		<div>
+		<div id="troho-logo">
 			<a href="index.jsp"><img id="home-logo" src="./img/new-troho.png" /></a>
 		</div>
 

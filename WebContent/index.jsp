@@ -28,7 +28,7 @@
 	<!-- Page Header -->
 	<div class="header">
 		<div id="troho-logo">
-			<img src="./img/new-troho.png" style="height: 80px" />
+			<a href="index.jsp"><img id="home-logo" src="./img/new-troho.png" /></a>
 		</div>
 
 		<div class="log-div">
