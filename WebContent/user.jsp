@@ -1,12 +1,25 @@
+<%@page import="sql.UserDataManager"%>
+<%@page import="sql.User"%>
+<%
+	User user = null;
+	String fbID = request.getParameter("id");
+	if (fbID != null) {
+		user = UserDataManager.getUser(fbID);
+	} else {
+		String redirectURL = "/troho/404.html";
+    	response.sendRedirect(redirectURL);
+	}
+%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
 
-<link rel="stylesheet" href="css/header-bar.css">
+<link rel="stylesheet" href="css/home.css">
 <link rel="stylesheet" href="css/user.css">
 <link href="css/bootstrap.min.css" rel="stylesheet">
-	<script src="js/customFB.js">
-	</script>
+
 </head>
 
 <body>	
@@ -17,14 +30,10 @@
 		</div>
 
 		<div class = "log-div">
-			<div id="log-in-sequence" onclick="logIn()" style="display: none">
-				<div id="log-in-message">Log in with Facebook</div>
-				<img id="log-in-button" src="./img/FacebookIcon.png" />
-			</div>
-			<div id="user-sequence" onclick="goToUser()">
-				<div class="welcome" id="welcome-message"></div>
-				<img id="profile-image" src=" "></img>
-			</div>
+			<div id = "log-in">Log in with Facebook</div>
+			<img src = "./img/FacebookIcon.png" style = "height:40px;border-radius:10px;"/>
+			<!-- <div id = "log-in-line"></div> -->
+			<!-- <div id = "sign-up"></div> -->
 		</div>
 
 	</div>
@@ -514,8 +523,12 @@
   		google.maps.event.addDomListener(window, 'load', initialize);
 
 	</script>
+<<<<<<< HEAD
 	<script src="js/customFB.js">
 	</script>
+=======
+
+>>>>>>> f820492e34dc45af7f3d067d8d60bf53f981c3ff
 </body>
 
 </html>
