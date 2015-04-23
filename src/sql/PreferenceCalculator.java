@@ -1,4 +1,4 @@
-package Trie;
+package sql;
 
 import java.util.Vector;
 

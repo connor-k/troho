@@ -6,6 +6,8 @@ import java.util.Scanner;
 import java.util.TreeSet;
 import java.util.Vector;
 
+import sql.HousingLocation;
+
 //////////////////////////////////////////////////////////////
 //
 //I'm sorry this class is such a mess. It took a lot of trial

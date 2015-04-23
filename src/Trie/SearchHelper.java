@@ -3,6 +3,9 @@ package Trie;
 import java.util.Iterator;
 import java.util.Vector;
 
+import sql.HousingLocation;
+import sql.HousingType;
+
 public class SearchHelper {
 	HousingComparator myHouseComp;
 	private Trie myTrie;

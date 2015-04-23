@@ -3,7 +3,8 @@
  * Description: Combines all relevant data for a user.
  */
 
-package Trie;
+package sql;
+
 
 
 public class User {
@@ -24,9 +25,9 @@ public class User {
 	public int communityChillFactorSurveyScore;
 	public Review[] reviewsWritten;
 	public String[] friendIDs;
+
+	public String facebookID;
 	
-<<<<<<< HEAD:src/Trie/User.java
-=======
 	/** Overrides toString
 	 * @Override
 	 * @return String representation of User object
@@ -40,6 +41,5 @@ public class User {
 				+ reviewsWritten + "\n friends: " + friendIDs + "\n location: " 
 				+ currentLocation.locationName;
 	}
-	
->>>>>>> master:src/sql/User.java
+
 }
