@@ -6,6 +6,7 @@
 
 package sql;
 
+
 public class DataManagerTest {
 	/** Test the UserDataManager
 	 * Test looking up users, creating new users, and setting location & survey points

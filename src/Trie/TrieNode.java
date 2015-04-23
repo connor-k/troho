@@ -5,6 +5,8 @@ import java.util.ListIterator;
 import java.util.Set;
 import java.util.Vector;
 
+import sql.HousingLocation;
+
 //This class is also a mess that will be cleaned up
 //just focus on searchHelper, I tried to make that one user
 //friendly so no one would have to deal with the basic data

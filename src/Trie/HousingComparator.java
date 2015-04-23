@@ -2,6 +2,8 @@ package Trie;
 
 import java.util.Comparator;
 
+import sql.HousingLocation;
+
 //comparator class that compares houses based on user preferences, used for sorting
 class HousingComparator implements Comparator<HousingLocation> {
 	private int managementScore;
