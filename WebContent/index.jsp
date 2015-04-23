@@ -165,17 +165,40 @@
 		$('#search').on('keydown', function(event) {
 			console.log(event.keyCode);
 			var fill = document.getElementById('fill-in');
-			var c = String.fromCharCode(event.which).toLowerCase();
+			//var c = String.fromCharCode(event.which).toLowerCase();
 			
 			var currentVal = $('#search').val();
 			
-			if(event.keyCode !== 16 && event.keyCode != 91 && event.keyCode != 93 ) {
+			/*if(event.keyCode !== 16 && event.keyCode != 91 && event.keyCode != 93 ) {
 				if(event.keyCode == 46 || event.keyCode == 8) {
 					fill.value = currentVal.substring(0,currentVal.length-1) + 'test';
 				} else {
 					fill.value = currentVal + c + 'test';
 				}
-			}
+			}*/
+			
+			var string = "";
+			/*var posting = $.post( 'http://localhost:8080/troho/AutoFillGuess', function( data ) {
+		
+				  	if(currentVal.length < 1) {
+						fill.value = "";
+					} else {
+						fill.value = data;
+					}
+				  	
+				  	console.log("DATA: " + data);
+			});*/
+			
+			/*var posting = $.post( 'http://localhost:8080/troho/AutoFillGuess', currentVal);
+			
+			posting.done( function( data ) {
+				
+			  	if(currentVal.length < 1) {
+					fill.value = "";
+				} else {
+					fill.value = data;
+				}
+			});*/
 			
 			
 			
@@ -187,14 +210,26 @@
 			
 			var currentVal = $('#search').val();
 			
-			if(currentVal.length < 1) {
+			/*if(currentVal.length < 1) {
 				fill.value = "";
-			}
+			}*/
 			
-			var xmlhttp = new XMLHttpRequest();
+			/*var xmlhttp = new XMLHttpRequest();
 			xmlhttp.open("POST","http://localhost:8080/troho/AutoFillGuess",true);
 			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			xmlhttp.send(currentVal);
+			xmlhttp.send(currentVal);*/
+			
+			var posting = $.post( 'http://localhost:8080/troho/AutoFillGuess', currentVal);
+			
+			posting.done( function( data ) {
+				
+			  	if(currentVal.length < 1) {
+					fill.value = "";
+				} else {
+					fill.value = data;
+				}
+			});
+
 
 		});
 

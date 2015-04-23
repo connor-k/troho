@@ -29,11 +29,11 @@ import sql.HousingLocation;
 public class Trie {
 	TrieNode head = new TrieNode();
 	
-	Trie() {
+	public Trie() {
 		head = new TrieNode();
 	}
 	
-	Trie(Vector<HousingLocation> houses) {
+	public Trie(Vector<HousingLocation> houses) {
 		for(int i = 0; i < houses.size(); i++) {
 			add(houses.get(i));
 		}
