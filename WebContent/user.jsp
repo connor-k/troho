@@ -4,6 +4,10 @@
 <%
 	User user = null;
 	String fbID = request.getParameter("id");
+	
+	fbID = "12rehfdsu2j34f1d4";
+	
+	
 	if (fbID != null) {
 		user = UserDataManager.getUser(fbID);
 	} else {
@@ -19,6 +23,7 @@
 
 <link rel="stylesheet" href="css/home.css">
 <link rel="stylesheet" href="css/user.css">
+<link href="css/header-bar.css" rel="stylesheet">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
 </head>
@@ -57,11 +62,9 @@
 
 			<div class = "col-sm-8 user-info-container">
 				<div style = "text-align:center">
-					<p style = "font-size:40px"> Calvin LeGassick
-					</p>
+					<p style = "font-size:40px"> <%= user.name %> </p>
 
-					<p style = "font-size:24px"> legassic@usc.edu
-					</p>
+					<p style = "font-size:24px"> <%= user.email %> </p>
 
 					<p style = "font-size:18px"> Off-campus Housing
 					</p>
@@ -531,12 +534,7 @@
   		google.maps.event.addDomListener(window, 'load', initialize);
 
 	</script>
-<<<<<<< HEAD
-	<script src="js/customFB.js">
-	</script>
-=======
 
->>>>>>> f820492e34dc45af7f3d067d8d60bf53f981c3ff
 </body>
 
 </html>

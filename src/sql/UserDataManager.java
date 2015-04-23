@@ -175,7 +175,7 @@ public class UserDataManager {
 				// Set basic information
 				user = new User();
 				user.facebookID = facebookID;
-				user.name = rs.getString("userName");
+				user.name = rs.getString("name");
 				user.email = rs.getString("email");
 				user.verifiedEmail = rs.getBoolean("verifiedEmail");
 				user.isAdmin = rs.getBoolean("isAdmin");
