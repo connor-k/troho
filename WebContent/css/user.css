@@ -19,15 +19,6 @@
 	//border-radius: 300px;
 }
 
-.user-image-wrapper {
-	width: 300px;
-	height: 300px;
-	border-radius: 150px;
-	/* background: url(../img/calvin.jpg) no-repeat; */
-	position: relative;
-	margin:auto;
-}
-
 #user-image {
 	width: 300px;
 	height: 300px;

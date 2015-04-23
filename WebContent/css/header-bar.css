@@ -13,11 +13,6 @@
 	z-index: 100;
 }
 
-/* .headbar {
-	position: relative;
-	top-margin:50px;
-} */
-
 .house-image {
 	//width:100%;
 	width:340px;
@@ -34,6 +29,13 @@
 	background-color: #c0504d;
 	margin-bottom:0;
 	padding-bottom: 0;
+}
+
+#home-logo {
+	height: 80px;
+	cursor: pointer;
+	cursor: hand;
+	
 }
 
 #welcome-message, #log-in-message, #sign-up {

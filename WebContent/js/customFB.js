@@ -114,4 +114,6 @@
 		}
 		function goToUser() {
 			console.log("IMPLEMENT THIS FUNCTION");
+			// create servlet to do this
+			// send FB id with page
 		}
