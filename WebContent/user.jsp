@@ -1,6 +1,5 @@
 <%@page import="sql.UserDataManager"%>
 <%@page import="sql.User"%>
-<<<<<<< HEAD
 <%
 	User user = null;
 	String fbID = request.getParameter("id");
@@ -11,9 +10,6 @@
     	response.sendRedirect(redirectURL);
 	}
 %>
-=======
-
->>>>>>> f820492e34dc45af7f3d067d8d60bf53f981c3ff
 
 
 <!DOCTYPE html>

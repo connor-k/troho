@@ -1,3 +1,7 @@
+<%@page import="sql.HousingDataManager"%>
+<%@page import="sql.HousingLocation"%>
+<%@page import="java.lang.String"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 
@@ -92,13 +96,18 @@
 				
 				<div class = "col-lg-10">
 				
-				<% %>
-				<a href="/troho/house.jsp?name=Gateway%20Apartments">
+				<% 
+					HousingLocation[] houses = HousingDataManager.getAllHousingLocations();
+					for (int i = 0; i < houses.length && i < 4; i++) {
+						HousingLocation location = houses[i];
+					
+				%>
+				<a href="/troho/house.jsp?name=<%= location.locationName%>">
 					<div class = "col-lg-3"> 
 						<div class = "house-card">
-						<img src="./img/gateway.jpeg" height="200" width="200"></img>
+						<img src="<%=location.imageURL%>" height="200" width="200"></img>
 						</div>
-						<p class = "house-title">Gateway</p>
+						<p class = "house-title"><%=location.locationName %></p>
 						<div class = "star-container">
 							<img src = "./img/star.png" class = "star"/>
 							<img src = "./img/star.png" class = "star"/>
@@ -106,40 +115,9 @@
 						</div>
 					</div>
 				</a>
-					<a href="/troho/house.jsp?name=Icon%20Plaza">
-					<div class = "col-lg-3"> 
-						<div class = "house-card"></div>
-						<p class = "house-title">Icon Plaza</p>
-						<div class = "star-container">
-							<img src = "./img/star.png" class = "star"/>
-							<img src = "./img/star.png" class = "star"/>
-							<img src = "./img/star.png" class = "star"/>
-						</div>
-					</div>
-					</a>
-					<a href="/troho/house.jsp?name=Cardinal%20Gardens">
-					<div class = "col-lg-3"> 
-						<div class = "house-card"></div>
-						<p class = "house-title">Cardinal Gardens</p>
-						<div class = "star-container">
-							<img src = "./img/star.png" class = "star"/>
-							<img src = "./img/star.png" class = "star"/>
-							<img src = "./img/star.png" class = "star"/>
-						</div>
-					</div>
-					</a>
-					<a href="/troho/house.jsp?name=Trojan%20Hall">
-					<div class = "col-lg-3"> 
-						<div class = "house-card"></div>
-						<p class = "house-title">Trojan Hall</p>
-						<div class = "star-container">
-							<img src = "./img/star.png" class = "star"/>
-							<img src = "./img/star.png" class = "star"/>
-							<img src = "./img/star.png" class = "star"/>
-							<img src = "./img/star.png" class = "star"/>
-						</div>
-					</div>
-					</a>
+				<%
+					}
+				%>
 				</div>
 				<div class = "col-lg-1">
 				</div>
