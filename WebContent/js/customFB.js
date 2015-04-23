@@ -95,6 +95,11 @@
 				console.log(response.data.url);
  				document.getElementById('profile-image').setAttribute("src", response.data.url);
 			});
+			
+			FB.api('/me/picture', function(response) {
+				console.log(response.data.url);
+ 				document.getElementById('profile-image').setAttribute("src", response.data.url);
+			});
 		}
 		
 		function updateHeaderNotLoggedIn() {

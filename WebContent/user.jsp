@@ -56,8 +56,7 @@
 	<div class = "container-fluid">
 		<div class = "row" style = "margin-top:120px; min-height:380px;">
 			<div class = "col-sm-4 user-image-container">
-				<div class = "user-image-wrapper">
-				</div>
+				<img id="user-image" src="<%= user.imageURL %>">	
 			</div>
 
 			<div class = "col-sm-8 user-info-container">
