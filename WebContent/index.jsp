@@ -46,9 +46,9 @@
 
 		<div class = "row" style = "margin-top:160px;">
 
-			<div class = "col-md-4"></div>
+			<div class = "col-lg-4"></div>
 
-			<div class = "search-container col-md-4">
+			<div class = "search-container col-lg-4">
 				<div style = "color:#ffcc00; font-size:30px; text-align:center">We help Trojans find Housing</div>
 				<br>
 				<br>
@@ -73,7 +73,7 @@
 
 			</div>
 
-			<div class = "col-md-4"></div>
+			<div class = "col-lg-4"></div>
 
 		</div>
 
@@ -163,74 +163,49 @@
 		})
 		
 		$('#search').on('keydown', function(event) {
-			console.log(event.keyCode);
-			var fill = document.getElementById('fill-in');
-			//var c = String.fromCharCode(event.which).toLowerCase();
+			var fill = document.getElementById('fill-in');			
+			var currentVal = document.getElementById('search');
+			var string = currentVal.value + String.fromCharCode(event.keyCode);
 			
-			var currentVal = $('#search').val();
+			console.log(string);
+			//console.log(currentVal.value);
 			
-			/*if(event.keyCode !== 16 && event.keyCode != 91 && event.keyCode != 93 ) {
+			if(event.keyCode !== 16 && event.keyCode != 91 && event.keyCode != 93 ) {
+				
 				if(event.keyCode == 46 || event.keyCode == 8) {
-					fill.value = currentVal.substring(0,currentVal.length-1) + 'test';
-				} else {
-					fill.value = currentVal + c + 'test';
-				}
-			}*/
-			
-			var string = "";
-			/*var posting = $.post( 'http://localhost:8080/troho/AutoFillGuess', function( data ) {
-		
-				  	if(currentVal.length < 1) {
-						fill.value = "";
+					console.log(string.length);
+					if(string.length <= 2) {
+						fill.value = " ";
 					} else {
-						fill.value = data;
+						
+						var posting = $.post( 'http://localhost:8080/troho/AutoFillGuess', string.substring(0,string.length-2));
+						
+						posting.done( function( data ) {
+							
+						  	if(data.length > 1) {
+						  		fill.value = data;
+						  	} else {
+						  		fill.value = " ";
+						  	}
+						  	
+						});
+						
 					}
-				  	
-				  	console.log("DATA: " + data);
-			});*/
-			
-			/*var posting = $.post( 'http://localhost:8080/troho/AutoFillGuess', currentVal);
-			
-			posting.done( function( data ) {
-				
-			  	if(currentVal.length < 1) {
-					fill.value = "";
 				} else {
-					fill.value = data;
+					var posting = $.post( 'http://localhost:8080/troho/AutoFillGuess', string);
+					
+					posting.done( function( data ) {
+						
+					  	if(data.length > 1) {
+					  		fill.value = data;
+					  	} else {
+					  		fill.value = " ";
+					  	}
+					  	
+					});
 				}
-			});*/
+			}
 			
-			
-			
-		});
-		
-		$('#search').on('keyup', function(event) {
-			var fill = document.getElementById('fill-in');
-			var c = String.fromCharCode(event.which).toLowerCase();
-			
-			var currentVal = $('#search').val();
-			
-			/*if(currentVal.length < 1) {
-				fill.value = "";
-			}*/
-			
-			/*var xmlhttp = new XMLHttpRequest();
-			xmlhttp.open("POST","http://localhost:8080/troho/AutoFillGuess",true);
-			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			xmlhttp.send(currentVal);*/
-			
-			var posting = $.post( 'http://localhost:8080/troho/AutoFillGuess', currentVal);
-			
-			posting.done( function( data ) {
-				
-			  	if(currentVal.length < 1) {
-					fill.value = "";
-				} else {
-					fill.value = data;
-				}
-			});
-
-
 		});
 
     </script>
