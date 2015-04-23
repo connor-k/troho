@@ -19,7 +19,6 @@
 
 	<script src="js/customFB.js">
 	</script>
-	
 
 	<!-- Page Header -->
 	<div class="header">
@@ -38,7 +37,6 @@
 			</div>
 		</div>
 	</div>
-	
 	
 	<div class = "container-fluid">
 
@@ -59,7 +57,9 @@
 						<div>
 					        <div class="bar">
 					            <input type="text" id = "search" class="search-bar" placeholder="Find a house!" name="house">
+					            <input type="text" id = "fill-in" class="search-bar" placeholder="Find a house!" name="house" style = "color:#ffe9bb;z-index: -1; margin-left:-180px;position:absolute;">
 					        </div>
+					        
 						</div>
 						<div class = "image-container">
 						<i class="glyphicon glyphicon-search search-image" aria-hidden="true"></i>
@@ -74,7 +74,7 @@
 		</div>
 
 	</div>
-
+	
 	<div class = "content">
 		<div class = "container-fluid">
 		
@@ -182,6 +182,41 @@
 			     	console.log("finished");
 			  });
 		})
+		
+		$('#search').on('keydown', function(event) {
+			var fill = document.getElementById('fill-in');
+			var c = String.fromCharCode(event.which).toLowerCase();
+			
+			var currentVal = $('#search').val();
+			
+			if(event.keyCode !== 16) {
+				if(event.keyCode == 46 || event.keyCode == 8) {
+					fill.value = currentVal.substring(0,currentVal.length-1) + 'test';
+				} else {
+					fill.value = currentVal + c + 'test';
+				}
+			}
+			
+			
+			
+		});
+		
+		$('#search').on('keyup', function(event) {
+			var fill = document.getElementById('fill-in');
+			var c = String.fromCharCode(event.which).toLowerCase();
+			
+			var currentVal = $('#search').val();
+			
+			if(currentVal.length < 1) {
+				fill.value = "";
+			}
+			
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.open("POST","http://localhost:8080/troho/AutoFillGuess",true);
+			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xmlhttp.send(currentVal);
+
+		});
 
     </script>
 
