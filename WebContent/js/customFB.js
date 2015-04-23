@@ -85,16 +85,20 @@
 		// successful.  See statusChangeCallback() for when this call is made.
 		function updateHeaderSuccessfulLogIn() {
 			document.getElementById('log-in-sequence').style.display = "none";
-			
+			var name = null;
+			var imgURL = null;
 			FB.api('/me', function(response) {
 				document.getElementById('user-sequence').style.display = "inline";
 				document.getElementById('welcome-message').innerHTML = 'Welcome ' + response.name + '!';
+				name = response.name;
 			});
 			
 			FB.api('/me/picture', function(response) {
 				console.log(response.data.url);
  				document.getElementById('profile-image').setAttribute("src", response.data.url);
+ 				imgURL = response.data.url;
 			});
+			createUser(name, imgURL);
 		}
 		
 		function updateHeaderNotLoggedIn() {
@@ -109,4 +113,11 @@
 		}
 		function goToUser() {
 			console.log("IMPLEMENT THIS FUNCTION");
+		}
+		
+		function createUser(name, imgURL) {
+			$.getJSON('http://localhost:8080/troho/FirstServlet', function (data) {
+		     	alert(name);
+		     	console.log("finished");
+		  });
 		}
