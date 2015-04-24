@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <display-name>troho</display-name>
+<!--   <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list> -->
+<!--  <servlet>
+    <servlet-name>indexJSP</servlet-name>
+    <jsp-file>/index.jsp</jsp-file>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>indexJSP</servlet-name>
+    <url-pattern>/index.html</url-pattern>   
+</servlet-mapping>
+<servlet-mapping>
+    <servlet-name>indexJSP</servlet-name>
+    <url-pattern>/</url-pattern>   
+</servlet-mapping>
+
+
+<servlet>
+    <servlet-name>houseJSP</servlet-name>
+    <jsp-file>/house.jsp</jsp-file>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>houseJSP</servlet-name>
+    <url-pattern>/house.html</url-pattern>   
+</servlet-mapping>
+ -->
+
+<!-- <servlet>
+    <servlet-name>userJSP</servlet-name>
+    <jsp-file>/user.jsp</jsp-file>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>userJSP</servlet-name>
+    <url-pattern>/user.html</url-pattern>   
+</servlet-mapping>
+
+
+<servlet>
+    <servlet-name>searchJSP</servlet-name>
+    <jsp-file>/search.jsp</jsp-file>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>searchJSP</servlet-name>
+    <url-pattern>/search.html</url-pattern>   
+</servlet-mapping> -->
+</web-app> 
