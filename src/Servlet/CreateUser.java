@@ -56,7 +56,7 @@ public class CreateUser extends HttpServlet {
 		String fbID =request.getParameter("fbID"); 
 		String email = request.getParameter("email");
 		System.out.println(email);
-		UserDataManager.createUser(name, email, 1, fbID);
+		UserDataManager.createUser(name, email, imgURL, fbID);
 	}
 
 }
