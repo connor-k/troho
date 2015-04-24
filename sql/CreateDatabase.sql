@@ -33,6 +33,7 @@ CREATE TABLE Users (
   housingKey int(10),
   isAdmin bool NOT NULL,
   verifiedEmail bool NOT NULL,
+  validationKey varchar(50),
   FOREIGN KEY (housingKey) REFERENCES HousingLocations(housingKey)
 );
 

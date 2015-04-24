@@ -13,8 +13,8 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 
 public class ReviewDataManager {
-	/** Store a review in the db
-	 * @param housingKey The location this review is for
+	/** Store a review in the db, with housing location set by the key
+	 * @param housingKey The key of the location this review is for
 	 * @param facebookID The user who's writing this review
 	 * @param comment The text comment associated with the review
 	 * @param ratings The integer scores given to each review category
@@ -91,6 +91,17 @@ public class ReviewDataManager {
 				conn.close();
 			} catch (SQLException e) { /* Do nothing */ }
 		}
+	}
+	
+	/** Store a review in the db, with housing location set by the name
+	 * @param housingName The name of the location this review is for
+	 * @param facebookID The user who's writing this review
+	 * @param comment The text comment associated with the review
+	 * @param ratings The integer scores given to each review category
+	 * @param rent The rent paid by the user (currently optional)
+	 */
+	public static void createReview(String housingName, String facebookID, String comment, String[] ratings, String rent) {
+		createReview(HousingDataManager.getHousingKey(housingName), facebookID, comment, ratings, rent);
 	}
 
 	/** 

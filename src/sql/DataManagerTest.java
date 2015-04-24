@@ -20,7 +20,9 @@ public class DataManagerTest {
 		System.out.println(alex);
 		// Verify that user (email valid).
 		if (alex != null) {
-			UserDataManager.verifyEmail(alex.facebookID);
+			UserDataManager.setValidationKey(alex.facebookID, "321refasdlfkja");
+			// They get email with URL containing that code, servlet calls:
+			UserDataManager.verifyEmail(alex.facebookID, "321refasdlfkja");
 		}
 
 		// Add friends
@@ -53,7 +55,8 @@ public class DataManagerTest {
 		System.out.println(adminUser);
 		// Verify that user (email valid)
 		if (adminUser != null) {
-			UserDataManager.verifyEmail(adminUser.facebookID);
+			UserDataManager.setValidationKey(adminUser.facebookID, "A9ieFSDjfalsd");
+			UserDataManager.verifyEmail(adminUser.facebookID, "A9ieFSDjfalsd");
 			adminUser = UserDataManager.getUser(adminUser.facebookID);
 			System.out.println(adminUser);
 		}
