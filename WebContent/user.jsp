@@ -4,10 +4,7 @@
 <%
 	User user = null;
 	String fbID = request.getParameter("id");
-	
-	fbID = "12rehfdsu2j34f1d4";
-	
-	
+		
 	if (fbID != null) {
 		user = UserDataManager.getUser(fbID);
 	} else {
@@ -15,7 +12,6 @@
     	response.sendRedirect(redirectURL);
 	}
 %>
-
 
 <!DOCTYPE html>
 <html>
