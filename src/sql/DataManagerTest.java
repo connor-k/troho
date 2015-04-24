@@ -16,7 +16,11 @@ public class DataManagerTest {
 
 		// Create a new user: pass the name, email, current housing location key, and Facebook id
 		System.out.println("Trying to create a new user with Facebook ID 2348hfdsu2j34f1d4");
+<<<<<<< HEAD
 		User alex = UserDataManager.createUser("NewUserAlex", "alex@asdf.asdf", "http://sparksc.org/img/coreteam/NeelBhoopalam.jpg", "2348hfdsu2j34f1d4");
+=======
+		User alex = UserDataManager.createUser("NewUserAlex", "alex@asdf.asdf", "", "2348hfdsu2j34f1d4");
+>>>>>>> f296f903e585dfdce95be616adefe32d9191a330
 		System.out.println(alex);
 		// Verify that user (email valid).
 		if (alex != null) {

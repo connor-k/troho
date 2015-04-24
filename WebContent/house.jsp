@@ -119,10 +119,6 @@
                      			for (int i = 0; i < location.overallScore; i++) {
                      	%>
                         <img src = "./img/star.png" class = "star"/>
-<!--                         <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/> -->
                         <%
                      			}
                      	}
@@ -139,10 +135,6 @@
                      			for (int i = 0; i < location.managementScore; i++) {
                      	%>
                         <img src = "./img/star.png" class = "star"/>
-<!--                         <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/> -->
                         <%
                      			}
                      	}
@@ -173,10 +165,6 @@
                      			for (int i = 0; i < location.communityChillFactorScore; i++) {
                      	%>
                         <img src = "./img/star.png" class = "star"/>
-<!--                         <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/> -->
                         <%
                      			}
                      	}
@@ -266,7 +254,13 @@
                     <div class = "col-lg-12" style = "padding-top: 8px; padding-bottom: 40px; font-size:20px; color:white; text-align:center">Write your own!</div>
                 </div>
             </div>
-
+            
+			<div class="row">
+				<div class ="col-lg-offset-1 col-lg-10 col-md-12">
+				<form id="reviewForm" method="post" action="/troho/review"></form>	
+				</div>
+			</div>
+			
             <div class = "row">
                 <div class = "col-lg-1 col-md-0" ></div>
                 <div class = "col-lg-10 col-md-12 filter-row" style = "padding: 0px">

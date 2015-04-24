@@ -85,15 +85,28 @@
 		// successful.  See statusChangeCallback() for when this call is made.
 		function updateHeaderSuccessfulLogIn() {
 			document.getElementById('log-in-sequence').style.display = "none";
-			
+			var name = null;
+			var imgURL = null;
+			var fbID = null;
+			var email = null;
 			FB.api('/me', function(response) {
 				document.getElementById('user-sequence').style.display = "inline";
 				document.getElementById('welcome-message').innerHTML = 'Welcome ' + response.name + '!';
+				name = response.name;
+				fbID = response.id;
+				email = response.email;
+//				console.log(name);
+				FB.api('/me/picture', function(response) {
+					console.log("Callback wooo");
+	 				imgURL = response.data.url;
+	 				createUser(name, imgURL, fbID, email);
+				});
 			});
 			
 			FB.api('/me/picture', function(response) {
 				console.log(response.data.url);
  				document.getElementById('profile-image').setAttribute("src", response.data.url);
+ 				imgURL = response.data.url;
 			});
 			
 			FB.api('/me/picture', function(response) {
@@ -116,4 +129,17 @@
 			console.log("IMPLEMENT THIS FUNCTION");
 			// create servlet to do this
 			// send FB id with page
+		}
+		
+		function createUser(name, imgURL, fbID, email) {
+			console.log("In CreateUser, " + name + imgURL)
+//			$.getJSON('http://localhost:8080/troho/CreateUser?name=', function (data) {
+//-		     	console.log("finished, I love it");
+//		  });
+			$.ajax({
+				  url: "/troho/CreateUser",
+				  type: "POST",
+				  data: {name : name, url:imgURL, fbID: fbID, email:email},
+				  dataType: "JSON"
+				});
 		}
