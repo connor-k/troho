@@ -30,7 +30,7 @@ public class UserDataManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
-			ps = conn.prepareStatement("INSERT INTO Users (name, profileURL, email, facebookID, isAdmin, verifiedEmail) VALUES (?, ?, ?, ?, false, false);");
+			ps = conn.prepareStatement("INSERT INTO Users (name, imageURL, email, facebookID, isAdmin, verifiedEmail) VALUES (?, ?, ?, ?, false, false);");
 			ps.setString(1, name);
 			ps.setString(2, profileImageURL);
 			ps.setString(3, email);
@@ -126,21 +126,56 @@ public class UserDataManager {
 		return user;
 	}
 
-	/** Verify the email of a user
+	/** Set validation key that's emailed to the user
 	 * @param facebookID SQL database key for this user
+	 * @param validationKey the validation key emailed to user
 	 */
-	public static void verifyEmail(String facebookID) {
+	public static void setValidationKey(String facebookID, String validationKey) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
-			ps = conn.prepareStatement("UPDATE Users SET verifiedEmail=true WHERE facebookID=?");
-			ps.setString(1, facebookID);
+			ps = conn.prepareStatement("UPDATE Users SET validationKey=? WHERE facebookID=?");
+			ps.setString(1, validationKey);
+			ps.setString(2, facebookID);
 			int result = ps.executeUpdate();
 			if (result == 0) {
-				System.out.println("UserDataManager.verifyEmail: FacebookID " 
+				System.out.println("UserDataManager.setValidationKey: FacebookID " 
 						+ facebookID + " not in database, no changes made.");
+			}
+		} catch (SQLException sqle) {
+			// Note if an invalid housingKey was passed in, 
+			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) { /* Do nothing */ }
+			try {
+				conn.close();
+			} catch (SQLException e) { /* Do nothing */ }
+		}
+	}
+	
+	/** Verify the email of a user, checking that the validation url matches the one assigned to them
+	 * @param facebookID SQL database key for this user
+	 * @param validationKey the validation key emailed to user
+	 */
+	public static void verifyEmail(String facebookID, String validationKey) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
+			ps = conn.prepareStatement("UPDATE Users SET verifiedEmail=true WHERE facebookID=? AND validationKey=?");
+			ps.setString(1, facebookID);
+			ps.setString(2, validationKey);
+			int result = ps.executeUpdate();
+			if (result == 0) {
+				System.out.println("UserDataManager.verifyEmail: FacebookID " + facebookID + " not "
+						+ "in database or didn't match validationKey, no changes made.");
 			}
 		} catch (SQLException sqle) {
 			// Note if an invalid housingKey was passed in, 
