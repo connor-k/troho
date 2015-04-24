@@ -117,7 +117,8 @@ public class DataManagerTest {
 
 		// Create review for that location
 		String[] ratings = {"5", "4", "5", "3", "5"};
-		ReviewDataManager.createReview(hl.housingKey, "12rehfdsu2j34f1d4", "Nice place to live, close to campus.", ratings, "1000");
+		boolean[] tags = {false, false, true, false, true, true};
+		ReviewDataManager.createReview(hl.housingKey, "12rehfdsu2j34f1d4", "Nice place to live, close to campus.", ratings, tags, "1000");
 		// Update hl to hold the new data
 		hl = HousingDataManager.getHousingLocation("Gateway Apartments");
 		System.out.println(hl);
