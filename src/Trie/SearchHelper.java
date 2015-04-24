@@ -1,24 +1,22 @@
 package Trie;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Vector;
 
 import sql.HousingLocation;
 import sql.HousingType;
+import sql.HousingDataManager;
 
 public class SearchHelper {
 	HousingComparator myHouseComp;
 	private Trie myTrie;
 	
-	//takes as argument vector of all housing locations in the
-	//database
-	SearchHelper(Vector<HousingLocation> addHouses) {
-		myTrie = new Trie(addHouses);
-	}
-	
-	//default constructor, starts with empty trie
+	//default constructor, starts with all houses in trie
 	SearchHelper() {
-		myTrie = new Trie();
+		HousingLocation [] houseArray = HousingDataManager.getAllHousingLocations();
+		Vector<HousingLocation> houses = new Vector<HousingLocation>(Arrays.asList(houseArray));
+		myTrie = new Trie(houses);
 	}
 	
 	//takes as argument a new housing location
@@ -29,9 +27,13 @@ public class SearchHelper {
 	
 	//takes as argument user preferences and a vector of houses
 	//sorts both of them based on predicted user preference
-	void sortHouses(int managementScore, int amenitiesScore, int locationScore,
-			int noiseScore, int communityChillFactorScore, Vector<HousingLocation> houses) {
+	void sortPruneHouses(int managementScore, int amenitiesScore, int locationScore,
+			int noiseScore, int communityChillFactorScore, String searchWords, 
+			int maxPrice, int maxDistance, boolean isHouse, boolean isDorm, 
+			boolean isApartment, int minRating) {
 		
+		Vector<HousingLocation> houses = findHouse(searchWords);
+		pruneHouses(maxPrice, maxDistance, isHouse, isDorm, isApartment, minRating, houses);
 		myHouseComp = new HousingComparator(managementScore, amenitiesScore, locationScore,
 				noiseScore, communityChillFactorScore);
 		houses.sort(myHouseComp);	
@@ -39,7 +41,7 @@ public class SearchHelper {
 	
 	//takes as argument cut-off preferences and all possible houses
 	//returns a vector of houses with only houses that fit the description
-	Vector<HousingLocation> pruneHouses(int maxPrice, int maxDistance, 
+	private Vector<HousingLocation> pruneHouses(int maxPrice, int maxDistance, 
 			boolean isHouse, boolean isDorm, boolean isApartment, int minRating,
 			Vector<HousingLocation> houses) {
 		Vector<HousingLocation> prunedHouses = houses;
