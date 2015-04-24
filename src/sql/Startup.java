@@ -20,7 +20,7 @@ public class Startup extends Thread {
 		Statement st = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/?user=root");
 			st = conn.createStatement();
 			fr = new FileReader(filename);
 			br = new BufferedReader(fr);
