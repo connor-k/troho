@@ -19,20 +19,20 @@ public class UserDataManager {
 	/** Create a new entry in the Users table
 	 * @param name The user's name
 	 * @param email The user's email address (@usc.edu)
-	 * @param housingKey The key for the housing location where they live 
+	 * @param profileImageURL URL to the user's profile image 
 	 * @param facebookID The Facebook ID to identify this user
 	 * @return The User created or that already existed in the db
 	 */
-	public static User createUser(String name, String email, int housingKey, String facebookID) {
+	public static User createUser(String name, String email, String profileImageURL, String facebookID) {
 		User user = null;
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
-			ps = conn.prepareStatement("INSERT INTO Users (name, housingKey, email, facebookID, isAdmin, verifiedEmail) VALUES (?, ?, ?, ?, false, false);");
+			ps = conn.prepareStatement("INSERT INTO Users (name, profileURL, email, facebookID, isAdmin, verifiedEmail) VALUES (?, ?, ?, ?, false, false);");
 			ps.setString(1, name);
-			ps.setInt(2, housingKey);
+			ps.setString(2, profileImageURL);
 			ps.setString(3, email);
 			ps.setString(4, facebookID);
 			// Catch this executeUpdate separately, if it happens is because duplicate facebookID or invalid housingKey
@@ -44,7 +44,8 @@ public class UserDataManager {
 				user.email = email;
 				user.verifiedEmail = false;
 				user.isAdmin = false;
-				user.currentLocation = HousingDataManager.getHousingLocation(housingKey);
+				user.currentLocation = null;
+				user.imageURL = profileImageURL;
 
 				// Create an entry for their survey with default values
 				try {
@@ -65,7 +66,7 @@ public class UserDataManager {
 				user.communityChillFactorSurveyScore = 5;
 			} catch (SQLException sqle) {
 				System.out.println("UserDataManager.createUser: duplicate facebookID " 
-						+ facebookID + " or invalid housingKey " + housingKey + ", no changes made");
+						+ facebookID + ", no changes made");
 			}
 		} catch (SQLException sqle) {
 			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
@@ -92,8 +93,8 @@ public class UserDataManager {
 	 * @param isAdmin true if this is an admin user
 	 * @return The User created or that already existed in the db
 	 */
-	public static User createUser(String name, String email, int housingKey, String facebookID, boolean isAdmin) {
-		User user = createUser(name, email, housingKey, facebookID);
+	public static User createUser(String name, String email, String profileImageURL, String facebookID, boolean isAdmin) {
+		User user = createUser(name, email, profileImageURL, facebookID);
 		if (user != null && isAdmin) {
 			Connection conn = null;
 			PreparedStatement ps = null;
