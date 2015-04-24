@@ -1,6 +1,9 @@
-package sql;
+package Trie;
 
 import java.util.Vector;
+
+import sql.HousingLocation;
+import sql.User;
 
 class HousingPref {
 	void setPref(HousingLocation house, int preference) {
