@@ -30,7 +30,7 @@ public class UserDataManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
-			ps = conn.prepareStatement("INSERT INTO Users (userName, housingKey, email, facebookID, isAdmin, verifiedEmail) VALUES (?, ?, ?, ?, false, false);");
+			ps = conn.prepareStatement("INSERT INTO Users (name, housingKey, email, facebookID, isAdmin, verifiedEmail) VALUES (?, ?, ?, ?, false, false);");
 			ps.setString(1, name);
 			ps.setInt(2, housingKey);
 			ps.setString(3, email);
