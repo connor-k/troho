@@ -14,6 +14,8 @@
  		String redirectURL = "/troho/404.html";
     	response.sendRedirect(redirectURL);
     }
+    System.out.println("Loading page");
+    System.out.println(location);
 %>
 
 
@@ -115,7 +117,9 @@
     				<p id="ratingTextBig">Overall Rating</p>
                     <div class = "star-container">
                         <% if (location != null) {
-                        	System.out.println("Score " + location.managementScore);
+                        	System.out.println("Management Score " + location.managementScore);
+                        	System.out.println(location);
+                 
                      			for (int i = 0; i < location.overallScore; i++) {
                      	%>
                         <img src = "./img/star.png" class = "star"/>
@@ -162,7 +166,7 @@
     				<p class="rating">Chill Rating</p>
                      <div class = "star-container" style = "display:inline-block; margin-left:15px; margin-top:3px; position:absolute;">
                         <% if (location != null) {
-                     			for (int i = 0; i < location.communityChillFactorScore; i++) {
+                     			for (int i = 0; i < location.noiseScore; i++) {
                      	%>
                         <img src = "./img/star.png" class = "star"/>
                         <%
