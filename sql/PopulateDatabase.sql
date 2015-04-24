@@ -6,7 +6,7 @@ INSERT INTO HousingLocations (housingType, locationName, textAddress, descriptio
 INSERT INTO HousingLocations (housingType, locationName, textAddress, description, imageURLs, floorplanURLs, gpsLatitude, gpsLongitude, minutesWalking, minutesBiking) VALUES (3, 'Gateway Apartments', '124 30th St', 'Most convenient apartment series. You get what you pay for.', './img/gateway.jpeg', 'path/to/floorplans', '0', '123', 10, 12);
 SELECT * FROM HousingLocations;
 
-INSERT INTO Users (name, housingKey, email, facebookID, imageURL, isAdmin, verifiedEmail) VALUES ('Steve Johnson', 1, 'steve@asdf.asdf', '2weuhfdsu2j34f1d4', 'http://sparksc.org/img/coreteam/NeelBhoopalam.jpg', false, true);
+INSERT INTO Users (name, housingKey, email, facebookID, imageURL, isAdmin, verifiedEmail) VALUES ('Steve Johnson', 1, 'steve@asdf.asdf', '10205327756926953', 'http://sparksc.org/img/coreteam/NeelBhoopalam.jpg', false, true);
 INSERT INTO Users (name, housingKey, email, facebookID, imageURL, isAdmin, verifiedEmail) VALUES ('Johnny Wang', 2, 'john@asdf.asdf', '12rehfdsu2j34f1d4','http://sparksc.org/img/coreteam/NeelBhoopalam.jpg', false, true);
 SELECT * FROM Users;
 

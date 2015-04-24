@@ -126,13 +126,17 @@
 				}, {scope: 'public_profile,user_friends, email'});
 		}
 		function goToUser() {
-			console.log("IMPLEMENT THIS FUNCTION");
-			// create servlet to do this
-			// send FB id with page
+			var fbID = null;
+			FB.api('/me', function(response) {
+				fbID = response.id;
+				console.log(fbID);
+				var site = "/troho/user.jsp?id=" + fbID;
+				window.open(site,"_self")
+			});
 		}
 		
 		function createUser(name, imgURL, fbID, email) {
-			console.log("In CreateUser, " + name + imgURL)
+//			console.log("In CreateUser, " + name + imgURL)
 //			$.getJSON('http://localhost:8080/troho/CreateUser?name=', function (data) {
 //-		     	console.log("finished, I love it");
 //		  });
