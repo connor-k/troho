@@ -259,7 +259,7 @@ public class UserDataManager {
 		return user;
 	}
 
-	/** 
+	/** Set the user's current location by location key 
 	 * @param facebookID SQL database key for this user
 	 * @param housingKey The housingKey for where this user lives. 
 	 */
@@ -296,6 +296,14 @@ public class UserDataManager {
 				conn.close();
 			} catch (SQLException e) { /* Do nothing */ }
 		}
+	}
+	
+	/** Set the user's current location by location name
+	 * @param facebookID SQL database key for this user
+	 * @param housingName The name of their location 
+	 */
+	public static void setLocation(String facebookID, String housingName) {
+		setLocation(facebookID, HousingDataManager.getHousingKey(housingName));
 	}
 
 	/** 
