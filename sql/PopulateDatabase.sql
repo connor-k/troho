@@ -19,7 +19,6 @@ INSERT INTO Surveys (facebookID, managementSurveyScore, amenitiesSurveyScore, lo
 SELECT * FROM Surveys;
 
 INSERT INTO Reviews (housingKey, facebookID, textComment, managementScore, amenitiesScore, locationScore, noiseScore, communityChillFactorScore, timeWritten) VALUES ('1', '2weuhfdsu2j34f1d4', 'my comment', '5', '5', '5', '4', '5', now());
+INSERT INTO Reviews (housingKey, facebookID, textComment, managementScore, amenitiesScore, locationScore, noiseScore, communityChillFactorScore, timeWritten) VALUES ('4', '2weuhfdsu2j34f1d4', 'I love Gateway, its awesome!', '5', '5', '5', '4', '5', now());
 SELECT * FROM Reviews;
-INSERT INTO Reviews (housingKey, facebookID, textComment, managementScore, amenitiesScore, locationScore, noiseScore, communityChillFactorScore, timeWritten) VALUES ('3', '2weuhfdsu2j34f1d4', 'I love Gateway, its awesome!', '5', '5', '5', '4', '5', now());
-
 
