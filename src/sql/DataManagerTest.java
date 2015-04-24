@@ -16,11 +16,13 @@ public class DataManagerTest {
 
 		// Create a new user: pass the name, email, current housing location key, and Facebook id
 		System.out.println("Trying to create a new user with Facebook ID 2348hfdsu2j34f1d4");
-		User alex = UserDataManager.createUser("NewUserAlex", "alex@asdf.asdf", "", "2348hfdsu2j34f1d4");
+		User alex = UserDataManager.createUser("NewUserAlex", "alex@asdf.asdf", "http://sparksc.org/img/coreteam/NeelBhoopalam.jpg", "2348hfdsu2j34f1d4");
 		System.out.println(alex);
 		// Verify that user (email valid).
 		if (alex != null) {
-			UserDataManager.verifyEmail(alex.facebookID);
+			UserDataManager.setValidationKey(alex.facebookID, "321refasdlfkja");
+			// They get email with URL containing that code, servlet calls:
+			UserDataManager.verifyEmail(alex.facebookID, "321refasdlfkja");
 		}
 
 		// Add friends
@@ -49,12 +51,15 @@ public class DataManagerTest {
 		// Create a new admin user: pass the name, email, current housing location key, and Facebook id, and true
 		System.out.println("Trying to create a new Admin user with Facebook ID 298o4ufjasid8ufi");
 		boolean isAdmin = true;
-		User adminUser = UserDataManager.createUser("NewAdminUser", "admin@asdf.asdf", "", "298o4ufjasid8ufi", isAdmin);
+		User adminUser = UserDataManager.createUser("NewAdminUser", "admin@asdf.asdf", "http://sparksc.org/img/coreteam/NeelBhoopalam.jpg", "298o4ufjasid8ufi", isAdmin);
 		System.out.println(adminUser);
 		// Verify that user (email valid)
-		UserDataManager.verifyEmail(adminUser.facebookID);
-		adminUser = UserDataManager.getUser(adminUser.facebookID);
-		System.out.println(adminUser);
+		if (adminUser != null) {
+			UserDataManager.setValidationKey(adminUser.facebookID, "A9ieFSDjfalsd");
+			UserDataManager.verifyEmail(adminUser.facebookID, "A9ieFSDjfalsd");
+			adminUser = UserDataManager.getUser(adminUser.facebookID);
+			System.out.println(adminUser);
+		}
 
 		System.out.println("Done testing UserDataManager class ---\n");
 	}
@@ -112,7 +117,7 @@ public class DataManagerTest {
 
 		// Create review for that location
 		String[] ratings = {"5", "4", "5", "3", "5"};
-		ReviewDataManager.createReview(hl.housingKey, "2weuhfdsu2j34f1d4", "Nice place to live, close to campus.", ratings, "1000");
+		ReviewDataManager.createReview(hl.housingKey, "12rehfdsu2j34f1d4", "Nice place to live, close to campus.", ratings, "1000");
 		// Update hl to hold the new data
 		hl = HousingDataManager.getHousingLocation("Gateway Apartments");
 		System.out.println(hl);

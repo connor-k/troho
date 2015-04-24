@@ -6,8 +6,9 @@ INSERT INTO HousingLocations (housingType, locationName, textAddress, descriptio
 INSERT INTO HousingLocations (housingType, locationName, textAddress, description, imageURLs, floorplanURLs, gpsLatitude, gpsLongitude, minutesWalking, minutesBiking) VALUES (3, 'Gateway Apartments', '124 30th St', 'Most convenient apartment series. You get what you pay for.', './img/gateway.jpeg', 'path/to/floorplans', '0', '123', 10, 12);
 SELECT * FROM HousingLocations;
 
-INSERT INTO Users (name, housingKey, email, facebookID, imageURL, isAdmin, verifiedEmail) VALUES ('Steve Johnson', 1, 'steve@asdf.asdf', '2weuhfdsu2j34f1d4', 'http://sparksc.org/img/coreteam/NeelBhoopalam.jpg', false, true);
+INSERT INTO Users (name, housingKey, email, facebookID, imageURL, isAdmin, verifiedEmail) VALUES ('Steve Johnson', 1, 'steve@asdf.asdf', '10205327756926953', 'http://sparksc.org/img/coreteam/NeelBhoopalam.jpg', false, true);
 INSERT INTO Users (name, housingKey, email, facebookID, imageURL, isAdmin, verifiedEmail) VALUES ('Johnny Wang', 2, 'john@asdf.asdf', '12rehfdsu2j34f1d4','http://sparksc.org/img/coreteam/NeelBhoopalam.jpg', false, true);
+INSERT INTO Users (name, housingKey, email, facebookID, imageURL, isAdmin, verifiedEmail) VALUES ('Tommy Trojan', 2, 'john@asdf.asdf', '2weuhfdsu2j34f1d4','http://sparksc.org/img/coreteam/NeelBhoopalam.jpg', false, false);
 SELECT * FROM Users;
 
 INSERT INTO Friends (facebookID, friendID) VALUES ('2weuhfdsu2j34f1d4', '12rehfdsu2j34f1d4');
@@ -19,7 +20,5 @@ INSERT INTO Surveys (facebookID, managementSurveyScore, amenitiesSurveyScore, lo
 SELECT * FROM Surveys;
 
 INSERT INTO Reviews (housingKey, facebookID, textComment, managementScore, amenitiesScore, locationScore, noiseScore, communityChillFactorScore, timeWritten) VALUES ('1', '2weuhfdsu2j34f1d4', 'my comment', '5', '5', '5', '4', '5', now());
+INSERT INTO Reviews (housingKey, facebookID, textComment, managementScore, amenitiesScore, locationScore, noiseScore, communityChillFactorScore, timeWritten) VALUES ('4', '2weuhfdsu2j34f1d4', 'I love Gateway, its awesome!', '5', '5', '5', '4', '5', now());
 SELECT * FROM Reviews;
-INSERT INTO Reviews (housingKey, facebookID, textComment, managementScore, amenitiesScore, locationScore, noiseScore, communityChillFactorScore, timeWritten) VALUES ('3', '2weuhfdsu2j34f1d4', 'I love Gateway, its awesome!', '5', '5', '5', '4', '5', now());
-
-
