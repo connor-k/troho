@@ -95,23 +95,12 @@
 				name = response.name;
 				fbID = response.id;
 				email = response.email;
-//				console.log(name);
-				FB.api('/me/picture', function(response) {
-					console.log("Callback wooo");
+				FB.api('/me/picture?type=large', function(response) {
+					console.log("Large " + response.data.url);
 	 				imgURL = response.data.url;
+	 				document.getElementById('profile-image').setAttribute("src", imgURL);
 	 				createUser(name, imgURL, fbID, email);
 				});
-			});
-			
-			FB.api('/me/picture', function(response) {
-				console.log(response.data.url);
- 				document.getElementById('profile-image').setAttribute("src", response.data.url);
- 				imgURL = response.data.url;
-			});
-			
-			FB.api('/me/picture', function(response) {
-				console.log(response.data.url);
- 				document.getElementById('profile-image').setAttribute("src", response.data.url);
 			});
 		}
 		
@@ -126,20 +115,13 @@
 				}, {scope: 'public_profile,user_friends, email'});
 		}
 		function goToUser() {
-			var fbID = null;
 			FB.api('/me', function(response) {
-				fbID = response.id;
-				console.log(fbID);
-				var site = "/troho/user.jsp?id=" + fbID;
+				var site = "/troho/user.jsp?id=" + response.id;
 				window.open(site,"_self")
 			});
 		}
 		
 		function createUser(name, imgURL, fbID, email) {
-//			console.log("In CreateUser, " + name + imgURL)
-//			$.getJSON('http://localhost:8080/troho/CreateUser?name=', function (data) {
-//-		     	console.log("finished, I love it");
-//		  });
 			$.ajax({
 				  url: "/troho/CreateUser",
 				  type: "POST",

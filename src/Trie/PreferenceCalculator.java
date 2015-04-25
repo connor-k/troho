@@ -1,7 +1,9 @@
 package Trie;
 
-import java.util.Vector;
+import java.util.List;
+import java.util.ArrayList;
 
+import sql.HousingDataManager;
 import sql.HousingLocation;
 import sql.User;
 
@@ -9,6 +11,11 @@ class HousingPref {
 	void setPref(HousingLocation house, int preference) {
 		this.house = house;
 		pref = preference;
+	}
+	
+	void setPref(HousingPref pref) {
+		this.house = pref.house;
+		this.pref = pref.pref;
 	}
 	HousingLocation house;
 	int pref =  -1;
@@ -20,40 +27,50 @@ public class PreferenceCalculator {
 	HousingPref third = new HousingPref();
 	HousingPref fourth = new HousingPref();
 	
-	//takes as arguments user preferences and a vector of housing Locations
-	//returns a vector with the top three house choices for the user
-	Vector<HousingLocation> findPreferences(User user, Vector<HousingLocation> houses) {
-		Vector<HousingLocation> topHouses= new Vector<HousingLocation>(4);
+	//takes as arguments user preferences and a ArrayList of housing Locations
+	//returns a ArrayList with the top four house choices for the user
+	public HousingLocation[] findPreferences(User user) {
+		HousingLocation [] houses = HousingDataManager.getAllHousingLocations();
+		HousingLocation [] topHouses = new HousingLocation[4];
 		int [] topHousePrefs = new int[4];
-		if(houses.size() < 4) {
+		for (int i = 0; i < 4; i++) {
+			topHousePrefs[i] = -1;
+		}
+		if(houses.length < 4) {
 			return houses;
 		}
 		
-		for(int i = 0; i < houses.size(); i++) {
-			int score = houseHelper(houses.elementAt(i), user);
+		for(int i = 0; i < houses.length; i++) {
+			int score = houseHelper(houses[i], user);
+			System.out.println(score);
 			if(score > topHousePrefs[0]) {
-				fourth = third;
-				third = second;
-				second = first;
-				first.setPref(houses.elementAt(i), score);
+				fourth.setPref(third);
+				third.setPref(second);
+				second.setPref(first);
+				first.setPref(houses[i], score);
+				topHousePrefs[0] = score;
 			} 
 			else if (score > topHousePrefs[1]) {
-				fourth = third;
-				third = second;
-				second.setPref(houses.elementAt(i), score);
+				fourth.setPref(third);
+				third.setPref(second);
+				second.setPref(houses[i], score);
+				topHousePrefs[1] = score;
 			}
 			else if (score > topHousePrefs[2]) {
-				fourth = third;
-				third.setPref(houses.elementAt(i), score);
+				fourth.setPref(third);
+				third.setPref(houses[i], score);
+				topHousePrefs[2] = score;
 			} 
 			else if (score > topHousePrefs[3]) {
-				third.setPref(houses.elementAt(i), score);
+				fourth.setPref(houses[i], score);
+				topHousePrefs[3] = score;
 			}
 		}
-		topHouses.add(0, first.house);
-		topHouses.add(1, second.house);
-		topHouses.add(2, third.house);
-		topHouses.add(3, fourth.house);
+
+		topHouses[0] = first.house;
+		topHouses[1] = second.house;
+		topHouses[2] = third.house;
+		topHouses[3] = fourth.house;		
 		return topHouses;
 	}
 	
