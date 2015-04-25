@@ -7,7 +7,12 @@
 	padding:10px;
 	margin-left:20%;
 	margin-top:20px;
-	
+	cursor: hand;
+	cursor: pointer;
+}
+
+input[type='range'] {
+	cursor: ew-resize;
 }
 
 .save-sliders:active {
@@ -75,5 +80,3 @@
 	border-radius:40px;
 	overflow: hidden;
 }
-
-

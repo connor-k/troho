@@ -21,7 +21,6 @@
 <head>
 
 <link rel="stylesheet" href="css/index.css">
-<link rel="stylesheet" href="css/home.css">
 <link rel="stylesheet" href="css/user.css">
 <link href="css/header-bar.css" rel="stylesheet">
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -93,9 +92,7 @@
 						<p>Management</p>
 						
 						<div data-role="main" class="ui-content">
-						    <form method="post" action="demoform.asp">
-						      <input type="range" class = "slider" id="points" value="5" min="1" max="10">
-						    </form>
+						      <input type="range" name="management" class = "slider" id="management" value="5" min="1" max="10">
 					  	</div>
 
 					  	<div style = "width:100%">
@@ -137,9 +134,7 @@
 					<div class = "slider-wrapper">
 						<p>Amenities</p>
 						<div data-role="main" class="ui-content">
-						    <form method="post" action="demoform.asp">
-						      <input type="range" class = "slider" id="points" value="5" min="1" max="10">
-						    </form>
+						      <input type="range" name="amenities" class = "slider" id="amenities" value="5" min="1" max="10">
 					  	</div>
 
 					  	<div style = "width:100%">
@@ -180,9 +175,7 @@
 					<div class = "slider-wrapper">
 						<p>Location</p>
 						<div data-role="main" class="ui-content">
-						    <form method="post" action="demoform.asp">
-						      <input type="range" class = "slider" id="points" value="5" min="1" max="10">
-						    </form>
+						      <input type="range" name="location" class = "slider" id="location" value="5" min="1" max="10">
 					  	</div>
 
 					  	<div style = "width:100%">
@@ -223,9 +216,7 @@
 					<div class = "slider-wrapper">
 						<p>Noise</p>
 						<div data-role="main" class="ui-content">
-						    <form method="post" action="demoform.asp">
-						      <input type="range" class = "slider" id="points" value="5" min="1" max="10">
-						    </form>
+						      <input type="range" class = "slider" id="noise" value="5" min="1" max="10">
 					  	</div>
 
 					  	<div style = "width:100%">
@@ -266,9 +257,7 @@
 					<div class = "slider-wrapper">
 						<p>Chill Factor</p>
 						<div data-role="main" class="ui-content">
-						    <form method="post" action="demoform.asp">
-						      <input type="range" class = "slider" id="points" value="5" min="1" max="10">
-						    </form>
+						      <input type="range" name="chill-factor" class = "slider" id="chill-factor" value="5" min="1" max="10">
 					  	</div>
 
 					  	<div style = "width:100%">
@@ -306,13 +295,11 @@
 					  	</div>
 					</div>
 
-					
-					<div class = "save-sliders">
+					<div class = "save-sliders" onClick="setPrefences()">
 						SAVE PREFERENCES
 					</div>
 
 				</div>
-				
 
 			</div>
 
@@ -373,7 +360,27 @@
     <script src="https://maps.googleapis.com/maps/api/js"></script>
 
     <script>
- 	 	function initialize() {
+ 	 	function setPrefences(){
+ 	 		var location = document.getElementById("location").value;
+ 	 		var chillFactor = document.getElementById("chill-factor").value;
+ 	 		var management = document.getElementById("management").value;
+ 	 		var amenities = document.getElementById("amenities").value;
+ 	 		var noise = document.getElementById("noise").value; 
+ 	 		
+			FB.api('/me', function(response) {
+				var fbID = response.id;
+ 	 		
+			$.ajax({
+				  url: "/troho/SetUserPreferences",
+				  type: "POST",
+				  data: {fbID : fbID, location : location, amenities : amenities, chillFactor : chillFactor, management : management, noise : noise},
+				  dataType: "JSON"
+				});
+			});
+ 	 	}
+    
+    
+    	function initialize() {
    	 		var mapCanvas = document.getElementById('map-canvas');
     		var mapOptions = {
 	          //center: new google.maps.LatLng(34.022228, -118.288829),
