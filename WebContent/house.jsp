@@ -249,7 +249,7 @@
         <div class = "container-fluid">
 
             <div class = "row">
-                <div class = "col-lg-12" style = "padding-top: 80px; font-size:40px; color:white; text-align:center">Reviews</div>
+                <div class = "col-lg-12" style = "padding-top: 40px; font-size:40px; color:white; text-align:center">Reviews</div>
             </div>
 
             <div class = "row">
@@ -261,7 +261,7 @@
 			<div class="row" id ="reviewRow">
 			<form>
                 <input class="col-lg-12 scrolling-description-row" id="comment"/>  
-                </form> 
+            </form> 
 				<div style = "background-color: #c05049;text-align:center;padding:20px">
 					<div style = "color:#ffcc00;font-size:36px;">Ratings</div>
 	
@@ -556,16 +556,13 @@
  	        });
  			
  			
- 			 $("#submitReview").on("click", function() {
- 				 console.log("hello");
+ 		 	$("#submitReview").on("click", function() {
+ 				console.log("hello");
  				
  				
  				FB.api('/me', function(response) {
  					var fbID = response.id;
- 					console.log(fbID);
-/*  					var site = "/troho/user.jsp?id=" + fbID;
- *//*  					window.open(site,"_self")
- */					
+ 					console.log(fbID);				
  					var houseName = $("#introText").text();
  					var comment = null;
  					comment = $("#comment").val();
@@ -589,13 +586,10 @@
 						dataType: "JSON"
  					});
  				});
-	
  			}); 
  		});
-
     </script>
 
 </body>
-
 </html>
 
