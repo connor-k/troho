@@ -91,39 +91,50 @@
 			</div>
 
 			<br>
-			
-			<div class = "row">
-				<div class = "col-lg-1"></div>
-				
-				<div class = "col-lg-10">
-				
-				<% 
-					HousingLocation[] houses = HousingDataManager.getAllHousingLocations();
-					for (int i = 0; i < houses.length && i < 4; i++) {
-						HousingLocation location = houses[i];
+			<% 
+				HousingLocation[] houses = HousingDataManager.getAllHousingLocations();
+				for (int i = 0; i < houses.length/4; i++) {
 					
-				%>
-				
-				<a href="/troho/house.jsp?name=<%= location.locationName%>">
-					<div class = "col-lg-3"> 
-						<div class = "house-card">
-						<img src="<%=location.imageURL%>" height="200" width="200"></img>
+			%>
+				<div class = "row">
+					<div class = "col-lg-1"></div>
+					
+					<div class = "col-lg-10">
+					
+					<% 
+						for (int j = 0; j < 4; j++) {
+							HousingLocation location = houses[j + i*4];				
+					%>
+					
+					
+						<div class = "col-lg-3"> 
+							<div class = "house-card">
+							<a href="/troho/house.jsp?name=<%= location.locationName%>">
+								<img src="<%=location.imageURL%>" height="200" width="200"></img>
+							</a>
+							</div>
+								<p class = "house-title">
+								<a href="/troho/house.jsp?name=<%= location.locationName%>" style="color:white;">
+									<%=location.locationName %>
+								</a>
+								</p>
+							<div class = "star-container" style="">
+								<img src = "./img/star.png" class = "star"/>
+								<img src = "./img/star.png" class = "star"/>
+								<img src = "./img/star.png" class = "star"/>
+							</div>
 						</div>
-						<p class = "house-title"><%=location.locationName %></p>
-						<div class = "star-container">
-							<img src = "./img/star.png" class = "star"/>
-							<img src = "./img/star.png" class = "star"/>
-							<img src = "./img/star.png" class = "star"/>
-						</div>
+					
+					<%
+						}
+					%>
 					</div>
-				</a>
-				<%
-					}
-				%>
+					<div class = "col-lg-1">
+					</div>
 				</div>
-				<div class = "col-lg-1">
-				</div>
-			</div>
+			<%
+			} 
+			%>
 
 		</div>
 

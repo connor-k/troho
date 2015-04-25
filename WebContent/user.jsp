@@ -1,5 +1,8 @@
 <%@page import="sql.UserDataManager"%>
 <%@page import="sql.User"%>
+<%@page import="Trie.PreferenceCalculator"%>
+<%@page import="sql.HousingLocation"%>
+
 
 <%
 	User user = null;
@@ -17,10 +20,12 @@
 <html>
 <head>
 
+<link rel="stylesheet" href="css/index.css">
 <link rel="stylesheet" href="css/home.css">
 <link rel="stylesheet" href="css/user.css">
 <link href="css/header-bar.css" rel="stylesheet">
 <link href="css/bootstrap.min.css" rel="stylesheet">
+
 
 </head>
 
@@ -313,6 +318,41 @@
 
 		</div>
 		
+		<div class="row"  style = "background-color: #c05049;">
+			<div style = "background-color: #c05049;text-align:center;padding:20px">
+				<div style = "color:#ffcc00;font-size:36px;">Recommendations</div>
+				<% 
+					PreferenceCalculator calculator = new PreferenceCalculator();
+					HousingLocation[] houses = calculator.findPreferences(UserDataManager.getUser(fbID));
+					System.out.println(houses.length);
+					for (int j = 0; j < houses.length; j++) {
+						HousingLocation location = houses[j];				
+				%>
+				
+				
+					<div class = "col-lg-3"> 
+						<div class = "house-card">
+						<a href="/troho/house.jsp?name=<%= location.locationName%>">
+							<img src="<%=location.imageURL%>" height="200" width="200"></img>
+						</a>
+						</div>
+							<p class = "house-title">
+							<a href="/troho/house.jsp?name=<%= location.locationName%>" style="color:white;">
+								<%=location.locationName %>
+							</a>
+							</p>
+						<div class = "star-container" style="">
+							<img src = "./img/star.png" class = "star"/>
+							<img src = "./img/star.png" class = "star"/>
+							<img src = "./img/star.png" class = "star"/>
+						</div>
+					</div>
+				
+				<%
+					}
+				%>	
+			</div>
+		</div>
 		
 
 	</div>

@@ -69,6 +69,7 @@ public class SubmitReview extends HttpServlet {
 		//TODO:
 		// Add tag functionality
 		ReviewDataManager.createReview(object.getString("housingname"), object.getString("fbID"), object.getString("review"), ratingsStringArray, tags, Integer.toString(object.getInt("rent")));
+
 	}
 	//	public static void createReview(String housingName, String facebookID, String comment, String[] ratings, String rent) {
 
