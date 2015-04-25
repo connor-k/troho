@@ -7,7 +7,7 @@ INSERT INTO HousingLocations (housingType, locationName, textAddress, descriptio
 INSERT INTO HousingLocations (housingType, locationName, textAddress, description, imageURLs, floorplanURLs, gpsLatitude, gpsLongitude, minutesWalking, minutesBiking) VALUES (2, 'Pardee Tower', '614 Hellman Way', 'Pardee Tower was built as part of USC’s commitment to the Olympic Village for the 1984 Summer Games. This eight-floor coed residence hall, close to Doheny Library and McCarthy Quad, alternates genders by floor. Each floor has 18 double rooms, a common bathroom and a laundry facility.', './img/LocationImages/pardee.jpeg', './img/LocationFloorplans/pardee.jpeg', '34.020011', '-118.282598', 3, 1);
 SELECT * FROM HousingLocations;
 
-INSERT INTO Users (name, housingKey, email, facebookID, imageURL, isAdmin, verifiedEmail) VALUES ('Steve Johnson', 1, 'steve@asdf.asdf', '10205327756926953', 'http://sparksc.org/img/coreteam/NeelBhoopalam.jpg', false, true);
+INSERT INTO Users (name, housingKey, email, facebookID, imageURL, isAdmin, verifiedEmail) VALUES ('Steve Johnson', 1, 'steve@asdf.asdf', '2903i4lkjasdf', 'http://sparksc.org/img/coreteam/NeelBhoopalam.jpg', false, true);
 INSERT INTO Users (name, housingKey, email, facebookID, imageURL, isAdmin, verifiedEmail) VALUES ('Johnny Wang', 2, 'john@asdf.asdf', '12rehfdsu2j34f1d4','http://sparksc.org/img/coreteam/NeelBhoopalam.jpg', false, true);
 INSERT INTO Users (name, housingKey, email, facebookID, imageURL, isAdmin, verifiedEmail) VALUES ('Tommy Trojan', 2, 'john@asdf.asdf', '2weuhfdsu2j34f1d4','http://sparksc.org/img/coreteam/NeelBhoopalam.jpg', false, false);
 SELECT * FROM Users;
