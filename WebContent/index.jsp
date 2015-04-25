@@ -150,8 +150,6 @@
 		  //var htmlString = $( this ).html();
 		  $("#search").focus();
 		 
-		  
-		  		  
 		});
 		
 		$('#troho-logo').click(function() {
