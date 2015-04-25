@@ -95,23 +95,12 @@
 				name = response.name;
 				fbID = response.id;
 				email = response.email;
-//				console.log(name);
-				FB.api('/me/picture', function(response) {
-					console.log("Callback wooo");
+				FB.api('/me/picture?type=large', function(response) {
+					console.log("Large " + response.data.url);
 	 				imgURL = response.data.url;
+	 				document.getElementById('profile-image').setAttribute("src", imgURL);
 	 				createUser(name, imgURL, fbID, email);
 				});
-			});
-			
-			FB.api('/me/picture', function(response) {
-				console.log(response.data.url);
- 				document.getElementById('profile-image').setAttribute("src", response.data.url);
- 				imgURL = response.data.url;
-			});
-			
-			FB.api('/me/picture', function(response) {
-				console.log(response.data.url);
- 				document.getElementById('profile-image').setAttribute("src", response.data.url);
 			});
 		}
 		
