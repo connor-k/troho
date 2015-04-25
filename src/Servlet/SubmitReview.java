@@ -65,7 +65,7 @@ public class SubmitReview extends HttpServlet {
 			ratingsStringArray[i] = Integer.toString(ratings.getInt(i));
 		}
 		
-		ReviewDataManager.createReview(object.getString("housingname"), object.getString("fbID"), object.getString("review"), ratingsStringArray, Integer.toString(object.getInt("rent")));
+		ReviewDataManager.createReview(object.getString("housingname"), object.getString("fbID"), object.getString("review"), ratingsStringArray, null, Integer.toString(object.getInt("rent")));
 	}
 	//	public static void createReview(String housingName, String facebookID, String comment, String[] ratings, String rent) {
 

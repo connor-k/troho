@@ -99,7 +99,7 @@
 				
 				<% 
 					HousingLocation[] houses = HousingDataManager.getAllHousingLocations();
-					for (int i = 0; i < houses.length && i < 4; i++) {
+					for (int i = 0; i < houses.length || i < 4; i++) {
 						HousingLocation location = houses[i];
 					
 				%>
