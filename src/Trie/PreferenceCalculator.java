@@ -34,7 +34,7 @@ public class PreferenceCalculator {
 		HousingLocation [] topHouses = new HousingLocation[4];
 		int [] topHousePrefs = new int[4];
 		for (int i = 0; i < 4; i++) {
-			topHousePrefs[i] = 0;
+			topHousePrefs[i] = -1;
 		}
 		if(houses.length < 4) {
 			return houses;
