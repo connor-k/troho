@@ -13,15 +13,19 @@ public class ReviewHelper {
 		Vector<Review> reviews = new Vector<Review>();
 		
 		for(int i = 0; i < reviewArray.length; i++) {
-			reviews.add(reviewArray[i]);
+			if(checkValidReview(reviewArray[i], tags)) {
+				reviews.add(reviewArray[i]);
+			}
 		}
 		return reviews;
 	}
 	
 	boolean checkValidReview(Review review, boolean []tags) {
-		//boolean reviewTags = review.
+		boolean [] reviewTags = review.tags;
 		for(int i = 0; i < 6; i++) {
-			//if()
+			if(reviewTags[i] != tags[i]) {
+				return false;
+			}
 		}
 		return true;
 	}
