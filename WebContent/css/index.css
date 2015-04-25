@@ -1,6 +1,9 @@
 p, h1, div {
 	font-family: Gill Sans
 }
+a {
+	text-decoration: none !important;
+}
 
 .content {
 	background-color: #c0504d;
