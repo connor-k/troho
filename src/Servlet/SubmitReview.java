@@ -61,8 +61,14 @@ public class SubmitReview extends HttpServlet {
 		for(int i = 0; i < ratings.length(); i++) {
 			ratingsStringArray[i] = Integer.toString(ratings.getInt(i));
 		}
+		boolean [] tags = new boolean[6];
+		for (int i = 0; i < 6; i++) {
+			tags[i] = true;
+		}
 		
-		ReviewDataManager.createReview(object.getString("housingname"), object.getString("fbID"), object.getString("review"), ratingsStringArray, null, Integer.toString(object.getInt("rent")));
+		//TODO:
+		// Add tag functionality
+		ReviewDataManager.createReview(object.getString("housingname"), object.getString("fbID"), object.getString("review"), ratingsStringArray, tags, Integer.toString(object.getInt("rent")));
 	}
 	//	public static void createReview(String housingName, String facebookID, String comment, String[] ratings, String rent) {
 
