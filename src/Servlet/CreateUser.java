@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import sql.User;
 import sql.UserDataManager;
 
 /**
@@ -34,15 +33,15 @@ public class CreateUser extends HttpServlet {
 		
 		// Get the printwriter object from response to write the required json object to the output stream
 		
-//		response.setContentType("application/json");
-//		PrintWriter out = response.getWriter();      
-//		
-//		//Create String to send in response to get request
-//		String jsonObject = "{\"test\": \"Succesfull Ajax Call\"}";
-//		
-//		// Assuming your json object is **jsonObject**, perform the following, it will return your json object  
-//		out.print(jsonObject);
-//		out.flush();
+		response.setContentType("application/json");
+		PrintWriter out = response.getWriter();      
+		
+		//Create String to send in response to get request
+		String jsonObject = "{\"test\": \"Succesfull Ajax Call\"}";
+		
+		// Assuming your json object is **jsonObject**, perform the following, it will return your json object  
+		out.print(jsonObject);
+		out.flush();
 		
 	}
 
