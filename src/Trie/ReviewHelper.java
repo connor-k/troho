@@ -7,7 +7,7 @@ import sql.HousingLocation;
 import sql.Review;
 
 public class ReviewHelper {
-	Vector<Review> pruneReviews(String houseName, boolean [] tags) {
+	public static Vector<Review> pruneReviews(String houseName, boolean [] tags) {
 		HousingLocation location = HousingDataManager.getHousingLocation(houseName);
 		Review [] reviewArray = location.reviews;
 		Vector<Review> reviews = new Vector<Review>();
@@ -20,7 +20,7 @@ public class ReviewHelper {
 		return reviews;
 	}
 	
-	boolean checkValidReview(Review review, boolean []tags) {
+	static boolean checkValidReview(Review review, boolean []tags) {
 		boolean [] reviewTags = review.tags;
 		for(int i = 0; i < 6; i++) {
 			if(reviewTags[i] != tags[i]) {

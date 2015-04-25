@@ -20,14 +20,15 @@ class HousingPref {
 }
 
 public class PreferenceCalculator {
-	HousingPref first = new HousingPref();
-	HousingPref second = new HousingPref();
-	HousingPref third = new HousingPref();
-	HousingPref fourth = new HousingPref();
 	
 	//takes as arguments user preferences and a ArrayList of housing Locations
 	//returns a ArrayList with the top four house choices for the user
-	public HousingLocation[] findPreferences(String facebookID) {
+	static public HousingLocation[] findPreferences(String facebookID) {
+		HousingPref first = new HousingPref();
+		HousingPref second = new HousingPref();
+		HousingPref third = new HousingPref();
+		HousingPref fourth = new HousingPref();
+		
 		User user = UserDataManager.getUser(facebookID);
 		
 		HousingLocation [] houses = HousingDataManager.getAllHousingLocations();
