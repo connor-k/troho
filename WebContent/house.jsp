@@ -258,10 +258,7 @@
                 </div>
             </div>
             
-			<div class="row" id ="reviewRow">
-			<form>
-                <input class="col-lg-12 scrolling-description-row" id="comment"/>  
-            </form> 
+			<div id ="reviewRow">
 				<div style = "background-color: #c05049;text-align:center;padding:20px">
 					<div style = "color:#ffcc00;font-size:36px;">Ratings</div>
 	
@@ -419,13 +416,68 @@
 	
 					</div>
 				</div>
+				
+				<div class = "row">
+	                <div class = "col-lg-1 col-md-0" ></div>
+	                <div class = "col-lg-10 col-md-12 filter-row" style = "padding: 0px">
+	                    <div class = "filter-row">
+	                        <div class = "col-lg-2">
+	                            <div class = "filter-button">
+	                                <div class = "filter-specifier">Management</div>
+	                            </div>
+	                        </div>
+	
+	                        <div class = "col-lg-2">
+	                            <div class = "filter-button"> 
+	                                <div class = "filter-specifier">Noise</div>  
+	                            </div>
+	                        </div>
+	
+	                        <div class = "col-lg-2">
+	                            <div class = "filter-button">   
+	                                <div class = "filter-specifier">Location</div>
+	                            </div>
+	                        </div>
+	
+	                        <div class = "col-lg-2">
+	                            <div class = "filter-button">  
+	                                <div class = "filter-specifier">Chillness</div>
+	                            </div>
+	                        </div>
+	
+	                        <div class = "col-lg-2">
+	                            <div class = "filter-button"> 
+	                                <div class = "filter-specifier">Amenities</div>
+	                            </div>
+	                        </div>
+	
+	                        <div class = "col-lg-2">
+	                            <div class = "filter-button">
+	                                <div class = "filter-specifier">Price</div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+                	<div class = "col-lg-1 col-md-0" ></div>
+            	</div>
+            	
+				<div class = "row">
+					<div class = "col-lg-1"></div>
+					<textarea class = "col-lg-10" id="comment">
+		                
+		            </textarea> 
+		            <div class = "col-lg-1"></div>
+	            </div>
+				
 			</div>
-			</div>
+			
 			<div class = "row" style="display:none;" id="submitReview">
                 <div class = "add-review-button">
                     <div class = "col-lg-12"  style = "padding-top: 8px; padding-bottom: 40px; font-size:20px; color:white; text-align:center"><a>Submit</a></div>
                 </div>
             </div>
+			
+			</div>
 			
             <div class = "row">
                 <div class = "col-lg-1 col-md-0" ></div>
@@ -552,7 +604,9 @@
  			});
  			
  			$(".filter-button").click(function() {
- 	            $(this).toggleClass("active");
+ 				
+ 	            $(this).toggleClass('active');
+ 	            
  	        });
  			
  			
