@@ -2,7 +2,6 @@ package servlet;
 import org.json.*;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -12,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import sql.ReviewDataManager;
-import sql.User;
-import sql.UserDataManager;
 
 /**
  * Servlet implementation class FirstServlet
@@ -65,7 +62,7 @@ public class SubmitReview extends HttpServlet {
 			ratingsStringArray[i] = Integer.toString(ratings.getInt(i));
 		}
 		
-		ReviewDataManager.createReview(object.getString("housingname"), object.getString("fbID"), object.getString("review"), ratingsStringArray, Integer.toString(object.getInt("rent")));
+		ReviewDataManager.createReview(object.getString("housingname"), object.getString("fbID"), object.getString("review"), ratingsStringArray, null, Integer.toString(object.getInt("rent")));
 	}
 	//	public static void createReview(String housingName, String facebookID, String comment, String[] ratings, String rent) {
 

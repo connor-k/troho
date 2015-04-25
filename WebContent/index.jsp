@@ -103,6 +103,7 @@
 						HousingLocation location = houses[i];
 					
 				%>
+				
 				<a href="/troho/house.jsp?name=<%= location.locationName%>">
 					<div class = "col-lg-3"> 
 						<div class = "house-card">
