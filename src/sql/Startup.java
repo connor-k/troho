@@ -13,7 +13,7 @@ public class Startup extends Thread {
 	/** A very basic SQL script runner
 	 * @param filename the sql script to run
 	 */
-	public static void runScript(String filename) {
+	private void runScript(String filename) {
 		BufferedReader br = null;
 		FileReader fr = null;
 		Connection conn = null;
@@ -80,6 +80,9 @@ public class Startup extends Thread {
 		runScript("sql/PopulateDatabase.sql");
 	}
 	
+	/** Main method for testing this thread separately
+	 * @param args Command line arguments passed in
+	 */
 	public static void main(String[] args) {
 		Startup s = new Startup();
 		s.start();
