@@ -338,7 +338,7 @@ public class UserDataManager {
 		}
 	}
 
-	/** Set the user's current location by location key 
+	/** Set the user's email 
 	 * @param facebookID SQL database key for this user
 	 * @param email The email for this user. 
 	 */
