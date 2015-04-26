@@ -463,12 +463,7 @@
                 	<div class = "col-lg-1 col-md-0" ></div>
             	</div>
             	
-				<div class = "row">
-					<div class = "col-lg-1"></div>
-					<textarea class = "col-lg-10" id="comment">
-		                
-		            </textarea> 
-		            <div class = "col-lg-1"></div>
+				<div class = "row"><div class = "col-lg-1"></div><textarea style="font-size:3em;"placeholder="Your comment here" class = "col-lg-10" id="comment"></textarea><div class = "col-lg-1"></div>
 	            </div>
 				
 			</div>

@@ -236,84 +236,7 @@
 
 			<div class = "col-lg-10 results-container">
 
-				<div class = "col-lg-10 col-md-12 result">
-                    
-                    <div class="col-lg-12 single-result">
-
-	                    <div class = "row">
-	                    	<div class = "result-top-half">
-	                    		<div class = "col-lg-4 house-result-image">
-		                			<img src = "img/hawaiian5.jpg" style = "width:200px;margin-top:40px"/>
-		                		</div>
-		                    	<div class = "col-lg-8" style = "margin-top:50px; font-size:60px;">
-		                    		<p style = "text-align:center;">Housing Name</p>
-		                    		<p style = "text-align:center;">Address</p>
-		                    	</div>
-	                    	</div>
-	                    </div>
-						<!-- <br> -->
-	                    <div class = "row" style = "padding-top:20px">
-		                	<div class = "result-bottom-half">
-
-			                	<div class = "row">
-			                		<div class = "col-lg-4"> Price:
-			                		</div>
-
-			                		<div class = "col-lg-4"> Distance:
-			                		</div>
-			                	</div>
-			                	<div class = "row">
-			                		<div class = "col-lg-4"> Style:
-			                		</div>
-
-			                		<div class = "col-lg-4"> Rating:
-			                		</div>
-			                	</div>
-		                		
-
-		                	</div>
-	                	</div>
-
-                    </div>
-
-                    <div class="col-lg-12 single-result">
-
-	                    <div class = "row">
-	                    	<div class = "result-top-half">
-	                    		<div class = "col-lg-4 house-result-image">
-		                			<img src = "img/hawaiian5.jpg" style = "width:200px;margin-top:40px"/>
-		                		</div>
-		                    	<div class = "col-lg-8" style = "margin-top:50px; font-size:60px;">
-		                    		<p style = "text-align:center;">Housing Name</p>
-		                    		<p style = "text-align:center;">Address</p>
-		                    	</div>
-	                    	</div>
-	                    </div>
-						<!-- <br> -->
-	                    <div class = "row" style = "padding-top:20px">
-		                	<div class = "result-bottom-half">
-
-			                	<div class = "row">
-			                		<div class = "col-lg-4"> Price:
-			                		</div>
-
-			                		<div class = "col-lg-4"> Distance:
-			                		</div>
-			                	</div>
-			                	<div class = "row">
-			                		<div class = "col-lg-4"> Style:
-			                		</div>
-
-			                		<div class = "col-lg-4"> Rating:
-			                		</div>
-			                	</div>
-		                		
-
-		                	</div>
-	                	</div>
-
-                    </div>
-
+				<div class = "col-lg-10 col-md-12 result"> 
                 </div>
 
 			</div>
@@ -437,7 +360,7 @@
 			});
 			
 			$('#managementBoxIn > .listElement').on("click", function(){
- 			   $("#managementBoxIn").text($(this).text());  
+ 			   $("#managementBox").text($(this).text());  
  			  $("#managementBox").val($(this).val());
 			});
 			
@@ -449,7 +372,7 @@
 			
 			$('#ratingBoxIn > .listElement').on("click", function(){
  			   $("#ratingBoxIn").text($(this).text()); 
- 			  $("#ratingsBox").val($(this).val());
+ 			  $("#ratingBox").val($(this).val());
 			});
 			
 			$('#distanceBoxIn > .listElement').on("click", function(){
