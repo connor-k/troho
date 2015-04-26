@@ -11,6 +11,16 @@ public class ReviewHelper {
 		HousingLocation location = HousingDataManager.getHousingLocation(houseName);
 		Review [] reviewArray = location.reviews;
 		Vector<Review> reviews = new Vector<Review>();
+		boolean allFalse = true;
+		
+		for(int i = 0; i < 6; i++) {
+			if(tags[i] == true) {
+				allFalse = false;
+			}
+		}
+		if(allFalse) {
+			return reviewArray;
+		}
 		
 		for(int i = 0; i < reviewArray.length; i++) {
 			if(checkValidReview(reviewArray[i], tags)) {
