@@ -121,16 +121,16 @@
 
 					</li>
 
-					<li> <div class = "drop-down-option">$800</div>
+					<li> <div class = "drop-down-option">5 minutes walking</div>
 					</li>
 
-					<li> <div class = "drop-down-option">$1000</div>
+					<li> <div class = "drop-down-option">10 minutes walking</div>
 					</li>
 
-					<li> <div class = "drop-down-option">$1200</div>
+					<li> <div class = "drop-down-option">15 minutes walking</div>
 					</li>
 
-					<li> <div class = "drop-down-option">$1400</div>
+					<li> <div class = "drop-down-option">30 minutes walking</div>
 					</li>
 
 					<li> <div class = "drop-down-option">Any</div>
@@ -154,16 +154,13 @@
 
 					</li>
 
-					<li> <div class = "drop-down-option">$800</div>
+					<li> <div class = "drop-down-option">Apartment</div>
 					</li>
 
-					<li> <div class = "drop-down-option">$1000</div>
+					<li> <div class = "drop-down-option">Dorm</div>
 					</li>
 
-					<li> <div class = "drop-down-option">$1200</div>
-					</li>
-
-					<li> <div class = "drop-down-option">$1400</div>
+					<li> <div class = "drop-down-option">House</div>
 					</li>
 
 					<li> <div class = "drop-down-option">Any</div>
@@ -187,16 +184,19 @@
 
 					</li>
 
-					<li> <div class = "drop-down-option">$800</div>
+					<li> <div class = "drop-down-option">1 Star</div>
 					</li>
 
-					<li> <div class = "drop-down-option">$1000</div>
+					<li> <div class = "drop-down-option">2 Star</div>
 					</li>
 
-					<li> <div class = "drop-down-option">$1200</div>
+					<li> <div class = "drop-down-option">3 Star</div>
 					</li>
 
-					<li> <div class = "drop-down-option">$1400</div>
+					<li> <div class = "drop-down-option">4 Star</div>
+					</li>
+					
+					<li> <div class = "drop-down-option">5 Star</div>
 					</li>
 
 					<li> <div class = "drop-down-option">Any</div>
