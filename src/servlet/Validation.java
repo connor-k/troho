@@ -14,7 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import sql.UserDataManager;
-import emailconfirm.EmailConfirm; 
+import emailconfirm.emailconfirm; 
 
 @WebServlet("/Validation")
 public class Validation extends HttpServlet {
@@ -28,7 +28,25 @@ public class Validation extends HttpServlet {
 	{
 		String key = request.getParameter("key");
 		String id = request.getParameter("id");
-		EmailConfirm.emailConfirmed(key, id); 
+		boolean valid = emailconfirm.emailConfirmed(key, id);
+		
+		response.setContentType("text/html");
+	    PrintWriter out = response.getWriter();
+	    
+	    String title; 
+	    if(valid)
+	    	title = "Email confirmed!"; 
+	    else
+	    	title = "Email not valid."; 
+	    out.println("<h1>"+title+"</h1>"); 
+	    
+	    String urlstring = "href=http://localhost:8080/troho/index.jsp"; 
+		String hyperlink = "<a " + urlstring + ">click here</a>";
+	   
+		String redir = "You will be redirected shortly"; 
+	    redir += "<br>If not, please " + hyperlink; 
+	    out.println(redir); 
+		response.setHeader("Refresh", "6; URL=http://localhost:8080/troho/index.jsp");
 	}
 	
 	/**

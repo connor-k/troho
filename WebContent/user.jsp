@@ -2,8 +2,8 @@
 <%@page import="sql.User"%>
 <%@page import="Trie.PreferenceCalculator"%>
 <%@page import="sql.HousingLocation"%>
+<%@page import="sql.HousingDataManager"%>
 <%@ page errorPage="404.html" %>
-
 
 <%
 	User user = null;
@@ -11,10 +11,19 @@
 		
 	if (fbID != null) {
 		user = UserDataManager.getUser(fbID);
-		System.out.println(user);
 	} else {
 		String redirectURL = "/troho/404.html";
     	response.sendRedirect(redirectURL);
+	}
+	
+	String currentHousingLocationName = null;
+	if(user.currentLocation == null)
+	{
+		currentHousingLocationName = "Housing Location Not Set";
+	}
+	else
+	{
+		currentHousingLocationName = user.currentLocation.locationName;
 	}
 %>
 
@@ -67,18 +76,32 @@
 					<p style = "font-size:40px"> <%= user.name %> </p>
 
 					<p style = "font-size:24px"> <%= user.email %> </p>
-
-					<p style = "font-size:18px"> Off-campus Housing</p>
-					blahhhh
-					<ul class="dropdown-menu scrollable-menu" role="menu">
-                		<li><a href="#">Action</a></li>
-                		<li><a href="#">Another action</a></li>
-                		<li><a href="#">Something else here</a></li>
-                		<li><a href="#">Action</a></li>
-                		<li><a href="#">Action</a></li>
-                		<li><a href="#">Another action</a></li>
-            		</ul>
 					
+					<div>
+						<div class="btn-group btn-group-lg" style="margin: 10px">
+							<button type="button" class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown">
+								<span id="top-level-name" style="font-size: 18px"><%=currentHousingLocationName%></span>
+								<span class="caret"></span>
+							</button>
+							<ul id="scrollable-list-housing-locations"
+								class="dropdown-menu scrollable-menu" role="menu">
+								<%
+									HousingLocation[] houses = HousingDataManager
+											.getAllHousingLocations();
+
+									for (int i = 0; i < houses.length; i++) {
+								%>
+								<li style="font-size: 18px"><a
+									onclick="setHousingLocation(this)" href="#"><%=houses[i].locationName%></a></li>
+								<%
+									}
+								%>
+							</ul>
+						</div>
+
+					</div>
+
 				</div>
 
 			</div>
@@ -319,12 +342,12 @@
 		
 		<div class="row"  style = "background-color: #c05049;">
 			<div style = "background-color: #c05049;text-align:center;padding:20px">
-				<div style = "color:#ffcc00;font-size:36px;">Recommendations</div>
+				<div style = "color:#ffcc00;font-size:36px; margin-bottom:25px;">Recommendations</div>
 				<% 
-					HousingLocation[] houses = PreferenceCalculator.findPreferences(fbID);
-					System.out.println(houses.length);
-					for (int j = 0; j < houses.length; j++) {
-						HousingLocation location = houses[j];				
+					HousingLocation[] housesRecommendations = PreferenceCalculator.findPreferences(fbID);
+					System.out.println(housesRecommendations.length);
+					for (int j = 0; j < housesRecommendations.length; j++) {
+						HousingLocation location = housesRecommendations[j];				
 				%>
 				
 				
@@ -373,9 +396,24 @@
 
     <!-- Google Maps -->
     <script src="https://maps.googleapis.com/maps/api/js"></script>
-
+    
     <script>
- 	 	function setPrefences() {
+ 	 	function setHousingLocation(e){
+ 	 		document.getElementById("top-level-name").innerText = e.innerHTML;
+ 	 		var currLocation = e.innerHTML;
+ 	 		FB.api('/me', function(response) {
+				var fbID = response.id;
+ 	 		
+ 	 		$.ajax({
+				  url: "/troho/UpdateUserHousingLocation",
+				  type: "POST",
+				  data: {fbID : fbID, currentHousingLocation : currLocation},
+				  dataType: "JSON"
+				});
+ 	 		});
+		}
+    
+    	function setPrefences() {
  	 		var location = document.getElementById("location").value;
  	 		var chillFactor = document.getElementById("chill-factor").value;
  	 		var management = document.getElementById("management").value;
@@ -490,7 +528,6 @@
 
 				(function(index,google) {
 					
-
 					google.maps.event.addListener(allMarkers[index], 'mouseover', function() {
 							//console.log(allMarkers[0]);
 						

@@ -58,7 +58,7 @@ public class ReviewDataManager {
 			}
 			ps.setInt(15, Integer.parseInt(rent));
 			ps.executeUpdate();
-
+			
 			// Now update that housinglocation's average rating fields
 			try {
 				ps.close();
@@ -67,12 +67,12 @@ public class ReviewDataManager {
 					+ "averageAmenities=?, averageLocation=?, averageNoise=?, "
 					+ "averageCommunityChillFactor=?, averageRent=? WHERE housingKey=?");
 			if (hl.reviews != null) {
-				ps.setString(1, new DecimalFormat("#.##").format((hl.managementScore / hl.reviews.length + Integer.parseInt(ratings[0])) * (hl.reviews.length + 1)));
-				ps.setString(2, new DecimalFormat("#.##").format((hl.amenitiesScore / hl.reviews.length + Integer.parseInt(ratings[1])) * (hl.reviews.length + 1)));
-				ps.setString(3, new DecimalFormat("#.##").format((hl.locationScore / hl.reviews.length + Integer.parseInt(ratings[2])) * (hl.reviews.length + 1)));
-				ps.setString(4, new DecimalFormat("#.##").format((hl.noiseScore / hl.reviews.length + Integer.parseInt(ratings[3])) * (hl.reviews.length + 1)));
-				ps.setString(5, new DecimalFormat("#.##").format((hl.communityChillFactorScore / hl.reviews.length + Integer.parseInt(ratings[4])) * (hl.reviews.length + 1)));
-				ps.setString(6, new DecimalFormat("#.##").format((hl.averageRent + Integer.parseInt(rent)) / hl.reviews.length * (hl.reviews.length + 1)));
+				ps.setString(1, new DecimalFormat("#.##").format((hl.managementScore * hl.reviews.length + Integer.parseInt(ratings[0])) / (hl.reviews.length + 1)));
+				ps.setString(2, new DecimalFormat("#.##").format((hl.amenitiesScore * hl.reviews.length + Integer.parseInt(ratings[1])) / (hl.reviews.length + 1)));
+				ps.setString(3, new DecimalFormat("#.##").format((hl.locationScore * hl.reviews.length + Integer.parseInt(ratings[2])) / (hl.reviews.length + 1)));
+				ps.setString(4, new DecimalFormat("#.##").format((hl.noiseScore * hl.reviews.length + Integer.parseInt(ratings[3])) / (hl.reviews.length + 1)));
+				ps.setString(5, new DecimalFormat("#.##").format((hl.communityChillFactorScore * hl.reviews.length + Integer.parseInt(ratings[4])) / (hl.reviews.length + 1)));
+				ps.setString(6, new DecimalFormat("#.##").format((hl.averageRent* hl.reviews.length + Integer.parseInt(rent))  / (hl.reviews.length + 1)));
 			} else {
 				ps.setString(1, new DecimalFormat("#.##").format(hl.managementScore));
 				ps.setString(2, new DecimalFormat("#.##").format(hl.amenitiesScore));
@@ -84,9 +84,9 @@ public class ReviewDataManager {
 			ps.setInt(7, housingKey);
 			ps.executeUpdate();
 		} catch (SQLException sqle) {
-			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
+			System.out.println ("ReviewDataManager SQLException: " + sqle.getMessage());
 		} catch (ClassNotFoundException cnfe) {
-			System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
+			System.out.println ("ReviewDataManager ClassNotFoundException: " + cnfe.getMessage());
 		} finally {
 			try {
 				ps.close();
@@ -138,9 +138,9 @@ public class ReviewDataManager {
 						tags, rs.getInt("rentPaid"), rs.getString("timeWritten"));
 			}
 		} catch (SQLException sqle) {
-			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
+			System.out.println ("ReviewDataManager SQLException: " + sqle.getMessage());
 		} catch (ClassNotFoundException cnfe) {
-			System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
+			System.out.println ("ReviewDataManager ClassNotFoundException: " + cnfe.getMessage());
 		} finally {
 			try {
 				rs.close();

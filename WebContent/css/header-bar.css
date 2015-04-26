@@ -46,9 +46,15 @@
 	/background-color: rgb(72,72,72,1);
 }
 
-#log-in-button, #profile-image {
-	height: 50px;
+#log-in-button {
+	height: 40px;
 	border-radius: 10px;
+}
+
+#profile-image {
+	height: 55px;
+	border-radius: 10px;
+	margin-top: -5px;
 }
 
 .logo-wrapper {
@@ -58,9 +64,10 @@
 	margin:auto;
 }
 
-@media screen and (max-width: 150px) {
-    div#welcome-message 
+@media screen and (max-width: 530px) {
+    #welcome-message 
     {
+        visibility: hidden;
         display: none;
     }
 }
@@ -88,7 +95,7 @@
 	//position: absolute;
 	float: right;
 	margin-top: -60px;
-	margin-right: 50px;
+	margin-right: 40px;
 	color:#ffcc00;
 	cursor: pointer;
 	cursor: hand;

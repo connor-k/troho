@@ -229,7 +229,6 @@ hr {
 }
 
 .rating-tab {
-    /color:#ffcc00;
     overflow-x:auto;
     display: table-cell;
     padding: 0px 45px;
@@ -238,11 +237,21 @@ hr {
     height: 50px;
     text-align: center;
     background-color: #ffcc00;
-    /background-color: #CCC;
     border-radius: 5px 5px 0px 0px;
+    cursor: hand;
+    cursor: pointer;
+    opacity: 0.6;
 }
 
-#descriptionText {
+.rating-tab:hover {
+    opacity: 1;
+}
+
+.rating-tab.active {
+    opacity: 1;
+}
+
+#descriptionText, #amenitiesText, #priceGraph, #floorPlan  {
     color:black;
     border-radius: 5px;
     /border-radius: 5px 5px 0px 0px;
@@ -251,6 +260,7 @@ hr {
 	min-height: 300px;
     box-shadow: 0px 2px 5px rgba(0,0,0,.5);
 }
+
 
 .reviews-container {
     overflow-y: auto;

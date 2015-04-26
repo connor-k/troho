@@ -9,56 +9,46 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.mail.EmailException;
-
-import emailconfirm.emailconfirm;
-import sql.UserDataManager;
+import sql.HousingDataManager;
 
 /**
- * Servlet implementation class FirstServlet
+ * Servlet implementation class VerifiedUser
  */
-@WebServlet("/CreateUser")
-public class CreateUser extends HttpServlet {
+@WebServlet("/VerifiedUser")
+public class VerifiedUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public VerifiedUser() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// Get the printwriter object from response to write the required json object to the output stream
-		
+		String houseName =request.getParameter("houseName"); 
+		String fbID =request.getParameter("fbID"); 
+		boolean hasReviewed = HousingDataManager.hasReviewedLocation(fbID, houseName);
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();      
 		
 		//Create String to send in response to get request
-		String jsonObject = "{\"test\": \"Succesfull Ajax Call\"}";
+		String jsonObject = "{\"reviewBool\": \"" + hasReviewed + "\"}";
 		
 		// Assuming your json object is **jsonObject**, perform the following, it will return your json object  
 		out.print(jsonObject);
 		out.flush();
-		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		System.out.println(request);
-		String name=request.getParameter("name"); 
-		String imgURL =request.getParameter("url"); 
-		String fbID =request.getParameter("fbID"); 
-		String email = request.getParameter("email");
-		System.out.println(email);
-		if(UserDataManager.createUser(name, email, imgURL, fbID) != null) { 
-			try {
-				System.out.println("In confirm");
-				emailconfirm confirm = new emailconfirm(email, fbID);
-			} catch (EmailException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		// TODO Auto-generated method stub
 	}
 
 }
