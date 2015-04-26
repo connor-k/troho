@@ -41,7 +41,12 @@ public class SearchHelper {
 		myHouseComp = new HousingComparator(managementScore, amenitiesScore, locationScore,
 				noiseScore, communityChillFactorScore);
 		houses.sort(myHouseComp);	
-		return (HousingLocation[]) houses.toArray();
+		HousingLocation [] returnHouses = new HousingLocation[houses.size()];
+		for(int i = 0; i < houses.size(); i++) {
+			returnHouses[i] = houses.elementAt(i);
+		}
+		
+		return returnHouses;
 	}
 	
 	//takes as argument cut-off preferences and all possible houses
@@ -93,7 +98,13 @@ public class SearchHelper {
 	//returns a vector of houses matching those words
 	//the returned vector is roughly sorted by relevance
 	public HousingLocation [] findHouse(String searchWords) {
-		return (HousingLocation[]) myTrie.findPartialWord(searchWords).toArray();
+		Vector<HousingLocation> resultsVector = myTrie.findPartialWord(searchWords);
+		HousingLocation [] results = new HousingLocation[resultsVector.size()];
+		for(int i = 0; i < results.length; i++) {
+			results[i] = resultsVector.elementAt(i);
+		}
+		
+		return results;
 	}
 	
 	//used for autocomplete

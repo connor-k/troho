@@ -27,6 +27,9 @@ public class ReviewHelper {
 				reviews.add(reviewArray[i]);
 			}
 		}
+		
+		
+		
 		Review [] reviewResult = new Review[reviews.size()];
 		for(int i = 0; i < reviewResult.length; i++) {
 			reviewResult[i] = reviews.elementAt(i);
@@ -44,4 +47,6 @@ public class ReviewHelper {
 		}
 		return false;
 	}
+	
+	//private sortReviews(
 }
