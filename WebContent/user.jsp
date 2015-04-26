@@ -66,8 +66,17 @@
 
 					<p style = "font-size:24px"> <%= user.email %> </p>
 
-					<p style = "font-size:18px"> Off-campus Housing
-					</p>
+					<p style = "font-size:18px"> Off-campus Housing</p>
+					blahhhh
+					<ul class="dropdown-menu scrollable-menu" role="menu">
+                		<li><a href="#">Action</a></li>
+                		<li><a href="#">Another action</a></li>
+                		<li><a href="#">Something else here</a></li>
+                		<li><a href="#">Action</a></li>
+                		<li><a href="#">Action</a></li>
+                		<li><a href="#">Another action</a></li>
+            		</ul>
+					
 				</div>
 
 			</div>
