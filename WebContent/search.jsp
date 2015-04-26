@@ -103,7 +103,7 @@
 			<div class = "col-lg-3 search-element-box">
 				<p class = "search-descriptor">Distance from USC</p>
 				<div class="btn-group">
-	                <button type="button" value ="0" id="distanceBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
+	                <button type="button" value ="1000" id="distanceBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
 	                <ul class="dropdown-menu scrollable-menu" id="distanceBoxIn" role="menu">
 	                    <li value="5" class="listElement"><a >5 minutes walking</a></li>
 	                    <li value="10" class="listElement"><a >10 minutes walking</a></li>
