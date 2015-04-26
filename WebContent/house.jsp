@@ -1,6 +1,9 @@
 <%@page import="sql.HousingDataManager"%>
 <%@page import="sql.Review"%>
+<%@page import="sql.UserDataManager"%>
 <%@page import="sql.HousingLocation"%>
+<%@page import="sql.User"%>
+
 
 <%@page import="java.util.List"%>
 <%@page import="java.lang.String"%>
@@ -115,14 +118,10 @@
     				<p id="ratingTextBig">Overall Rating</p>
                     <div class = "star-container">
                         <% if (location != null) {
-                        	System.out.println("Score " + location.managementScore);
+                        	System.out.println("Management Score " + location.managementScore);                 
                      			for (int i = 0; i < location.overallScore; i++) {
                      	%>
                         <img src = "./img/star.png" class = "star"/>
-<!--                         <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/> -->
                         <%
                      			}
                      	}
@@ -139,10 +138,6 @@
                      			for (int i = 0; i < location.managementScore; i++) {
                      	%>
                         <img src = "./img/star.png" class = "star"/>
-<!--                         <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/> -->
                         <%
                      			}
                      	}
@@ -170,13 +165,9 @@
     				<p class="rating">Chill Rating</p>
                      <div class = "star-container" style = "display:inline-block; margin-left:15px; margin-top:3px; position:absolute;">
                         <% if (location != null) {
-                     			for (int i = 0; i < location.communityChillFactorScore; i++) {
+                     			for (int i = 0; i < location.noiseScore; i++) {
                      	%>
                         <img src = "./img/star.png" class = "star"/>
-<!--                         <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/>
-                        <img src = "./img/star.png" class = "star"/> -->
                         <%
                      			}
                      	}
@@ -258,15 +249,236 @@
         <div class = "container-fluid">
 
             <div class = "row">
-                <div class = "col-lg-12" style = "padding-top: 80px; font-size:40px; color:white; text-align:center">Reviews</div>
+                <div class = "col-lg-12" style = "padding-top: 40px; font-size:40px; color:white; text-align:center">Reviews</div>
             </div>
 
             <div class = "row">
                 <div class = "add-review-button">
-                    <div class = "col-lg-12" style = "padding-top: 8px; padding-bottom: 40px; font-size:20px; color:white; text-align:center">Write your own!</div>
+                    <div class = "col-lg-12" id="writeReview" style = "padding-top: 8px; padding-bottom: 40px; font-size:20px; color:white; text-align:center"><a>Write your own!</a></div>
                 </div>
             </div>
-
+            
+			<div id ="reviewRow">
+				<div style = "background-color: #c05049;text-align:center;padding:20px">
+					<div style = "color:#ffcc00;font-size:36px;">Ratings</div>
+	
+					<div class = "preferences-wrapper">
+						<div class = "slider-wrapper" style="padding-top:10%;">
+							<p>Management</p>
+							
+							<div data-role="main" class="ui-content">
+							    <form method="post" action="demoform.asp">
+							      <input type="range" class = "slider" id="managementPoints" value="5" min="1" max="5">
+							    </form>
+						  	</div>
+	
+						  	<div style = "width:100%;">
+							  	<div class = "slider-ticks">
+							  		<div class = "tick">1
+							  		</div>
+	
+							  		<div class = "tick">2
+							  		</div>
+	
+							  		<div class = "tick">3
+							  		</div>
+	
+							  		<div class = "tick">4
+							  		</div>
+	
+							  		<div class = "tick">5
+							  		</div>
+							  	</div>
+						  	</div>
+							
+						</div>
+	
+						<div class = "slider-wrapper">
+							<p>Amenities</p>
+							<div data-role="main" class="ui-content">
+							    <form method="post" action="demoform.asp">
+							      <input type="range" class = "slider" id="amenitiesPoints" value="5" min="1" max="5">
+							    </form>
+						  	</div>
+	
+						  	<div style = "width:100%">
+							  	<div class = "slider-ticks">
+							  		<div class = "tick">1
+							  		</div>
+	
+							  		<div class = "tick">2
+							  		</div>
+	
+							  		<div class = "tick">3
+							  		</div>
+	
+							  		<div class = "tick">4
+							  		</div>
+	
+							  		<div class = "tick">5
+							  		</div>
+	
+							  	
+							  	</div>
+						  	</div>
+						</div>
+	
+						<div class = "slider-wrapper">
+							<p>Location</p>
+							<div data-role="main" class="ui-content">
+							    <form method="post" action="demoform.asp">
+							      <input type="range" class = "slider" id="locationPoints" value="5" min="1" max="5">
+							    </form>
+						  	</div>
+	
+						  	<div style = "width:100%">
+							  	<div class = "slider-ticks">
+							  		<div class = "tick">1
+							  		</div>
+	
+							  		<div class = "tick">2
+							  		</div>
+	
+							  		<div class = "tick">3
+							  		</div>
+	
+							  		<div class = "tick">4
+							  		</div>
+	
+							  		<div class = "tick">5
+							  		</div>
+	
+							  		
+							  	</div>
+						  	</div>
+						</div>
+	
+						<div class = "slider-wrapper">
+							<p>Noise</p>
+							<div data-role="main" class="ui-content">
+							    <form method="post" action="demoform.asp">
+							      <input type="range" class = "slider" id="noisePoints" value="5" min="1" max="5">
+							    </form>
+						  	</div>
+	
+						  	<div style = "width:100%">
+							  	<div class = "slider-ticks">
+							  		<div class = "tick">1
+							  		</div>
+	
+							  		<div class = "tick">2
+							  		</div>
+	
+							  		<div class = "tick">3
+							  		</div>
+	
+							  		<div class = "tick">4
+							  		</div>
+	
+							  		<div class = "tick">5
+							  		</div>
+							  	</div>
+						  	</div>
+						</div>
+	
+						<div class = "slider-wrapper">
+							<p>Chill Factor</p>
+							<div data-role="main" class="ui-content">
+							    <form method="post" action="demoform.asp">
+							      <input type="range" class = "slider" id="chillFactorPoints" value="5" min="1" max="5">
+							    </form>
+						  	</div>
+	
+						  	<div style = "width:100%">
+							  	<div class = "slider-ticks">
+							  		<div class = "tick">1
+							  		</div>
+	
+							  		<div class = "tick">2
+							  		</div>
+	
+							  		<div class = "tick">3
+							  		</div>
+	
+							  		<div class = "tick">4
+							  		</div>
+	
+							  		<div class = "tick">5
+							  		</div>
+							  	</div>
+						  	</div>
+						</div>
+	
+						
+			<!-- 			<div class = "save-sliders">
+							SAVE PREFERENCES
+						</div> -->
+	
+					</div>
+				</div>
+				
+				<div class = "row">
+	                <div class = "col-lg-1 col-md-0" ></div>
+	                <div class = "col-lg-10 col-md-12 filter-row" style = "padding: 0px">
+	                    <div class = "filter-row">
+	                        <div class = "col-lg-2">
+	                            <div class = "filter-button">
+	                                <div class = "filter-specifier">Management</div>
+	                            </div>
+	                        </div>
+	
+	                        <div class = "col-lg-2">
+	                            <div class = "filter-button"> 
+	                                <div class = "filter-specifier">Noise</div>  
+	                            </div>
+	                        </div>
+	
+	                        <div class = "col-lg-2">
+	                            <div class = "filter-button">   
+	                                <div class = "filter-specifier">Location</div>
+	                            </div>
+	                        </div>
+	
+	                        <div class = "col-lg-2">
+	                            <div class = "filter-button">  
+	                                <div class = "filter-specifier">Chillness</div>
+	                            </div>
+	                        </div>
+	
+	                        <div class = "col-lg-2">
+	                            <div class = "filter-button"> 
+	                                <div class = "filter-specifier">Amenities</div>
+	                            </div>
+	                        </div>
+	
+	                        <div class = "col-lg-2">
+	                            <div class = "filter-button">
+	                                <div class = "filter-specifier">Price</div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+                	<div class = "col-lg-1 col-md-0" ></div>
+            	</div>
+            	
+				<div class = "row">
+					<div class = "col-lg-1"></div>
+					<textarea class = "col-lg-10" id="comment">
+		                
+		            </textarea> 
+		            <div class = "col-lg-1"></div>
+	            </div>
+				
+			</div>
+			
+			<div class = "row" style="display:none;" id="submitReview">
+                <div class = "add-review-button">
+                    <div class = "col-lg-12"  style = "padding-top: 8px; padding-bottom: 40px; font-size:20px; color:white; text-align:center"><a>Submit</a></div>
+                </div>
+            </div>
+			
+			</div>
+			
             <div class = "row">
                 <div class = "col-lg-1 col-md-0" ></div>
                 <div class = "col-lg-10 col-md-12 filter-row" style = "padding: 0px">
@@ -321,6 +533,7 @@
 	                    System.out.println("size: " + location.reviews.length);
 	                    for (int i =0; i < location.reviews.length; i++) {
 	                    	Review temp = location.reviews[i];
+	                    	User user = UserDataManager.getUser(temp.facebookID);
                     
                     %> 
                     <div class="col-lg-12 single-review">
@@ -330,14 +543,14 @@
                             <div class = "reviewer-image-and-name">
                                 
                                 <div class = "reviewer-image-wrapper">
-                                <img src = "./img/CalvinHackSC.jpg" class = "reviewer-image"/>
+                                <img src = "<%=user.imageURL %>" class = "reviewer-image"/>
                                 </div>
 
 
                                 <div class = "reviewer-username">
                                     <div class = "reviewer-username-row">
                                         <div class = "reviewer-username-cell">
-                                        Calvin LeGassick
+                                        <%=user.name %>
                                         </div>
                                     </div>
                                 </div>
@@ -372,16 +585,65 @@
     <script src="js/bootstrap.min.js"></script>
 
     <script>
-/*     $(function(){
-<%--  */    	('.housing-image-card').css("background", "url(<%=location.imageURL%>) no-repeat");
- --%>/*     });
+    
+    //TODO: 
+    // should this function go in Document.ready?
+<%-- /*     $(function() {
+ */    	('.housing-image-card').css("background", "url(<%=location.imageURL%>) no-repeat");
+/*     });
  */        $(".filter-button").click(function() {
             $(this).toggleClass("active");
-        });
-
+        	});
+ 		}); --%>
+ 
+ 
+ 		$(document).ready(function() {
+ 			$("#writeReview").on("click", function() {
+ 				$("#reviewRow").toggle();
+ 				$("#submitReview").toggle();
+ 			});
+ 			
+ 			$(".filter-button").click(function() {
+ 				
+ 	            $(this).toggleClass('active');
+ 	            
+ 	        });
+ 			
+ 			
+ 		 	$("#submitReview").on("click", function() {
+ 				console.log("hello");
+ 				
+ 				
+ 				FB.api('/me', function(response) {
+ 					var fbID = response.id;
+ 					console.log(fbID);				
+ 					var houseName = $("#introText").text();
+ 					var comment = null;
+ 					comment = $("#comment").val();
+			 		var rent = 900;
+			 		var managementPoints = $("#managementPoints").val();
+			 		var amenitiesPoints = $("#amenitiesPoints").val();
+			 		var locationPoints = $("#locationPoints").val();
+			 		var noisePoints = $("#noisePoints").val();
+			 		var chillFactorPoints = $("#chillFactorPoints").val();
+			 		var postData = {
+							"housingname": houseName, 
+							"fbID": fbID, 
+							"review": comment,
+							"ratings": [managementPoints, amenitiesPoints, locationPoints, noisePoints, chillFactorPoints], 
+							"rent": rent,
+							};
+					$.ajax({
+						url: "/troho/SubmitReview",
+						type: "POST",
+						data: JSON.stringify(postData),
+						dataType: "JSON"
+ 					});
+ 				});
+ 			}); 
+ 		});
     </script>
 
 </body>
-
 </html>
 

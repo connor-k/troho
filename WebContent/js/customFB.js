@@ -85,20 +85,21 @@
 		// successful.  See statusChangeCallback() for when this call is made.
 		function updateHeaderSuccessfulLogIn() {
 			document.getElementById('log-in-sequence').style.display = "none";
-			
+			var name = null;
+			var imgURL = null;
+			var fbID = null;
+			var email = null;
 			FB.api('/me', function(response) {
 				document.getElementById('user-sequence').style.display = "inline";
 				document.getElementById('welcome-message').innerHTML = 'Welcome ' + response.name + '!';
-			});
-			
-			FB.api('/me/picture', function(response) {
-				console.log(response.data.url);
- 				document.getElementById('profile-image').setAttribute("src", response.data.url);
-			});
-			
-			FB.api('/me/picture', function(response) {
-				console.log(response.data.url);
- 				document.getElementById('profile-image').setAttribute("src", response.data.url);
+				name = response.name;
+				fbID = response.id;
+				email = response.email;
+				FB.api('/me/picture?type=large', function(response) {
+	 				imgURL = response.data.url;
+	 				document.getElementById('profile-image').setAttribute("src", imgURL);
+	 				createUser(name, imgURL, fbID, email);
+				});
 			});
 		}
 		
@@ -113,7 +114,17 @@
 				}, {scope: 'public_profile,user_friends, email'});
 		}
 		function goToUser() {
-			console.log("IMPLEMENT THIS FUNCTION");
-			// create servlet to do this
-			// send FB id with page
+			FB.api('/me', function(response) {
+				var site = "/troho/user.jsp?id=" + response.id;
+				window.open(site,"_self")
+			});
+		}
+		
+		function createUser(name, imgURL, fbID, email) {
+			$.ajax({
+				  url: "/troho/CreateUser",
+				  type: "POST",
+				  data: {name : name, url:imgURL, fbID: fbID, email:email},
+				  dataType: "JSON"
+				});
 		}

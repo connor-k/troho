@@ -39,7 +39,7 @@ public class User {
 				+ managementSurveyScore + "|" + amenitiesSurveyScore + "|" + locationSurveyScore 
 				+ "|" + noiseSurveyScore + "|" + communityChillFactorSurveyScore + "\n reviews: " 
 				+ reviewsWritten + "\n friends: " + friendIDs + "\n location: " 
-				+ currentLocation.locationName;
+				+ (currentLocation != null ? currentLocation.locationName : "none");
 	}
 
 }

@@ -1,24 +1,22 @@
 package Trie;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Vector;
 
 import sql.HousingLocation;
 import sql.HousingType;
+import sql.HousingDataManager;
 
 public class SearchHelper {
 	HousingComparator myHouseComp;
 	private Trie myTrie;
 	
-	//takes as argument vector of all housing locations in the
-	//database
-	SearchHelper(Vector<HousingLocation> addHouses) {
-		myTrie = new Trie(addHouses);
-	}
-	
-	//default constructor, starts with empty trie
+	//default constructor, starts with all houses in trie
 	SearchHelper() {
-		myTrie = new Trie();
+		HousingLocation [] houseArray = HousingDataManager.getAllHousingLocations();
+		Vector<HousingLocation> houses = new Vector<HousingLocation>(Arrays.asList(houseArray));
+		myTrie = new Trie(houses);
 	}
 	
 	//takes as argument a new housing location
@@ -29,17 +27,27 @@ public class SearchHelper {
 	
 	//takes as argument user preferences and a vector of houses
 	//sorts both of them based on predicted user preference
-	void sortHouses(int managementScore, int amenitiesScore, int locationScore,
-			int noiseScore, int communityChillFactorScore, Vector<HousingLocation> houses) {
+	HousingLocation [] sortPruneHouses(int managementScore, int amenitiesScore, int locationScore,
+			int noiseScore, int communityChillFactorScore, String searchWords, 
+			int maxPrice, int maxDistance, boolean isHouse, boolean isDorm, 
+			boolean isApartment, int minRating) {
 		
+		HousingLocation [] houseArray = findHouse(searchWords);
+		
+		Vector<HousingLocation> houses = new Vector<HousingLocation>();
+		for(int i = 0; i <houseArray.length; i++) {
+			houses.add(houseArray[i]);
+		}
+		pruneHouses(maxPrice, maxDistance, isHouse, isDorm, isApartment, minRating, houses);
 		myHouseComp = new HousingComparator(managementScore, amenitiesScore, locationScore,
 				noiseScore, communityChillFactorScore);
 		houses.sort(myHouseComp);	
+		return (HousingLocation[]) houses.toArray();
 	}
 	
 	//takes as argument cut-off preferences and all possible houses
 	//returns a vector of houses with only houses that fit the description
-	Vector<HousingLocation> pruneHouses(int maxPrice, int maxDistance, 
+	private Vector<HousingLocation> pruneHouses(int maxPrice, int maxDistance, 
 			boolean isHouse, boolean isDorm, boolean isApartment, int minRating,
 			Vector<HousingLocation> houses) {
 		Vector<HousingLocation> prunedHouses = houses;
@@ -70,11 +78,11 @@ public class SearchHelper {
 			return false;
 		} else if (Integer.parseInt(house.distanceToCampus) > maxDistance) {
 			return false;
-		} else if (checkHouse^isHouse) {
+		} else if (checkHouse != isHouse) {
 			return false;
-		} else if (checkApartment^isApartment) {
+		} else if (checkApartment != isApartment) {
 			return false;
-		} else if (checkDorm^isDorm) {
+		} else if (checkDorm != isDorm) {
 			return false;
 		} else if (house.overallScore < minRating) {
 			return false;
@@ -85,7 +93,7 @@ public class SearchHelper {
 	//takes as argument user search words
 	//returns a vector of houses matching those words
 	//the returned vector is roughly sorted by relevance
-	Vector<HousingLocation> findHouse(String searchWords) {
-		return myTrie.findPartialWord(searchWords);
+	HousingLocation [] findHouse(String searchWords) {
+		return (HousingLocation[]) myTrie.findPartialWord(searchWords).toArray();
 	}
 }

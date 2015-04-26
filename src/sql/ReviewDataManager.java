@@ -13,14 +13,15 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 
 public class ReviewDataManager {
-	/** Store a review in the db
-	 * @param housingKey The location this review is for
+	/** Store a review in the db, with housing location set by the key
+	 * @param housingKey The key of the location this review is for
 	 * @param facebookID The user who's writing this review
 	 * @param comment The text comment associated with the review
 	 * @param ratings The integer scores given to each review category
+	 * @param tags An array designating any tags added by the user
 	 * @param rent The rent paid by the user (currently optional)
 	 */
-	public static void createReview(int housingKey, String facebookID, String comment, String[] ratings, String rent) {
+	public static void createReview(int housingKey, String facebookID, String comment, String[] ratings, boolean[] tags, String rent) {
 		// Ensure they haven't already written a review
 		HousingLocation hl = HousingDataManager.getHousingLocation(housingKey);
 		if (hl != null) {
@@ -44,15 +45,18 @@ public class ReviewDataManager {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
 			ps = conn.prepareStatement("INSERT INTO Reviews (housingKey, facebookID, textComment, "
 					+ "managementScore, amenitiesScore, locationScore, noiseScore, "
-					+ "communityChillFactorScore, rentPaid, timeWritten) VALUES (?, ?, ?, ?, ?, ?,"
-					+ " ?, ?, ?, now());");
+					+ "communityChillFactorScore, tag1, tag2, tag3, tag4, tag5, tag6, rentPaid, "
+					+ "timeWritten) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now());");
 			ps.setInt(1, housingKey);
 			ps.setString(2, facebookID);
 			ps.setString(3, comment);
 			for (int i = 4; i <= 8; ++i) {
 				ps.setString(i, ratings[i - 4]);
 			}
-			ps.setInt(9, Integer.parseInt(rent));
+			for (int i = 9; i <= 14; ++i) {
+				ps.setBoolean(i, tags[i - 9]);
+			}
+			ps.setInt(15, Integer.parseInt(rent));
 			ps.executeUpdate();
 
 			// Now update that housinglocation's average rating fields
@@ -92,6 +96,18 @@ public class ReviewDataManager {
 			} catch (SQLException e) { /* Do nothing */ }
 		}
 	}
+	
+	/** Store a review in the db, with housing location set by the name
+	 * @param housingName The name of the location this review is for
+	 * @param facebookID The user who's writing this review
+	 * @param comment The text comment associated with the review
+	 * @param ratings The integer scores given to each review category
+	 * @param tags An array designating any tags added by the user
+	 * @param rent The rent paid by the user (currently optional)
+	 */
+	public static void createReview(String housingName, String facebookID, String comment, String[] ratings, boolean[] tags, String rent) {
+		createReview(HousingDataManager.getHousingKey(housingName), facebookID, comment, ratings, tags, rent);
+	}
 
 	/** 
 	 * @param reviewKey the database key to this review
@@ -111,11 +127,15 @@ public class ReviewDataManager {
 			ps.setInt(1, reviewKey);
 			rs = ps.executeQuery();
 			if (rs.next()) {
+				boolean tags[] = new boolean[6];
+				for (int i = 0; i < 6; ++i) {
+					tags[i] = rs.getBoolean("tag" + (i + 1));
+				}
 				review = new Review (reviewKey, rs.getInt("housingKey"), rs.getString("facebookID"),
 						rs.getInt("managementScore"), rs.getInt("amenitiesScore"),
 						rs.getInt("locationScore"), rs.getInt("noiseScore"),
 						rs.getInt("communityChillFactorScore"), rs.getString("textComment"),
-						rs.getInt("rentPaid"), rs.getString("timeWritten"));
+						tags, rs.getInt("rentPaid"), rs.getString("timeWritten"));
 			}
 		} catch (SQLException sqle) {
 			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());

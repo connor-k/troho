@@ -1,30 +1,31 @@
 <%@page import="sql.UserDataManager"%>
 <%@page import="sql.User"%>
+<%@page import="Trie.PreferenceCalculator"%>
+<%@page import="sql.HousingLocation"%>
+
 
 <%
 	User user = null;
 	String fbID = request.getParameter("id");
-	
-	fbID = "12rehfdsu2j34f1d4";
-	
-	
+		
 	if (fbID != null) {
 		user = UserDataManager.getUser(fbID);
+		System.out.println(user);
 	} else {
 		String redirectURL = "/troho/404.html";
     	response.sendRedirect(redirectURL);
 	}
 %>
 
-
 <!DOCTYPE html>
 <html>
 <head>
 
-<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/index.css">
 <link rel="stylesheet" href="css/user.css">
 <link href="css/header-bar.css" rel="stylesheet">
 <link href="css/bootstrap.min.css" rel="stylesheet">
+
 
 </head>
 
@@ -92,9 +93,7 @@
 						<p>Management</p>
 						
 						<div data-role="main" class="ui-content">
-						    <form method="post" action="demoform.asp">
-						      <input type="range" class = "slider" id="points" value="5" min="1" max="10">
-						    </form>
+						      <input type="range" name="management" class = "slider" id="management" value="5" min="1" max="10">
 					  	</div>
 
 					  	<div style = "width:100%">
@@ -136,9 +135,7 @@
 					<div class = "slider-wrapper">
 						<p>Amenities</p>
 						<div data-role="main" class="ui-content">
-						    <form method="post" action="demoform.asp">
-						      <input type="range" class = "slider" id="points" value="5" min="1" max="10">
-						    </form>
+						      <input type="range" name="amenities" class = "slider" id="amenities" value="5" min="1" max="10">
 					  	</div>
 
 					  	<div style = "width:100%">
@@ -179,9 +176,7 @@
 					<div class = "slider-wrapper">
 						<p>Location</p>
 						<div data-role="main" class="ui-content">
-						    <form method="post" action="demoform.asp">
-						      <input type="range" class = "slider" id="points" value="5" min="1" max="10">
-						    </form>
+						      <input type="range" name="location" class = "slider" id="location" value="5" min="1" max="10">
 					  	</div>
 
 					  	<div style = "width:100%">
@@ -222,9 +217,7 @@
 					<div class = "slider-wrapper">
 						<p>Noise</p>
 						<div data-role="main" class="ui-content">
-						    <form method="post" action="demoform.asp">
-						      <input type="range" class = "slider" id="points" value="5" min="1" max="10">
-						    </form>
+						      <input type="range" class = "slider" id="noise" value="5" min="1" max="10">
 					  	</div>
 
 					  	<div style = "width:100%">
@@ -265,9 +258,7 @@
 					<div class = "slider-wrapper">
 						<p>Chill Factor</p>
 						<div data-role="main" class="ui-content">
-						    <form method="post" action="demoform.asp">
-						      <input type="range" class = "slider" id="points" value="5" min="1" max="10">
-						    </form>
+						      <input type="range" name="chill-factor" class = "slider" id="chill-factor" value="5" min="1" max="10">
 					  	</div>
 
 					  	<div style = "width:100%">
@@ -305,17 +296,52 @@
 					  	</div>
 					</div>
 
-					
-					<div class = "save-sliders">
+					<div class = "save-sliders" onClick="setPrefences()">
 						SAVE PREFERENCES
 					</div>
 
 				</div>
-				
 
 			</div>
 
 		</div>
+		
+		<div class="row"  style = "background-color: #c05049;">
+			<div style = "background-color: #c05049;text-align:center;padding:20px">
+				<div style = "color:#ffcc00;font-size:36px;">Recommendations</div>
+				<% 
+					PreferenceCalculator calculator = new PreferenceCalculator();
+					HousingLocation[] houses = calculator.findPreferences(fbID);
+					System.out.println(houses.length);
+					for (int j = 0; j < houses.length; j++) {
+						HousingLocation location = houses[j];				
+				%>
+				
+				
+					<div class = "col-lg-3"> 
+						<div class = "house-card">
+						<a href="/troho/house.jsp?name=<%= location.locationName%>">
+							<img src="<%=location.imageURL%>" height="200" width="200"></img>
+						</a>
+						</div>
+							<p class = "house-title">
+							<a href="/troho/house.jsp?name=<%= location.locationName%>" style="color:white;">
+								<%=location.locationName %>
+							</a>
+							</p>
+						<div class = "star-container" style="">
+							<img src = "./img/star.png" class = "star"/>
+							<img src = "./img/star.png" class = "star"/>
+							<img src = "./img/star.png" class = "star"/>
+						</div>
+					</div>
+				
+				<%
+					}
+				%>	
+			</div>
+		</div>
+		
 
 	</div>
 
@@ -335,7 +361,27 @@
     <script src="https://maps.googleapis.com/maps/api/js"></script>
 
     <script>
- 	 	function initialize() {
+ 	 	function setPrefences(){
+ 	 		var location = document.getElementById("location").value;
+ 	 		var chillFactor = document.getElementById("chill-factor").value;
+ 	 		var management = document.getElementById("management").value;
+ 	 		var amenities = document.getElementById("amenities").value;
+ 	 		var noise = document.getElementById("noise").value; 
+ 	 		
+			FB.api('/me', function(response) {
+				var fbID = response.id;
+ 	 		
+			$.ajax({
+				  url: "/troho/SetUserPreferences",
+				  type: "POST",
+				  data: {fbID : fbID, location : location, amenities : amenities, chillFactor : chillFactor, management : management, noise : noise},
+				  dataType: "JSON"
+				});
+			});
+ 	 	}
+    
+    
+    	function initialize() {
    	 		var mapCanvas = document.getElementById('map-canvas');
     		var mapOptions = {
 	          //center: new google.maps.LatLng(34.022228, -118.288829),

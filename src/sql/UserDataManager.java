@@ -19,20 +19,20 @@ public class UserDataManager {
 	/** Create a new entry in the Users table
 	 * @param name The user's name
 	 * @param email The user's email address (@usc.edu)
-	 * @param housingKey The key for the housing location where they live 
+	 * @param profileImageURL URL to the user's profile image 
 	 * @param facebookID The Facebook ID to identify this user
 	 * @return The User created or that already existed in the db
 	 */
-	public static User createUser(String name, String email, int housingKey, String facebookID) {
+	public static User createUser(String name, String email, String profileImageURL, String facebookID) {
 		User user = null;
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
-			ps = conn.prepareStatement("INSERT INTO Users (userName, housingKey, email, facebookID, isAdmin, verifiedEmail) VALUES (?, ?, ?, ?, false, false);");
+			ps = conn.prepareStatement("INSERT INTO Users (name, imageURL, email, facebookID, isAdmin, verifiedEmail) VALUES (?, ?, ?, ?, false, false);");
 			ps.setString(1, name);
-			ps.setInt(2, housingKey);
+			ps.setString(2, profileImageURL);
 			ps.setString(3, email);
 			ps.setString(4, facebookID);
 			// Catch this executeUpdate separately, if it happens is because duplicate facebookID or invalid housingKey
@@ -44,7 +44,8 @@ public class UserDataManager {
 				user.email = email;
 				user.verifiedEmail = false;
 				user.isAdmin = false;
-				user.currentLocation = HousingDataManager.getHousingLocation(housingKey);
+				user.currentLocation = null;
+				user.imageURL = profileImageURL;
 
 				// Create an entry for their survey with default values
 				try {
@@ -65,7 +66,7 @@ public class UserDataManager {
 				user.communityChillFactorSurveyScore = 5;
 			} catch (SQLException sqle) {
 				System.out.println("UserDataManager.createUser: duplicate facebookID " 
-						+ facebookID + " or invalid housingKey " + housingKey + ", no changes made");
+						+ facebookID + ", no changes made");
 			}
 		} catch (SQLException sqle) {
 			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
@@ -92,8 +93,8 @@ public class UserDataManager {
 	 * @param isAdmin true if this is an admin user
 	 * @return The User created or that already existed in the db
 	 */
-	public static User createUser(String name, String email, int housingKey, String facebookID, boolean isAdmin) {
-		User user = createUser(name, email, housingKey, facebookID);
+	public static User createUser(String name, String email, String profileImageURL, String facebookID, boolean isAdmin) {
+		User user = createUser(name, email, profileImageURL, facebookID);
 		if (user != null && isAdmin) {
 			Connection conn = null;
 			PreparedStatement ps = null;
@@ -125,21 +126,56 @@ public class UserDataManager {
 		return user;
 	}
 
-	/** Verify the email of a user
+	/** Set validation key that's emailed to the user
 	 * @param facebookID SQL database key for this user
+	 * @param validationKey the validation key emailed to user
 	 */
-	public static void verifyEmail(String facebookID) {
+	public static void setValidationKey(String facebookID, String validationKey) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
-			ps = conn.prepareStatement("UPDATE Users SET verifiedEmail=true WHERE facebookID=?");
-			ps.setString(1, facebookID);
+			ps = conn.prepareStatement("UPDATE Users SET validationKey=? WHERE facebookID=?");
+			ps.setString(1, validationKey);
+			ps.setString(2, facebookID);
 			int result = ps.executeUpdate();
 			if (result == 0) {
-				System.out.println("UserDataManager.verifyEmail: FacebookID " 
+				System.out.println("UserDataManager.setValidationKey: FacebookID " 
 						+ facebookID + " not in database, no changes made.");
+			}
+		} catch (SQLException sqle) {
+			// Note if an invalid housingKey was passed in, 
+			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) { /* Do nothing */ }
+			try {
+				conn.close();
+			} catch (SQLException e) { /* Do nothing */ }
+		}
+	}
+	
+	/** Verify the email of a user, checking that the validation url matches the one assigned to them
+	 * @param facebookID SQL database key for this user
+	 * @param validationKey the validation key emailed to user
+	 */
+	public static void verifyEmail(String facebookID, String validationKey) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
+			ps = conn.prepareStatement("UPDATE Users SET verifiedEmail=true WHERE facebookID=? AND validationKey=?");
+			ps.setString(1, facebookID);
+			ps.setString(2, validationKey);
+			int result = ps.executeUpdate();
+			if (result == 0) {
+				System.out.println("UserDataManager.verifyEmail: FacebookID " + facebookID + " not "
+						+ "in database or didn't match validationKey, no changes made.");
 			}
 		} catch (SQLException sqle) {
 			// Note if an invalid housingKey was passed in, 
@@ -258,7 +294,7 @@ public class UserDataManager {
 		return user;
 	}
 
-	/** 
+	/** Set the user's current location by location key 
 	 * @param facebookID SQL database key for this user
 	 * @param housingKey The housingKey for where this user lives. 
 	 */
@@ -295,6 +331,14 @@ public class UserDataManager {
 				conn.close();
 			} catch (SQLException e) { /* Do nothing */ }
 		}
+	}
+	
+	/** Set the user's current location by location name
+	 * @param facebookID SQL database key for this user
+	 * @param housingName The name of their location 
+	 */
+	public static void setLocation(String facebookID, String housingName) {
+		setLocation(facebookID, HousingDataManager.getHousingKey(housingName));
 	}
 
 	/** 

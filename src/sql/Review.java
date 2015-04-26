@@ -20,13 +20,14 @@ public class Review {
 	
 	/** Other relevant information about this review */
 	public String comment;
+	public boolean[] tags;
 	public int rentPaid;
 	public String timeWritten;
 	
 	/**  
 	 */
 	Review(int reviewKey, int housingKey, String facebookID, int managementScore, int amenitiesScore, int locationScore,
-			int noiseScore, int communityChillFactorScore, String comment, int rentPaid,
+			int noiseScore, int communityChillFactorScore, String comment, boolean[] tags, int rentPaid,
 			String timeWritten) {
 		this.reviewKey = reviewKey;
 		this.housingKey = housingKey;
@@ -37,8 +38,19 @@ public class Review {
 		this.noiseScore = noiseScore;
 		this.communityChillFactorScore = communityChillFactorScore;
 		this.comment = comment;
+		this.tags = tags;
 		this.rentPaid = rentPaid;
 		this.timeWritten = timeWritten;
+	}
+	
+	private String getTagsString() {
+		String s = "";
+		if (tags != null) {
+			for (int i = 0; i < tags.length; ++i) {
+				s += tags[i] + (i != tags.length - 1 ? "|" : "");
+			}
+		}
+		return s;
 	}
 	
 	/** Overrides toString
@@ -50,7 +62,7 @@ public class Review {
 		return "Review:\n reviewKey: " + reviewKey + "\n housing key:" + housingKey 
 				+ "\n facebookID: " + facebookID + "\n review scores: " + managementScore + "|" 
 				+ amenitiesScore + "|" + locationScore + "|" + noiseScore + "|" 
-				+ communityChillFactorScore + "\n comment: " + comment + "\n rent: " + rentPaid 
-				+ "\n time: " + timeWritten;
+				+ communityChillFactorScore + "\n comment: " + comment + "\n tags: " + getTagsString() +
+				"\n rent: " + rentPaid + "\n time: " + timeWritten;
 	}
 }

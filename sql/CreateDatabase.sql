@@ -11,12 +11,13 @@ CREATE TABLE HousingLocations (
   textAddress varchar(70) NOT NULL,
   description varchar(500) NOT NULL, 
   imageURLs varchar(500) NOT NULL,
-  floorplanURLs varchar(500), # currently don't require these
+# Currently don't require floorplan
+  floorplanURLs varchar(500),
   gpsLatitude varchar(12) NOT NULL,
   gpsLongitude varchar(12) NOT NULL,
   minutesWalking int(2) NOT NULL,
   minutesBiking int(2) NOT NULL,
-  # Average ratings so we don't recalculate every time the page is viewed
+# Average ratings so we don't recalculate every time the page is viewed
   averageManagement varchar(4),
   averageAmenities varchar(4),
   averageLocation varchar(4),
@@ -33,6 +34,7 @@ CREATE TABLE Users (
   housingKey int(10),
   isAdmin bool NOT NULL,
   verifiedEmail bool NOT NULL,
+  validationKey varchar(50),
   FOREIGN KEY (housingKey) REFERENCES HousingLocations(housingKey)
 );
 
@@ -65,7 +67,13 @@ CREATE TABLE Reviews (
   locationScore int(1) NOT NULL,
   noiseScore int(1) NOT NULL,
   communityChillFactorScore int(1) NOT NULL,
-  rentPaid int(4), # add NOT NULL if we want to enforce them saying
+  rentPaid int(4),
+  tag1 bool,
+  tag2 bool,
+  tag3 bool,
+  tag4 bool,
+  tag5 bool,
+  tag6 bool,
   timeWritten TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
   FOREIGN KEY (housingKey) REFERENCES HousingLocations(housingKey),
   FOREIGN KEY (facebookID) REFERENCES Users(facebookID)
