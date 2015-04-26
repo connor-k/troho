@@ -18,7 +18,7 @@ public class emailconfirm {
 		facebookID = fbID; 
 		key = java.util.UUID.randomUUID().toString();	//generates random key for indiv user
 		sendEmail();
-		//UserDataManager.setValidationKey(facebookID, key); 
+		UserDataManager.setValidationKey(facebookID, key); 
 	}
 	
 	public static void sendEmail() throws EmailException 
