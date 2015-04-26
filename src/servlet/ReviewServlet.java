@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -31,7 +32,7 @@ public class ReviewServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println(request);
 		response.setContentType("application/json");
-		JSONObject object = requestParamsToJSON(request);
+		JSONObject object = translateToJSON(request);
 		System.out.println(object);
 		JSONArray elements = object.names();
 		object = new JSONObject(elements.getString(0));
@@ -65,15 +66,23 @@ public class ReviewServlet extends HttpServlet {
 		out.flush();
 	}
 	
-	public JSONObject requestParamsToJSON(HttpServletRequest request) {
-		  JSONObject jsonObj = new JSONObject();
-		  Map<String,String[]> params = request.getParameterMap();
-		  for (Map.Entry<String,String[]> entry : params.entrySet()) {
-		    String v[] = entry.getValue();
-		    Object o = (v.length == 1) ? v[0] : v;
-		    jsonObj.put(entry.getKey(), o);
+	public JSONObject translateToJSON(HttpServletRequest request) {
+		  JSONObject newObject = new JSONObject();
+		  Map<String,String[]> parameterMap = request.getParameterMap();
+		  Iterator<Map.Entry<String,String[]>> mapIt = parameterMap.entrySet().iterator();
+		  
+		  while(mapIt.hasNext()) {
+			  Map.Entry<String,String[]> curr = mapIt.next();
+			  String [] result = curr.getValue();
+			  if(result.length != 1) {
+				  Object addObject = result;
+				  newObject.put(curr.getKey(), addObject);
+			  } else {
+				  Object addObject = result[0];
+				  newObject.put(curr.getKey(), addObject);
+			  }
 		  }
-		  return jsonObj;
+		  return newObject;
 	}
 
 }
