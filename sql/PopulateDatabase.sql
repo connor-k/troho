@@ -1,4 +1,5 @@
 USE Troho;
+SHOW GRANTS FOR 'root'@'localhost';
 
 INSERT INTO HousingLocations (housingType, locationName, textAddress, description, amenities, imageURLs, floorplanURLs, gpsLatitude, gpsLongitude, minutesWalking, minutesBiking) VALUES (1, 'The Lorenzo', '325 W Adams Blvd', 'Luxurious apartments slightly far from USC campus.', '* Pool \n * Gym \n * Laundry room', './img/LocationImages/lorenzo.jpeg', './img/LocationFloorplans/lorenzo.png', '34.027462', '-118.272988', 20, 10);
 INSERT INTO HousingLocations (housingType, locationName, textAddress, description, amenities, imageURLs, floorplanURLs, gpsLatitude, gpsLongitude, minutesWalking, minutesBiking) VALUES (1, 'Icon Plaza', '3584 S Figueroa St', 'Small apartment series across the street from campus.', '* Pool \n * Gym \n * Laundry room', './img/LocationImages/iconplaza.jpeg', './img/LocationFloorplans/iconplaza.png', '34.0184869', '-118.2824651', 5, 3);
