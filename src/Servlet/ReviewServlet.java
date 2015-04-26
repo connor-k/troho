@@ -15,7 +15,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import Trie.ReviewHelper;
+import sql.HousingDataManager;
 import sql.Review;
+import sql.User;
+import sql.UserDataManager;
 
 /**
  * Servlet implementation class ReviewServlet
@@ -36,6 +39,7 @@ public class ReviewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("HELLO REVIEW");
 		response.setContentType("application/json");
 		JSONObject object = requestParamsToJSON(request);
 		String houseName = object.getString("houseName");
@@ -52,15 +56,20 @@ public class ReviewServlet extends HttpServlet {
 		JSONArray reviewArray = new JSONArray();
 		
 		for(int i = 0; i < myReviews.size(); i++) {
-			JSONObject reviewObject = new JSONObject();
-			{
-				Review currReview = myReviews.elementAt(i);
-				reviewObject.put("review", currReview);
-			}
+			JSONObject reviewObject = new JSONObject();		
+			Review currReview = myReviews.elementAt(i);
+			User user = UserDataManager.getUser(currReview.facebookID);
+			reviewObject.put("name", user.name);
+			reviewObject.put("userImg", user.imageURL);		
+			reviewObject.put("review", currReview.comment);	
 			reviewArray.put(i, reviewObject);
+			System.out.println(currReview);
 		}
 		
-		out.print(reviewArray);
+		System.out.println(reviewArray);
+		JSONObject obj = new JSONObject();
+		obj.put("reviews", reviewArray);
+		out.print(obj);
 		out.flush();
 	}
 
@@ -68,7 +77,42 @@ public class ReviewServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		System.out.println(request);
+		response.setContentType("application/json");
+		JSONObject object = requestParamsToJSON(request);
+		System.out.println(object);
+		JSONArray elements = object.names();
+		object = new JSONObject(elements.getString(0));
+
+		String houseName = object.getString("houseName");
+		JSONArray tagArray = object.getJSONArray("tags");
+		
+		boolean [] tags = new boolean[6];
+		
+		for(int i = 0; i < tagArray.length(); i++) {
+			tags[i] = tagArray.getBoolean(i);
+		}
+		
+		PrintWriter out = response.getWriter();
+		Vector<Review> myReviews = ReviewHelper.pruneReviews(houseName, tags);
+		JSONArray reviewArray = new JSONArray();
+		
+		for(int i = 0; i < myReviews.size(); i++) {
+			JSONObject reviewObject = new JSONObject();		
+			Review currReview = myReviews.elementAt(i);
+			User user = UserDataManager.getUser(currReview.facebookID);
+			reviewObject.put("name", user.name);
+			reviewObject.put("userImg", user.imageURL);		
+			reviewObject.put("review", currReview.comment);	
+			reviewArray.put(i, reviewObject);
+			System.out.println(currReview);
+		}
+		
+
+		JSONObject obj = new JSONObject();
+		obj.put("reviews", reviewArray);
+		out.print(obj);
+		out.flush();
 	}
 	
 	public JSONObject requestParamsToJSON(HttpServletRequest request) {
