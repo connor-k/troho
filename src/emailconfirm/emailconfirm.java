@@ -41,10 +41,8 @@ public class emailconfirm {
 	public static void sendTestEmail(String code, String id)
 	{
 		try {
-			toConfirm = "vitashubin@hotmail.com"; 
-			key = code; 
-			facebookID = id; 
-			sendEmail(); 
+			new emailconfirm("vitashubin@hotmail.com", "111");
+			System.out.println(message);
 		} catch (EmailException e) {
 			e.printStackTrace();
 		} 
@@ -56,14 +54,5 @@ public class emailconfirm {
 		//for testing purposes
 		System.out.println("User ID " + id + " confirmed with key " + code); 
 	}
-	
-	public static void main(String[] args)
-	{
-		try {
-			new emailconfirm("vitashubin@hotmail.com", "111");
-			System.out.println(message);
-		} catch (EmailException e) {
-			e.printStackTrace();
-		} 
-	}
+
 }
