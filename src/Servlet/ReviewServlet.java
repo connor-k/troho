@@ -67,7 +67,6 @@ public class ReviewServlet extends HttpServlet {
 			reviewObject.put("userImg", user.imageURL);		
 			reviewObject.put("review", currReview.comment);	
 			reviewArray.put(i, reviewObject);
-			System.out.println(currReview);
 		}	
 
 		JSONObject obj = new JSONObject();
