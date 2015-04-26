@@ -50,7 +50,7 @@ public class SearchFilter extends HttpServlet {
 		boolean isApartment = false;
 		boolean isDorm = false;
 		//ousingType.valueOf(Apartment)
-		APARTMENT, DORM, HOUSE
+		//APARTMENT, DORM, HOUSE
 		
 		if(housingType == 0) {
 			isApartment = true;
