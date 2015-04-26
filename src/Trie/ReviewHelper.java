@@ -12,19 +12,10 @@ import sql.UserDataManager;
 
 public class ReviewHelper {
 	public static Review [] pruneReviews(String houseName, boolean [] tags) {
-		System.out.println("running pruneReviews...");
 		HousingLocation location = HousingDataManager.getHousingLocation(houseName);
 		Review [] reviewArray = location.reviews;
 		Vector<Review> reviews = new Vector<Review>();
 		boolean allFalse = true;
-		
-		
-		System.out.println("Printing user selected tags...");
-		for(int i = 0; i < 6; i++) {
-			System.out.print(tags[i] + " ");
-		}
-		System.out.println("");
-		
 		
 		for(int i = 0; i < 6; i++) {
 			if(tags[i] == true) {
@@ -32,12 +23,13 @@ public class ReviewHelper {
 			}
 		}
 		if(allFalse) {
-			//Arrays.sort(reviewArray, new SortReviews());
+			Arrays.sort(reviewArray, new SortReviews());
 			return reviewArray;
 		}
 		
 		for(int i = 0; i < reviewArray.length; i++) {
 			User myUser = UserDataManager.getUser(reviewArray[i].facebookID);
+			System.out.println("");
 			System.out.println("Printing" + myUser.name + "'s" + " reviews");
 			
 			if(checkValidReview(reviewArray[i], tags)) {
@@ -45,9 +37,9 @@ public class ReviewHelper {
 			}
 		}
 		System.out.println("");
-		//SortReviews mySorter = new SortReviews();
+		SortReviews mySorter = new SortReviews();
 		
-		//reviews.sort(mySorter);
+		reviews.sort(mySorter);
 		
 		Review [] reviewResult = new Review[reviews.size()];
 		for(int i = 0; i < reviewResult.length; i++) {
@@ -83,9 +75,6 @@ public class ReviewHelper {
 			}
 			return 0;
 		}
-
-	
-		
 	}
 }
 

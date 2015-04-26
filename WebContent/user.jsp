@@ -319,7 +319,7 @@
 		
 		<div class="row"  style = "background-color: #c05049;">
 			<div style = "background-color: #c05049;text-align:center;padding:20px">
-				<div style = "color:#ffcc00;font-size:36px;">Recommendations</div>
+				<div style = "color:#ffcc00;font-size:36px; margin-bottom:25px;">Recommendations</div>
 				<% 
 					HousingLocation[] houses = PreferenceCalculator.findPreferences(fbID);
 					System.out.println(houses.length);
@@ -328,7 +328,7 @@
 				%>
 				
 				
-					<div class = "col-lg-3"> 
+					<div class = "col-lg-3 col-md-6" style="margin-bottom:30px;"> 
 						<div class = "house-card">
 						<a href="/troho/house.jsp?name=<%= location.locationName%>">
 							<img src="<%=location.imageURL%>" height="200" width="200"></img>
@@ -340,9 +340,13 @@
 							</a>
 							</p>
 						<div class = "star-container" style="">
-							<img src = "./img/star.png" class = "star"/>
-							<img src = "./img/star.png" class = "star"/>
-							<img src = "./img/star.png" class = "star"/>
+							<%
+							for (int k = 0; k < location.overallScore; k++) {
+							%>
+								<img src = "./img/star.png" class = "star"/>
+							<%
+							}
+							%>
 						</div>
 					</div>
 				

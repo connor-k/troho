@@ -70,8 +70,6 @@
 
 <body>
 
-	<script src="js/customFB.js">
-	</script>
 
 	<!-- Page Header -->
 	<div class="header">
@@ -254,7 +252,7 @@
                 <div class = "col-lg-12" style = "padding-top: 40px; font-size:40px; color:white; text-align:center">Reviews</div>
             </div>
 
-            <div class = "row">
+            <div class = "row" id="rowWrite">
                 <div class = "add-review-button">
                     <div class = "col-lg-12" id="writeReview" style = "padding-top: 8px; padding-bottom: 40px; font-size:20px; color:white; text-align:center"><a>Write your own!</a></div>
                 </div>
@@ -424,37 +422,37 @@
 	                <div class = "col-lg-10 col-md-12 filter-row" style = "padding: 0px">
 	                    <div class = "filter-row">
 	                        <div class = "col-lg-2">
-	                            <div class = "filter-button">
+	                            <div class = "filter-button" id="managementReviewTag">
 	                                <div class = "filter-specifier">Management</div>
 	                            </div>
 	                        </div>
 	
 	                        <div class = "col-lg-2">
-	                            <div class = "filter-button"> 
+	                            <div class = "filter-button" id="noiseReviewTag"> 
 	                                <div class = "filter-specifier">Noise</div>  
 	                            </div>
 	                        </div>
 	
 	                        <div class = "col-lg-2">
-	                            <div class = "filter-button">   
+	                            <div class = "filter-button" id="locationReviewTag">   
 	                                <div class = "filter-specifier">Location</div>
 	                            </div>
 	                        </div>
 	
 	                        <div class = "col-lg-2">
-	                            <div class = "filter-button">  
+	                            <div class = "filter-button" id="chillnessReviewTag">  
 	                                <div class = "filter-specifier">Chillness</div>
 	                            </div>
 	                        </div>
 	
 	                        <div class = "col-lg-2">
-	                            <div class = "filter-button"> 
+	                            <div class = "filter-button" id ="amenitiesReviewTag"> 
 	                                <div class = "filter-specifier">Amenities</div>
 	                            </div>
 	                        </div>
 	
 	                        <div class = "col-lg-2">
-	                            <div class = "filter-button">
+	                            <div class = "filter-button" id="priceReviewTag">
 	                                <div class = "filter-specifier">Price</div>
 	                            </div>
 	                        </div>
@@ -463,12 +461,7 @@
                 	<div class = "col-lg-1 col-md-0" ></div>
             	</div>
             	
-				<div class = "row">
-					<div class = "col-lg-1"></div>
-					<textarea class = "col-lg-10" id="comment">
-		                
-		            </textarea> 
-		            <div class = "col-lg-1"></div>
+				<div class = "row"><div class = "col-lg-1"></div><textarea style="font-size:3em;"placeholder="Your comment here" class = "col-lg-10" id="comment"></textarea><div class = "col-lg-1"></div>
 	            </div>
 				
 			</div>
@@ -492,7 +485,7 @@
                         </div>
 
                         <div class = "col-lg-2">
-                            <div class = "filter-button selector"> 
+                            <div class = "filter-button selector" id="noiseTag"> 
                                 <div class = "filter-specifier" id="noiseTag">Noise</div>  
                             </div>
                         </div>
@@ -578,6 +571,10 @@
             <img src = "./img/new-troho.png" style = "height:200px;width:auto">
         </div>
     </div>
+    </body>
+    
+	<script src="js/fbhouse.js">
+	</script>
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
@@ -586,38 +583,45 @@
     <script src="js/bootstrap.min.js"></script>
 
     <script>
-    
-    //TODO: 
-    // should this function go in Document.ready?
-<%-- /*     $(function() {
- */    	('.housing-image-card').css("background", "url(<%=location.imageURL%>) no-repeat");
-/*     });
- */        $(".filter-button").click(function() {
-            $(this).toggleClass("active");
-        	});
- 		}); --%>
  
- 
+		var hideShowSubmit = function(){
+			FB.api('/me', function(response) {
+				var fbID = response.id;
+				var houseName = $("#introText").text();
+				var postData = {
+					"fbID": fbID, 
+					"houseName": houseName
+					};
+				
+				$.ajax({
+					url: "/troho/VerifiedUser",
+					type: "GET",
+					data: JSON.stringify(postData),
+					dataType: "JSON",
+					success:function(data){
+						console.log(data.reviewBool);
+						if(data.reviewBool == false) {
+							$("#rowWright").toggle();
+						}
+					}
+				});
+			});
+		}
  		$(document).ready(function() {
+ 				
  			$("#writeReview").on("click", function() {
  				$("#reviewRow").toggle();
  				$("#submitReview").toggle();
  			});
  			
- 			$(".filter-button").click(function() {
- 				
+ 			$(".filter-button").click(function() {			
  	            $(this).toggleClass('active');
- 	            
  	        });
  			
  			
- 		 	$("#submitReview").on("click", function() {
- 				console.log("hello");
- 				
- 				
+ 		 	$("#submitReview").on("click", function() { 				
  				FB.api('/me', function(response) {
  					var fbID = response.id;
- 					console.log(fbID);				
  					var houseName = $("#introText").text();
  					var comment = null;
  					comment = $("#comment").val();
@@ -627,12 +631,44 @@
 			 		var locationPoints = $("#locationPoints").val();
 			 		var noisePoints = $("#noisePoints").val();
 			 		var chillFactorPoints = $("#chillFactorPoints").val();
+			 		var arr = []; 
+	 		 		if ($("#managementReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
+	 		 		if ($("#noiseReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
+	 		 		if ($("#locationReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
+	 		 		if ($("#chillnessReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
+	 		 		if ($("#amenitiesReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
+	 		 		if ($("#priceReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
 			 		var postData = {
 							"housingname": houseName, 
 							"fbID": fbID, 
 							"review": comment,
 							"ratings": [managementPoints, amenitiesPoints, locationPoints, noisePoints, chillFactorPoints], 
 							"rent": rent,
+							"tags":[arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]]
 							};
 					$.ajax({
 						url: "/troho/SubmitReview",
@@ -641,6 +677,9 @@
 						dataType: "JSON"
  					});
  				});
+ 				$("#rowWrite").toggle(); 
+ 				$("#reviewRow").toggle();
+ 				$("#submitReview").toggle();
  			});
  		 	
  		 	$(".selector").on("click", function() {
@@ -702,9 +741,9 @@
  		 		
  		 	});
  		 	
+ 		 	
  		});
     </script>
 
-</body>
 </html>
 

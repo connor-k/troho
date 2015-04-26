@@ -10,8 +10,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class HousingDataManager {
 	/** Create a new housing location
@@ -258,6 +263,82 @@ public class HousingDataManager {
 		}
 		
 		return locations.toArray(new HousingLocation[locations.size()]);
+	}
+	
+	/** Prepare data for the rent over time plot
+	 * @param housingName The name of this location
+	 * @return Object array containing the label array and data array
+	 */
+	public static Object[] getRentOverTimeData(String housingName) {
+		Object[] data = null;
+		HousingLocation housingLocation = getHousingLocation(housingName);
+		if (housingLocation != null && housingLocation.reviews != null) {
+			TreeMap<String, Double> averageRentPerYear = new TreeMap<String, Double>();
+			HashMap<String, Integer> entriesPerYear = new HashMap<String, Integer>();
+			for (int i = 0; i < housingLocation.reviews.length; ++i) {
+				int rentPaid = housingLocation.reviews[i].rentPaid;
+				String yearWritten = housingLocation.reviews[i].timeWritten.substring(0, 4);
+				Double averageRent = averageRentPerYear.get(yearWritten);
+				if (averageRent != null) {
+					averageRentPerYear.put(yearWritten, (averageRent/entriesPerYear.get(yearWritten) + rentPaid)/(entriesPerYear.get(yearWritten) + 1));
+					entriesPerYear.put(yearWritten, entriesPerYear.get(yearWritten) + 1);
+				} else {
+					averageRentPerYear.put(yearWritten, (double)rentPaid);
+					entriesPerYear.put(yearWritten, 1);
+				}
+			}
+			
+			data = new Object[2];
+			ArrayList<String> years = new ArrayList<String>();
+			ArrayList<Double> averageRent = new ArrayList<Double>();
+			SortedSet<String> keys = new TreeSet<String>(averageRentPerYear.keySet());
+			for (String key : keys) {
+				years.add(key);
+				averageRent.add(averageRentPerYear.get(key));
+			}
+			data[0] = years.toArray(new String[years.size()]);
+			data[1] = averageRent.toArray(new Double[averageRent.size()]);
+		}
+		return data;
+	}
+	
+	/** Check if a User has reviewed this location
+	 * @param facebookID SQL database key for this user
+	 * @param housingName The name of this location
+	 * @return Object array containing the label array and data array
+	 */
+	public static boolean hasReviewedLocation(String facebookID, String housingName) {
+		HousingLocation housingLocation = getHousingLocation(housingName);
+		if (housingLocation != null && housingLocation.reviews != null) {
+			Connection conn = null;
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
+				ps = conn.prepareStatement("SELECT * FROM Users WHERE facebookID=? AND housingKey=?");
+				ps.setString(1, facebookID);
+				ps.setInt(2, housingLocation.housingKey);
+				rs = ps.executeQuery();
+				if (rs.next()) {
+					// Note: finally block still executes to close connections before this return
+					return true;
+				}
+			} catch (SQLException sqle) {
+				// Note if an invalid housingKey was passed in, 
+				System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
+			} catch (ClassNotFoundException cnfe) {
+				System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
+			} finally {
+				try {
+					ps.close();
+				} catch (SQLException e) { /* Do nothing */ }
+				try {
+					conn.close();
+				} catch (SQLException e) { /* Do nothing */ }
+			}
+		}
+		return false;
 	}
 
 }

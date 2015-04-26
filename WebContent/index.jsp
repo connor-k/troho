@@ -97,7 +97,7 @@
 				for (int i = 0; i < houses.length/4; i++) {
 					
 			%>
-				<div class = "row">
+				<div class = "row" >
 					<div class = "col-lg-1"></div>
 					
 					<div class = "col-lg-10">
@@ -108,7 +108,7 @@
 					%>
 					
 					
-						<div class = "col-lg-3"> 
+						<div class = "col-lg-3 col-md-6" style="margin-bottom:30px;"> 
 							<div class = "house-card">
 							<a href="/troho/house.jsp?name=<%= location.locationName%>">
 								<img src="<%=location.imageURL%>" height="200" width="200"></img>
@@ -120,9 +120,13 @@
 								</a>
 								</p>
 							<div class = "star-container" style="">
-								<img src = "./img/star.png" class = "star"/>
-								<img src = "./img/star.png" class = "star"/>
-								<img src = "./img/star.png" class = "star"/>
+								<%
+								for (int k = 0; k < location.overallScore; k++) {
+								%>
+									<img src = "./img/star.png" class = "star"/>
+								<%
+								}
+								%>
 							</div>
 						</div>
 					
@@ -216,9 +220,17 @@
 					});
 				}
 			}
-			
+		
 		});
-
+		
+		$('#search').bind('keypress', function(e) {
+			 var code = e.keyCode || e.which;
+			 if(code == 13) { //Enter keycode
+				 var currentVal = $('#search').val();
+				var site = "/troho/search.jsp?search=" + currentVal;
+			 	window.open(site,"_self")
+			 }
+		});
     </script>
 
 </body>

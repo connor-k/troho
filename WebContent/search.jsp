@@ -1,3 +1,23 @@
+<%@page import="sql.HousingDataManager"%>
+<%@page import="sql.Review"%>
+<%@page import="sql.UserDataManager"%>
+<%@page import="Trie.SearchHelper"%>
+<%@page import="sql.HousingLocation"%>
+<%@page import="sql.User"%>
+<%@ page errorPage="404.html" %>
+<%@page import="java.util.List"%>
+<%@page import="java.lang.String"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%
+	String search = request.getParameter("search");
+	HousingLocation [] location = null;
+	if (search != null) {
+		SearchHelper helper = new SearchHelper();
+		location = helper.findHouse(search);
+		System.out.println(location + "HELLO ARUSH HERE");
+	}
+%>
 <!DOCTYPE html>
 <html>
 
@@ -28,10 +48,9 @@
 
 <body>
 
-	<div class = "header">
-		<div>
-			<!-- <img src = "./img/troho-high-res.png" style = "height:80px"/> -->
-			<img src = "./img/new-troho.png" style = "height:80px"/>
+	<div class="header">
+		<div id="troho-logo">
+			<a href="index.jsp"><img id="home-logo" src="./img/new-troho.png" /></a>
 		</div>
 
 		<div class = "log-div">
@@ -89,13 +108,13 @@
 			<div class = "col-lg-3 search-element-box">
 				<p class = "search-descriptor">Max Price</p>
 				<div class="btn-group">
-	                <button type="button" value ="0" id="priceBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
+	                <button type="button" value ="10000" id="priceBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
 	                <ul class="dropdown-menu scrollable-menu" id="priceBoxIn" role="menu">
-	                    <li value="1" class="listElement"><a >800</a></li>
-	                    <li value="2" class="listElement"><a >1000</a></li>
-	                    <li value="3" class="listElement"><a >1200</a></li>
-	                    <li value="4" class="listElement"><a >1400</a></li>
-	                    <li value="0" class="listElement"><a >Any</a></li>
+	                    <li value="800" class="listElement"><a >800</a></li>
+	                    <li value="1000" class="listElement"><a >1000</a></li>
+	                    <li value="1200" class="listElement"><a >1200</a></li>
+	                    <li value="1400" class="listElement"><a >1400</a></li>
+	                    <li value="10000" class="listElement"><a >Any</a></li>
 	                </ul>
             	</div>
 
@@ -104,13 +123,13 @@
 			<div class = "col-lg-3 search-element-box">
 				<p class = "search-descriptor">Distance from USC</p>
 				<div class="btn-group">
-	                <button type="button" value ="0" id="distanceBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
+	                <button type="button" value ="1000" id="distanceBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
 	                <ul class="dropdown-menu scrollable-menu" id="distanceBoxIn" role="menu">
-	                    <li value="1" class="listElement"><a >5 minutes walking</a></li>
-	                    <li value="2" class="listElement"><a >10 minutes walking</a></li>
-	                    <li value="3" class="listElement"><a >15 minutes walking</a></li>
-	                    <li value="4" class="listElement"><a >30 minutes walking</a></li>
-	                    <li value="0" class="listElement"><a >Any</a></li>
+	                    <li value="5" class="listElement"><a >5 minutes walking</a></li>
+	                    <li value="10" class="listElement"><a >10 minutes walking</a></li>
+	                    <li value="15" class="listElement"><a >15 minutes walking</a></li>
+	                    <li value="30" class="listElement"><a >30 minutes walking</a></li>
+	                    <li value="1000" class="listElement"><a >Any</a></li>
 	                </ul>
             	</div>
 			</div>
@@ -237,84 +256,46 @@
 
 			<div class = "col-lg-10 results-container">
 
-				<div class = "col-lg-10 col-md-12 result">
-                    
-                    <div class="col-lg-12 single-result">
-
-	                    <div class = "row">
-	                    	<div class = "result-top-half">
-	                    		<div class = "col-lg-4 house-result-image">
-		                			<img src = "img/hawaiian5.jpg" style = "width:200px;margin-top:40px"/>
-		                		</div>
-		                    	<div class = "col-lg-8" style = "margin-top:50px; font-size:60px;">
-		                    		<p style = "text-align:center;">Housing Name</p>
-		                    		<p style = "text-align:center;">Address</p>
-		                    	</div>
-	                    	</div>
-	                    </div>
-						<!-- <br> -->
-	                    <div class = "row" style = "padding-top:20px">
-		                	<div class = "result-bottom-half">
-
-			                	<div class = "row">
-			                		<div class = "col-lg-4"> Price:
-			                		</div>
-
-			                		<div class = "col-lg-4"> Distance:
-			                		</div>
-			                	</div>
-			                	<div class = "row">
-			                		<div class = "col-lg-4"> Style:
-			                		</div>
-
-			                		<div class = "col-lg-4"> Rating:
-			                		</div>
-			                	</div>
-		                		
-
-		                	</div>
-	                	</div>
-
-                    </div>
-
-                    <div class="col-lg-12 single-result">
-
-	                    <div class = "row">
-	                    	<div class = "result-top-half">
-	                    		<div class = "col-lg-4 house-result-image">
-		                			<img src = "img/hawaiian5.jpg" style = "width:200px;margin-top:40px"/>
-		                		</div>
-		                    	<div class = "col-lg-8" style = "margin-top:50px; font-size:60px;">
-		                    		<p style = "text-align:center;">Housing Name</p>
-		                    		<p style = "text-align:center;">Address</p>
-		                    	</div>
-	                    	</div>
-	                    </div>
-						<!-- <br> -->
-	                    <div class = "row" style = "padding-top:20px">
-		                	<div class = "result-bottom-half">
-
-			                	<div class = "row">
-			                		<div class = "col-lg-4"> Price:
-			                		</div>
-
-			                		<div class = "col-lg-4"> Distance:
-			                		</div>
-			                	</div>
-			                	<div class = "row">
-			                		<div class = "col-lg-4"> Style:
-			                		</div>
-
-			                		<div class = "col-lg-4"> Rating:
-			                		</div>
-			                	</div>
-		                		
-
-		                	</div>
-	                	</div>
-
-                    </div>
-
+				<div class = "col-lg-10 col-md-12 result"> 
+				<%
+					if (location != null) {
+						for (int i = 0; i < location.length; i++) {	
+							HousingLocation house = location[i];
+				%>
+					<div class="col-lg-12 single-result">
+						<div class = "row">
+							<div class = "result-top-half">
+								<div class = "col-lg-4 house-result-image">
+									<img src ="<%=house.imageURL%> "style = "width:200px;margin-top:40px"/>
+								</div>
+								<div class = "col-lg-8" style = "margin-top:50px; font-size:60px;">
+									<p style = "text-align:center;"><%=house.locationName %></p>
+									<p style = "text-align:center;"><%=house.address %></p>
+								</div>
+							</div>
+						</div>
+						<div class = "row" style = "padding-top:20px">
+					  		<div class = "result-bottom-half">
+					  			<div class="container">
+					  			<div class = "row">
+					  				<div class = "col-lg-4"> Price: <%= house.averageRent%></div>
+									<div class = "col-lg-4"> Distance:<%=house.minutesWalking %> minutes</div>
+								</div>
+								<div class = "row">
+									<div class = "col-lg-4"> Style: <%=house.type %></div>
+									<div class = "col-lg-4"> Rating: <%=house.overallScore %></div>
+								</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+				<%
+						}
+						
+					}
+				%>
+				
                 </div>
 
 			</div>
@@ -383,27 +364,40 @@
 		 		var communityChillFactorScore = $("#chillBox").val();
 		 		var maxPrice = $("#priceBox").val();
 		 		var maxDistance = $("#distanceBox").val();
-		 		var type = $("styleBox").val();
+		 		var type = -1;
+		 		type = $("#styleBox").val();
+		 		var searchWords = $("#search").val();
+		 		console.log("Search Words " + searchWords);
 		 		var postData = {
 						"managementScore": managementScore, 
 						"amenitiesScore": amenitiesScore, 
 						"locationScore": locationScore,
-						"ratingScore": ratingScore, 
+						"minRating": ratingScore, 
 						"communityChillFactorScore": communityChillFactorScore,
 						"maxPrice": maxPrice,
 						"maxDistance":maxDistance,
-						"type":type
+						"housingType":type,
+						"searchWords":searchWords
 						};
+		 		console.log(postData);
 		 		$.ajax({
 					url: "/troho/SearchFilter",
-					type: "GET",
+					type: "POST",
 					data: JSON.stringify(postData),
 					dataType: "JSON",
 					success:function(data) {
 						var houses = data.searchArray;
+						var htmlText="";
 						for (i = 0; i < houses.length; i++) {
-							console.log(houses.locationName);
+							
+							htmlText+='<div class="col-lg-12 single-result"><div class = "row"><div class = "result-top-half"><div class = "col-lg-4 house-result-image"><img src = ' + houses[i].imageURL + ' style = "width:200px;margin-top:40px"/></div><div class = "col-lg-8" style = "margin-top:50px; font-size:60px;"><p style = "text-align:center;">' +houses[i].locationName  + '</p>';
+			                htmlText+='<p style = "text-align:center;">' + houses[i].housingAddress + '</p></div></div></div><div class = "row" style = "padding-top:20px">';
+			                htmlText += '<div class = "result-bottom-half"><div class="container"><div class = "row"><div class = "col-lg-4"> Price: ' + houses[i].price;
+				            htmlText += '</div><div class = "col-lg-4"> Distance:' + houses[i].distance + ' minutes</div></div><div class = "row">';
+				            htmlText += '<div class = "col-lg-4"> Style: '+ houses[i].housingType + '</div><div class = "col-lg-4"> Rating:' + houses[i].rating;
+				            htmlText += '</div></div></div></div></div></div>'
 						}
+						$(".result").html(htmlText);	
 					}
 				});
  			});
@@ -411,42 +405,43 @@
 			
 			$('#locationBoxIn > .listElement').on("click", function(){
  			   $("#locationBox").text($(this).text());  
- 			  $("#locationBox").val($(this).val())
+ 			  $("#locationBox").val($(this).val());
 			});
 			
 			$('#chillBoxIn > .listElement').on("click", function(){
  			   $("#chillBox").text($(this).text()); 
- 			  $("#chillBox").val($(this).val())
+ 			  $("#chillBox").val($(this).val());
 			});
 			
 			$('#amenitiesBoxIn > .listElement').on("click", function(){
  			   $("#amenitiesBox").text($(this).text());
- 			   $("#amenitiesBox").val($(this).val())
+ 			   $("#amenitiesBox").val($(this).val());
 			});
 			
 			$('#managementBoxIn > .listElement').on("click", function(){
- 			   $("#managementBoxIn").text($(this).text());  
- 			  $("#managementBox").val($(this).val())
+ 			   $("#managementBox").text($(this).text());  
+ 			  $("#managementBox").val($(this).val());
 			});
 			
 			$('#styleBoxIn > .listElement').on("click", function(){
  			   $("#styleBox").text($(this).text());  
- 			  $("#styleBox").val($(this).val())
+ 			  $("#styleBox").val($(this).val());
+ 			  console.log( $("#styleBox").val());
 			});
 			
 			$('#ratingBoxIn > .listElement').on("click", function(){
- 			   $("#ratingBoxIn").text($(this).text()); 
- 			  $("#ratingsBox").val($(this).val())
+ 			   $("#ratingBox").text($(this).text()); 
+ 			  $("#ratingBox").val($(this).val());
 			});
 			
 			$('#distanceBoxIn > .listElement').on("click", function(){
  			   $("#distanceBox").text($(this).text());  
- 			  $("#distanceBox").val($(this).val())
+ 			  $("#distanceBox").val($(this).val());
 			});
 			
 			$('#priceBoxIn > .listElement').on("click", function(){
 				$("#priceBox").text($(this).text()); 
-				$("#priceBox").val($(this).val())
+				$("#priceBox").val($(this).val());
 			});
 			
 		});
