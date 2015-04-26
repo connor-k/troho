@@ -18,7 +18,7 @@ public class emailconfirm {
 		facebookID = fbID; 
 		key = java.util.UUID.randomUUID().toString();	//generates random key for indiv user
 		sendEmail();
-		UserDataManager.setValidationKey(facebookID, key); 
+		//UserDataManager.setValidationKey(facebookID, key); 
 	}
 	
 	public static void sendEmail() throws EmailException 
@@ -32,7 +32,7 @@ public class emailconfirm {
 		email.setSubject("Troho Confirmation");
 		message = "Welcome to troho by troco! Please confirm your email. "
 				+ "\n \n Please confirm your email here: "
-				+ "\n http://localhost:8080/troho/Validation?key=" + key + "&id=" + facebookID; 
+				+ "\n localhost:8080/troholocal/Validation?key=" + key + "&id=" + facebookID; 
 		email.setMsg(message); 
 		email.addTo(toConfirm);
 		email.send();
