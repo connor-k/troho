@@ -27,7 +27,12 @@ public class ReviewHelper {
 				reviews.add(reviewArray[i]);
 			}
 		}
-		return (Review[]) reviews.toArray();
+		Review [] reviewResult = new Review[reviews.size()];
+		for(int i = 0; i < reviewArray.length; i++) {
+			reviewResult[i] = reviews.elementAt(i);
+		}
+		
+		return reviewResult;
 	}
 	
 	static boolean checkValidReview(Review review, boolean []tags) {
