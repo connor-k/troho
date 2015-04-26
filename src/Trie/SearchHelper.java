@@ -93,7 +93,7 @@ public class SearchHelper {
 		} else if (house.minutesWalking > maxDistance) {
 			System.out.println("Returning False because of distance " + maxDistance);
 			return false;
-		} else if ((checkHouse != isHouse) && (checkApartment != isApartment) && (checkDorm != isDorm)) {
+		} else if (!(checkHouse && isHouse) && !(checkApartment && isApartment) && !(checkDorm && isDorm)) {
 			System.out.println("Returning False because of house");
 			return false;
 		} else if (house.overallScore < minRating) {
