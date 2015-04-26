@@ -22,7 +22,11 @@ public class DataManagerTest {
 		if (alex != null) {
 			UserDataManager.setValidationKey(alex.facebookID, "321refasdlfkja");
 			// They get email with URL containing that code, servlet calls:
-			UserDataManager.verifyEmail(alex.facebookID, "321refasdlfkja");
+			if (UserDataManager.verifyEmail(alex.facebookID, "321refasdlfkja")) {
+				System.out.println("Success verification!");
+			} else {
+				System.out.println("Failed verification!");
+			}
 		}
 
 		// Add friends

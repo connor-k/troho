@@ -37,7 +37,7 @@ public class Validation extends HttpServlet {
 	    if(valid)
 	    	title = "Email confirmed!"; 
 	    else
-	    	title = "Email not valid."; 
+	    	title = "Email or verification key not valid."; 
 	    out.println("<h1>"+title+"</h1>"); 
 	    
 	    String urlstring = "href=http://localhost:8080/troho/index.jsp"; 
