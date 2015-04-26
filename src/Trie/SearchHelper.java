@@ -27,7 +27,7 @@ public class SearchHelper {
 	//takes as argument user preferences and a vector of houses
 	//sorts both of them based on predicted user preference
 	public HousingLocation [] sortPruneHouses(int managementScore, int amenitiesScore, int locationScore,
-			int noiseScore, int communityChillFactorScore, String searchWords, 
+			int communityChillFactorScore, String searchWords, 
 			int maxPrice, int maxDistance, boolean isHouse, boolean isDorm, 
 			boolean isApartment, int minRating) {
 		
@@ -39,7 +39,7 @@ public class SearchHelper {
 		}
 		pruneHouses(maxPrice, maxDistance, isHouse, isDorm, isApartment, minRating, houses);
 		myHouseComp = new HousingComparator(managementScore, amenitiesScore, locationScore,
-				noiseScore, communityChillFactorScore);
+				communityChillFactorScore);
 		houses.sort(myHouseComp);	
 		HousingLocation [] returnHouses = new HousingLocation[houses.size()];
 		for(int i = 0; i < houses.size(); i++) {

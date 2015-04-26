@@ -12,7 +12,7 @@ class HousingComparator implements Comparator<HousingLocation> {
 	private int communityChillFactorScore;
 	//passes in user importance scores
 	HousingComparator(int managementScore, int amenitiesScore, int locationScore,
-			int noiseScore, int communityChillFactorScore) {
+			int communityChillFactorScore) {
 		this.managementScore = managementScore;
 		this.amenitiesScore = amenitiesScore;
 		this.locationScore = locationScore;
