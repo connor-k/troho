@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.mail.EmailException;
 
-import emailconfirm.emailconfirm;
+import emailconfirm.EmailConfirm;
 import sql.UserDataManager;
 
 /**
@@ -53,7 +53,7 @@ public class CreateUser extends HttpServlet {
 		if(UserDataManager.createUser(name, email, imgURL, fbID) != null) { 
 			try {
 				System.out.println("In confirm");
-				emailconfirm confirm = new emailconfirm(email, fbID);
+				EmailConfirm confirm = new EmailConfirm(email, fbID);
 			} catch (EmailException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
