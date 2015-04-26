@@ -1,7 +1,6 @@
 package Trie;
 
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.Vector;
 import sql.HousingLocation;
 import sql.HousingType;
@@ -54,12 +53,11 @@ public class SearchHelper {
 	private synchronized Vector<HousingLocation> pruneHouses(int maxPrice, int maxDistance, 
 			boolean isHouse, boolean isDorm, boolean isApartment, int minRating,
 			Vector<HousingLocation> houses) {
-		Vector<HousingLocation> prunedHouses = houses;
+		Vector<HousingLocation> prunedHouses = new Vector<HousingLocation>(houses);
 		
 		//removes houses that do not fit criteria
-		Iterator<HousingLocation> myIt = houses.iterator();
-		while(myIt.hasNext()) {
-			HousingLocation house = myIt.next();
+		for(int i = 0; i < houses.size(); i++) {
+			HousingLocation house = houses.elementAt(i);
 			boolean isValid = isValidHouse(maxPrice, maxDistance, isHouse, isDorm, 
 					isApartment, minRating, house);
 			if(!isValid) {
