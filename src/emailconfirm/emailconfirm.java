@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package emailconfirm;
 
 import sql.UserDataManager;
@@ -152,4 +151,3 @@ public class emailconfirm {
 	}
 
 }
->>>>>>> validation
