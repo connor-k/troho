@@ -14,7 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import sql.UserDataManager;
-import emailconfirm.emailconfirm; 
+import emailconfirm.EmailConfirm; 
 
 @WebServlet("/Validation")
 public class Validation extends HttpServlet {
@@ -28,7 +28,7 @@ public class Validation extends HttpServlet {
 	{
 		String key = request.getParameter("key");
 		String id = request.getParameter("id");
-		emailconfirm.emailConfirmed(key, id); 
+		EmailConfirm.emailConfirmed(key, id); 
 	}
 	
 	/**
