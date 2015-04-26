@@ -8,7 +8,21 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <script src="js/customFB.js">
-	</script>
+</script>
+<style>
+.add-review-button {
+    width:200px;
+    height:40px;
+    margin:auto;
+    position: relative;
+    //background-color:white;
+    background-color: #ffcc00;
+    box-shadow: 0px 2px 5px rgba(0,0,0,.2);
+    border-radius: 5px;
+    margin-top:50px;
+
+}
+</style>
 </head>
 
 
@@ -71,138 +85,62 @@
 			Narrow it down
 		</div>
 
-		<div class = "option-container row">
+		<div class = "option-container row" style="height:330px;">
 			<div class = "col-lg-3 search-element-box">
 				<p class = "search-descriptor">Max Price</p>
-				<ul class = "drop-down-box">
-
-					<li>
-
-						<div class = "drop-down-descriptor-wrapper">
-							<div class = "drop-down-descriptor">
-								<p style = "display:inline;">Any</p>
-							</div>
-							<i class="fa fa-lg fa-caret-down drop-down-button"></i>
-						</div>
-
-					</li>
-
-					<li> <div class = "drop-down-option">$800</div>
-					</li>
-
-					<li> <div class = "drop-down-option">$1000</div>
-					</li>
-
-					<li> <div class = "drop-down-option">$1200</div>
-					</li>
-
-					<li> <div class = "drop-down-option">$1400</div>
-					</li>
-
-					<li> <div class = "drop-down-option">Any</div>
-					</li>
-
-				</ul>
+				<div class="btn-group">
+	                <button type="button" value ="0" id="priceBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
+	                <ul class="dropdown-menu scrollable-menu" id="priceBoxIn" role="menu">
+	                    <li value="1" class="listElement"><a >800</a></li>
+	                    <li value="2" class="listElement"><a >1000</a></li>
+	                    <li value="3" class="listElement"><a >1200</a></li>
+	                    <li value="4" class="listElement"><a >1400</a></li>
+	                    <li value="0" class="listElement"><a >Any</a></li>
+	                </ul>
+            	</div>
 
 			</div>
 
 			<div class = "col-lg-3 search-element-box">
 				<p class = "search-descriptor">Distance from USC</p>
-				<ul class = "drop-down-box">
-
-					<li>
-
-						<div class = "drop-down-descriptor-wrapper">
-							<div class = "drop-down-descriptor">
-								<p style = "display:inline;">Any</p>
-							</div>
-							<i class="fa fa-lg fa-caret-down drop-down-button"></i>
-						</div>
-
-					</li>
-
-					<li> <div class = "drop-down-option">5 minutes walking</div>
-					</li>
-
-					<li> <div class = "drop-down-option">10 minutes walking</div>
-					</li>
-
-					<li> <div class = "drop-down-option">15 minutes walking</div>
-					</li>
-
-					<li> <div class = "drop-down-option">30 minutes walking</div>
-					</li>
-
-					<li> <div class = "drop-down-option">Any</div>
-					</li>
-
-				</ul>
+				<div class="btn-group">
+	                <button type="button" value ="0" id="distanceBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
+	                <ul class="dropdown-menu scrollable-menu" id="distanceBoxIn" role="menu">
+	                    <li value="1" class="listElement"><a >5 minutes walking</a></li>
+	                    <li value="2" class="listElement"><a >10 minutes walking</a></li>
+	                    <li value="3" class="listElement"><a >15 minutes walking</a></li>
+	                    <li value="4" class="listElement"><a >30 minutes walking</a></li>
+	                    <li value="0" class="listElement"><a >Any</a></li>
+	                </ul>
+            	</div>
 			</div>
 
 			<div class = "col-lg-3 search-element-box">
 				<p class = "search-descriptor">Housing Style</p>
-				<ul class = "drop-down-box">
-
-					<li>
-
-						<div class = "drop-down-descriptor-wrapper">
-							<div class = "drop-down-descriptor">
-								<p style = "display:inline;">Any</p>
-							</div>
-							<i class="fa fa-lg fa-caret-down drop-down-button"></i>
-						</div>
-
-					</li>
-
-					<li> <div class = "drop-down-option">Apartment</div>
-					</li>
-
-					<li> <div class = "drop-down-option">Dorm</div>
-					</li>
-
-					<li> <div class = "drop-down-option">House</div>
-					</li>
-
-					<li> <div class = "drop-down-option">Any</div>
-					</li>
-
-				</ul>
+				<div class="btn-group">
+	                <button type="button" value ="0" id="styleBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
+	                <ul class="dropdown-menu scrollable-menu" id="styleBoxIn" role="menu">             	                    
+	                    <li value="1" class="listElement"><a >Apartment</a></li>
+	                    <li value="2" class="listElement"><a >Dorm</a></li>
+	                    <li value="3" class="listElement"><a >House</a></li>
+	                    <li value="0" class="listElement"><a >Any</a></li>
+	                </ul>
+            	</div>
 			</div>
 
 			<div class = "col-lg-3 search-element-box">
 				<p class = "search-descriptor">Rating</p>
-				<ul class = "drop-down-box">
-
-					<li>
-
-						<div class = "drop-down-descriptor-wrapper">
-							<div class = "drop-down-descriptor">
-								<p style = "display:inline;">Any</p>
-							</div>
-							<i class="fa fa-lg fa-caret-down drop-down-button"></i>
-						</div>
-
-					</li>
-
-					<li> <div class = "drop-down-option">1 Star</div>
-					</li>
-
-					<li> <div class = "drop-down-option">2 Star</div>
-					</li>
-
-					<li> <div class = "drop-down-option">3 Star</div>
-					</li>
-
-					<li> <div class = "drop-down-option">4 Star</div>
-					</li>
-					
-					<li> <div class = "drop-down-option">5 Star</div>
-					</li>
-
-					<li> <div class = "drop-down-option">Any</div>
-					</li>
-
-				</ul>
+				<div class="btn-group">
+	                <button type="button" value ="0" id="ratingBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
+	                <ul class="dropdown-menu scrollable-menu" id="ratingBoxIn" role="menu">
+	                    <li value="1" class="listElement"><a >1 Star</a></li>
+	                    <li value="2" class="listElement"><a >2 Star</a></li>
+	                    <li value="3" class="listElement"><a >3 Star</a></li>
+	                    <li value="4" class="listElement"><a >4 Star</a></li>
+	                    <li value="5" class="listElement"><a >5 Star</a></li>
+	                    <li value="0" class="listElement"><a >Any</a></li>
+	                </ul>
+            	</div>
 			</div>
 
 		</div>
@@ -215,129 +153,77 @@
 			Pick your preferences
 		</div>
 
-		<div class = "option-container row">
+		<div class = "option-container row" style="height:330px;">
 			<div class = "col-lg-3 search-element-box">
 				<p class = "search-descriptor">Management</p>
-				<ul class = "drop-down-box">
-
-					<li>
-
-						<div class = "drop-down-descriptor-wrapper">
-							<div class = "drop-down-descriptor">
-								<p style = "display:inline;">Any</p>
-							</div>
-							<i class="fa fa-lg fa-caret-down drop-down-button"></i>
-						</div>
-
-					</li>
-
-					<li> <div class = "drop-down-option">1 Star</div>
-					</li>
-
-					<li> <div class = "drop-down-option">2 Star</div>
-					</li>
-
-					<li> <div class = "drop-down-option">3 Star</div>
-					</li>
-
-					<li> <div class = "drop-down-option">4 Star</div>
-					</li>
-					
-					<li> <div class = "drop-down-option">5 Star</div>
-					</li>
-
-					<li> <div class = "drop-down-option">Any</div>
-					</li>
-
-				</ul>
+				<div class="btn-group">
+	                <button type="button" value ="0" id="managementBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
+	                <ul class="dropdown-menu scrollable-menu" id="managementBoxIn" role="menu">
+	                    <li value="1" class="listElement"><a >1 Star</a></li>
+	                    <li value="2" class="listElement"><a >2 Star</a></li>
+	                    <li value="3" class="listElement"><a >3 Star</a></li>
+	                    <li value="4" class="listElement"><a >4 Star</a></li>
+	                    <li value="5" class="listElement"><a >5 Star</a></li>
+	                    <li value="0" class="listElement"><a>Any</a></li>
+	                </ul>
+            	</div>
 
 			</div>
 
 			<div class = "col-lg-3 search-element-box">
 				<p class = "search-descriptor">Amenities</p>
-				<ul class = "drop-down-box">
-
-					<li>
-
-						<div class = "drop-down-descriptor-wrapper">
-							<div class = "drop-down-descriptor">
-								<p style = "display:inline;">Any</p>
-							</div>
-							<i class="fa fa-lg fa-caret-down drop-down-button"></i>
-						</div>
-
-					</li>
-
-					<li> <div class = "drop-down-option">1 Star</div>
-					</li>
-
-					<li> <div class = "drop-down-option">2 Star</div>
-					</li>
-
-					<li> <div class = "drop-down-option">3 Star</div>
-					</li>
-
-					<li> <div class = "drop-down-option">4 Star</div>
-					</li>
-					
-					<li> <div class = "drop-down-option">5 Star</div>
-					</li>
-
-					<li> <div class = "drop-down-option">Any</div>
-					</li>
-
-				</ul>
+				<div class="btn-group">
+	                <button type="button" value ="0" id="amenitiesBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
+	                <ul class="dropdown-menu scrollable-menu" id="amenitiesBoxIn" role="menu">
+	                    <li value="1" class="listElement"><a >1 Star</a></li>
+	                    <li value="2" class="listElement"><a >2 Star</a></li>
+	                    <li value="3" class="listElement"><a >3 Star</a></li>
+	                    <li value="4" class="listElement"><a >4 Star</a></li>
+	                    <li value="5" class="listElement"><a >5 Star</a></li>
+	                    <li value="0" class="listElement"><a >Any</a></li>
+	                </ul>
+            	</div>
 			</div>
 
 			<div class = "col-lg-3 search-element-box">
 				<p class = "search-descriptor">Chill Factor</p>
-				<ul class = "drop-down-box">
+					<div class="btn-group">
+	                <button type="button" value ="0" id="chillBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
+	                <ul class="dropdown-menu scrollable-menu" id="chillBoxIn" role="menu">
+	                    <li value="1" class="listElement"><a >1 Star</a></li>
+	                    <li value="2" class="listElement"><a >2 Star</a></li>
+	                    <li value="3" class="listElement"><a >3 Star</a></li>
+	                    <li value="4" class="listElement"><a >4 Star</a></li>
+	                    <li value="5" class="listElement"><a >5 Star</a></li>
+	                    <li value="0" class="listElement"><a >Any</a></li>
+	                </ul>
+            	</div>
 
-					<li>
-
-						<div class = "drop-down-descriptor-wrapper">
-							<div class = "drop-down-descriptor">
-								<p style = "display:inline;">Any</p>
-							</div>
-							<i class="fa fa-lg fa-caret-down drop-down-button"></i>
-						</div>
-
-					</li>
-
-					<li> <div class = "drop-down-option">1 Star</div>
-					</li>
-
-					<li> <div class = "drop-down-option">2 Star</div>
-					</li>
-
-					<li> <div class = "drop-down-option">3 Star</div>
-					</li>
-
-					<li> <div class = "drop-down-option">4 Star</div>
-					</li>
-					
-					<li> <div class = "drop-down-option">5 Star</div>
-					</li>
-
-					<li> <div class = "drop-down-option">Any</div>
-					</li>
-
-				</ul>
 			</div>
 
 			<div class = "col-lg-3 search-element-box">
 				<p class = "search-descriptor">Location</p>
-				<select id="location" >	
-					<option	value="1">1 Star</option>	
-					<option	value="2">2 Star</option>	
-					<option	value="3">3 Star</option>	
-					<option	value="4">4 Star</option>
-					<option	value="5">5 Star</option>	
-				</select>
+				<div class="btn-group">
+	                <button type="button" value ="0" id ="locationBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
+	                <ul class="dropdown-menu scrollable-menu" id ="locationBoxIn" role="menu">
+	                    <li value="1" class="listElement"><a >1 Star</a></li>
+	                    <li value="2" class="listElement"><a >2 Star</a></li>
+	                    <li value="3" class="listElement"><a >3 Star</a></li>
+	                    <li value="4" class="listElement"><a >4 Star</a></li>
+	                    <li value="5" class="listElement"><a >5 Star</a></li>
+	                    <li value="0" class="listElement"><a >Any</a></li>
+	                </ul>
+            	</div>
 			</div>
 
 		</div>
-
+		
+		<div class = "row" id="submitSearch">
+	        <div class = "add-review-button">
+	            <div class = "col-lg-12"  style = "padding-top: 8px; padding-bottom: 40px; font-size:20px; color:white; text-align:center"><a>Submit</a></div>
+	        </div>
+        </div>
+        
 		<div style = "margin: 0px 0px !important; font-size:36px; color:#FFCC00; text-align:center; padding: 30px;">
 			Results
 		</div>
@@ -486,6 +372,83 @@
 				$(parent).find('.drop-down-descriptor').find('p').text($(this).text());
 
 			}
+		});
+		
+		$(document).ready(function() {
+			$("#submitSearch").on("click", function() {
+				var managementScore = $("#managementBox").val();
+		 		var amenitiesScore = $("#amenitiesBox").val();
+		 		var locationScore = $("#locationBox").val();
+		 		var ratingScore = $("#ratingBox").val();
+		 		var communityChillFactorScore = $("#chillBox").val();
+		 		var maxPrice = $("#priceBox").val();
+		 		var maxDistance = $("#distanceBox").val();
+		 		var type = $("styleBox").val();
+		 		var postData = {
+						"managementScore": managementScore, 
+						"amenitiesScore": amenitiesScore, 
+						"locationScore": locationScore,
+						"ratingScore": ratingScore, 
+						"communityChillFactorScore": communityChillFactorScore,
+						"maxPrice": maxPrice,
+						"maxDistance":maxDistance,
+						"type":type
+						};
+		 		$.ajax({
+					url: "/troho/SearchFilter",
+					type: "GET",
+					data: JSON.stringify(postData),
+					dataType: "JSON",
+					success:function(data) {
+						var houses = data.searchArray;
+						for (i = 0; i < houses.length; i++) {
+							console.log(houses.locationName);
+						}
+					}
+				});
+ 			});
+			
+			
+			$('#locationBoxIn > .listElement').on("click", function(){
+ 			   $("#locationBox").text($(this).text());  
+ 			  $("#locationBox").val($(this).val())
+			});
+			
+			$('#chillBoxIn > .listElement').on("click", function(){
+ 			   $("#chillBox").text($(this).text()); 
+ 			  $("#chillBox").val($(this).val())
+			});
+			
+			$('#amenitiesBoxIn > .listElement').on("click", function(){
+ 			   $("#amenitiesBox").text($(this).text());
+ 			   $("#amenitiesBox").val($(this).val())
+			});
+			
+			$('#managementBoxIn > .listElement').on("click", function(){
+ 			   $("#managementBoxIn").text($(this).text());  
+ 			  $("#managementBox").val($(this).val())
+			});
+			
+			$('#styleBoxIn > .listElement').on("click", function(){
+ 			   $("#styleBox").text($(this).text());  
+ 			  $("#styleBox").val($(this).val())
+			});
+			
+			$('#ratingBoxIn > .listElement').on("click", function(){
+ 			   $("#ratingBoxIn").text($(this).text()); 
+ 			  $("#ratingsBox").val($(this).val())
+			});
+			
+			$('#distanceBoxIn > .listElement').on("click", function(){
+ 			   $("#distanceBox").text($(this).text());  
+ 			  $("#distanceBox").val($(this).val())
+			});
+			
+			$('#priceBoxIn > .listElement').on("click", function(){
+				$("#priceBox").text($(this).text()); 
+				$("#priceBox").val($(this).val())
+			});
+			
 		});
 
 	</script>
