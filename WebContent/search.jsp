@@ -103,7 +103,7 @@
 			<div class = "col-lg-3 search-element-box">
 				<p class = "search-descriptor">Distance from USC</p>
 				<div class="btn-group">
-	                <button type="button" value ="0" id="distanceBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
+	                <button type="button" value ="1000" id="distanceBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
 	                <ul class="dropdown-menu scrollable-menu" id="distanceBoxIn" role="menu">
 	                    <li value="5" class="listElement"><a >5 minutes walking</a></li>
 	                    <li value="10" class="listElement"><a >10 minutes walking</a></li>
@@ -411,7 +411,7 @@
 							htmlText+='<div class="col-lg-12 single-result"><div class = "row"><div class = "result-top-half"><div class = "col-lg-4 house-result-image"><img src = ' + houses[i].imageURL + ' style = "width:200px;margin-top:40px"/></div><div class = "col-lg-8" style = "margin-top:50px; font-size:60px;"><p style = "text-align:center;">' +houses[i].locationName  + '</p>';
 			                htmlText+='<p style = "text-align:center;">' + houses[i].housingAddress + '</p></div></div></div><div class = "row" style = "padding-top:20px">';
 			                htmlText += '<div class = "result-bottom-half"><div class = "row"><div class = "col-lg-4"> Price: ' + houses[i].price;
-				            htmlText += '</div><div class = "col-lg-4"> Distance:' + houses[i].distance + '</div></div><div class = "row">';
+				            htmlText += '</div><div class = "col-lg-4"> Distance:' + houses[i].distance + 'minutes walking</div></div><div class = "row">';
 				            htmlText += '<div class = "col-lg-4"> Style: '+ houses[i].housingType + '</div><div class = "col-lg-4"> Rating:' + houses[i].rating;
 				            htmlText += '</div></div></div></div></div>'
 						}
