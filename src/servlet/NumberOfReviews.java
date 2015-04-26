@@ -1,3 +1,4 @@
+package servlet;
 
 
 import java.io.BufferedReader;
@@ -41,9 +42,7 @@ public class NumberOfReviews extends HttpServlet {
 		// TODO Auto-generated method stub
 		BufferedReader br = request.getReader();
 		String houseName = br.readLine();
-		
-		int number =  HousingDataManager.getHousingLocation(houseName).reviews.length;
-		
+				
 		PrintWriter pr = new PrintWriter(response.getWriter());
 		
 		pr.print(HousingDataManager.getHousingLocation(houseName).reviews.length);

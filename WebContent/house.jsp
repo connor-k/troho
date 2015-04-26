@@ -587,7 +587,7 @@
 		var hideShowSubmit = function(){
 			FB.api('/me', function(response) {
 				var fbID = response.id;
-				var houseName = $("#introText").text();
+				var houseName = $('#introText').text();
 				var postData = {
 					"fbID": fbID, 
 					"houseName": houseName
@@ -607,7 +607,35 @@
 				});
 			});
 		}
+		
  		$(document).ready(function() {
+ 			
+ 			var houseName = $('#introText').text();
+ 			localStorage.numberOfReviewsOnClient = 0;
+ 			
+ 			var posting = $.post( 'http://localhost:8080/troho/NumberOfReviews',houseName);
+			posting.done( function( numberOfReviewsOnServer ) {
+				
+			  	localStorage.numberOfReviewsOnClient = numberOfReviewsOnServer;
+			  	
+			  	(function poll() {
+					setTimeout(function() {
+	 		 	
+						var reviewsOnServer = 0;
+						
+	 		 			var polling = $.post( 'http://localhost:8080/troho/NumberOfReviews',houseName);
+	 					polling.done( function( reviewsOnServer ) {		
+	 				  		
+	 				  		if(localStorage.numberOfReviewsOnClient !== reviewsOnServer) {
+	 				  			console.log("Difference of " + (reviewsOnServer - localStorage.numberOfReviewsOnClient));
+	 				  		}
+	 					});
+	 					poll();
+	 		 	       
+	 		 	    }, 2000);
+			  	})()
+			  	
+			});
  				
  			$("#writeReview").on("click", function() {
  				$("#reviewRow").toggle();
@@ -617,6 +645,10 @@
  			$(".filter-button").click(function() {			
  	            $(this).toggleClass('active');
  	        });
+ 			
+ 			$('#introText').on('click',function() {
+ 				console.log(localStorage.numberOfReviewsOnClient);
+ 			})
  			
  			
  		 	$("#submitReview").on("click", function() { 				
@@ -740,6 +772,7 @@
  		 		});
  		 		
  		 	});
+ 		 	
  		 	
  		 	
  		});
