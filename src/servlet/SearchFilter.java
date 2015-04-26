@@ -14,6 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import sql.HousingLocation;
+import sql.HousingType;
 import Trie.SearchHelper;
 
 /**
@@ -36,11 +37,10 @@ public class SearchFilter extends HttpServlet {
 		int managementScore = object.getInt("managementScore");
 		int amenitiesScore = object.getInt("amenitiesScore");
 		int locationScore = object.getInt("locationScore");
-		int noiseScore = object.getInt("noiseScore");
 		int communityChillFactorScore = object.getInt("communityChillFactorScore");
 		int maxPrice = object.getInt("maxPrice");
 		int maxDistance = object.getInt("maxDistance");
-		String housingType =  object.getString("housingType");
+		int housingType =  object.getInt("housingType");
 		int minRating = object.getInt("minRating");
 		
 		SearchHelper mySearch = new SearchHelper();
@@ -50,17 +50,22 @@ public class SearchFilter extends HttpServlet {
 		boolean isApartment = false;
 		boolean isDorm = false;
 		//ousingType.valueOf(Apartment)
+		APARTMENT, DORM, HOUSE
 		
-		if(housingType.equals("Apartment")) {
+		if(housingType == 0) {
 			isApartment = true;
-		} else if (housingType.equals("House")) {
 			isHouse = true;
-		} else { 
 			isDorm = true;
+		} else if (housingType == 1) {
+			isApartment = true;
+		} else if (housingType == 2) { 
+			isDorm = true;
+		} else if (housingType == 3) {
+			isHouse = true;
 		}
 		
 		HousingLocation [] myHouses;
-		myHouses = mySearch.sortPruneHouses(managementScore, amenitiesScore, locationScore, noiseScore, 
+		myHouses = mySearch.sortPruneHouses(managementScore, amenitiesScore, locationScore, 
 				communityChillFactorScore, searchWords, maxPrice, maxDistance, isHouse, isDorm, 
 				isApartment, minRating);
 		
@@ -70,6 +75,14 @@ public class SearchFilter extends HttpServlet {
 		JSONArray searchArray = new JSONArray();
 		
 		for(int i = 0; i < myHouses.length; i++) {
+			String houseName;
+			if(myHouses[i].type == HousingType.APARTMENT) {
+				houseName = "Apartment";
+			} else if (myHouses[i].type == HousingType.DORM) {
+				houseName = "Dorm";
+			} else {
+				houseName = "House";
+			}
 			JSONObject currObject = new JSONObject();
 			{
 				currObject.put("locationName", myHouses[i].locationName);
@@ -77,7 +90,7 @@ public class SearchFilter extends HttpServlet {
 				currObject.put("housingAddress", myHouses[i].address);
 				currObject.put("price", "$" + myHouses[i].averageRent);
 				currObject.put("distance", "" + myHouses[i].distanceToCampus);
-				currObject.put("housingType", housingType);
+				currObject.put("housingType", houseName);
 				currObject.put("rating", myHouses[i].overallScore);
 				
 			}
