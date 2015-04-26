@@ -10,7 +10,7 @@
 </head>
 <body>
 
-	<select name="dropdown">
+	<select id="housingType" >
 		<option value="1">Apartment</option>
 		<option value="2">Dorm</option>
 		<option value="3">House</option>
@@ -19,55 +19,56 @@
 	<br><br><br><br> 
 	
 	Housing Name: <br>
-	<input type="text" name="housingName">
+	<input type="text" id="housingName">
 
 	<br><br><br><br>
 	
 	Address: <br>
-	<input type="text" name="address">
+	<input type="text" id="address">
 
 	<br><br><br><br>
 	
 	Description: <br>
-	<textarea name="description" rows="10" cols="30">
+	<textarea id="description" rows="10" cols="30">
 	Please enter a description.
 	</textarea>
 
 	<br><br><br><br>
 	
 	Image Icon URL: <br>
-	<input type="text" name="iconURL">
+	<input type="text" id="iconURL">
 
 	<br><br><br><br>
 	
 	Floor Plan URL: <br>
-	<input type="text" name="floorPlanURL">
+	<input type="text" id="floorPlanURL">
 
 	<br><br><br><br>
 	
 	GPS Latitude: <br>
-	<input type="text" name="gpsLatitude">
+	<input type="text" id="gpsLatitude">
 
 	<br><br><br><br>
 	
 	GPS Longitude: <br>
-	<input type="text" name="gpsLongitude">
+	<input type="text" id="gpsLongitude">
 
 	<br><br><br><br>
 	
 	Minutes Walking:<br>
-	<input type="text" name="minutesWalking">
+	<input type="text" id="minutesWalking">
 
 	<br><br><br><br>
 	
 	Minutes Biking:<br>
-	<input type="text" name="minutesBiking">
+	<input type="text" id="minutesBiking">
 
 	<br><br><br><br>
 	<button onClick="createNewHousingLocation()">Create New Housing Location</button>
 
 	<script>
 		function createNewHousingLocation(){
+			var housingType = document.getElementById("housingType")
 			var housingName = document.getElementById("housingName").value;
  	 		var address = document.getElementById("address").value;
  	 		var description = document.getElementById("description").value;
@@ -81,7 +82,7 @@
 			$.ajax({
 				  url: "/troho/CreateHousingLocation",
 				  type: "POST",
-				  data: {housingName : housingName, address : address, description : description, iconURL : iconURL, floorPlanURL : floorPlanURL,
+				  data: {housingType : housingType, housingName : housingName, address : address, description : description, iconURL : iconURL, floorPlanURL : floorPlanURL,
 					  gpsLatitude : gpsLatitude, gpsLongitude : gpsLongitude, minutesWalking : minutesWalking, minutesBiking : minutesBiking  },
 				  dataType: "JSON"
 				});
