@@ -1,7 +1,5 @@
 // This is called with the results from from FB.getLoginStatus().
 		function statusChangeCallback(response) {
-			console.log('statusChangeCallback');
-			console.log(response);
 			// The response object is returned with a status field that lets the
 			// app know the current login status of the person.
 			// Full docs on the response object can be found in the documentation
@@ -96,7 +94,6 @@
 				email = response.email;
 				FB.api('/me/picture?width=500&height=500', function(response) {
 	 				imgURL = response.data.url;
-	 				console.log(imgURL);
 	 				document.getElementById('profile-image').setAttribute("src", imgURL);
 	 				createUser(name, imgURL, fbID, email);
 				});
