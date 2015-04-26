@@ -48,13 +48,13 @@ public class ReviewServlet extends HttpServlet {
 		}
 		
 		PrintWriter out = response.getWriter();
-		Vector<Review> myReviews = ReviewHelper.pruneReviews(houseName, tags);
+		Review [] myReviews = ReviewHelper.pruneReviews(houseName, tags);
 		JSONArray reviewArray = new JSONArray();
 		
-		for(int i = 0; i < myReviews.size(); i++) {
+		for(int i = 0; i < myReviews.length; i++) {
 			JSONObject reviewObject = new JSONObject();
 			{
-				Review currReview = myReviews.elementAt(i);
+				Review currReview = myReviews[i];
 				reviewObject.put("review", currReview);
 			}
 			reviewArray.put(i, reviewObject);

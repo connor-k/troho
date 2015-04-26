@@ -76,8 +76,8 @@ public class Startup extends Thread {
 	 */
 	@Override
 	public void run() {
-		runScript("sql/CreateDatabase.sql");
-		runScript("sql/PopulateDatabase.sql");
+		runScript("localhost/sql/CreateDatabase.sql");
+		runScript("localhost/sql/PopulateDatabase.sql");
 	}
 	
 	/** Main method for testing this thread separately
