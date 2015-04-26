@@ -27,10 +27,13 @@ public class SearchFilter extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		response.setContentType("application/json");
 		JSONObject object = requestParamsToJSON(request);
+		JSONArray elements = object.names();
+		object = new JSONObject(elements.getString(0));
+		System.out.println(object);
 		String searchWords = object.getString("searchWords");
 		int managementScore = object.getInt("managementScore");
 		int amenitiesScore = object.getInt("amenitiesScore");
