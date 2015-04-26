@@ -97,7 +97,7 @@
 				for (int i = 0; i < houses.length/4; i++) {
 					
 			%>
-				<div class = "row">
+				<div class = "row" style="margin-bottom:50px;">
 					<div class = "col-lg-1"></div>
 					
 					<div class = "col-lg-10">
@@ -120,9 +120,13 @@
 								</a>
 								</p>
 							<div class = "star-container" style="">
-								<img src = "./img/star.png" class = "star"/>
-								<img src = "./img/star.png" class = "star"/>
-								<img src = "./img/star.png" class = "star"/>
+								<%
+								for (int k = 0; k < location.overallScore; k++) {
+								%>
+									<img src = "./img/star.png" class = "star"/>
+								<%
+								}
+								%>
 							</div>
 						</div>
 					

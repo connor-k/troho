@@ -340,9 +340,13 @@
 							</a>
 							</p>
 						<div class = "star-container" style="">
-							<img src = "./img/star.png" class = "star"/>
-							<img src = "./img/star.png" class = "star"/>
-							<img src = "./img/star.png" class = "star"/>
+							<%
+							for (int k = 0; k < location.overallScore; k++) {
+							%>
+								<img src = "./img/star.png" class = "star"/>
+							<%
+							}
+							%>
 						</div>
 					</div>
 				

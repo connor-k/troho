@@ -28,10 +28,9 @@
 
 <body>
 
-	<div class = "header">
-		<div>
-			<!-- <img src = "./img/troho-high-res.png" style = "height:80px"/> -->
-			<img src = "./img/new-troho.png" style = "height:80px"/>
+	<div class="header">
+		<div id="troho-logo">
+			<a href="index.jsp"><img id="home-logo" src="./img/new-troho.png" /></a>
 		</div>
 
 		<div class = "log-div">
