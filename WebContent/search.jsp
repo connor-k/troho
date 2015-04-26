@@ -1,3 +1,23 @@
+<%@page import="sql.HousingDataManager"%>
+<%@page import="sql.Review"%>
+<%@page import="sql.UserDataManager"%>
+<%@page import="Trie.SearchHelper"%>
+<%@page import="sql.HousingLocation"%>
+<%@page import="sql.User"%>
+<%@ page errorPage="404.html" %>
+<%@page import="java.util.List"%>
+<%@page import="java.lang.String"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%
+	String search = request.getParameter("search");
+	HousingLocation [] location = null;
+	if (search != null) {
+		SearchHelper helper = new SearchHelper();
+		location = helper.findHouse(search);
+		System.out.println(location + "HELLO ARUSH HERE");
+	}
+%>
 <!DOCTYPE html>
 <html>
 
@@ -237,6 +257,45 @@
 			<div class = "col-lg-10 results-container">
 
 				<div class = "col-lg-10 col-md-12 result"> 
+				<%
+					if (location != null) {
+						for (int i = 0; i < location.length; i++) {	
+							HousingLocation house = location[i];
+				%>
+					<div class="col-lg-12 single-result">
+						<div class = "row">
+							<div class = "result-top-half">
+								<div class = "col-lg-4 house-result-image">
+									<img src ="<%=house.imageURL%> "style = "width:200px;margin-top:40px"/>
+								</div>
+								<div class = "col-lg-8" style = "margin-top:50px; font-size:60px;">
+									<p style = "text-align:center;"><%=house.locationName %></p>
+									<p style = "text-align:center;"><%=house.address %></p>
+								</div>
+							</div>
+						</div>
+						<div class = "row" style = "padding-top:20px">
+					  		<div class = "result-bottom-half">
+					  			<div class="container">
+					  			<div class = "row">
+					  				<div class = "col-lg-4"> Price: <%= house.averageRent%></div>
+									<div class = "col-lg-4"> Distance:<%=house.minutesWalking %> minutes</div>
+								</div>
+								<div class = "row">
+									<div class = "col-lg-4"> Style: <%=house.type %></div>
+									<div class = "col-lg-4"> Rating: <%=house.overallScore %></div>
+								</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+				<%
+						}
+						
+					}
+				%>
+				
                 </div>
 
 			</div>
@@ -333,10 +392,10 @@
 							
 							htmlText+='<div class="col-lg-12 single-result"><div class = "row"><div class = "result-top-half"><div class = "col-lg-4 house-result-image"><img src = ' + houses[i].imageURL + ' style = "width:200px;margin-top:40px"/></div><div class = "col-lg-8" style = "margin-top:50px; font-size:60px;"><p style = "text-align:center;">' +houses[i].locationName  + '</p>';
 			                htmlText+='<p style = "text-align:center;">' + houses[i].housingAddress + '</p></div></div></div><div class = "row" style = "padding-top:20px">';
-			                htmlText += '<div class = "result-bottom-half"><div class = "row"><div class = "col-lg-4"> Price: ' + houses[i].price;
-				            htmlText += '</div><div class = "col-lg-4"> Distance:' + houses[i].distance + 'minutes walking</div></div><div class = "row">';
+			                htmlText += '<div class = "result-bottom-half"><div class="container"><div class = "row"><div class = "col-lg-4"> Price: ' + houses[i].price;
+				            htmlText += '</div><div class = "col-lg-4"> Distance:' + houses[i].distance + ' minutes</div></div><div class = "row">';
 				            htmlText += '<div class = "col-lg-4"> Style: '+ houses[i].housingType + '</div><div class = "col-lg-4"> Rating:' + houses[i].rating;
-				            htmlText += '</div></div></div></div></div>'
+				            htmlText += '</div></div></div></div></div></div>'
 						}
 						$(".result").html(htmlText);	
 					}

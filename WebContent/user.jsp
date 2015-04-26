@@ -328,7 +328,7 @@
 				%>
 				
 				
-					<div class = "col-lg-3"> 
+					<div class = "col-lg-3 col-md-6" style="margin-bottom:30px;"> 
 						<div class = "house-card">
 						<a href="/troho/house.jsp?name=<%= location.locationName%>">
 							<img src="<%=location.imageURL%>" height="200" width="200"></img>
