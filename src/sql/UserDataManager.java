@@ -162,8 +162,9 @@ public class UserDataManager {
 	/** Verify the email of a user, checking that the validation url matches the one assigned to them
 	 * @param facebookID SQL database key for this user
 	 * @param validationKey the validation key emailed to user
+	 * @return Success boolean. True if verification was successful (keys matched).
 	 */
-	public static void verifyEmail(String facebookID, String validationKey) {
+	public static boolean verifyEmail(String facebookID, String validationKey) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
@@ -177,6 +178,8 @@ public class UserDataManager {
 				System.out.println("UserDataManager.verifyEmail: FacebookID " + facebookID + " not "
 						+ "in database or didn't match validationKey, no changes made.");
 			}
+			// Note: finally block still executes to close connections before this return
+			return true;
 		} catch (SQLException sqle) {
 			// Note if an invalid housingKey was passed in, 
 			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
@@ -190,6 +193,8 @@ public class UserDataManager {
 				conn.close();
 			} catch (SQLException e) { /* Do nothing */ }
 		}
+		
+		return false;
 	}
 
 	/** Get an existing user from the Users table
