@@ -28,7 +28,7 @@ public class HousingDataManager {
 	 * @param minutesBiking How long it takes to bike to campus from this location
 	 */
 	public static void createHousingLocation(HousingType type, String name, String address, 
-			String description, String iconURL, String floorplanURL, String gpsLatitude,
+			String description, String amenities, String iconURL, String floorplanURL, String gpsLatitude,
 			String gpsLongitude, String minutesWalking, String minutesBiking) {
 		// Make sure the location doesn't exist already
 		if (getHousingLocation(name) != null) {
@@ -42,9 +42,9 @@ public class HousingDataManager {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
 			ps = conn.prepareStatement("INSERT INTO HousingLocations (housingType, locationName, "
-					+ "textAddress, description, imageURLs, floorplanURLs, gpsLatitude, "
+					+ "textAddress, description, amenities, imageURLs, floorplanURLs, gpsLatitude, "
 					+ "gpsLongitude, minutesWalking, minutesBiking) VALUES (?, ?, ?, ?, ?, "
-					+ "?, ?, ?, ?, ?);");
+					+ "?, ?, ?, ?, ?, ?);");
 			switch(type) {
 			case APARTMENT:
 				ps.setInt(1, 1);
@@ -59,12 +59,13 @@ public class HousingDataManager {
 			ps.setString(2, name);
 			ps.setString(3, address);
 			ps.setString(4, description);
-			ps.setString(5, iconURL);
-			ps.setString(6, floorplanURL);
-			ps.setString(7, gpsLatitude);
-			ps.setString(8, gpsLongitude);
-			ps.setInt(9, Integer.parseInt(minutesWalking));
-			ps.setInt(10, Integer.parseInt(minutesBiking));
+			ps.setString(5, amenities);
+			ps.setString(6, iconURL);
+			ps.setString(7, floorplanURL);
+			ps.setString(8, gpsLatitude);
+			ps.setString(9, gpsLongitude);
+			ps.setInt(10, Integer.parseInt(minutesWalking));
+			ps.setInt(11, Integer.parseInt(minutesBiking));
 			ps.executeUpdate();
 		} catch (SQLException sqle) {
 			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
@@ -114,6 +115,7 @@ public class HousingDataManager {
 				hl.locationName = rs.getString("locationName");
 				hl.address = rs.getString("textAddress");
 				hl.description = rs.getString("description");
+				hl.amenities = rs.getString("amenities");
 				hl.imageURL = rs.getString("imageURLs");
 				hl.floorplanURL = rs.getString("floorplanURLs");
 				hl.gpsLatitude = rs.getString("gpsLatitude");

@@ -27,6 +27,8 @@ public class CreateHousingLocation extends HttpServlet {
 		String housingName = request.getParameter("housingName");
 		String address = request.getParameter("address");
 		String description = request.getParameter("description");
+		String amenities = request.getParameter("amenities");
+		System.out.println("amenities: " + amenities);
 		String iconURL = request.getParameter("iconURL");
 		String floorplanURL = request.getParameter("floorPlanURL");
 		String gpsLatitude = request.getParameter("gpsLatitude");
@@ -50,7 +52,8 @@ public class CreateHousingLocation extends HttpServlet {
 			System.out.println("Invalid housingType in CreateHousingLocation doPost");
 		}
 		HousingDataManager.createHousingLocation(housingType, housingName, address, description,
-				iconURL, floorplanURL, gpsLatitude, gpsLongitude, minutesWalking, minutesBiking);
+				amenities, iconURL, floorplanURL, gpsLatitude, gpsLongitude, minutesWalking,
+				minutesBiking);
 		
 	}
 
