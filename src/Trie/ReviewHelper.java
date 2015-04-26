@@ -28,7 +28,7 @@ public class ReviewHelper {
 			}
 		}
 		Review [] reviewResult = new Review[reviews.size()];
-		for(int i = 0; i < reviewArray.length; i++) {
+		for(int i = 0; i < reviewResult.length; i++) {
 			reviewResult[i] = reviews.elementAt(i);
 		}
 		
