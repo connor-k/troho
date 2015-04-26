@@ -26,7 +26,7 @@ public class SearchHelper {
 	
 	//takes as argument user preferences and a vector of houses
 	//sorts both of them based on predicted user preference
-	public HousingLocation [] sortPruneHouses(int managementScore, int amenitiesScore, int locationScore,
+	public synchronized HousingLocation [] sortPruneHouses(int managementScore, int amenitiesScore, int locationScore,
 			int communityChillFactorScore, String searchWords, 
 			int maxPrice, int maxDistance, boolean isHouse, boolean isDorm, 
 			boolean isApartment, int minRating) {
@@ -51,7 +51,7 @@ public class SearchHelper {
 	
 	//takes as argument cut-off preferences and all possible houses
 	//returns a vector of houses with only houses that fit the description
-	private Vector<HousingLocation> pruneHouses(int maxPrice, int maxDistance, 
+	private synchronized Vector<HousingLocation> pruneHouses(int maxPrice, int maxDistance, 
 			boolean isHouse, boolean isDorm, boolean isApartment, int minRating,
 			Vector<HousingLocation> houses) {
 		Vector<HousingLocation> prunedHouses = houses;
@@ -97,7 +97,7 @@ public class SearchHelper {
 	//takes as argument user search words
 	//returns a vector of houses matching those words
 	//the returned vector is roughly sorted by relevance
-	public HousingLocation [] findHouse(String searchWords) {
+	public synchronized HousingLocation [] findHouse(String searchWords) {
 		Vector<HousingLocation> resultsVector = myTrie.findPartialWord(searchWords);
 		HousingLocation [] results = new HousingLocation[resultsVector.size()];
 		for(int i = 0; i < results.length; i++) {
@@ -110,7 +110,7 @@ public class SearchHelper {
 	//used for autocomplete
 	//takes as argument partial user search words
 	//returns a likely word to complete the search 
-	public String findLikely(String searchWords) {
+	public synchronized String findLikely(String searchWords) {
 		return myTrie.findLikely(searchWords);
 	}
 }

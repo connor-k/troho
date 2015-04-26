@@ -31,8 +31,6 @@ public class SearchFilter extends HttpServlet {
 		
 		response.setContentType("application/json");
 		JSONObject object = requestParamsToJSON(request);
-//		JSONArray elements = object.names();
-//		object = new JSONObject(elements.getString(0));
 		String searchWords = object.getString("searchWords");
 		int managementScore = object.getInt("managementScore");
 		int amenitiesScore = object.getInt("amenitiesScore");
@@ -45,12 +43,9 @@ public class SearchFilter extends HttpServlet {
 		
 		SearchHelper mySearch = new SearchHelper();
 		
-		//APARTMENT, DORM, HOUSE
 		boolean isHouse = false;
 		boolean isApartment = false;
 		boolean isDorm = false;
-		//ousingType.valueOf(Apartment)
-		//APARTMENT, DORM, HOUSE
 		
 		if(housingType == 0) {
 			isApartment = true;
