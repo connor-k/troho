@@ -310,7 +310,7 @@
 				<div style = "color:#ffcc00;font-size:36px;">Recommendations</div>
 				<% 
 					PreferenceCalculator calculator = new PreferenceCalculator();
-					HousingLocation[] houses = calculator.findPreferences(UserDataManager.getUser(fbID));
+					HousingLocation[] houses = calculator.findPreferences(fbID);
 					System.out.println(houses.length);
 					for (int j = 0; j < houses.length; j++) {
 						HousingLocation location = houses[j];				
