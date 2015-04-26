@@ -40,6 +40,12 @@
 
 	<br><br><br><br>
 	
+	Amenities: <br>
+	<textarea class="adminInput" id="amenities" rows="10" cols="30" name="Amenities of Housing Location">
+	</textarea>
+
+	<br><br><br><br>
+	
 	Image Icon URL: <br>
 	<input class="adminInput" type="text" id="iconURL" name="Image Icon URL">
 
@@ -95,6 +101,7 @@
 			var housingName = document.getElementById("housingName").value;
 			var address = document.getElementById("address").value;
 			var description = document.getElementById("description").value;
+			var amenities = document.getElementById("amenities").value;
 			var iconURL = document.getElementById("iconURL").value;
 			var floorPlanURL = document.getElementById("floorPlanURL").value;
 			var gpsLatitude = document.getElementById("gpsLatitude").value;
@@ -110,6 +117,7 @@
 					housingName : housingName,
 					address : address,
 					description : description,
+					amenities : amenities,
 					iconURL : iconURL,
 					floorPlanURL : floorPlanURL,
 					gpsLatitude : gpsLatitude,
