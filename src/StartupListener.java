@@ -15,14 +15,14 @@ import Trie.*;
  *
  */
 @WebListener
-public class FirstListener implements ServletContextListener {
+public class StartupListener implements ServletContextListener {
 
 	private ServletContext context = null;
 	
     /**
      * Default constructor. 
      */
-    public FirstListener() {
+    public StartupListener() {
         // TODO Auto-generated constructor stub
 
     }

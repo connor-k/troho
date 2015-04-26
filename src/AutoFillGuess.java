@@ -43,10 +43,6 @@ public class AutoFillGuess extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		// Get the printwriter object from response to write the required json object to the output stream
-		
-		//BufferedReader br = request.getReader();
-		//String userInput = br.readLine();
 		BufferedReader br = request.getReader();
 		String userInput = br.readLine();
 		
@@ -62,20 +58,9 @@ public class AutoFillGuess extends HttpServlet {
 			System.out.println(word);
 		}
 		
-		
-		
-		
-		
-		//response.setContentType("application/json");
 		response.getWriter().print(word);
 		response.getWriter().flush();      
 		
-		//Create String to send in response to get request
-		//String jsonObject = "{\"guess\": "\"" +  + "\"}";
-		
-		// Assuming your json object is **jsonObject**, perform the following, it will return your json object  
-		//out.print(jsonObject);
-		//out.flush();
 	}
 
 }
