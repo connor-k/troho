@@ -13,8 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import sql.HousingLocation;
+import sql.HousingType;
 import sql.Review;
 import Trie.ReviewHelper;
+import Trie.SearchHelper;
 
 /**
  * Servlet implementation class SearchFilter
@@ -39,35 +42,63 @@ public class SearchFilter extends HttpServlet {
 		response.setContentType("application/json");
 		JSONObject object = requestParamsToJSON(request);
 		String searchWords = object.getString("searchWords");
+		int managementScore = object.getInt("managementScore");
+		int amenitiesScore = object.getInt("amenitiesScore");
+		int locationScore = object.getInt("locationScore");
+		int noiseScore = object.getInt("noiseScore");
+		int communityChillFactorScore = object.getInt("communityChillFactorScore");
+		int maxPrice = object.getInt("maxPrice");
+		int maxDistance = object.getInt("maxDistance");
+		String housingType =  object.getString("housingType");
+		int minRating = object.getInt("minRating");
+		
+		SearchHelper mySearch = new SearchHelper();
+		
+		//APARTMENT, DORM, HOUSE
+		boolean isHouse = false;
+		boolean isApartment = false;
+		boolean isDorm = false;
+		//ousingType.valueOf(Apartment)
+		
+		if(housingType.equals("Apartment")) {
+			isApartment = true;
+		} else if (housingType.equals("House")) {
+			isHouse = true;
+		} else { 
+			isDorm = true;
+		}
+		
+		HousingLocation [] myHouses;
+		myHouses = mySearch.sortPruneHouses(managementScore, amenitiesScore, locationScore, noiseScore, 
+				communityChillFactorScore, searchWords, maxPrice, maxDistance, isHouse, isDorm, 
+				isApartment, minRating);
 		
 		
 		
+		PrintWriter out = response.getWriter();
 		
+		JSONObject searchObject = new JSONObject();
+		JSONArray searchArray = new JSONArray();
 		
-//		String houseName = object.getString("houseName");
-//		JSONArray tagArray = object.getJSONArray("tags");
-//		
-//		boolean [] tags = new boolean[6];
-//		
-//		for(int i = 0; i < tagArray.length(); i++) {
-//			tags[i] = tagArray.getBoolean(i);
-//		}
-//		
-//		PrintWriter out = response.getWriter();
-//		Review [] myReviews = ReviewHelper.pruneReviews(houseName, tags);
-//		JSONArray reviewArray = new JSONArray();
-//		
-//		for(int i = 0; i < myReviews.length; i++) {
-//			JSONObject reviewObject = new JSONObject();
-//			{
-//				Review currReview = myReviews[i];
-//				reviewObject.put("review", currReview);
-//			}
-//			reviewArray.put(i, reviewObject);
-//		}
-//		
-//		out.print(reviewArray);
-//		out.flush();
+		for(int i = 0; i < myHouses.length; i++) {
+			JSONObject currObject = new JSONObject();
+			{
+				currObject.put("locationName", myHouses[i].locationName);
+				currObject.put("imageURL", myHouses[i].imageURL);
+				currObject.put("housingAddress", myHouses[i].address);
+				currObject.put("price", "$" + myHouses[i].averageRent);
+				currObject.put("distance", "" + myHouses[i].distanceToCampus);
+				currObject.put("housingType", housingType);
+				currObject.put("rating", myHouses[i].overallScore);
+				
+			}
+			searchArray.put(i, currObject);
+		}
+		
+		searchObject.put("searchArray", searchArray);
+		
+		out.print(searchObject);
+		out.flush();
 	}
 
 	/**
