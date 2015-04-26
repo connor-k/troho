@@ -94,8 +94,9 @@
 				name = response.name;
 				fbID = response.id;
 				email = response.email;
-				FB.api('/me/picture?type=large', function(response) {
+				FB.api('/me/picture?width=500&height=500', function(response) {
 	 				imgURL = response.data.url;
+	 				console.log(imgURL);
 	 				document.getElementById('profile-image').setAttribute("src", imgURL);
 	 				createUser(name, imgURL, fbID, email);
 				});
