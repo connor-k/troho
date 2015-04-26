@@ -1,7 +1,9 @@
 package emailconfirm;
 
 import sql.UserDataManager;
+
 import org.apache.commons.mail.*;
+
 import java.util.UUID; 
 
 public class emailconfirm {
@@ -16,7 +18,7 @@ public class emailconfirm {
 		facebookID = fbID; 
 		key = java.util.UUID.randomUUID().toString();	//generates random key for indiv user
 		sendEmail();
-		UserDataManager.setValidationKey(facebookID, key); 
+		//UserDataManager.setValidationKey(facebookID, key); 
 	}
 	
 	public static void sendEmail() throws EmailException 
@@ -30,7 +32,8 @@ public class emailconfirm {
 		email.setSubject("Troho Confirmation");
 		message = "Welcome to troho by troco! Please confirm your email. "
 				+ "\n \n Please confirm your email here: "
-				+ "\n \n localhost:8080/Validation?key=" + key + "&id=" + facebookID; 
+				+ "\n localhost:8080/troholocal/Validation?key=" + key + "&id=" + facebookID; 
+		email.setMsg(message); 
 		email.addTo(toConfirm);
 		email.send();
 	}
@@ -39,6 +42,8 @@ public class emailconfirm {
 	{
 		try {
 			toConfirm = "vitashubin@hotmail.com"; 
+			key = code; 
+			facebookID = id; 
 			sendEmail(); 
 		} catch (EmailException e) {
 			e.printStackTrace();
@@ -50,5 +55,15 @@ public class emailconfirm {
 		UserDataManager.verifyEmail(id, key);
 		//for testing purposes
 		System.out.println("User ID " + id + " confirmed with key " + code); 
+	}
+	
+	public static void main(String[] args)
+	{
+		try {
+			new emailconfirm("vitashubin@hotmail.com", "111");
+			System.out.println(message);
+		} catch (EmailException e) {
+			e.printStackTrace();
+		} 
 	}
 }
