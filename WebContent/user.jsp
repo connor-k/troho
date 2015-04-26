@@ -10,6 +10,7 @@
 		
 	if (fbID != null) {
 		user = UserDataManager.getUser(fbID);
+		System.out.println(user);
 	} else {
 		String redirectURL = "/troho/404.html";
     	response.sendRedirect(redirectURL);
