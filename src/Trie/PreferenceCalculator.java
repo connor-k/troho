@@ -12,9 +12,6 @@ class HousingPref {
 	}
 	
 	void setPref(HousingPref pref) {
-		//if(house != null) {
-			//System.out.println(pref.house.locationName + " is replacing " + house.locationName);
-		//}
 		this.house = pref.house;
 		this.pref = pref.pref;
 	}
@@ -35,10 +32,6 @@ public class PreferenceCalculator {
 		User user = UserDataManager.getUser(facebookID);
 		
 		HousingLocation [] houses = HousingDataManager.getAllHousingLocations();
-		int [] topHousePrefs = new int[4];
-		for (int i = 0; i < 4; i++) {
-			topHousePrefs[i] = -1;
-		}
 		if(houses.length < 4) {
 			return houses;
 		}
@@ -56,30 +49,21 @@ public class PreferenceCalculator {
 				fourth.setPref(third);
 				third.setPref(second);
 				second.setPref(houses[i], score);
-				topHousePrefs[1] = score;
 			}
 			else if (score > third.pref) {
 				fourth.setPref(third);
 				third.setPref(houses[i], score);
-				topHousePrefs[2] = score;
 			} 
 			else if (score > fourth.pref) {
 				fourth.setPref(houses[i], score);
-				topHousePrefs[3] = score;
 			}
-			System.out.println("done placing house \n\n");
 		}
-
-		System.out.println("\n\n");
 		
 		HousingLocation [] topHouses = new HousingLocation[4];
 		topHouses[0] = first.house;
 		topHouses[1] = second.house;
 		topHouses[2] = third.house;
 		topHouses[3] = fourth.house;
-		for(int i = 0; i < 4; i++) {
-			System.out.println("House " + i + ":" + topHouses[i].locationName);
-		}
 		
 		return topHouses;
 	}
