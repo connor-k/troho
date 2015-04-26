@@ -38,7 +38,7 @@ public class ReviewHelper {
 	static boolean checkValidReview(Review review, boolean []tags) {
 		boolean [] reviewTags = review.tags;
 		for(int i = 0; i < 6; i++) {
-			if(reviewTags[i] == tags[i]) {
+			if((reviewTags[i] == true) && (tags[i] == true)) {
 				return true;
 			}
 		}
