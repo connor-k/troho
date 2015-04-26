@@ -80,3 +80,9 @@ input[type='range'] {
 	border-radius:40px;
 	overflow: hidden;
 }
+
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}

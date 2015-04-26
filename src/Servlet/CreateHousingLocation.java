@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import sql.HousingDataManager;
 import sql.HousingType;
+
+
+
 @WebServlet("/CreateHousingLocation")
 public class CreateHousingLocation extends HttpServlet {
 	private static final long serialVersionUID = 1L;
