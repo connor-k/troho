@@ -2,6 +2,7 @@
 <%@page import="sql.User"%>
 <%@page import="Trie.PreferenceCalculator"%>
 <%@page import="sql.HousingLocation"%>
+<%@ page errorPage="404.html" %>
 
 
 <%

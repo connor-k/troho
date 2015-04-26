@@ -3,6 +3,8 @@
 <%@page import="sql.UserDataManager"%>
 <%@page import="sql.HousingLocation"%>
 <%@page import="sql.User"%>
+<%@ page errorPage="404.html" %>
+
 
 
 <%@page import="java.util.List"%>

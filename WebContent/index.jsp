@@ -1,3 +1,4 @@
+<%@ page errorPage="404.html" %>
 <%@page import="sql.HousingDataManager"%>
 <%@page import="sql.HousingLocation"%>
 <%@page import="java.lang.String"%>
