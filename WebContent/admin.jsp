@@ -4,10 +4,16 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Admin Page</title>
-</head>
+	<head>
+		<title>Admin Page</title>
+	</head>
+	
+	<!-- jQuery -->
+	<script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
 <body>
 
 	<select id="housingType" >
@@ -19,56 +25,75 @@
 	<br><br><br><br> 
 	
 	Housing Name: <br>
-	<input type="text" id="housingName">
+	<input class="adminInput" type="text" id="housingName" name="Housing Name">
 
 	<br><br><br><br>
 	
 	Address: <br>
-	<input type="text" id="address">
+	<input class="adminInput" type="text" id="address" name="Address">
 
 	<br><br><br><br>
 	
 	Description: <br>
-	<textarea id="description" rows="10" cols="30">
-	Please enter a description.
+	<textarea class="adminInput" id="description" rows="10" cols="30" name="Description of Housing Location">
 	</textarea>
 
 	<br><br><br><br>
 	
 	Image Icon URL: <br>
-	<input type="text" id="iconURL">
+	<input class="adminInput" type="text" id="iconURL" name="Image Icon URL">
 
 	<br><br><br><br>
 	
 	Floor Plan URL: <br>
-	<input type="text" id="floorPlanURL">
+	<input class="adminInput" type="text" id="floorPlanURL" name="Floor Plan URL">
 
 	<br><br><br><br>
 	
 	GPS Latitude: <br>
-	<input type="text" id="gpsLatitude">
+	<input class="adminInput" type="text" id="gpsLatitude" name="GPS Latitude">
 
 	<br><br><br><br>
 	
 	GPS Longitude: <br>
-	<input type="text" id="gpsLongitude">
+	<input class="adminInput" type="text" id="gpsLongitude" name="GPS Longitude">
 
 	<br><br><br><br>
 	
 	Minutes Walking:<br>
-	<input type="text" id="minutesWalking">
+	<input class="adminInput" type="text" id="minutesWalking" name="Minutes Walking">
 
 	<br><br><br><br>
 	
 	Minutes Biking:<br>
-	<input type="text" id="minutesBiking">
+	<input class="adminInput" type="text" id="minutesBiking" name="Minutes Biking">
 
 	<br><br><br><br>
 	<button onClick="createNewHousingLocation()">Create New Housing Location</button>
 
 	<script>
-		function createNewHousingLocation(){
-			var housingType = document.getElementById("housingType")
+		function createNewHousingLocation() {
+			
+			var elements = document.getElementsByClassName("adminInput");
+			for(var i=0; i<elements.length; i++) 
+			{
+			   if(!elements[i].value)
+			   {
+				   alert("You are missing input for: " + elements[i].name);
+				   return;
+			   }
+			   
+			   if(i > 6)
+				{
+				   if(isNaN(elements[i].value))
+					   {
+					   alert("Numerical input is required for: " + elements[i].name);
+					   return;				   
+					   }
+				 }
+			}
+
+			var housingType = document.getElementById("housingType").value;
 			var housingName = document.getElementById("housingName").value;
  	 		var address = document.getElementById("address").value;
  	 		var description = document.getElementById("description").value;
@@ -78,6 +103,8 @@
  	 		var gpsLongitude = document.getElementById("gpsLongitude").value; 
  	 		var minutesWalking = document.getElementById("minutesWalking").value;
  	 		var minutesBiking = document.getElementById("minutesBiking").value; 
+ 	 		
+ 	 		console.log("This is housing type " + housingType);
  	 		
 			$.ajax({
 				  url: "/troho/CreateHousingLocation",

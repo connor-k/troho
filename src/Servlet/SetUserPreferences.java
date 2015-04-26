@@ -17,15 +17,6 @@ import sql.UserDataManager;
 
 @WebServlet("/SetUserPreferences")
 public class SetUserPreferences extends HttpServlet {
-
-	public SetUserPreferences()
-	{
-		super();
-	}
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
-	}
 	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
