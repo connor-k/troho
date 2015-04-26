@@ -25,6 +25,7 @@
 <link rel="stylesheet" href="css/user.css">
 <link href="css/header-bar.css" rel="stylesheet">
 <link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap.css" rel="stylesheet">
 
 
 </head>
@@ -102,7 +103,7 @@
 						<p>Management</p>
 						
 						<div data-role="main" class="ui-content">
-						      <input type="range" name="management" class = "slider" id="management" value="5" min="1" max="10">
+						      <input type="range" name="management" class = "slider" id="management" value="<%=user.managementSurveyScore%>" min="1" max="10">
 					  	</div>
 
 					  	<div style = "width:100%">
@@ -144,7 +145,7 @@
 					<div class = "slider-wrapper">
 						<p>Amenities</p>
 						<div data-role="main" class="ui-content">
-						      <input type="range" name="amenities" class = "slider" id="amenities" value="5" min="1" max="10">
+						      <input type="range" name="amenities" class = "slider" id="amenities" value="<%=user.amenitiesSurveyScore%>" min="1" max="10">
 					  	</div>
 
 					  	<div style = "width:100%">
@@ -185,7 +186,7 @@
 					<div class = "slider-wrapper">
 						<p>Location</p>
 						<div data-role="main" class="ui-content">
-						      <input type="range" name="location" class = "slider" id="location" value="5" min="1" max="10">
+						      <input type="range" name="location" class = "slider" id="location" value="<%=user.locationSurveyScore%>" min="1" max="10">
 					  	</div>
 
 					  	<div style = "width:100%">
@@ -226,7 +227,7 @@
 					<div class = "slider-wrapper">
 						<p>Noise</p>
 						<div data-role="main" class="ui-content">
-						      <input type="range" class = "slider" id="noise" value="5" min="1" max="10">
+						      <input type="range" class = "slider" id="noise" value="<%=user.noiseSurveyScore%>" min="1" max="10">
 					  	</div>
 
 					  	<div style = "width:100%">
@@ -267,7 +268,7 @@
 					<div class = "slider-wrapper">
 						<p>Chill Factor</p>
 						<div data-role="main" class="ui-content">
-						      <input type="range" name="chill-factor" class = "slider" id="chill-factor" value="5" min="1" max="10">
+						      <input type="range" name="chill-factor" class = "slider" id="chill-factor" value="<%=user.communityChillFactorSurveyScore%>" min="1" max="10">
 					  	</div>
 
 					  	<div style = "width:100%">
@@ -369,7 +370,7 @@
     <script src="https://maps.googleapis.com/maps/api/js"></script>
 
     <script>
- 	 	function setPrefences(){
+ 	 	function setPrefences() {
  	 		var location = document.getElementById("location").value;
  	 		var chillFactor = document.getElementById("chill-factor").value;
  	 		var management = document.getElementById("management").value;

@@ -72,47 +72,53 @@
 	<button onClick="createNewHousingLocation()">Create New Housing Location</button>
 
 	<script>
+
 		function createNewHousingLocation() {
-			
+
 			var elements = document.getElementsByClassName("adminInput");
-			for(var i=0; i<elements.length; i++) 
-			{
-			   if(!elements[i].value)
-			   {
-				   alert("You are missing input for: " + elements[i].name);
-				   return;
-			   }
-			   
-			   if(i > 6)
-				{
-				   if(isNaN(elements[i].value))
-					   {
-					   alert("Numerical input is required for: " + elements[i].name);
-					   return;				   
-					   }
-				 }
+			for (var i = 0; i < elements.length; i++) {
+				if (!elements[i].value) {
+					alert("You are missing input for: " + elements[i].name);
+					return;
+				}
+
+				if (i > 6) {
+					if (isNaN(elements[i].value)) {
+						alert("Numerical input is required for: "
+								+ elements[i].name);
+						return;
+					}
+				}
 			}
 
 			var housingType = document.getElementById("housingType").value;
 			var housingName = document.getElementById("housingName").value;
- 	 		var address = document.getElementById("address").value;
- 	 		var description = document.getElementById("description").value;
- 	 		var iconURL = document.getElementById("iconURL").value;
- 	 		var floorPlanURL = document.getElementById("floorPlanURL").value; 
- 	 		var gpsLatitude = document.getElementById("gpsLatitude").value;
- 	 		var gpsLongitude = document.getElementById("gpsLongitude").value; 
- 	 		var minutesWalking = document.getElementById("minutesWalking").value;
- 	 		var minutesBiking = document.getElementById("minutesBiking").value; 
- 	 		
- 	 		console.log("This is housing type " + housingType);
- 	 		
+			var address = document.getElementById("address").value;
+			var description = document.getElementById("description").value;
+			var iconURL = document.getElementById("iconURL").value;
+			var floorPlanURL = document.getElementById("floorPlanURL").value;
+			var gpsLatitude = document.getElementById("gpsLatitude").value;
+			var gpsLongitude = document.getElementById("gpsLongitude").value;
+			var minutesWalking = document.getElementById("minutesWalking").value;
+			var minutesBiking = document.getElementById("minutesBiking").value;
+
 			$.ajax({
-				  url: "/troho/CreateHousingLocation",
-				  type: "POST",
-				  data: {housingType : housingType, housingName : housingName, address : address, description : description, iconURL : iconURL, floorPlanURL : floorPlanURL,
-					  gpsLatitude : gpsLatitude, gpsLongitude : gpsLongitude, minutesWalking : minutesWalking, minutesBiking : minutesBiking  },
-				  dataType: "JSON"
-				});
+				url : "/troho/CreateHousingLocation",
+				type : "POST",
+				data : {
+					housingType : housingType,
+					housingName : housingName,
+					address : address,
+					description : description,
+					iconURL : iconURL,
+					floorPlanURL : floorPlanURL,
+					gpsLatitude : gpsLatitude,
+					gpsLongitude : gpsLongitude,
+					minutesWalking : minutesWalking,
+					minutesBiking : minutesBiking
+				},
+				dataType : "JSON"
+			});
 		}
 	</script>
 

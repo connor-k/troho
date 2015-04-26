@@ -18,7 +18,6 @@ public class SetUserPreferences extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String fbID = request.getParameter("fbID");
 		String location = request.getParameter("location"); 
 		String chillFactor =request.getParameter("chillFactor"); 

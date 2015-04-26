@@ -57,8 +57,7 @@
 
 		};
 		
-		function updateFriends(response)
-		{
+		function updateFriends(response) {
 			var list = document.getElementById("friends");
 			list.innerHTML = '';
 			console.log(response.data.length);
