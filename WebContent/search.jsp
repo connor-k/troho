@@ -28,10 +28,9 @@
 
 <body>
 
-	<div class = "header">
-		<div>
-			<!-- <img src = "./img/troho-high-res.png" style = "height:80px"/> -->
-			<img src = "./img/new-troho.png" style = "height:80px"/>
+	<div class="header">
+		<div id="troho-logo">
+			<a href="index.jsp"><img id="home-logo" src="./img/new-troho.png" /></a>
 		</div>
 
 		<div class = "log-div">
@@ -106,11 +105,11 @@
 				<div class="btn-group">
 	                <button type="button" value ="0" id="distanceBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
 	                <ul class="dropdown-menu scrollable-menu" id="distanceBoxIn" role="menu">
-	                    <li value="1" class="listElement"><a >5 minutes walking</a></li>
-	                    <li value="2" class="listElement"><a >10 minutes walking</a></li>
-	                    <li value="3" class="listElement"><a >15 minutes walking</a></li>
-	                    <li value="4" class="listElement"><a >30 minutes walking</a></li>
-	                    <li value="0" class="listElement"><a >Any</a></li>
+	                    <li value="5" class="listElement"><a >5 minutes walking</a></li>
+	                    <li value="10" class="listElement"><a >10 minutes walking</a></li>
+	                    <li value="15" class="listElement"><a >15 minutes walking</a></li>
+	                    <li value="30" class="listElement"><a >30 minutes walking</a></li>
+	                    <li value="1000" class="listElement"><a >Any</a></li>
 	                </ul>
             	</div>
 			</div>

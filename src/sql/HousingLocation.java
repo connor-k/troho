@@ -35,8 +35,6 @@ public class HousingLocation {
 	/** Reviews for this location */
 	public Review[] reviews;
 
-	//public String distanceToCampus;
-
 	private String formatReviews() {
 		String s = "\nReviews for this location:\n";
 		if (reviews != null) {

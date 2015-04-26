@@ -52,6 +52,7 @@ public class CreateUser extends HttpServlet {
 		System.out.println(email);
 		if(UserDataManager.createUser(name, email, imgURL, fbID) != null) { 
 			try {
+				System.out.println("In confirm");
 				emailconfirm confirm = new emailconfirm(email, fbID);
 			} catch (EmailException e) {
 				// TODO Auto-generated catch block
