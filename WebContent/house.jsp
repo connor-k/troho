@@ -14,7 +14,6 @@
 	String name = request.getParameter("name");
     HousingLocation location = HousingDataManager.getHousingLocation(name);
     if (name == null) {
-    	System.out.println("In if");
  		String redirectURL = "/troho/404.html";
     	response.sendRedirect(redirectURL);
     }
@@ -118,7 +117,7 @@
                     <div class = "star-container">
                         <% if (location != null) {
                         	System.out.println("Management Score " + location.managementScore);                 
-                     			for (int i = 0; i < location.overallScore; i++) {
+                     		for (int i = 0; i < location.overallScore; i++) {
                      	%>
                         <img src = "./img/star.png" class = "star"/>
                         <%
@@ -627,10 +626,10 @@
         </div>
     </div>
     </body>
-    
+
+
 	<script src="js/fbhouse.js">
 	</script>
-
 
 	<!-- ChartJS -->
 	<script src="js/Chart.js"></script>
@@ -696,7 +695,7 @@
 		    	window.myNewChart = new Chart(ctx1).Line(lineChartData, line_chart_options);
 		    });
 	        
-			var hideShowSubmit = function(){
+			/*var hideShowSubmit = function(){
 				FB.api('/me', function(response) {
 					var fbID = response.id;
 					var houseName = $('#introText').text();
@@ -718,7 +717,7 @@
 						}
 					});
 				});
-			}
+			}*/
 	    
 		    (function ($) {
 		        $.each(['show', 'hide'], function (i, ev) {
@@ -730,7 +729,6 @@
 		        });
 		      })(jQuery);
  
- 			//$(document).ready(function() {
  			
  			var houseName = $('#introText').text();
  			localStorage.numberOfReviewsOnClient = 0;
@@ -758,6 +756,8 @@
 			  	})()
 			  	
 			});
+			
+    	});
  				
  			$("#writeReview").on("click", function() {
  				$("#reviewRow").toggle();
@@ -929,7 +929,7 @@
  		 		
  		 	});
  		 	
- 		});
+ 		//});
     </script>
 
 </html>
