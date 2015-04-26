@@ -30,13 +30,19 @@ public class SearchHelper {
 			int maxPrice, int maxDistance, boolean isHouse, boolean isDorm, 
 			boolean isApartment, int minRating) {
 		
-		HousingLocation [] houseArray = findHouse(searchWords);
+		HousingLocation [] houseArray;
+		
+		if(!searchWords.equals("")) {
+			houseArray = findHouse(searchWords);
+		} else {
+			houseArray = HousingDataManager.getAllHousingLocations();
+		}
 		
 		Vector<HousingLocation> houses = new Vector<HousingLocation>();
 		for(int i = 0; i <houseArray.length; i++) {
 			houses.add(houseArray[i]);
 		}
-		pruneHouses(maxPrice, maxDistance, isHouse, isDorm, isApartment, minRating, houses);
+		houses = pruneHouses(maxPrice, maxDistance, isHouse, isDorm, isApartment, minRating, houses);
 		myHouseComp = new HousingComparator(managementScore, amenitiesScore, locationScore,
 				communityChillFactorScore);
 		houses.sort(myHouseComp);	
@@ -64,6 +70,7 @@ public class SearchHelper {
 				prunedHouses.remove(house);
 			}
 		}	
+		//for(int i = 0; i )
 		return prunedHouses;	
 	}
 	
@@ -75,18 +82,22 @@ public class SearchHelper {
 		boolean checkHouse = (house.type == HousingType.HOUSE);
 		boolean checkApartment = (house.type == HousingType.APARTMENT);
 		boolean checkDorm = (house.type == HousingType.DORM);
-		
+		System.out.println("\n");
+		System.out.println("Maximum Price for " + house.locationName + ": " + maxPrice);
+		System.out.println("Average Rent: " + house.averageRent);
+		System.out.println("\n");
+
 		if(house.averageRent > maxPrice) {
+			System.out.println("Returning False because of price");
 			return false;
-		} else if (Integer.parseInt(house.distanceToCampus) > maxDistance) {
+		} else if (house.minutesWalking > maxDistance) {
+			System.out.println("Returning False because of distance");
 			return false;
-		} else if (checkHouse != isHouse) {
-			return false;
-		} else if (checkApartment != isApartment) {
-			return false;
-		} else if (checkDorm != isDorm) {
+		} else if ((checkHouse != isHouse) && (checkApartment != isApartment) && (checkDorm != isDorm)) {
+			System.out.println("Returning False because of house");
 			return false;
 		} else if (house.overallScore < minRating) {
+			System.out.println("Returning False because of rating");
 			return false;
 		}
 		return true;

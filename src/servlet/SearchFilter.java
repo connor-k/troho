@@ -87,7 +87,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 				currObject.put("imageURL", myHouses[i].imageURL);
 				currObject.put("housingAddress", myHouses[i].address);
 				currObject.put("price", "$" + myHouses[i].averageRent);
-				currObject.put("distance", "" + myHouses[i].distanceToCampus);
+				currObject.put("distance", "" + myHouses[i].minutesWalking);
 				currObject.put("housingType", houseName);
 				currObject.put("rating", myHouses[i].overallScore);
 				
