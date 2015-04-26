@@ -3,7 +3,6 @@ package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
-import java.util.Vector;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,13 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-
-import sql.Review;
-import Trie.ReviewHelper;
-import sql.HousingDataManager;
 import sql.Review;
 import sql.User;
 import sql.UserDataManager;
+import Trie.ReviewHelper;
 
 /**
  * Servlet implementation class ReviewServlet
@@ -28,12 +24,6 @@ import sql.UserDataManager;
 @WebServlet("/ReviewServlet")
 public class ReviewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
