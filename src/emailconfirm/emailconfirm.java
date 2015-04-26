@@ -4,6 +4,17 @@ import sql.UserDataManager;
 
 import org.apache.commons.mail.*;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.URLDataSource;
+import javax.mail.BodyPart;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMultipart;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.UUID; 
 
 public class emailconfirm {
@@ -23,22 +34,39 @@ public class emailconfirm {
 	
 	public static void sendEmail() throws EmailException 
 	{
-		Email email = new SimpleEmail();
+		HtmlEmail email = new HtmlEmail();
 		email.setHostName("smtp.googlemail.com");
 		email.setSmtpPort(465);
 		email.setAuthentication("troho.troco", "trohofor201");
 		email.setSSLOnConnect(true);
-		email.setFrom("troho.troco@gmail.com");
+		email.setFrom("troho.troco@gmail.com", "Troho");
 		email.setSubject("Troho Confirmation");
-		message = "Welcome to troho by troco! Please confirm your email. "
-				+ "\n \n Please confirm your email here: "
-				+ "\n localhost:8080/troho/Validation?key=" + key + "&id=" + facebookID; 
-		email.setMsg(message); 
+		
+		String urlstring = "href=http://localhost:8080/troho/Validation?key=" + key + "&id=" + facebookID; 
+		String hyperlink = "<a " + urlstring + ">click here</a>";
+		//hyperlink leading to localhost servlet 
+		
+		//HTML text message to be displayed in body of email 
+		message = "<br><br>Welcome to troho by troco!"
+				+ "<br><br>To confirm your email, please " + hyperlink + ".";
+		
+		URL url;	//this url will lead to an image of the troho logo
+		try {
+			url = new URL("https://bytebucket.org/troco/troco/raw/ffad4f08eb1510106b238d4e4365998a0cd25f55/WebContent/img/new-troho.png");
+			String cid = email.embed(url, "Troho logo");
+			//set size and source of image, as well as text message
+			email.setHtmlMsg("<html><img style=width:160px height:200px src=\"cid:"+cid+"\">"+message+"</html>");
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} 
+
+		//text message is the alternative to the html message
+		email.setTextMsg("There was an error vieweing this html message"); 
 		email.addTo(toConfirm);
 		email.send();
 	}
 	
-	public static void sendTestEmail(String code, String id)
+	public static void sendTestEmail()
 	{
 		try {
 			new emailconfirm("vitashubin@hotmail.com", "111");
@@ -48,11 +76,19 @@ public class emailconfirm {
 		} 
 	}
 	
-	public static void emailConfirmed(String code, String id)
+	public static boolean emailConfirmed(String code, String id)
 	{
-		UserDataManager.verifyEmail(id, key);
-		//for testing purposes
-		System.out.println("User ID " + id + " confirmed with key " + code); 
+		//successfully verified email
+		if (UserDataManager.verifyEmail(id, key))
+		{
+			System.out.println("User ID " + id + " confirmed with key " + code);
+			return true; 
+		}
+		else
+		{
+			System.out.println("The confirmation could not be complete");
+			return false; 
+		}
 	}
 
 }
