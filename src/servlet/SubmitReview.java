@@ -38,8 +38,9 @@ public class SubmitReview extends HttpServlet {
 			ratingsStringArray[i] = Integer.toString(ratings.getInt(i));
 		}
 		boolean [] tags = new boolean[6];
+		JSONArray tagArray = object.getJSONArray("tags");
 		for (int i = 0; i < 6; i++) {
-			tags[i] = true;
+			tags[i] = tagArray.getBoolean(i);
 		}
 		
 		//TODO: add tag functionality

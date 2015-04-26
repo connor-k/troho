@@ -424,37 +424,37 @@
 	                <div class = "col-lg-10 col-md-12 filter-row" style = "padding: 0px">
 	                    <div class = "filter-row">
 	                        <div class = "col-lg-2">
-	                            <div class = "filter-button">
+	                            <div class = "filter-button" id="managementReviewTag">
 	                                <div class = "filter-specifier">Management</div>
 	                            </div>
 	                        </div>
 	
 	                        <div class = "col-lg-2">
-	                            <div class = "filter-button"> 
+	                            <div class = "filter-button" id="noiseReviewTag"> 
 	                                <div class = "filter-specifier">Noise</div>  
 	                            </div>
 	                        </div>
 	
 	                        <div class = "col-lg-2">
-	                            <div class = "filter-button">   
+	                            <div class = "filter-button" id="locationReviewTag">   
 	                                <div class = "filter-specifier">Location</div>
 	                            </div>
 	                        </div>
 	
 	                        <div class = "col-lg-2">
-	                            <div class = "filter-button">  
+	                            <div class = "filter-button" id="chillnessReviewTag">  
 	                                <div class = "filter-specifier">Chillness</div>
 	                            </div>
 	                        </div>
 	
 	                        <div class = "col-lg-2">
-	                            <div class = "filter-button"> 
+	                            <div class = "filter-button" id ="amenitiesReviewTag"> 
 	                                <div class = "filter-specifier">Amenities</div>
 	                            </div>
 	                        </div>
 	
 	                        <div class = "col-lg-2">
-	                            <div class = "filter-button">
+	                            <div class = "filter-button" id="priceReviewTag">
 	                                <div class = "filter-specifier">Price</div>
 	                            </div>
 	                        </div>
@@ -586,16 +586,6 @@
     <script src="js/bootstrap.min.js"></script>
 
     <script>
-    
-    //TODO: 
-    // should this function go in Document.ready?
-<%-- /*     $(function() {
- */    	('.housing-image-card').css("background", "url(<%=location.imageURL%>) no-repeat");
-/*     });
- */        $(".filter-button").click(function() {
-            $(this).toggleClass("active");
-        	});
- 		}); --%>
  
  
  		$(document).ready(function() {
@@ -627,12 +617,44 @@
 			 		var locationPoints = $("#locationPoints").val();
 			 		var noisePoints = $("#noisePoints").val();
 			 		var chillFactorPoints = $("#chillFactorPoints").val();
+			 		var arr = []; 
+	 		 		if ($("#managementReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
+	 		 		if ($("#noiseReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
+	 		 		if ($("#locationReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
+	 		 		if ($("#chillnessReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
+	 		 		if ($("#amenitiesReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
+	 		 		if ($("#priceReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
 			 		var postData = {
 							"housingname": houseName, 
 							"fbID": fbID, 
 							"review": comment,
 							"ratings": [managementPoints, amenitiesPoints, locationPoints, noisePoints, chillFactorPoints], 
 							"rent": rent,
+							"tags":[arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]]
 							};
 					$.ajax({
 						url: "/troho/SubmitReview",

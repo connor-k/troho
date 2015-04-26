@@ -78,7 +78,7 @@ public class SearchHelper {
 		
 		if(house.averageRent > maxPrice) {
 			return false;
-		} else if (Integer.parseInt(house.distanceToCampus) > maxDistance) {
+		} else if (house.minutesWalking > maxDistance) {
 			return false;
 		} else if (checkHouse != isHouse) {
 			return false;
