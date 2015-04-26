@@ -6,13 +6,13 @@ import org.apache.commons.mail.*;
 
 import java.util.UUID; 
 
-public class EmailConfirm {
+public class emailconfirm {
 	private static String toConfirm; //address that needs to be confirmed 
 	private static String facebookID;  //users unique facebook identification 
 	private static String key; 		//unique confirmation key 
 	private static String message; 	//body of email 
 	
-	public EmailConfirm(String to, String fbID) throws EmailException
+	public emailconfirm(String to, String fbID) throws EmailException
 	{
 		toConfirm = to; 
 		facebookID = fbID; 
@@ -41,7 +41,7 @@ public class EmailConfirm {
 	public static void sendTestEmail(String code, String id)
 	{
 		try {
-			new EmailConfirm("vitashubin@hotmail.com", "111");
+			new emailconfirm("vitashubin@hotmail.com", "111");
 			System.out.println(message);
 		} catch (EmailException e) {
 			e.printStackTrace();
