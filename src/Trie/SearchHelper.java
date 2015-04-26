@@ -3,7 +3,6 @@ package Trie;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Vector;
-
 import sql.HousingLocation;
 import sql.HousingType;
 import sql.HousingDataManager;
@@ -97,6 +96,9 @@ public class SearchHelper {
 		return (HousingLocation[]) myTrie.findPartialWord(searchWords).toArray();
 	}
 	
+	//used for autocomplete
+	//takes as argument partial user search words
+	//returns a likely word to complete the search 
 	public String findLikely(String searchWords) {
 		return myTrie.findLikely(searchWords);
 	}
