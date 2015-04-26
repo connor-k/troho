@@ -72,11 +72,11 @@ public class SearchHelper {
 			return false;
 		} else if (Integer.parseInt(house.distanceToCampus) > maxDistance) {
 			return false;
-		} else if (checkHouse^isHouse) {
+		} else if (checkHouse != isHouse) {
 			return false;
-		} else if (checkApartment^isApartment) {
+		} else if (checkApartment != isApartment) {
 			return false;
-		} else if (checkDorm^isDorm) {
+		} else if (checkDorm != isDorm) {
 			return false;
 		} else if (house.overallScore < minRating) {
 			return false;

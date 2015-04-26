@@ -1,11 +1,9 @@
 package Trie;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import sql.HousingDataManager;
 import sql.HousingLocation;
 import sql.User;
+import sql.UserDataManager;
 
 class HousingPref {
 	void setPref(HousingLocation house, int preference) {
@@ -22,19 +20,22 @@ class HousingPref {
 }
 
 public class PreferenceCalculator {
-	HousingPref first = new HousingPref();
-	HousingPref second = new HousingPref();
-	HousingPref third = new HousingPref();
-	HousingPref fourth = new HousingPref();
 	
 	//takes as arguments user preferences and a ArrayList of housing Locations
 	//returns a ArrayList with the top four house choices for the user
-	public HousingLocation[] findPreferences(User user) {
+	static public HousingLocation[] findPreferences(String facebookID) {
+		HousingPref first = new HousingPref();
+		HousingPref second = new HousingPref();
+		HousingPref third = new HousingPref();
+		HousingPref fourth = new HousingPref();
+		
+		User user = UserDataManager.getUser(facebookID);
+		
 		HousingLocation [] houses = HousingDataManager.getAllHousingLocations();
 		HousingLocation [] topHouses = new HousingLocation[4];
 		int [] topHousePrefs = new int[4];
 		for (int i = 0; i < 4; i++) {
-			topHousePrefs[i] = 0;
+			topHousePrefs[i] = -1;
 		}
 		if(houses.length < 4) {
 			return houses;
