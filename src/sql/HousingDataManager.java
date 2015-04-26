@@ -301,5 +301,44 @@ public class HousingDataManager {
 		}
 		return data;
 	}
+	
+	/** Check if a User has reviewed this location
+	 * @param facebookID SQL database key for this user
+	 * @param housingName The name of this location
+	 * @return Object array containing the label array and data array
+	 */
+	public static boolean hasReviewedLocation(String facebookID, String housingName) {
+		HousingLocation housingLocation = getHousingLocation(housingName);
+		if (housingLocation != null && housingLocation.reviews != null) {
+			Connection conn = null;
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
+				ps = conn.prepareStatement("SELECT * FROM Users WHERE facebookID=? AND housingKey=?");
+				ps.setString(1, facebookID);
+				ps.setInt(2, housingLocation.housingKey);
+				rs = ps.executeQuery();
+				if (rs.next()) {
+					// Note: finally block still executes to close connections before this return
+					return true;
+				}
+			} catch (SQLException sqle) {
+				// Note if an invalid housingKey was passed in, 
+				System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
+			} catch (ClassNotFoundException cnfe) {
+				System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
+			} finally {
+				try {
+					ps.close();
+				} catch (SQLException e) { /* Do nothing */ }
+				try {
+					conn.close();
+				} catch (SQLException e) { /* Do nothing */ }
+			}
+		}
+		return false;
+	}
 
 }
