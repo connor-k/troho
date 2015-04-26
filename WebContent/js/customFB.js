@@ -96,7 +96,6 @@
 				fbID = response.id;
 				email = response.email;
 				FB.api('/me/picture?type=large', function(response) {
-					console.log("Large " + response.data.url);
 	 				imgURL = response.data.url;
 	 				document.getElementById('profile-image').setAttribute("src", imgURL);
 	 				createUser(name, imgURL, fbID, email);
