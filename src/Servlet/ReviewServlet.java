@@ -71,9 +71,9 @@ public class ReviewServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 	}
 	
-	public JSONObject requestParamsToJSON(HttpServletRequest req) {
+	public JSONObject requestParamsToJSON(HttpServletRequest request) {
 		  JSONObject jsonObj = new JSONObject();
-		  Map<String,String[]> params = req.getParameterMap();
+		  Map<String,String[]> params = request.getParameterMap();
 		  for (Map.Entry<String,String[]> entry : params.entrySet()) {
 		    String v[] = entry.getValue();
 		    Object o = (v.length == 1) ? v[0] : v;
