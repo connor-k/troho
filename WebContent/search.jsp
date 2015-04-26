@@ -231,16 +231,19 @@
 
 					</li>
 
-					<li> <div class = "drop-down-option">$800</div>
+					<li> <div class = "drop-down-option">1 Star</div>
 					</li>
 
-					<li> <div class = "drop-down-option">$1000</div>
+					<li> <div class = "drop-down-option">2 Star</div>
 					</li>
 
-					<li> <div class = "drop-down-option">$1200</div>
+					<li> <div class = "drop-down-option">3 Star</div>
 					</li>
 
-					<li> <div class = "drop-down-option">$1400</div>
+					<li> <div class = "drop-down-option">4 Star</div>
+					</li>
+					
+					<li> <div class = "drop-down-option">5 Star</div>
 					</li>
 
 					<li> <div class = "drop-down-option">Any</div>
@@ -265,16 +268,19 @@
 
 					</li>
 
-					<li> <div class = "drop-down-option">$800</div>
+					<li> <div class = "drop-down-option">1 Star</div>
 					</li>
 
-					<li> <div class = "drop-down-option">$1000</div>
+					<li> <div class = "drop-down-option">2 Star</div>
 					</li>
 
-					<li> <div class = "drop-down-option">$1200</div>
+					<li> <div class = "drop-down-option">3 Star</div>
 					</li>
 
-					<li> <div class = "drop-down-option">$1400</div>
+					<li> <div class = "drop-down-option">4 Star</div>
+					</li>
+					
+					<li> <div class = "drop-down-option">5 Star</div>
 					</li>
 
 					<li> <div class = "drop-down-option">Any</div>
@@ -298,16 +304,19 @@
 
 					</li>
 
-					<li> <div class = "drop-down-option">$800</div>
+					<li> <div class = "drop-down-option">1 Star</div>
 					</li>
 
-					<li> <div class = "drop-down-option">$1000</div>
+					<li> <div class = "drop-down-option">2 Star</div>
 					</li>
 
-					<li> <div class = "drop-down-option">$1200</div>
+					<li> <div class = "drop-down-option">3 Star</div>
 					</li>
 
-					<li> <div class = "drop-down-option">$1400</div>
+					<li> <div class = "drop-down-option">4 Star</div>
+					</li>
+					
+					<li> <div class = "drop-down-option">5 Star</div>
 					</li>
 
 					<li> <div class = "drop-down-option">Any</div>
@@ -318,35 +327,13 @@
 
 			<div class = "col-lg-3 search-element-box">
 				<p class = "search-descriptor">Location</p>
-				<ul class = "drop-down-box">
-
-					<li>
-
-						<div class = "drop-down-descriptor-wrapper">
-							<div class = "drop-down-descriptor">
-								<p style = "display:inline;">Any</p>
-							</div>
-							<i class="fa fa-lg fa-caret-down drop-down-button"></i>
-						</div>
-
-					</li>
-
-					<li> <div class = "drop-down-option">$800</div>
-					</li>
-
-					<li> <div class = "drop-down-option">$1000</div>
-					</li>
-
-					<li> <div class = "drop-down-option">$1200</div>
-					</li>
-
-					<li> <div class = "drop-down-option">$1400</div>
-					</li>
-
-					<li> <div class = "drop-down-option">Any</div>
-					</li>
-
-				</ul>
+				<select id="location" >	
+					<option	value="1">1 Star</option>	
+					<option	value="2">2 Star</option>	
+					<option	value="3">3 Star</option>	
+					<option	value="4">4 Star</option>
+					<option	value="5">5 Star</option>	
+				</select>
 			</div>
 
 		</div>
@@ -364,7 +351,7 @@
 
 			<div class = "col-lg-10 results-container">
 
-				<div class = "col-lg-10 col-md-12">
+				<div class = "col-lg-10 col-md-12 result">
                     
                     <div class="col-lg-12 single-result">
 
