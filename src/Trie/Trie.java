@@ -106,6 +106,9 @@ public class Trie {
 	public String findLikely(String searchWord) {
 		TrieNode currNode = head;
 		for(int i = 0; i < searchWord.length(); i++) {
+			if(!Character.isLetter(searchWord.charAt(i))) {
+				return searchWord;
+			}
 			currNode = checkLetter(currNode, searchWord.charAt(i));
 			if(currNode == null) {//if no words matching partial, returns empty string
 				return "";
@@ -200,4 +203,5 @@ public class Trie {
 		}
 		
 	}
+	
 }
