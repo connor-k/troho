@@ -79,7 +79,7 @@ public class emailconfirm {
 	public static boolean emailConfirmed(String code, String id)
 	{
 		//successfully verified email
-		if (UserDataManager.verifyEmail(id, key))
+		if (UserDataManager.verifyEmail(id, code))
 		{
 			System.out.println("User ID " + id + " confirmed with key " + code);
 			return true; 
