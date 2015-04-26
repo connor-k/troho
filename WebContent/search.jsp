@@ -371,7 +371,7 @@
 			});
 			
 			$('#ratingBoxIn > .listElement').on("click", function(){
- 			   $("#ratingBoxIn").text($(this).text()); 
+ 			   $("#ratingBox").text($(this).text()); 
  			  $("#ratingBox").val($(this).val());
 			});
 			
