@@ -91,7 +91,7 @@ public class SearchHelper {
 			System.out.println("Returning False because of price");
 			return false;
 		} else if (house.minutesWalking > maxDistance) {
-			System.out.println("Returning False because of distance");
+			System.out.println("Returning False because of distance " + maxDistance);
 			return false;
 		} else if ((checkHouse != isHouse) && (checkApartment != isApartment) && (checkDorm != isDorm)) {
 			System.out.println("Returning False because of house");
