@@ -14,9 +14,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import sql.HousingLocation;
-import sql.HousingType;
-import sql.Review;
-import Trie.ReviewHelper;
 import Trie.SearchHelper;
 
 /**
@@ -25,14 +22,6 @@ import Trie.SearchHelper;
 @WebServlet("/SearchFilter")
 public class SearchFilter extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SearchFilter() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -73,8 +62,6 @@ public class SearchFilter extends HttpServlet {
 				communityChillFactorScore, searchWords, maxPrice, maxDistance, isHouse, isDorm, 
 				isApartment, minRating);
 		
-		
-		
 		PrintWriter out = response.getWriter();
 		
 		JSONObject searchObject = new JSONObject();
@@ -99,13 +86,6 @@ public class SearchFilter extends HttpServlet {
 		
 		out.print(searchObject);
 		out.flush();
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 	
 	public JSONObject requestParamsToJSON(HttpServletRequest request) {
