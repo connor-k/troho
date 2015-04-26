@@ -24,7 +24,6 @@
 
 	<script src="js/customFB.js">
 	</script>
-	
 
 	<!-- Page Header -->
 	<div class="header">
@@ -44,14 +43,13 @@
 		</div>
 	</div>
 	
-	
 	<div class = "container-fluid">
 
 		<div class = "row" style = "margin-top:160px;">
 
-			<div class = "col-md-4"></div>
+			<div class = "col-lg-4"></div>
 
-			<div class = "search-container col-md-4">
+			<div class = "search-container col-lg-4">
 				<div style = "color:#ffcc00; font-size:30px; text-align:center">We help Trojans find Housing</div>
 				<br>
 				<br>
@@ -64,7 +62,9 @@
 						<div>
 					        <div class="bar">
 					            <input type="text" id = "search" class="search-bar" placeholder="Find a house!" name="house">
+					            <input type="text" id = "fill-in" class="search-bar" placeholder="Find a house!" name="house" style = "color:#ffe9bb;z-index: -1; margin-left:-180px;position:absolute;">
 					        </div>
+					        
 						</div>
 						<div class = "image-container">
 						<i class="glyphicon glyphicon-search search-image" aria-hidden="true"></i>
@@ -74,12 +74,12 @@
 
 			</div>
 
-			<div class = "col-md-4"></div>
+			<div class = "col-lg-4"></div>
 
 		</div>
 
 	</div>
-
+	
 	<div class = "content">
 		<div class = "container-fluid">
 		
@@ -172,6 +172,52 @@
 			     	console.log("finished");
 			  });
 		})
+		
+		$('#search').on('keydown', function(event) {
+			var fill = document.getElementById('fill-in');			
+			var currentVal = document.getElementById('search');
+			
+			var originalChar = String.fromCharCode(event.keyCode);
+			var inputCharacter = (event.shiftKey) ? originalChar.toUpperCase() : originalChar.toLowerCase();
+			var string = currentVal.value + inputCharacter;
+			
+			if(event.keyCode !== 16 && event.keyCode != 91 && event.keyCode != 93 ) {
+				
+				if(event.keyCode == 46 || event.keyCode == 8) {
+					console.log(string.length);
+					if(string.length <= 2) {
+						fill.value = " ";
+					} else {
+						
+						var posting = $.post( 'http://localhost:8080/troho/AutoFillGuess', string.substring(0,string.length-2));
+						
+						posting.done( function( data ) {
+							
+						  	if(data.length > 1) {
+						  		fill.value = data;
+						  	} else {
+						  		fill.value = " ";
+						  	}
+						  	
+						});
+						
+					}
+				} else {
+					var posting = $.post( 'http://localhost:8080/troho/AutoFillGuess', string);
+					
+					posting.done( function( data ) {
+						
+					  	if(data.length > 1) {
+					  		fill.value = data;
+					  	} else {
+					  		fill.value = " ";
+					  	}
+					  	
+					});
+				}
+			}
+			
+		});
 
     </script>
 

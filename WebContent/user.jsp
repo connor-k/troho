@@ -11,6 +11,7 @@
 		
 	if (fbID != null) {
 		user = UserDataManager.getUser(fbID);
+		System.out.println(user);
 	} else {
 		String redirectURL = "/troho/404.html";
     	response.sendRedirect(redirectURL);
@@ -25,6 +26,7 @@
 <link rel="stylesheet" href="css/user.css">
 <link href="css/header-bar.css" rel="stylesheet">
 <link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap.css" rel="stylesheet">
 
 
 </head>
@@ -66,8 +68,17 @@
 
 					<p style = "font-size:24px"> <%= user.email %> </p>
 
-					<p style = "font-size:18px"> Off-campus Housing
-					</p>
+					<p style = "font-size:18px"> Off-campus Housing</p>
+					blahhhh
+					<ul class="dropdown-menu scrollable-menu" role="menu">
+                		<li><a href="#">Action</a></li>
+                		<li><a href="#">Another action</a></li>
+                		<li><a href="#">Something else here</a></li>
+                		<li><a href="#">Action</a></li>
+                		<li><a href="#">Action</a></li>
+                		<li><a href="#">Another action</a></li>
+            		</ul>
+					
 				</div>
 
 			</div>
@@ -93,7 +104,7 @@
 						<p>Management</p>
 						
 						<div data-role="main" class="ui-content">
-						      <input type="range" name="management" class = "slider" id="management" value="5" min="1" max="10">
+						      <input type="range" name="management" class = "slider" id="management" value="<%=user.managementSurveyScore%>" min="1" max="10">
 					  	</div>
 
 					  	<div style = "width:100%">
@@ -135,7 +146,7 @@
 					<div class = "slider-wrapper">
 						<p>Amenities</p>
 						<div data-role="main" class="ui-content">
-						      <input type="range" name="amenities" class = "slider" id="amenities" value="5" min="1" max="10">
+						      <input type="range" name="amenities" class = "slider" id="amenities" value="<%=user.amenitiesSurveyScore%>" min="1" max="10">
 					  	</div>
 
 					  	<div style = "width:100%">
@@ -176,7 +187,7 @@
 					<div class = "slider-wrapper">
 						<p>Location</p>
 						<div data-role="main" class="ui-content">
-						      <input type="range" name="location" class = "slider" id="location" value="5" min="1" max="10">
+						      <input type="range" name="location" class = "slider" id="location" value="<%=user.locationSurveyScore%>" min="1" max="10">
 					  	</div>
 
 					  	<div style = "width:100%">
@@ -217,7 +228,7 @@
 					<div class = "slider-wrapper">
 						<p>Noise</p>
 						<div data-role="main" class="ui-content">
-						      <input type="range" class = "slider" id="noise" value="5" min="1" max="10">
+						      <input type="range" class = "slider" id="noise" value="<%=user.noiseSurveyScore%>" min="1" max="10">
 					  	</div>
 
 					  	<div style = "width:100%">
@@ -258,7 +269,7 @@
 					<div class = "slider-wrapper">
 						<p>Chill Factor</p>
 						<div data-role="main" class="ui-content">
-						      <input type="range" name="chill-factor" class = "slider" id="chill-factor" value="5" min="1" max="10">
+						      <input type="range" name="chill-factor" class = "slider" id="chill-factor" value="<%=user.communityChillFactorSurveyScore%>" min="1" max="10">
 					  	</div>
 
 					  	<div style = "width:100%">
@@ -310,8 +321,7 @@
 			<div style = "background-color: #c05049;text-align:center;padding:20px">
 				<div style = "color:#ffcc00;font-size:36px;">Recommendations</div>
 				<% 
-					PreferenceCalculator calculator = new PreferenceCalculator();
-					HousingLocation[] houses = calculator.findPreferences(fbID);
+					HousingLocation[] houses = PreferenceCalculator.findPreferences(fbID);
 					System.out.println(houses.length);
 					for (int j = 0; j < houses.length; j++) {
 						HousingLocation location = houses[j];				
@@ -361,7 +371,7 @@
     <script src="https://maps.googleapis.com/maps/api/js"></script>
 
     <script>
- 	 	function setPrefences(){
+ 	 	function setPrefences() {
  	 		var location = document.getElementById("location").value;
  	 		var chillFactor = document.getElementById("chill-factor").value;
  	 		var management = document.getElementById("management").value;

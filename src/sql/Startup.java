@@ -55,17 +55,24 @@ public class Startup extends Thread {
 			System.out.println ("Startup ClassNotFoundException: " + cnfe.getMessage());
 		}  finally {
 			try {
-				br.close();
+				if (br != null) {
+					br.close();
+				}
 			} catch (IOException e) { /* Do nothing */ }
 			try {
-				fr.close();
+				if (fr != null) {
+					fr.close();
+				}
 			} catch (IOException e) { /* Do nothing */ }
 			try {
-				st.close();
+				if (st != null) {
+					st.close();
+				}
 			} catch (SQLException e) { /* Do nothing */ }
-
 			try {
-				conn.close();
+				if (conn != null) {
+					conn.close();
+				}
 			} catch (SQLException e) { /* Do nothing */ }
 		}
 	}

@@ -72,7 +72,7 @@ public class DataManagerTest {
 		// Create a new location
 		System.out.println("\nCreating a new location (Gateway Apartments)");
 		HousingDataManager.createHousingLocation(HousingType.APARTMENT, "Gateway Apartments",
-				"3335 S Figuroa St", "Apartments close to campus.", "images/icons/Gateway.png",
+				"3335 S Figuroa St", "Apartments close to campus.", "* Some Amenities", "images/icons/Gateway.png",
 				"images/floorplans/Gateway.png", "-118.2797771", "34.0233683", "10", "5");
 
 		// Get an existing location

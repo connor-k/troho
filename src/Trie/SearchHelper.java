@@ -13,7 +13,7 @@ public class SearchHelper {
 	private Trie myTrie;
 	
 	//default constructor, starts with all houses in trie
-	SearchHelper() {
+	public SearchHelper() {
 		HousingLocation [] houseArray = HousingDataManager.getAllHousingLocations();
 		Vector<HousingLocation> houses = new Vector<HousingLocation>(Arrays.asList(houseArray));
 		myTrie = new Trie(houses);
@@ -21,22 +21,28 @@ public class SearchHelper {
 	
 	//takes as argument a new housing location
 	//runs if the user wants to add a new house
-	void addHouse(HousingLocation newHouse) {
+	public void addHouse(HousingLocation newHouse) {
 		myTrie.add(newHouse);
 	}
 	
 	//takes as argument user preferences and a vector of houses
 	//sorts both of them based on predicted user preference
-	void sortPruneHouses(int managementScore, int amenitiesScore, int locationScore,
+	public HousingLocation [] sortPruneHouses(int managementScore, int amenitiesScore, int locationScore,
 			int noiseScore, int communityChillFactorScore, String searchWords, 
 			int maxPrice, int maxDistance, boolean isHouse, boolean isDorm, 
 			boolean isApartment, int minRating) {
 		
-		Vector<HousingLocation> houses = findHouse(searchWords);
+		HousingLocation [] houseArray = findHouse(searchWords);
+		
+		Vector<HousingLocation> houses = new Vector<HousingLocation>();
+		for(int i = 0; i <houseArray.length; i++) {
+			houses.add(houseArray[i]);
+		}
 		pruneHouses(maxPrice, maxDistance, isHouse, isDorm, isApartment, minRating, houses);
 		myHouseComp = new HousingComparator(managementScore, amenitiesScore, locationScore,
 				noiseScore, communityChillFactorScore);
 		houses.sort(myHouseComp);	
+		return (HousingLocation[]) houses.toArray();
 	}
 	
 	//takes as argument cut-off preferences and all possible houses
@@ -87,7 +93,11 @@ public class SearchHelper {
 	//takes as argument user search words
 	//returns a vector of houses matching those words
 	//the returned vector is roughly sorted by relevance
-	Vector<HousingLocation> findHouse(String searchWords) {
-		return myTrie.findPartialWord(searchWords);
+	public HousingLocation [] findHouse(String searchWords) {
+		return (HousingLocation[]) myTrie.findPartialWord(searchWords).toArray();
+	}
+	
+	public String findLikely(String searchWords) {
+		return myTrie.findLikely(searchWords);
 	}
 }
