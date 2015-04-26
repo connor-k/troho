@@ -100,6 +100,15 @@ public class DataManagerTest {
 		for (int i = 0; i < allLocations.length; ++i) {
 			System.out.println(allLocations[i].locationName);
 		}
+		
+		// Rent over time
+		System.out.println("\n Rent over time");
+		Object[] data = HousingDataManager.getRentOverTimeData("The Lorenzo");
+		String[] years = (String[])data[0];
+		Double[] averageRent = (Double[])data[1];
+		for (int i = 0; i < years.length && i < averageRent.length; ++i) {
+			System.out.println(" Entry: " + years[i] + " " + averageRent[i]);
+		}
 		System.out.println("Done testing HousingDataManager class ---\n");
 	}
 
