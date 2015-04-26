@@ -492,7 +492,7 @@
                         </div>
 
                         <div class = "col-lg-2">
-                            <div class = "filter-button selector"> 
+                            <div class = "filter-button selector" id="noiseTag"> 
                                 <div class = "filter-specifier" id="noiseTag">Noise</div>  
                             </div>
                         </div>
