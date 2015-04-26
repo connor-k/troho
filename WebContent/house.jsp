@@ -70,8 +70,6 @@
 
 <body>
 
-	<script src="js/customFB.js">
-	</script>
 
 	<!-- Page Header -->
 	<div class="header">
@@ -254,7 +252,7 @@
                 <div class = "col-lg-12" style = "padding-top: 40px; font-size:40px; color:white; text-align:center">Reviews</div>
             </div>
 
-            <div class = "row">
+            <div class = "row" id="rowWrite">
                 <div class = "add-review-button">
                     <div class = "col-lg-12" id="writeReview" style = "padding-top: 8px; padding-bottom: 40px; font-size:20px; color:white; text-align:center"><a>Write your own!</a></div>
                 </div>
@@ -573,6 +571,10 @@
             <img src = "./img/new-troho.png" style = "height:200px;width:auto">
         </div>
     </div>
+    </body>
+    
+	<script src="js/fbhouse.js">
+	</script>
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
@@ -582,27 +584,44 @@
 
     <script>
  
- 
+		var hideShowSubmit = function(){
+			FB.api('/me', function(response) {
+				var fbID = response.id;
+				var houseName = $("#introText").text();
+				var postData = {
+					"fbID": fbID, 
+					"houseName": houseName
+					};
+				
+				$.ajax({
+					url: "/troho/VerifiedUser",
+					type: "GET",
+					data: JSON.stringify(postData),
+					dataType: "JSON",
+					success:function(data){
+						console.log(data.reviewBool);
+						if(data.reviewBool == false) {
+							$("#rowWright").toggle();
+						}
+					}
+				});
+			});
+		}
  		$(document).ready(function() {
+ 				
  			$("#writeReview").on("click", function() {
  				$("#reviewRow").toggle();
  				$("#submitReview").toggle();
  			});
  			
- 			$(".filter-button").click(function() {
- 				
+ 			$(".filter-button").click(function() {			
  	            $(this).toggleClass('active');
- 	            
  	        });
  			
  			
- 		 	$("#submitReview").on("click", function() {
- 				console.log("hello");
- 				
- 				
+ 		 	$("#submitReview").on("click", function() { 				
  				FB.api('/me', function(response) {
  					var fbID = response.id;
- 					console.log(fbID);				
  					var houseName = $("#introText").text();
  					var comment = null;
  					comment = $("#comment").val();
@@ -658,6 +677,9 @@
 						dataType: "JSON"
  					});
  				});
+ 				$("#rowWrite").toggle(); 
+ 				$("#reviewRow").toggle();
+ 				$("#submitReview").toggle();
  			});
  		 	
  		 	$(".selector").on("click", function() {
@@ -719,9 +741,9 @@
  		 		
  		 	});
  		 	
+ 		 	
  		});
     </script>
 
-</body>
 </html>
 
