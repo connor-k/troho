@@ -10,8 +10,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class HousingDataManager {
 	/** Create a new housing location
@@ -28,7 +33,7 @@ public class HousingDataManager {
 	 * @param minutesBiking How long it takes to bike to campus from this location
 	 */
 	public static void createHousingLocation(HousingType type, String name, String address, 
-			String description, String iconURL, String floorplanURL, String gpsLatitude,
+			String description, String amenities, String iconURL, String floorplanURL, String gpsLatitude,
 			String gpsLongitude, String minutesWalking, String minutesBiking) {
 		// Make sure the location doesn't exist already
 		if (getHousingLocation(name) != null) {
@@ -42,9 +47,9 @@ public class HousingDataManager {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
 			ps = conn.prepareStatement("INSERT INTO HousingLocations (housingType, locationName, "
-					+ "textAddress, description, imageURLs, floorplanURLs, gpsLatitude, "
+					+ "textAddress, description, amenities, imageURLs, floorplanURLs, gpsLatitude, "
 					+ "gpsLongitude, minutesWalking, minutesBiking) VALUES (?, ?, ?, ?, ?, "
-					+ "?, ?, ?, ?, ?);");
+					+ "?, ?, ?, ?, ?, ?);");
 			switch(type) {
 			case APARTMENT:
 				ps.setInt(1, 1);
@@ -59,12 +64,13 @@ public class HousingDataManager {
 			ps.setString(2, name);
 			ps.setString(3, address);
 			ps.setString(4, description);
-			ps.setString(5, iconURL);
-			ps.setString(6, floorplanURL);
-			ps.setString(7, gpsLatitude);
-			ps.setString(8, gpsLongitude);
-			ps.setInt(9, Integer.parseInt(minutesWalking));
-			ps.setInt(10, Integer.parseInt(minutesBiking));
+			ps.setString(5, amenities);
+			ps.setString(6, iconURL);
+			ps.setString(7, floorplanURL);
+			ps.setString(8, gpsLatitude);
+			ps.setString(9, gpsLongitude);
+			ps.setInt(10, Integer.parseInt(minutesWalking));
+			ps.setInt(11, Integer.parseInt(minutesBiking));
 			ps.executeUpdate();
 		} catch (SQLException sqle) {
 			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
@@ -114,6 +120,7 @@ public class HousingDataManager {
 				hl.locationName = rs.getString("locationName");
 				hl.address = rs.getString("textAddress");
 				hl.description = rs.getString("description");
+				hl.amenities = rs.getString("amenities");
 				hl.imageURL = rs.getString("imageURLs");
 				hl.floorplanURL = rs.getString("floorplanURLs");
 				hl.gpsLatitude = rs.getString("gpsLatitude");
@@ -256,6 +263,43 @@ public class HousingDataManager {
 		}
 		
 		return locations.toArray(new HousingLocation[locations.size()]);
+	}
+	
+	/** Prepare data for the rent over time plot
+	 * @param housingName The name of this location
+	 * @return Object array containing the label array and data array
+	 */
+	public static Object[] getRentOverTimeData(String housingName) {
+		Object[] data = null;
+		HousingLocation housingLocation = getHousingLocation(housingName);
+		if (housingLocation != null && housingLocation.reviews != null) {
+			TreeMap<String, Double> averageRentPerYear = new TreeMap<String, Double>();
+			HashMap<String, Integer> entriesPerYear = new HashMap<String, Integer>();
+			for (int i = 0; i < housingLocation.reviews.length; ++i) {
+				int rentPaid = housingLocation.reviews[i].rentPaid;
+				String yearWritten = housingLocation.reviews[i].timeWritten.substring(0, 4);
+				Double averageRent = averageRentPerYear.get(yearWritten);
+				if (averageRent != null) {
+					averageRentPerYear.put(yearWritten, (averageRent/entriesPerYear.get(yearWritten) + rentPaid)/(entriesPerYear.get(yearWritten) + 1));
+					entriesPerYear.put(yearWritten, entriesPerYear.get(yearWritten) + 1);
+				} else {
+					averageRentPerYear.put(yearWritten, (double)rentPaid);
+					entriesPerYear.put(yearWritten, 1);
+				}
+			}
+			
+			data = new Object[2];
+			ArrayList<String> years = new ArrayList<String>();
+			ArrayList<Double> averageRent = new ArrayList<Double>();
+			SortedSet<String> keys = new TreeSet<String>(averageRentPerYear.keySet());
+			for (String key : keys) {
+				years.add(key);
+				averageRent.add(averageRentPerYear.get(key));
+			}
+			data[0] = years.toArray(new String[years.size()]);
+			data[1] = averageRent.toArray(new Double[averageRent.size()]);
+		}
+		return data;
 	}
 
 }

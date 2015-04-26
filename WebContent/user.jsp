@@ -3,6 +3,7 @@
 <%@page import="Trie.PreferenceCalculator"%>
 <%@page import="sql.HousingLocation"%>
 <%@page import="sql.HousingDataManager"%>
+<%@ page errorPage="404.html" %>
 
 <%
 	User user = null;
@@ -362,9 +363,13 @@
 							</a>
 							</p>
 						<div class = "star-container" style="">
-							<img src = "./img/star.png" class = "star"/>
-							<img src = "./img/star.png" class = "star"/>
-							<img src = "./img/star.png" class = "star"/>
+							<%
+							for (int k = 0; k < location.overallScore; k++) {
+							%>
+								<img src = "./img/star.png" class = "star"/>
+							<%
+							}
+							%>
 						</div>
 					</div>
 				

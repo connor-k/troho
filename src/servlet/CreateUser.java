@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.mail.EmailException;
+
+import emailconfirm.EmailConfirm;
 import sql.UserDataManager;
 
 /**
@@ -47,8 +50,15 @@ public class CreateUser extends HttpServlet {
 		String fbID =request.getParameter("fbID"); 
 		String email = request.getParameter("email");
 		System.out.println(email);
-		UserDataManager.createUser(name, email, imgURL, fbID);
-		
+		if(UserDataManager.createUser(name, email, imgURL, fbID) != null) { 
+			try {
+				System.out.println("In confirm");
+				EmailConfirm confirm = new EmailConfirm(email, fbID);
+			} catch (EmailException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

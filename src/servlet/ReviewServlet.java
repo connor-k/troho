@@ -14,6 +14,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import sql.Review;
+import sql.User;
+import sql.UserDataManager;
 import Trie.ReviewHelper;
 
 /**
@@ -24,11 +26,16 @@ public class ReviewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println(request);
 		response.setContentType("application/json");
 		JSONObject object = requestParamsToJSON(request);
+		System.out.println(object);
+		JSONArray elements = object.names();
+		object = new JSONObject(elements.getString(0));
+
 		String houseName = object.getString("houseName");
 		JSONArray tagArray = object.getJSONArray("tags");
 		
@@ -39,22 +46,24 @@ public class ReviewServlet extends HttpServlet {
 		}
 		
 		PrintWriter out = response.getWriter();
-		Review [] myReviews = ReviewHelper.pruneReviews(houseName, tags);
+		Review[] myReviews = ReviewHelper.pruneReviews(houseName, tags);
 		JSONArray reviewArray = new JSONArray();
 		
 		for(int i = 0; i < myReviews.length; i++) {
-			JSONObject reviewObject = new JSONObject();
-			{
-				Review currReview = myReviews[i];
-				reviewObject.put("review", currReview);
-			}
+			JSONObject reviewObject = new JSONObject();		
+			Review currReview = myReviews[i];
+			User user = UserDataManager.getUser(currReview.facebookID);
+			reviewObject.put("name", user.name);
+			reviewObject.put("userImg", user.imageURL);		
+			reviewObject.put("review", currReview.comment);	
 			reviewArray.put(i, reviewObject);
-		}
-		
-		out.print(reviewArray);
+		}	
+
+		JSONObject obj = new JSONObject();
+		obj.put("reviews", reviewArray);
+		out.print(obj);
 		out.flush();
 	}
-
 	
 	public JSONObject requestParamsToJSON(HttpServletRequest request) {
 		  JSONObject jsonObj = new JSONObject();

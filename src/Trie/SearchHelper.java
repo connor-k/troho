@@ -1,9 +1,7 @@
 package Trie;
 
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.Vector;
-
 import sql.HousingLocation;
 import sql.HousingType;
 import sql.HousingDataManager;
@@ -27,41 +25,52 @@ public class SearchHelper {
 	
 	//takes as argument user preferences and a vector of houses
 	//sorts both of them based on predicted user preference
-	public HousingLocation [] sortPruneHouses(int managementScore, int amenitiesScore, int locationScore,
-			int noiseScore, int communityChillFactorScore, String searchWords, 
+	public synchronized HousingLocation [] sortPruneHouses(int managementScore, int amenitiesScore, int locationScore,
+			int communityChillFactorScore, String searchWords, 
 			int maxPrice, int maxDistance, boolean isHouse, boolean isDorm, 
 			boolean isApartment, int minRating) {
 		
-		HousingLocation [] houseArray = findHouse(searchWords);
+		HousingLocation [] houseArray;
+		
+		if(!searchWords.equals("")) {
+			houseArray = findHouse(searchWords);
+		} else {
+			houseArray = HousingDataManager.getAllHousingLocations();
+		}
 		
 		Vector<HousingLocation> houses = new Vector<HousingLocation>();
 		for(int i = 0; i <houseArray.length; i++) {
 			houses.add(houseArray[i]);
 		}
-		pruneHouses(maxPrice, maxDistance, isHouse, isDorm, isApartment, minRating, houses);
+		houses = pruneHouses(maxPrice, maxDistance, isHouse, isDorm, isApartment, minRating, houses);
 		myHouseComp = new HousingComparator(managementScore, amenitiesScore, locationScore,
-				noiseScore, communityChillFactorScore);
+				communityChillFactorScore);
 		houses.sort(myHouseComp);	
-		return (HousingLocation[]) houses.toArray();
+		HousingLocation [] returnHouses = new HousingLocation[houses.size()];
+		for(int i = 0; i < houses.size(); i++) {
+			returnHouses[i] = houses.elementAt(i);
+		}
+		
+		return returnHouses;
 	}
 	
 	//takes as argument cut-off preferences and all possible houses
 	//returns a vector of houses with only houses that fit the description
-	private Vector<HousingLocation> pruneHouses(int maxPrice, int maxDistance, 
+	private synchronized Vector<HousingLocation> pruneHouses(int maxPrice, int maxDistance, 
 			boolean isHouse, boolean isDorm, boolean isApartment, int minRating,
 			Vector<HousingLocation> houses) {
-		Vector<HousingLocation> prunedHouses = houses;
+		Vector<HousingLocation> prunedHouses = new Vector<HousingLocation>(houses);
 		
 		//removes houses that do not fit criteria
-		Iterator<HousingLocation> myIt = houses.iterator();
-		while(myIt.hasNext()) {
-			HousingLocation house = myIt.next();
+		for(int i = 0; i < houses.size(); i++) {
+			HousingLocation house = houses.elementAt(i);
 			boolean isValid = isValidHouse(maxPrice, maxDistance, isHouse, isDorm, 
 					isApartment, minRating, house);
 			if(!isValid) {
 				prunedHouses.remove(house);
 			}
 		}	
+		//for(int i = 0; i )
 		return prunedHouses;	
 	}
 	
@@ -73,18 +82,22 @@ public class SearchHelper {
 		boolean checkHouse = (house.type == HousingType.HOUSE);
 		boolean checkApartment = (house.type == HousingType.APARTMENT);
 		boolean checkDorm = (house.type == HousingType.DORM);
-		
+		System.out.println("\n");
+		System.out.println("Maximum Price for " + house.locationName + ": " + maxPrice);
+		System.out.println("Average Rent: " + house.averageRent);
+		System.out.println("\n");
+
 		if(house.averageRent > maxPrice) {
+			System.out.println("Returning False because of price");
 			return false;
-		} else if (Integer.parseInt(house.distanceToCampus) > maxDistance) {
+		} else if (house.minutesWalking > maxDistance) {
+			System.out.println("Returning False because of distance " + maxDistance);
 			return false;
-		} else if (checkHouse != isHouse) {
-			return false;
-		} else if (checkApartment != isApartment) {
-			return false;
-		} else if (checkDorm != isDorm) {
+		} else if ((checkHouse != isHouse) && (checkApartment != isApartment) && (checkDorm != isDorm)) {
+			System.out.println("Returning False because of house");
 			return false;
 		} else if (house.overallScore < minRating) {
+			System.out.println("Returning False because of rating");
 			return false;
 		}
 		return true;
@@ -93,11 +106,20 @@ public class SearchHelper {
 	//takes as argument user search words
 	//returns a vector of houses matching those words
 	//the returned vector is roughly sorted by relevance
-	public HousingLocation [] findHouse(String searchWords) {
-		return (HousingLocation[]) myTrie.findPartialWord(searchWords).toArray();
+	public synchronized HousingLocation [] findHouse(String searchWords) {
+		Vector<HousingLocation> resultsVector = myTrie.findPartialWord(searchWords);
+		HousingLocation [] results = new HousingLocation[resultsVector.size()];
+		for(int i = 0; i < results.length; i++) {
+			results[i] = resultsVector.elementAt(i);
+		}
+		
+		return results;
 	}
 	
-	public String findLikely(String searchWords) {
+	//used for autocomplete
+	//takes as argument partial user search words
+	//returns a likely word to complete the search 
+	public synchronized String findLikely(String searchWords) {
 		return myTrie.findLikely(searchWords);
 	}
 }

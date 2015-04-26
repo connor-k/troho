@@ -27,16 +27,6 @@ public class SubmitReview extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		System.out.println("HOUSING NAME "request.getParameter("housingname"));
 		JSONObject object = requestParamsToJSON(request);
-		
-//		System.out.println(request);
-//		String name=request.getParameter("name"); 
-//		String imgURL =request.getParameter("url"); 
-//		String fbID =request.getParameter("fbID"); 
-//		String email = request.getParameter("email");
-//		System.out.println(email);
-//		UserDataManager.createUser(name, email, imgURL, fbID);
-		
-		
 		JSONArray elements = object.names();
 		for(int i = 0; i < elements.length(); i++) {
 			System.out.println(elements.getString(i) + i);
@@ -48,12 +38,12 @@ public class SubmitReview extends HttpServlet {
 			ratingsStringArray[i] = Integer.toString(ratings.getInt(i));
 		}
 		boolean [] tags = new boolean[6];
+		JSONArray tagArray = object.getJSONArray("tags");
 		for (int i = 0; i < 6; i++) {
-			tags[i] = true;
+			tags[i] = tagArray.getBoolean(i);
 		}
 		
-		//TODO:
-		// Add tag functionality
+		//TODO: add tag functionality
 		ReviewDataManager.createReview(object.getString("housingname"), object.getString("fbID"), object.getString("review"), ratingsStringArray, tags, Integer.toString(object.getInt("rent")));
 
 	}

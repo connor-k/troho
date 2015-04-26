@@ -72,7 +72,7 @@ public class DataManagerTest {
 		// Create a new location
 		System.out.println("\nCreating a new location (Gateway Apartments)");
 		HousingDataManager.createHousingLocation(HousingType.APARTMENT, "Gateway Apartments",
-				"3335 S Figuroa St", "Apartments close to campus.", "images/icons/Gateway.png",
+				"3335 S Figuroa St", "Apartments close to campus.", "* Some Amenities", "images/icons/Gateway.png",
 				"images/floorplans/Gateway.png", "-118.2797771", "34.0233683", "10", "5");
 
 		// Get an existing location
@@ -99,6 +99,15 @@ public class DataManagerTest {
 		HousingLocation[] allLocations = HousingDataManager.getAllHousingLocations();
 		for (int i = 0; i < allLocations.length; ++i) {
 			System.out.println(allLocations[i].locationName);
+		}
+		
+		// Rent over time
+		System.out.println("\n Rent over time");
+		Object[] data = HousingDataManager.getRentOverTimeData("The Lorenzo");
+		String[] years = (String[])data[0];
+		Double[] averageRent = (Double[])data[1];
+		for (int i = 0; i < years.length && i < averageRent.length; ++i) {
+			System.out.println(" Entry: " + years[i] + " " + averageRent[i]);
 		}
 		System.out.println("Done testing HousingDataManager class ---\n");
 	}

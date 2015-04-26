@@ -54,7 +54,6 @@ public class StartupListener implements ServletContextListener {
         		hlv.add(hlocations[i]);
         	}
         	
-        	//Trie wordsTrie = new Trie(hlv);
         	SearchHelper searchHelper = new SearchHelper();   	
             context.setAttribute("searchHelper", searchHelper);
             

@@ -15,6 +15,7 @@ public class HousingLocation {
 	public String locationName;
 	public String address;
 	public String description;
+	public String amenities;
 	public String imageURL;
 	public String floorplanURL;
 
@@ -34,8 +35,6 @@ public class HousingLocation {
 	/** Reviews for this location */
 	public Review[] reviews;
 
-	public String distanceToCampus;
-
 	private String formatReviews() {
 		String s = "\nReviews for this location:\n";
 		if (reviews != null) {
@@ -53,8 +52,8 @@ public class HousingLocation {
 	@Override
 	public String toString() {
 		return "HousingLocation:\n name: " + locationName + "\n type: " + type + "\n address: "
-				+ address + "\n description: " + description + "\n imageURL: " + imageURL
-				+ "\n floorplanURL: " + floorplanURL + "\n gps: " + gpsLatitude + "," 
+				+ address + "\n description: " + description + "\n amenities: " + amenities + "\n imageURL: "
+				+ imageURL + "\n floorplanURL: " + floorplanURL + "\n gps: " + gpsLatitude + "," 
 				+ gpsLongitude + "\n distance: " + minutesWalking + "|" + minutesBiking 
 				+ "\n scores: " + overallScore + "|" + managementScore + "|" + amenitiesScore
 				+ "|" + locationScore + "|" + noiseScore + "|" + communityChillFactorScore

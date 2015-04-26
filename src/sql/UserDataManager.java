@@ -158,12 +158,13 @@ public class UserDataManager {
 			} catch (SQLException e) { /* Do nothing */ }
 		}
 	}
-	
+
 	/** Verify the email of a user, checking that the validation url matches the one assigned to them
 	 * @param facebookID SQL database key for this user
 	 * @param validationKey the validation key emailed to user
+	 * @return Success boolean. True if verification was successful (keys matched).
 	 */
-	public static void verifyEmail(String facebookID, String validationKey) {
+	public static boolean verifyEmail(String facebookID, String validationKey) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
@@ -177,6 +178,8 @@ public class UserDataManager {
 				System.out.println("UserDataManager.verifyEmail: FacebookID " + facebookID + " not "
 						+ "in database or didn't match validationKey, no changes made.");
 			}
+			// Note: finally block still executes to close connections before this return
+			return true;
 		} catch (SQLException sqle) {
 			// Note if an invalid housingKey was passed in, 
 			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
@@ -190,6 +193,8 @@ public class UserDataManager {
 				conn.close();
 			} catch (SQLException e) { /* Do nothing */ }
 		}
+
+		return false;
 	}
 
 	/** Get an existing user from the Users table
@@ -332,7 +337,40 @@ public class UserDataManager {
 			} catch (SQLException e) { /* Do nothing */ }
 		}
 	}
-	
+
+	/** Set the user's email 
+	 * @param facebookID SQL database key for this user
+	 * @param email The email for this user. 
+	 */
+	public static void setEmail(String facebookID, String email) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
+			ps = conn.prepareStatement("UPDATE Users SET email=? WHERE facebookID=?");
+			ps.setString(1, email);
+			ps.setString(2, facebookID);
+			int result = ps.executeUpdate();
+			if (result == 0) {
+				System.out.println("UserDataManager.setEmail: FacebookID " 
+						+ facebookID + " not in database, no changes made.");
+			}
+		} catch (SQLException sqle) {
+			// Note if an invalid housingKey was passed in, 
+			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println ("UserDataManager ClassNotFoundException: " + cnfe.getMessage());
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) { /* Do nothing */ }
+			try {
+				conn.close();
+			} catch (SQLException e) { /* Do nothing */ }
+		}
+	}
+
 	/** Set the user's current location by location name
 	 * @param facebookID SQL database key for this user
 	 * @param housingName The name of their location 

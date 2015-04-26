@@ -9,7 +9,8 @@ CREATE TABLE HousingLocations (
   housingType int(1) NOT NULL,
   locationName varchar(50) NOT NULL,
   textAddress varchar(70) NOT NULL,
-  description varchar(500) NOT NULL, 
+  description varchar(500) NOT NULL,
+  amenities varchar(500) NOT NULL, 
   imageURLs varchar(500) NOT NULL,
 # Currently don't require floorplan
   floorplanURLs varchar(500),

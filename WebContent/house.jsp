@@ -3,6 +3,8 @@
 <%@page import="sql.UserDataManager"%>
 <%@page import="sql.HousingLocation"%>
 <%@page import="sql.User"%>
+<%@ page errorPage="404.html" %>
+
 
 
 <%@page import="java.util.List"%>
@@ -508,37 +510,37 @@
 	                <div class = "col-lg-10 col-md-12 filter-row" style = "padding: 0px">
 	                    <div class = "filter-row">
 	                        <div class = "col-lg-2">
-	                            <div class = "filter-button">
+	                            <div class = "filter-button" id="managementReviewTag">
 	                                <div class = "filter-specifier">Management</div>
 	                            </div>
 	                        </div>
 	
 	                        <div class = "col-lg-2">
-	                            <div class = "filter-button"> 
+	                            <div class = "filter-button" id="noiseReviewTag"> 
 	                                <div class = "filter-specifier">Noise</div>  
 	                            </div>
 	                        </div>
 	
 	                        <div class = "col-lg-2">
-	                            <div class = "filter-button">   
+	                            <div class = "filter-button" id="locationReviewTag">   
 	                                <div class = "filter-specifier">Location</div>
 	                            </div>
 	                        </div>
 	
 	                        <div class = "col-lg-2">
-	                            <div class = "filter-button">  
+	                            <div class = "filter-button" id="chillnessReviewTag">  
 	                                <div class = "filter-specifier">Chillness</div>
 	                            </div>
 	                        </div>
 	
 	                        <div class = "col-lg-2">
-	                            <div class = "filter-button"> 
+	                            <div class = "filter-button" id ="amenitiesReviewTag"> 
 	                                <div class = "filter-specifier">Amenities</div>
 	                            </div>
 	                        </div>
 	
 	                        <div class = "col-lg-2">
-	                            <div class = "filter-button">
+	                            <div class = "filter-button" id="priceReviewTag">
 	                                <div class = "filter-specifier">Price</div>
 	                            </div>
 	                        </div>
@@ -547,12 +549,7 @@
                 	<div class = "col-lg-1 col-md-0" ></div>
             	</div>
             	
-				<div class = "row">
-					<div class = "col-lg-1"></div>
-					<textarea class = "col-lg-10" id="comment">
-		                
-		            </textarea> 
-		            <div class = "col-lg-1"></div>
+				<div class = "row"><div class = "col-lg-1"></div><textarea style="font-size:3em;"placeholder="Your comment here" class = "col-lg-10" id="comment"></textarea><div class = "col-lg-1"></div>
 	            </div>
 				
 			</div>
@@ -570,37 +567,37 @@
                 <div class = "col-lg-10 col-md-12 filter-row" style = "padding: 0px">
                     <div class = "filter-row">
                         <div class = "col-lg-2">
-                            <div class = "filter-button">
+                            <div class = "filter-button selector" id="managementTag">
                                 <div class = "filter-specifier">Management</div>
                             </div>
                         </div>
 
                         <div class = "col-lg-2">
-                            <div class = "filter-button"> 
-                                <div class = "filter-specifier">Noise</div>  
+                            <div class = "filter-button selector" id="noiseTag"> 
+                                <div class = "filter-specifier" id="noiseTag">Noise</div>  
                             </div>
                         </div>
 
                         <div class = "col-lg-2">
-                            <div class = "filter-button">   
+                            <div class = "filter-button selector" id="locationTag">   
                                 <div class = "filter-specifier">Location</div>
                             </div>
                         </div>
 
                         <div class = "col-lg-2">
-                            <div class = "filter-button">  
+                            <div class = "filter-button selector" id="chillnessTag">  
                                 <div class = "filter-specifier">Chillness</div>
                             </div>
                         </div>
 
                         <div class = "col-lg-2">
-                            <div class = "filter-button"> 
+                            <div class = "filter-button selector" id="amenitiesTag"> 
                                 <div class = "filter-specifier">Amenities</div>
                             </div>
                         </div>
 
                         <div class = "col-lg-2">
-                            <div class = "filter-button">
+                            <div class = "filter-button selector" id="priceTag">
                                 <div class = "filter-specifier">Price</div>
                             </div>
                         </div>
@@ -619,8 +616,7 @@
 	                    System.out.println("size: " + location.reviews.length);
 	                    for (int i =0; i < location.reviews.length; i++) {
 	                    	Review temp = location.reviews[i];
-	                    	User user = UserDataManager.getUser(temp.facebookID);
-                    
+	                    	User user = UserDataManager.getUser(temp.facebookID);                    
                     %> 
                     <div class="col-lg-12 single-review">
 
@@ -766,12 +762,44 @@
 			 		var locationPoints = $("#locationPoints").val();
 			 		var noisePoints = $("#noisePoints").val();
 			 		var chillFactorPoints = $("#chillFactorPoints").val();
+			 		var arr = []; 
+	 		 		if ($("#managementReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
+	 		 		if ($("#noiseReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
+	 		 		if ($("#locationReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
+	 		 		if ($("#chillnessReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
+	 		 		if ($("#amenitiesReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
+	 		 		if ($("#priceReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
 			 		var postData = {
 							"housingname": houseName, 
 							"fbID": fbID, 
 							"review": comment,
 							"ratings": [managementPoints, amenitiesPoints, locationPoints, noisePoints, chillFactorPoints], 
 							"rent": rent,
+							"tags":[arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]]
 							};
 					$.ajax({
 						url: "/troho/SubmitReview",
@@ -780,7 +808,67 @@
 						dataType: "JSON"
  					});
  				});
- 			}); 
+ 			});
+ 		 	
+ 		 	$(".selector").on("click", function() {
+ 		 		console.log("pressed");
+ 		 		var arr = []; 
+ 		 		if ($("#managementTag").hasClass("active")) {
+ 		 			arr.push(true);
+ 		 		} else {
+ 		 			arr.push(false);
+ 		 		}
+ 		 		if ($("#noiseTag").hasClass("active")) {
+ 		 			arr.push(true);
+ 		 		} else {
+ 		 			arr.push(false);
+ 		 		}
+ 		 		if ($("#locationTag").hasClass("active")) {
+ 		 			arr.push(true);
+ 		 		} else {
+ 		 			arr.push(false);
+ 		 		}
+ 		 		if ($("#chillnessTag").hasClass("active")) {
+ 		 			arr.push(true);
+ 		 		} else {
+ 		 			arr.push(false);
+ 		 		}
+ 		 		if ($("#amenitiesTag").hasClass("active")) {
+ 		 			arr.push(true);
+ 		 		} else {
+ 		 			arr.push(false);
+ 		 		}
+ 		 		if ($("#priceTag").hasClass("active")) {
+ 		 			arr.push(true);
+ 		 		} else {
+ 		 			arr.push(false);
+ 		 		}
+ 		 		var houseName = $("#introText").text();
+ 		 		var postData = {
+						"houseName": houseName, 
+						"tags": [arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]]
+						};
+ 		 		$.ajax({
+ 		 			url: "/troho/ReviewServlet",
+					type: "POST",
+					data: JSON.stringify(postData),
+					dataType: "JSON",
+					success:function(data) {
+						var reviewsArr = data.reviews;
+						console.log(reviewsArr);
+						var htmlText = "";
+						for (var i = 0; i < reviewsArr.length; i++) {
+							
+							htmlText +='<div class="col-lg-12 single-review"><div class = "reviewer-info-row"><div class = "reviewer-image-and-name"><div class = "reviewer-image-wrapper"><img src =' +  reviewsArr[i].userImg  + ' class = "reviewer-image"/></div><div class = "reviewer-username"><div class = "reviewer-username-row"><div class = "reviewer-username-cell">' + reviewsArr[i].name+'</div></div></div></div></div><p class="scrolling-description-row">Description: ' + reviewsArr[i].review + '</p></div>';
+						
+						}
+						console.log(htmlText);
+						$(".reviews-container").html(htmlText);	
+					}
+ 		 		});
+ 		 		
+ 		 	});
+ 		 	
  		});
     </script>
 

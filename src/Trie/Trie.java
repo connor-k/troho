@@ -36,7 +36,7 @@ public class Trie {
 	}
 
 	//adds a single house to the trie
-	void add(HousingLocation newHouse) {
+	synchronized void add(HousingLocation newHouse) {
 		TrieNode currNode = head;
 		String newWord = newHouse.locationName;
 		
@@ -55,7 +55,7 @@ public class Trie {
 	
 	//runs if there is a space in the word
 	//adds a partial house name to trie
-	void addPartial(String partialName, HousingLocation myHouse) {
+	synchronized void addPartial(String partialName, HousingLocation myHouse) {
 		TrieNode currNode = head;
 		for(int i = 0; i < partialName.length(); i++) {
 			if(partialName.charAt(i) == ' ') {
@@ -67,14 +67,14 @@ public class Trie {
 	}
 	
 	//creates new TrieNode and returns new node
-	private TrieNode addChar(char newChar, TrieNode node) {
+	synchronized private TrieNode addChar(char newChar, TrieNode node) {
 		int index = getNumber(newChar);
 		node.addChild(index, "" + newChar);//adds a child if one is not present
 		return node.getChild(index);
 	}
 	
 	//returns index position associated with the letter
-	private int getNumber(Character myChar) {
+	synchronized private int getNumber(Character myChar) {
 		char defChar = ' ';
 		char newChar = myChar;
 		if(myChar == defChar) {
@@ -86,7 +86,7 @@ public class Trie {
 	}
 	
 	//returns a housing vector if the name matches the provided search word
-	public Vector<HousingLocation> findWord(String searchWord) {
+	synchronized public Vector<HousingLocation> findWord(String searchWord) {
 		TrieNode currNode = head;
 		Vector<HousingLocation> results = new Vector<HousingLocation>();
 		for(int i = 0; i < searchWord.length(); i++) {
@@ -103,10 +103,10 @@ public class Trie {
 	
 	//provided with a partial string, this suggests a word that is in the trie as a
 	//possible way to finish that word
-	public String findLikely(String searchWord) {
+	synchronized public String findLikely(String searchWord) {
 		TrieNode currNode = head;
 		for(int i = 0; i < searchWord.length(); i++) {
-			if(!Character.isLetter(searchWord.charAt(i))) {
+			if(!Character.isLetter(searchWord.charAt(i)) && !(searchWord.charAt(i) == ' ')) {
 				return searchWord;
 			}
 			currNode = checkLetter(currNode, searchWord.charAt(i));
@@ -127,7 +127,7 @@ public class Trie {
 	
 	//finds returns a vector of housing locations whose names
 	//contain the partial keyword provided
-	Vector<HousingLocation> findPartialWord(String searchWord) {
+	synchronized Vector<HousingLocation> findPartialWord(String searchWord) {
 		Vector<HousingLocation> results = new Vector<HousingLocation>();
 		TreeSet<HousingLocation> mySet = new TreeSet<HousingLocation>(new HousingNameComparator());
 		TrieNode currNode = head;
@@ -168,7 +168,7 @@ public class Trie {
 	}
 	
 	//finds more possible search results based on partial keywords
-	private void findMoreWords(String searchWord, Vector<HousingLocation> myHouses, TreeSet<HousingLocation> mySet) {
+	synchronized private void findMoreWords(String searchWord, Vector<HousingLocation> myHouses, TreeSet<HousingLocation> mySet) {
 		TrieNode currNode = head;
 		//tries to find a match
 		for(int i = 0; i < searchWord.length(); i++) {
@@ -182,7 +182,7 @@ public class Trie {
 	}
 	
 	//returns the child with the corresponding letter
-	private TrieNode checkLetter(TrieNode currNode, char letter) {
+	synchronized private TrieNode checkLetter(TrieNode currNode, char letter) {
 		int index = getNumber(letter);
 		return currNode.getChild(index);
 	}
