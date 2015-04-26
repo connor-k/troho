@@ -319,7 +319,7 @@
 		
 		<div class="row"  style = "background-color: #c05049;">
 			<div style = "background-color: #c05049;text-align:center;padding:20px">
-				<div style = "color:#ffcc00;font-size:36px;">Recommendations</div>
+				<div style = "color:#ffcc00;font-size:36px; margin-bottom:25px;">Recommendations</div>
 				<% 
 					HousingLocation[] houses = PreferenceCalculator.findPreferences(fbID);
 					System.out.println(houses.length);
