@@ -76,28 +76,29 @@
 
 					<p style = "font-size:24px"> <%= user.email %> </p>
 					
-					<p id="user-info-container-housing-location" style = "font-size:24px"> <%=currentHousingLocationName%> </p>
-					
-					<br> <br>
-					
-					<div class="btn-group">
-						<button type="button" class="btn btn-default dropdown-toggle"
-							data-toggle="dropdown">
-							<span id="top-level-name"><%=currentHousingLocationName%></span>
-							<span class="caret"></span>
-						</button>
-						<ul id="scrollable-list-housing-locations" class="dropdown-menu scrollable-menu" role="menu">
-							<% 
-							HousingLocation[] houses = HousingDataManager.getAllHousingLocations();
-							
-							for(int i=0; i < houses.length; i++) {
-								
-							%>
-							<li><a onclick="setHousingLocation(this)" href="#"><%=houses[i].locationName%></a></li>
-							<% 
-							}
-							%>
-						</ul>
+					<div>
+						<div class="btn-group btn-group-lg" style="margin: 10px">
+							<button type="button" class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown">
+								<span id="top-level-name" style="font-size: 18px"><%=currentHousingLocationName%></span>
+								<span class="caret"></span>
+							</button>
+							<ul id="scrollable-list-housing-locations"
+								class="dropdown-menu scrollable-menu" role="menu">
+								<%
+									HousingLocation[] houses = HousingDataManager
+											.getAllHousingLocations();
+
+									for (int i = 0; i < houses.length; i++) {
+								%>
+								<li style="font-size: 18px"><a
+									onclick="setHousingLocation(this)" href="#"><%=houses[i].locationName%></a></li>
+								<%
+									}
+								%>
+							</ul>
+						</div>
+
 					</div>
 
 				</div>
@@ -393,7 +394,6 @@
     
     <script>
  	 	function setHousingLocation(e){
- 	 		document.getElementById("user-info-container-housing-location").innerText = e.innerHTML;
  	 		document.getElementById("top-level-name").innerText = e.innerHTML;
  	 		var currLocation = e.innerHTML;
  	 		FB.api('/me', function(response) {
