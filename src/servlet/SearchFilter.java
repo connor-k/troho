@@ -33,7 +33,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		JSONObject object = requestParamsToJSON(request);
 		JSONArray elements = object.names();
 		object = new JSONObject(elements.getString(0));
-		System.out.println(object);
+	
 		String searchWords = object.getString("searchWords");
 		int managementScore = object.getInt("managementScore");
 		int amenitiesScore = object.getInt("amenitiesScore");

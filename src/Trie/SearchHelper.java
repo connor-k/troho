@@ -70,7 +70,6 @@ public class SearchHelper {
 				prunedHouses.remove(house);
 			}
 		}	
-		//for(int i = 0; i )
 		return prunedHouses;	
 	}
 	
@@ -82,22 +81,14 @@ public class SearchHelper {
 		boolean checkHouse = (house.type == HousingType.HOUSE);
 		boolean checkApartment = (house.type == HousingType.APARTMENT);
 		boolean checkDorm = (house.type == HousingType.DORM);
-		System.out.println("\n");
-		System.out.println("Maximum Price for " + house.locationName + ": " + maxPrice);
-		System.out.println("Average Rent: " + house.averageRent);
-		System.out.println("\n");
 
 		if(house.averageRent > maxPrice) {
-			System.out.println("Returning False because of price");
 			return false;
 		} else if (house.minutesWalking > maxDistance) {
-			System.out.println("Returning False because of distance " + maxDistance);
 			return false;
 		} else if (!(checkHouse && isHouse) && !(checkApartment && isApartment) && !(checkDorm && isDorm)) {
-			System.out.println("Returning False because of house");
 			return false;
 		} else if (house.overallScore < minRating) {
-			System.out.println("Returning False because of rating");
 			return false;
 		}
 		return true;

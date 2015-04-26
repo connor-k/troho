@@ -5,6 +5,7 @@ import sql.HousingLocation;
 import sql.User;
 import sql.UserDataManager;
 
+//small class that contains a housingLocation and its score
 class HousingPref {
 	void setPref(HousingLocation house, int preference) {
 		this.house = house;
@@ -19,6 +20,7 @@ class HousingPref {
 	int pref =  -1;
 }
 
+//helps suggest new housingLocations to the user
 public class PreferenceCalculator {
 	
 	//takes as arguments user preferences and a ArrayList of housing Locations
@@ -36,9 +38,10 @@ public class PreferenceCalculator {
 			return houses;
 		}
 		
+		//finds the four houses with the highest predicted ratings for that user
 		for(int i = 0; i < houses.length; i++) {
 			int score = houseHelper(houses[i], user);
-			System.out.println("house:" + houses[i].locationName + "  Score:" + score);
+			
 			if(score > first.pref) {
 				fourth.setPref(third);
 				third.setPref(second);
@@ -68,6 +71,8 @@ public class PreferenceCalculator {
 		return topHouses;
 	}
 	
+	//helper function that calculates a score for a single house
+	//takes as argument the housingLocation and individual user
 	static int houseHelper(HousingLocation house, User user) {
 		int score = 0;
 		score += user.managementSurveyScore*house.managementScore;
