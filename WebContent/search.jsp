@@ -89,13 +89,13 @@
 			<div class = "col-lg-3 search-element-box">
 				<p class = "search-descriptor">Max Price</p>
 				<div class="btn-group">
-	                <button type="button" value ="0" id="priceBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
+	                <button type="button" value ="10000" id="priceBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
 	                <ul class="dropdown-menu scrollable-menu" id="priceBoxIn" role="menu">
-	                    <li value="1" class="listElement"><a >800</a></li>
-	                    <li value="2" class="listElement"><a >1000</a></li>
-	                    <li value="3" class="listElement"><a >1200</a></li>
-	                    <li value="4" class="listElement"><a >1400</a></li>
-	                    <li value="0" class="listElement"><a >Any</a></li>
+	                    <li value="800" class="listElement"><a >800</a></li>
+	                    <li value="1000" class="listElement"><a >1000</a></li>
+	                    <li value="1200" class="listElement"><a >1200</a></li>
+	                    <li value="1400" class="listElement"><a >1400</a></li>
+	                    <li value="10000" class="listElement"><a >Any</a></li>
 	                </ul>
             	</div>
 
@@ -408,6 +408,7 @@
 						var houses = data.searchArray;
 						var htmlText="";
 						for (i = 0; i < houses.length; i++) {
+							
 							htmlText+='<div class="col-lg-12 single-result"><div class = "row"><div class = "result-top-half"><div class = "col-lg-4 house-result-image"><img src = ' + houses[i].imageURL + ' style = "width:200px;margin-top:40px"/></div><div class = "col-lg-8" style = "margin-top:50px; font-size:60px;"><p style = "text-align:center;">' +houses[i].locationName  + '</p>';
 			                htmlText+='<p style = "text-align:center;">' + houses[i].housingAddress + '</p></div></div></div><div class = "row" style = "padding-top:20px">';
 			                htmlText += '<div class = "result-bottom-half"><div class = "row"><div class = "col-lg-4"> Price: ' + houses[i].price;
@@ -415,6 +416,7 @@
 				            htmlText += '<div class = "col-lg-4"> Style: '+ houses[i].housingType + '</div><div class = "col-lg-4"> Rating:' + houses[i].rating;
 				            htmlText += '</div></div></div></div></div>'
 						}
+						$(".result").html(htmlText);	
 					}
 				});
  			});
