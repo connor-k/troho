@@ -185,25 +185,25 @@
 
                 <div class = "col-lg-10 col-md-12">
                     <div class = "col-lg-3 col-md-3">
-                        <div class = "rating-tab">
+                        <div class = "rating-tab" id="description-tab">
                         Description
                         </div>
                     </div>
 
                     <div class = "col-lg-3 col-md-3">
-                        <div class = "rating-tab">
+                        <div class = "rating-tab" id="amenities-tab">
                         Amenities
                         </div>
                     </div>
 
                     <div class = "col-lg-3 col-md-3">
-                        <div class = "rating-tab">
+                        <div class = "rating-tab" id="price-graph-tab">
                         Price Graph
                         </div>
                     </div>
 
                     <div class = "col-lg-3 col-md-3">
-                        <div class = "rating-tab">
+                        <div class = "rating-tab" id="floor-plan-tab">
                         Floor Plan
                         </div>
                     </div>
@@ -240,6 +240,92 @@
                         </div>
                     </div>
                 </div>
+                
+                
+                <div class = "col-lg-10 col-md-12" id="amenitiesText" style="display:none">
+                    <div class="row" id="firstRowDescription">
+                        <div class="col-lg-8">
+                            <p class="descriptionRow">AMENITIES: Northside of Campus</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <p class="descriptionRow">Price: <%if (location != null) out.print(location.averageRent);  %>$/Month</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <p class="descriptionRow">Bedrooms: Available</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p class="descriptionRow">Description:<% if (location != null) out.print(location.description); %></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class = "col-lg-10 col-md-12" id="priceGraph" style="display:none">
+             <%--        <div class="row" id="firstRowDescription">
+                        <div class="col-lg-8">
+                            <p class="descriptionRow">PRICE GRAPH: Northside of Campus</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <p class="descriptionRow">Price: <%if (location != null) out.print(location.averageRent);  %>$/Month</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <p class="descriptionRow">Bedrooms: Available</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p class="descriptionRow">Description:<% if (location != null) out.print(location.description); %></p>
+                        </div>
+                    </div> --%>
+                    <div id="canvas-holder1">
+                    	 <canvas id="chart1" width="300" height="30" />
+                    </div>
+                    
+                </div>
+                
+                <div class = "col-lg-10 col-md-12" id="floorPlan" style="display:none">
+                    <div class="row" id="firstRowDescription">
+                        <div class="col-lg-8">
+                            <p class="descriptionRow">FLOOR PLAN: Northside of Campus</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <p class="descriptionRow">Price: <%if (location != null) out.print(location.averageRent);  %>$/Month</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <p class="descriptionRow">Bedrooms: Available</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p class="descriptionRow">Description:<% if (location != null) out.print(location.description); %></p>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                  <div class = "col-lg-1 col-md-0" ></div>
                 
             </div>
@@ -578,24 +664,43 @@
         </div>
     </div>
 
+
+	<!-- ChartJS -->
+	<script src="js/Chart.js"></script>
+
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-
+    
+    
     <script>
     
-    //TODO: 
-    // should this function go in Document.ready?
-<%-- /*     $(function() {
- */    	('.housing-image-card').css("background", "url(<%=location.imageURL%>) no-repeat");
-/*     });
- */        $(".filter-button").click(function() {
-            $(this).toggleClass("active");
-        	});
- 		}); --%>
- 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    window.onload = function() {
+        var ctx1 = document.getElementById("chart1").getContext("2d");
+        window.myLine = new Chart(ctx1).Line(lineChartData, {
+        	showScale: false,
+        	pointDot : true,
+            responsive: true
+        });
+
+    };
+    </script>
+    
+
+    <script>
  
  		$(document).ready(function() {
  			$("#writeReview").on("click", function() {
@@ -609,10 +714,45 @@
  	            
  	        });
  			
+ 			$(".rating-tab").click(function() {
+ 			       $('.active').removeClass('active')
+ 			        $(this).addClass('active');
+ 			       
+ 			      if($(this).attr('id') == "description-tab")
+ 			    	{
+ 			    	 	$("#descriptionText").show();
+ 			    	 	$("#amenitiesText").hide();
+ 			    	 	$("#priceGraph").hide();
+ 			    	 	$("#floorPlan").hide();
+ 			    	}
+ 			      else if($(this).attr('id') == "amenities-tab")
+ 			    	  {
+ 			    	 	$("#amenitiesText").show();	
+ 			    	  	$("#descriptionText").hide();
+ 			    	 	$("#priceGraph").hide();
+ 			    	 	$("#floorPlan").hide();
+ 			    	  }
+ 			      else if($(this).attr('id') == "price-graph-tab")
+ 			    	  {
+ 			    	 	$("#priceGraph").show();
+ 			    	  	$("#descriptionText").hide();
+ 			    	 	$("#amenitiesText").hide();
+ 			    	 	$("#floorPlan").hide();
+ 			    	  }
+ 			      else if($(this).attr('id') == "floor-plan-tab")
+ 			    	  {
+ 			    	 	$("#floorPlan").show();
+ 			    	  	$("#descriptionText").hide();
+ 			    	 	$("#amenitiesText").hide();
+ 			    	 	$("#priceGraph").hide();
+ 			    	  }
+ 			      else
+ 			    	  {}
+ 			       
+ 			    });
  			
  		 	$("#submitReview").on("click", function() {
  				console.log("hello");
- 				
  				
  				FB.api('/me', function(response) {
  					var fbID = response.id;
