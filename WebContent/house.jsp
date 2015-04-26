@@ -6,7 +6,6 @@
 <%@ page errorPage="404.html" %>
 
 
-
 <%@page import="java.util.List"%>
 <%@page import="java.lang.String"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -185,25 +184,25 @@
 
                 <div class = "col-lg-10 col-md-12">
                     <div class = "col-lg-3 col-md-3">
-                        <div class = "rating-tab">
+                        <div class = "rating-tab" id="description-tab">
                         Description
                         </div>
                     </div>
 
                     <div class = "col-lg-3 col-md-3">
-                        <div class = "rating-tab">
+                        <div class = "rating-tab" id="amenities-tab">
                         Amenities
                         </div>
                     </div>
 
                     <div class = "col-lg-3 col-md-3">
-                        <div class = "rating-tab">
+                        <div class = "rating-tab" id="price-graph-tab">
                         Price Graph
                         </div>
                     </div>
 
                     <div class = "col-lg-3 col-md-3">
-                        <div class = "rating-tab">
+                        <div class = "rating-tab" id="floor-plan-tab">
                         Floor Plan
                         </div>
                     </div>
@@ -218,7 +217,7 @@
             <div class = "row">
                 <div class = "col-lg-1 col-md-0" ></div>
 
-                <div class = "col-lg-10 col-md-12" id="descriptionText">
+                <div class = "col-lg-10 col-md-12" id="descriptionText" style="display:none">
                     <div class="row" id="firstRowDescription">
                         <div class="col-lg-8">
                             <p class="descriptionRow">Location: Northside of Campus</p>
@@ -240,6 +239,62 @@
                         </div>
                     </div>
                 </div>
+                
+                
+                <div class = "col-lg-10 col-md-12" id="amenitiesText" style="display:none">
+                    <div class="row" id="firstRowDescription">
+                        <div class="col-lg-8">
+                            <p class="descriptionRow">AMENITIES: Northside of Campus</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <p class="descriptionRow">Price: <%if (location != null) out.print(location.averageRent);  %>$/Month</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <p class="descriptionRow">Bedrooms: Available</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p class="descriptionRow">Description:<% if (location != null) out.print(location.description); %></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class = "col-lg-10 col-md-12" id="priceGraph">
+                    <div id="canvas-chart-container" style="width:100%">
+                    	 <canvas id="chart1" width="300" height="300"> </canvas>
+                    </div>
+                    
+                </div>
+                
+                <div class = "col-lg-10 col-md-12" id="floorPlan" style="display:none">
+                    <div class="row" id="firstRowDescription">
+                        <div class="col-lg-8">
+                            <p class="descriptionRow">FLOOR PLAN: Northside of Campus</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <p class="descriptionRow">Price: <%if (location != null) out.print(location.averageRent);  %>$/Month</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <p class="descriptionRow">Bedrooms: Available</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p class="descriptionRow">Description:<% if (location != null) out.print(location.description); %></p>
+                        </div>
+                    </div>
+                </div>
+                
+                
                  <div class = "col-lg-1 col-md-0" ></div>
                 
             </div>
@@ -576,11 +631,72 @@
 	<script src="js/fbhouse.js">
 	</script>
 
+
+	<!-- ChartJS -->
+	<script src="js/Chart.js"></script>
+
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+    
+    
+    <script>
+	    var labelsData = [];
+	    var avgRentData = [];
+	    
+	    <% 
+	    	Object[] rentData = HousingDataManager.getRentOverTimeData(name);
+	    	String[] years = (String[])rentData[0];
+			Double[] averageRent = (Double[])rentData[1];
+	    	
+			for (int i = 0; i < years.length && i < averageRent.length; ++i) 
+			{
+			%>
+				labelsData.push( <%=years[i]%>);
+				avgRentData.push(<%=averageRent[i]%>);
+		<%
+			}
+	    %>
+	    
+	    console.log(labelsData);
+	    console.log(avgRentData);
+	    
+	    
+	    var lineChartData = {
+	    	    labels: labelsData,
+	    	    datasets: [
+	    	        {
+	    	            label: "Average Rent Over Years",
+	    	            fillColor: "rgba(220,220,220,0.2)",
+	    	            strokeColor: "rgba(220,220,220,1)",
+	    	            pointColor: "rgba(220,220,220,1)",
+	    	            pointStrokeColor: "#fff",
+	    	            pointHighlightFill: "#fff",
+	    	            pointHighlightStroke: "rgba(220,220,220,1)",
+	    	            data: avgRentData
+	    	        }
+	    	    ]
+	    	};
+	    
+	    var line_chart_options = {
+	        	showScale: true,
+	        	pointDot : true,
+	            responsive: true,
+	            scaleShowLabels: true
+	        };
+
+    	var ctx1 = document.getElementById("chart1").getContext("2d");
+
+	    
+	    $('#priceGraph').on('show', function (e) {
+	    	console.log("hey");
+	    	window.myNewChart = new Chart(ctx1).Line(lineChartData, line_chart_options);
+	    });
+        
+    </script>
+    
 
     <script>
  
@@ -607,7 +723,17 @@
 				});
 			});
 		}
-		
+    
+	    (function ($) {
+	        $.each(['show', 'hide'], function (i, ev) {
+	          var el = $.fn[ev];
+	          $.fn[ev] = function () {
+	            this.trigger(ev);
+	            return el.apply(this, arguments);
+	          };
+	        });
+	      })(jQuery);
+ 
  		$(document).ready(function() {
  			
  			var houseName = $('#introText').text();
@@ -646,12 +772,55 @@
  	            $(this).toggleClass('active');
  	        });
  			
+<<<<<<< HEAD
  			$('#introText').on('click',function() {
  				console.log(localStorage.numberOfReviewsOnClient);
  			})
  			
+=======
+ 			$(".rating-tab").click(function() {
+ 			       $('.active').removeClass('active')
+ 			        $(this).addClass('active');
+ 			       
+ 			      if($(this).attr('id') == "description-tab")
+ 			    	{
+ 			    	 	$("#descriptionText").show();
+ 			    	 	$("#amenitiesText").hide();
+ 			    	 	$("#priceGraph").hide();
+ 			    	 	$("#floorPlan").hide();
+ 			    	}
+ 			      else if($(this).attr('id') == "amenities-tab")
+ 			    	  {
+ 			    	 	$("#amenitiesText").show();	
+ 			    	  	$("#descriptionText").hide();
+ 			    	 	$("#priceGraph").hide();
+ 			    	 	$("#floorPlan").hide();
+ 			    	  }
+ 			      else if($(this).attr('id') == "price-graph-tab")
+ 			    	  {
+	 			    	 $("#priceGraph").show();
+ 			    	  	$("#descriptionText").hide();
+ 			    	 	$("#amenitiesText").hide();
+ 			    	 	$("#floorPlan").hide();
+ 			    	  }
+ 			      else if($(this).attr('id') == "floor-plan-tab")
+ 			    	  {
+ 			    	 	$("#floorPlan").show();
+ 			    	  	$("#descriptionText").hide();
+ 			    	 	$("#amenitiesText").hide();
+ 			    	 	$("#priceGraph").hide();
+ 			    	  }
+ 			      else
+ 			    	  {}
+ 			       
+ 			    });
+>>>>>>> 8529d7cd7bcd864c9fdd24afb63fac00f1e7c385
  			
  		 	$("#submitReview").on("click", function() { 				
+
+ 		 	$("#submitReview").on("click", function() {
+ 				console.log("hello");
+ 				
  				FB.api('/me', function(response) {
  					var fbID = response.id;
  					var houseName = $("#introText").text();
