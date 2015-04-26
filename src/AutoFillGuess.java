@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Trie.SearchHelper;
 import Trie.Trie;
 
 /**
@@ -46,16 +47,23 @@ public class AutoFillGuess extends HttpServlet {
 		BufferedReader br = request.getReader();
 		String userInput = br.readLine();
 		
-		System.out.println(userInput);
+		System.out.println("USER INPUT: " + userInput);
 		
 		
 		ServletContext application = getServletConfig().getServletContext();
 		 
 		String word = "";
-		Trie trie = (Trie) application.getAttribute("wordsTrie");
-		if(trie != null && userInput != null) {
+		//Trie trie = (Trie) application.getAttribute("wordsTrie");
+		SearchHelper searchHelper = (SearchHelper) application.getAttribute("searchHelper");
+		
+		/*if(trie != null && userInput != null) {
 			word = trie.findLikely(userInput);
 			System.out.println(word);
+		}*/
+		
+		if(searchHelper != null && userInput != null) {
+			word = searchHelper.findLikely(userInput);
+			System.out.println("HELPER OUTPUT" + word);
 		}
 		
 		response.getWriter().print(word);

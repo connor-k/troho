@@ -24,20 +24,12 @@ import sql.HousingLocation;
 public class Trie {
 	TrieNode head = new TrieNode();
 	
-<<<<<<< HEAD
-	public Trie() {
-		head = new TrieNode();
-	}
-	
-	public Trie(Vector<HousingLocation> houses) {
-=======
 	//default constructor, makes an empty trie
 	Trie() {
 	}
 	
 	//adds the names and HousingLocations of all houses in vector
 	Trie(Vector<HousingLocation> houses) {
->>>>>>> master
 		for(int i = 0; i < houses.size(); i++) {
 			add(houses.get(i));
 		}

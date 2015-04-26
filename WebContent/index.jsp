@@ -175,10 +175,10 @@
 		$('#search').on('keydown', function(event) {
 			var fill = document.getElementById('fill-in');			
 			var currentVal = document.getElementById('search');
-			var string = currentVal.value + String.fromCharCode(event.keyCode);
 			
-			console.log(string);
-			//console.log(currentVal.value);
+			var originalChar = String.fromCharCode(event.keyCode);
+			var inputCharacter = (event.shiftKey) ? originalChar.toUpperCase() : originalChar.toLowerCase();
+			var string = currentVal.value + inputCharacter;
 			
 			if(event.keyCode !== 16 && event.keyCode != 91 && event.keyCode != 93 ) {
 				

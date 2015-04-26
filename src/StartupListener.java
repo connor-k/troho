@@ -54,9 +54,10 @@ public class StartupListener implements ServletContextListener {
         		hlv.add(hlocations[i]);
         	}
         	
-        	Trie wordsTrie = new Trie(hlv);
-        	
-            context.setAttribute("wordsTrie", wordsTrie);
+        	//Trie wordsTrie = new Trie(hlv);
+        	SearchHelper searchHelper = new SearchHelper();   	
+            context.setAttribute("searchHelper", searchHelper);
+            
         } catch (Exception ex) {
             System.out.println(
                 "Couldn’t create database: " + ex.getMessage());
