@@ -383,26 +383,37 @@
 		 		var communityChillFactorScore = $("#chillBox").val();
 		 		var maxPrice = $("#priceBox").val();
 		 		var maxDistance = $("#distanceBox").val();
-		 		var type = $("styleBox").val();
+		 		var type = -1;
+		 		type = $("#styleBox").val();
+		 		var searchWords = $("#search").val();
+		 		console.log("Search Words " + searchWords);
 		 		var postData = {
 						"managementScore": managementScore, 
 						"amenitiesScore": amenitiesScore, 
 						"locationScore": locationScore,
-						"ratingScore": ratingScore, 
+						"minRating": ratingScore, 
 						"communityChillFactorScore": communityChillFactorScore,
 						"maxPrice": maxPrice,
 						"maxDistance":maxDistance,
-						"type":type
+						"housingType":type,
+						"searchWords":searchWords
 						};
+		 		console.log(postData);
 		 		$.ajax({
 					url: "/troho/SearchFilter",
-					type: "GET",
+					type: "POST",
 					data: JSON.stringify(postData),
 					dataType: "JSON",
 					success:function(data) {
 						var houses = data.searchArray;
+						var htmlText="";
 						for (i = 0; i < houses.length; i++) {
-							console.log(houses.locationName);
+							htmlText+='<div class="col-lg-12 single-result"><div class = "row"><div class = "result-top-half"><div class = "col-lg-4 house-result-image"><img src = ' + houses[i].imageURL + ' style = "width:200px;margin-top:40px"/></div><div class = "col-lg-8" style = "margin-top:50px; font-size:60px;"><p style = "text-align:center;">' +houses[i].locationName  + '</p>';
+			                htmlText+='<p style = "text-align:center;">' + houses[i].housingAddress + '</p></div></div></div><div class = "row" style = "padding-top:20px">';
+			                htmlText += '<div class = "result-bottom-half"><div class = "row"><div class = "col-lg-4"> Price: ' + houses[i].price;
+				            htmlText += '</div><div class = "col-lg-4"> Distance:' + houses[i].distance + '</div></div><div class = "row">';
+				            htmlText += '<div class = "col-lg-4"> Style: '+ houses[i].housingType + '</div><div class = "col-lg-4"> Rating:' + houses[i].rating;
+				            htmlText += '</div></div></div></div></div>'
 						}
 					}
 				});
@@ -411,42 +422,43 @@
 			
 			$('#locationBoxIn > .listElement').on("click", function(){
  			   $("#locationBox").text($(this).text());  
- 			  $("#locationBox").val($(this).val())
+ 			  $("#locationBox").val($(this).val());
 			});
 			
 			$('#chillBoxIn > .listElement').on("click", function(){
  			   $("#chillBox").text($(this).text()); 
- 			  $("#chillBox").val($(this).val())
+ 			  $("#chillBox").val($(this).val());
 			});
 			
 			$('#amenitiesBoxIn > .listElement').on("click", function(){
  			   $("#amenitiesBox").text($(this).text());
- 			   $("#amenitiesBox").val($(this).val())
+ 			   $("#amenitiesBox").val($(this).val());
 			});
 			
 			$('#managementBoxIn > .listElement').on("click", function(){
  			   $("#managementBoxIn").text($(this).text());  
- 			  $("#managementBox").val($(this).val())
+ 			  $("#managementBox").val($(this).val());
 			});
 			
 			$('#styleBoxIn > .listElement').on("click", function(){
  			   $("#styleBox").text($(this).text());  
- 			  $("#styleBox").val($(this).val())
+ 			  $("#styleBox").val($(this).val());
+ 			  console.log( $("#styleBox").val());
 			});
 			
 			$('#ratingBoxIn > .listElement').on("click", function(){
  			   $("#ratingBoxIn").text($(this).text()); 
- 			  $("#ratingsBox").val($(this).val())
+ 			  $("#ratingsBox").val($(this).val());
 			});
 			
 			$('#distanceBoxIn > .listElement').on("click", function(){
  			   $("#distanceBox").text($(this).text());  
- 			  $("#distanceBox").val($(this).val())
+ 			  $("#distanceBox").val($(this).val());
 			});
 			
 			$('#priceBoxIn > .listElement').on("click", function(){
 				$("#priceBox").text($(this).text()); 
-				$("#priceBox").val($(this).val())
+				$("#priceBox").val($(this).val());
 			});
 			
 		});
