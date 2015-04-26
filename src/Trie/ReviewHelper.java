@@ -38,6 +38,7 @@ public class ReviewHelper {
 		
 		for(int i = 0; i < reviewArray.length; i++) {
 			User myUser = UserDataManager.getUser(reviewArray[i].facebookID);
+			System.out.println("");
 			System.out.println("Printing" + myUser.name + "'s" + " reviews");
 			
 			if(checkValidReview(reviewArray[i], tags)) {
