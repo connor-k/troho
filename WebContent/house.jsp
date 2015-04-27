@@ -723,7 +723,8 @@
 				}
 			});
 		});
-	}
+	};
+		
     	$(document).ready(function() {
 		   
 		    (function ($) {
@@ -738,24 +739,26 @@
  
  			
  			var houseName = $('#introText').text();
- 			localStorage.numberOfReviewsOnClient = 0;
+ 			sessionStorage.numberOfReviewsOnClient = 0;
  			
  			var posting = $.post( 'http://localhost:8080/troho/NumberOfReviews',houseName);
 			posting.done( function( numberOfReviewsOnServer ) {
 				
-			  	localStorage.numberOfReviewsOnClient = numberOfReviewsOnServer;
+			  	sessionStorage.numberOfReviewsOnClient = numberOfReviewsOnServer;
 			  	
 			  	(function poll() {
 					setTimeout(function() {
 	 		 	
-						var reviewsOnServer = 0;
+						var reviewsOnServer;
 						
 	 		 			var polling = $.post( 'http://localhost:8080/troho/NumberOfReviews',houseName);
 	 					polling.done( function( reviewsOnServer ) {		
 	 				  		console.log("reached poll");
-	 				  		if(localStorage.numberOfReviewsOnClient !== reviewsOnServer) {
-	 				  			var difference = reviewsOnServer - localStorage.numberOfReviewsOnClient;
+	 				  		console.log("Client: " + sessionStorage.numberOfReviewsOnClient + " , " + 'Server' + reviewsOnServer);
+	 				  		if(sessionStorage.numberOfReviewsOnClient !== reviewsOnServer) {
+	 				  			var difference = reviewsOnServer - sessionStorage.numberOfReviewsOnClient;
 	 				  			console.log("Difference of " + difference);
+	 				  			console.log("Number of Reviews on Client: " + sessionStorage.numberOfReviewsOnClient);
 	 				  			var arr = [];
 	 				  			for(var i = 0; i < 6; i++) {
 	 				  				arr.push(false);
@@ -773,11 +776,13 @@
 	 								dataType: 'JSON',
 	 								success:function(data) {
 	 									var reviewsArr = data.reviews;
-	 									console.log(reviewsArr);
 	 									var htmlText = '';
+	 									
+	 									console.log("Difference = " + difference);
 	 									
 	 									for (var i = 0; i < difference; i++) {
 	 										
+	 										console.log(i);
 	 										htmlText +='<div class="col-lg-12 single-review"><div class = "reviewer-info-row"><div class = "reviewer-image-and-name"><div class = "reviewer-image-wrapper"><img src =' +  reviewsArr[i].userImg  + ' class = "reviewer-image"/></div><div class = "reviewer-username"><div class = "reviewer-username-row"><div class = "reviewer-username-cell">' + reviewsArr[i].name+'</div></div></div></div></div><p class="scrolling-description-row">Description: ' + reviewsArr[i].review + '</p></div>';
 	 									
 	 									}
@@ -785,12 +790,12 @@
 	 									htmlText += $('.reviews-container').html();
 	 									
 	 									$('.reviews-container').html(htmlText);	
-	 									localStorage.numberOfReviewsOnClient = reviewsOnServer;
+	 									sessionStorage.numberOfReviewsOnClient = reviewsOnServer;
 	 								}
 	 			 		 		});
-	 				  			
 	 				  		}
 	 					});
+	 					
 	 					poll();
 	 		 	       
 	 		 	    }, 2000);
