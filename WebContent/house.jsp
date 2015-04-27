@@ -195,7 +195,7 @@
                     </div>
 
                     <div class = "col-lg-3 col-md-3">
-                        <div class = "rating-tab" id="price-graph-tab">
+                        <div class = "rating-tab" id="price-graph-tab" active>
                         Price Graph
                         </div>
                     </div>
@@ -265,7 +265,7 @@
                 
                 <div class = "col-lg-10 col-md-12" id="priceGraph">
                     <div id="canvas-chart-container" style="width:100%">
-                    	 <canvas id="chart1" width="300" height="300"> </canvas>
+                    	 <canvas id="chart1" height="100"> </canvas>
                     </div>
                     
                 </div>
@@ -642,40 +642,6 @@
     
     
     <script>
-    
-	var hideShowSubmit = function(){
-		FB.api('/me', function(response) {
-			var fbID = response.id;
-			console.log
-			var houseName = $('#introText').text();
-			var postData = {
-				"fbID": fbID, 
-				"houseName": houseName
-				};
-			console.log(postData);
-			$.ajax({
-				url: "/troho/UserReviewedHousing",
-				type: "GET",
-				data: JSON.stringify(postData),
-				dataType: "JSON",
-				success:function(data) {
-					console.log("val = " + data.reviewBool + data.authBool);
-					if(data.reviewBool === 'true' || data.authBool ==='false') {
-						console.log("Bout to hide review");
-						$("#rowWrite").toggle();
-					}
-				}
-			});
-		});
-	}
-    	$(document).ready(function() {
-    		$("#descriptionText").show();
-    		$("#amenitiesText").hide();
-	    	$("#priceGraph").hide();
-	    	$("#floorPlan").hide();
-	    	
-		    $("#description-tab").addClass('active');	   
-		    
 		    var labelsData = [];
 		    var avgRentData = [];
 		    
@@ -719,11 +685,50 @@
 		            responsive: true,
 		            scaleShowLabels: true
 		        };
-	    	var ctx1 = document.getElementById("chart1").getContext("2d");	    
-		    $('#priceGraph').on('show', function (e) {
-		    	console.log("hey");
-		    	window.myNewChart = new Chart(ctx1).Line(lineChartData, line_chart_options);
-		    });
+		    
+			window.onload = function(){
+			    var ctx = document.getElementById("chart1").getContext("2d");
+				window.myLine = new Chart(ctx).Line(lineChartData, line_chart_options);
+				$("#description-tab").click();
+			}
+			
+			// Work in Progress
+		    /* $('#price-graph-tab').on('click', function (e) {
+		    	console.log(window.myLine);
+				window.myLine.update();
+		    }); */
+
+    </script>
+    
+    
+    <script>
+    
+	var hideShowSubmit = function(){
+		FB.api('/me', function(response) {
+			var fbID = response.id;
+			var houseName = $('#introText').text();
+			var postData = {
+				"fbID": fbID, 
+				"houseName": houseName
+				};
+			console.log(postData);
+			$.ajax({
+				url: "/troho/UserReviewedHousing",
+				type: "GET",
+				data: JSON.stringify(postData),
+				dataType: "JSON",
+				success:function(data){
+					console.log("val = " + data.reviewBool);
+					if(data.reviewBool === 'false') {
+						console.log("Bout to hide review");
+						$("#rowWrite").toggle();
+					}
+				}
+			});
+		});
+	}
+    	$(document).ready(function() {
+		   
 		    (function ($) {
 		        $.each(['show', 'hide'], function (i, ev) {
 		          var el = $.fn[ev];
@@ -807,6 +812,8 @@
  	            $(this).toggleClass('active');
  	        });
  			
+ 			
+ 			// Handles Switching Between Different Tabs
  			$(".rating-tab").click(function() {
  			      $('.active').removeClass('active')
  			       $(this).addClass('active');
@@ -827,7 +834,7 @@
  			    	  }
  			      else if($(this).attr('id') == "price-graph-tab")
  			    	  {
-	 			    	 $("#priceGraph").show();
+	 			    	$("#priceGraph").show();
  			    	  	$("#descriptionText").hide();
  			    	 	$("#amenitiesText").hide();
  			    	 	$("#floorPlan").hide();
@@ -841,7 +848,6 @@
  			    	  }
  			      else
  			    	  {}
- 			       
  			});				
 
  		 	$("#submitReview").on("click", function() {
