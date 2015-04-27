@@ -274,7 +274,7 @@ public class UserDataManager {
 				while (rs.next()) {
 					friendIDs.add(rs.getString("friendID"));
 				}
-				if (!reviews.isEmpty()) {
+				if (!friendIDs.isEmpty()) {
 					user.friendIDs = friendIDs.toArray(new String[friendIDs.size()]);
 				}
 			} else {
@@ -406,6 +406,7 @@ public class UserDataManager {
 				friendsToAdd.add(friends[i]);
 			}
 		}
+		
 		Connection conn = null;
 		PreparedStatement ps1 = null;
 		PreparedStatement ps2 = null;

@@ -43,8 +43,10 @@ public class NumberOfReviews extends HttpServlet {
 		String houseName = br.readLine();
 				
 		PrintWriter pr = new PrintWriter(response.getWriter());
-		
-		pr.print(HousingDataManager.getHousingLocation(houseName).reviews.length);
+		if (HousingDataManager.getHousingLocation(houseName).reviews != null)
+			pr.print(HousingDataManager.getHousingLocation(houseName).reviews.length);
+		else 
+			pr.print(0);
 		pr.flush();
 	}
 

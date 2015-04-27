@@ -30,7 +30,7 @@ public class DataManagerTest {
 		}
 
 		// Add friends
-		String[] friends = {"2weuhfdsu2j34f1d4", "12rehfdsu2j34f1d4"};
+		String[] friends = {"3weuhfdsu2j34f1d4", "2weuhfdsu2j34f1d4"};
 		UserDataManager.setFriends("2348hfdsu2j34f1d4", friends);
 		// Get updates
 		alex = UserDataManager.getUser("2348hfdsu2j34f1d4");

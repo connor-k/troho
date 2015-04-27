@@ -75,6 +75,11 @@
 	<input class="adminInput" type="text" id="minutesBiking" name="Minutes Biking">
 
 	<br><br><br><br>
+	
+	Avereage Rent:<br>
+	<input class="adminInput" type="text" id="rent" name="Average Rent">
+
+	<br><br><br><br>
 	<button onClick="createNewHousingLocation()">Create New Housing Location</button>
 
 	<script>
@@ -108,6 +113,7 @@
 			var gpsLongitude = document.getElementById("gpsLongitude").value;
 			var minutesWalking = document.getElementById("minutesWalking").value;
 			var minutesBiking = document.getElementById("minutesBiking").value;
+			var rent = document.getElementById("rent").value;
 
 			$.ajax({
 				url : "/troho/CreateHousingLocation",
@@ -123,7 +129,8 @@
 					gpsLatitude : gpsLatitude,
 					gpsLongitude : gpsLongitude,
 					minutesWalking : minutesWalking,
-					minutesBiking : minutesBiking
+					minutesBiking : minutesBiking,
+					rent : rent,
 				},
 				dataType : "JSON"
 			});
