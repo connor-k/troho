@@ -25,7 +25,6 @@ public class NumberOfReviews extends HttpServlet {
      */
     public NumberOfReviews() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

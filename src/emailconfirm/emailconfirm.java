@@ -18,33 +18,45 @@ import java.net.URL;
 import java.util.UUID; 
 
 public class emailconfirm {
-	private static String toConfirm; //address that needs to be confirmed 
-	private static String facebookID;  //users unique facebook identification 
-	private static String key; 		//unique confirmation key 
-	private static String message; 	//body of email 
+	private static String toConfirm;	 //address that needs to be confirmed 
+	private static String facebookID;  	 //users unique facebook identification 
+	private static String key; 			 //unique confirmation key 
+	private static String message; 		 //body of email 
 	
+	/**generates random UUID code used for verifying given email address
+	 * @param to		email address of user that needs to be verified
+	 * @param fbID		unique facebook id of user 
+	 * @throws EmailException	if unable to sendEmail()
+	 */
 	public emailconfirm(String to, String fbID) throws EmailException
 	{
 		toConfirm = to; 
 		facebookID = fbID; 
 		key = java.util.UUID.randomUUID().toString();	//generates random key for indiv user
 		sendEmail();
+		
+		//stores the unique UUID key to the particular user in the database
 		UserDataManager.setValidationKey(facebookID, key); 
 	}
 	
+	/**Email template
+	 * Sends confirmation email to user with link to validation page
+	 * @throws EmailException
+	 */
 	public static void sendEmail() throws EmailException 
 	{
 		HtmlEmail email = new HtmlEmail();
-		email.setHostName("smtp.googlemail.com");
+		email.setHostName("smtp.googlemail.com");	//sending from gmail
 		email.setSmtpPort(465);
-		email.setAuthentication("troho.troco", "trohofor201");
+		email.setAuthentication("troho.troco", "trohofor201");	//troho gmail account where emails are sent from
 		email.setSSLOnConnect(true);
-		email.setFrom("troho.troco@gmail.com", "Troho");
-		email.setSubject("Troho Confirmation");
+		email.setFrom("troho.troco@gmail.com", "Troho");	//set name for sender email as "Troho"
+		email.setSubject("Troho Confirmation");				//set subject line
 		
+		//hyperlink leading to localhost validation servlet 
+		//parameters passed into servlet: key = generated UUID code; id = user fb id 
 		String urlstring = "href=http://localhost:8080/troho/Validation?key=" + key + "&id=" + facebookID; 
 		String hyperlink = "<a " + urlstring + ">click here</a>";
-		//hyperlink leading to localhost servlet 
 		
 		//HTML text message to be displayed in body of email 
 		message = "<br><br>Welcome to troho by troco!"
@@ -66,22 +78,19 @@ public class emailconfirm {
 		email.send();
 	}
 	
-	public static void sendTestEmail()
-	{
-		try {
-			new emailconfirm("vitashubin@hotmail.com", "111");
-			System.out.println(message);
-		} catch (EmailException e) {
-			e.printStackTrace();
-		} 
-	}
 	
+	/**Compares unique validation key and facebook ID in database
+	 * to UUID code and ID passed in through validation url 
+	 * Sends paramaters to datamanager 
+	 * @param code		unique UUID code read in from URL param
+	 * @param id		unique user ID read in from URL param
+	 * @return			returns true if email was validated 
+	 */
 	public static boolean emailConfirmed(String code, String id)
 	{
 		//successfully verified email
 		if (UserDataManager.verifyEmail(id, code))
 		{
-			System.out.println("User ID " + id + " confirmed with key " + code);
 			return true; 
 		}
 		else

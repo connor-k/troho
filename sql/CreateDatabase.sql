@@ -17,14 +17,7 @@ CREATE TABLE HousingLocations (
   gpsLatitude varchar(12) NOT NULL,
   gpsLongitude varchar(12) NOT NULL,
   minutesWalking int(2) NOT NULL,
-  minutesBiking int(2) NOT NULL,
-# Average ratings so we don't recalculate every time the page is viewed
-  averageManagement varchar(4),
-  averageAmenities varchar(4),
-  averageLocation varchar(4),
-  averageNoise varchar(4),
-  averageCommunityChillFactor varchar(4),
-  averageRent varchar(4)
+  minutesBiking int(2) NOT NULL
 );
 
 CREATE TABLE Users (
