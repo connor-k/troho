@@ -178,7 +178,7 @@
 			var originalChar = String.fromCharCode(event.keyCode);
 			var inputCharacter = (event.shiftKey) ? originalChar.toUpperCase() : originalChar.toLowerCase();
 			var string = currentVal.value + inputCharacter;
-			
+						
 			if(event.keyCode !== 16 && event.keyCode != 91 && event.keyCode != 93 ) {
 				
 				if(event.keyCode == 46 || event.keyCode == 8) {
@@ -190,6 +190,8 @@
 						var posting = $.post( 'http://localhost:8080/troho/AutoFillGuess', string.substring(0,string.length-2));
 						
 						posting.done( function( data ) {
+							
+							console.log("POST" + data);
 							
 						  	if(data.length > 1) {
 						  		fill.value = data;
@@ -205,6 +207,8 @@
 					
 					posting.done( function( data ) {
 						
+						console.log("POST" + data);
+												
 					  	if(data.length > 1) {
 					  		fill.value = data;
 					  	} else {

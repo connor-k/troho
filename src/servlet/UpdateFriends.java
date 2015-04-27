@@ -48,6 +48,7 @@ public class UpdateFriends extends HttpServlet {
 		JSONArray friendsJSON = object.getJSONArray("friends");
 		String id = object.getString("fbID");
 		String[] friends = new String[friendsJSON.length()];
+		System.out.println("SETTING FRIENDS");
 		for (int i = 0; i < friendsJSON.length(); i++) {
 			friends[i] = friendsJSON.getString(i);
 			System.out.println(friends[i]);

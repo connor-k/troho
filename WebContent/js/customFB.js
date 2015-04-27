@@ -87,6 +87,7 @@
 			var imgURL = null;
 			var fbID = null;
 			var email = null;
+			var ids = [];
 			FB.api('/me', function(response) {
 				document.getElementById('user-sequence').style.display = "inline";
 				document.getElementById('welcome-message').innerHTML = 'Welcome ' + response.name + '!';
@@ -97,12 +98,25 @@
 					if (response && !response.error) {
 						console.log("Response " + response.data);
 						var data = response.data;
-						var ids = [];
 						for (var i = 0; i < data.length; i++) {
 							console.log(data[i].id + " " + data[i].name);
 							ids.push(data[i].id);
 						}
 						console.log(ids);
+						
+						var postdata = {
+								'fbID':fbID,
+								'friends':ids
+						};
+						
+						$.ajax({
+							url: '/troho/UpdateFriends',
+							type: 'POST',
+							data: JSON.stringify(postdata),
+							dataType:'JSON'
+						});
+						
+						
 				      } else {
 				    	  console.log("didnt work");
 				      }
@@ -111,7 +125,7 @@
 				FB.api('/me/picture?width=500&height=500', function(response) {
 	 				imgURL = response.data.url;
 	 				document.getElementById('profile-image').setAttribute("src", imgURL);
-	 				createUser(name, imgURL, fbID, email);
+	 				createUser(name, imgURL, fbID, email, ids);
 				});
 			});
 			document.getElementById('log-out-sequence').style.display = "inline";
@@ -143,11 +157,11 @@
 			});
 		}
 		
-		function createUser(name, imgURL, fbID, email) {
+		function createUser(name, imgURL, fbID, email, ids) {
 			$.ajax({
 				  url: "/troho/CreateUser",
 				  type: "POST",
-				  data: {name : name, url:imgURL, fbID: fbID, email:email},
+				  data: {"name" : name, "url":imgURL, "fbID": fbID, "email":email},
 				  dataType: "JSON"
 				});
 		}
