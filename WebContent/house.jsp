@@ -14,7 +14,6 @@
 	String name = request.getParameter("name");
     HousingLocation location = HousingDataManager.getHousingLocation(name);
     if (name == null) {
-    	System.out.println("In if");
  		String redirectURL = "/troho/404.html";
     	response.sendRedirect(redirectURL);
     }
@@ -118,7 +117,7 @@
                     <div class = "star-container">
                         <% if (location != null) {
                         	System.out.println("Management Score " + location.managementScore);                 
-                     			for (int i = 0; i < location.overallScore; i++) {
+                     		for (int i = 0; i < location.overallScore; i++) {
                      	%>
                         <img src = "./img/star.png" class = "star"/>
                         <%
@@ -627,10 +626,10 @@
         </div>
     </div>
     </body>
-    
+
+
 	<script src="js/fbhouse.js">
 	</script>
-
 
 	<!-- ChartJS -->
 	<script src="js/Chart.js"></script>
@@ -696,7 +695,7 @@
 		    	window.myNewChart = new Chart(ctx1).Line(lineChartData, line_chart_options);
 		    });
 	        
-			var hideShowSubmit = function(){
+			/*var hideShowSubmit = function(){
 				FB.api('/me', function(response) {
 					var fbID = response.id;
 					var houseName = $('#introText').text();
@@ -718,7 +717,7 @@
 						}
 					});
 				});
-			}
+			}*/
 	    
 		    (function ($) {
 		        $.each(['show', 'hide'], function (i, ev) {
@@ -730,7 +729,6 @@
 		        });
 		      })(jQuery);
  
- 			//$(document).ready(function() {
  			
  			var houseName = $('#introText').text();
  			localStorage.numberOfReviewsOnClient = 0;
@@ -749,7 +747,41 @@
 	 					polling.done( function( reviewsOnServer ) {		
 	 				  		
 	 				  		if(localStorage.numberOfReviewsOnClient !== reviewsOnServer) {
-	 				  			console.log("Difference of " + (reviewsOnServer - localStorage.numberOfReviewsOnClient));
+	 				  			var difference = reviewsOnServer - localStorage.numberOfReviewsOnClient;
+	 				  			localStorage.numberOfReviewsOnClient = reviewsOnServer;
+	 				  			console.log("Difference of " + difference);
+	 				  			var arr = [];
+	 				  			for(var i = 0; i < 6; i++) {
+	 				  				arr.push(false);
+	 				  			}
+	 				  			
+	 				  			var houseName = $('#introText').text();
+	 			 		 		var postData = {
+	 									'houseName': houseName, 
+	 									'tags': [arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]]
+	 									};
+	 			 		 		$.ajax({
+	 			 		 			url: '/troho/ReviewServlet',
+	 								type: 'POST',
+	 								data: JSON.stringify(postData),
+	 								dataType: 'JSON',
+	 								success:function(data) {
+	 									var reviewsArr = data.reviews;
+	 									console.log(reviewsArr);
+	 									var htmlText = '';
+	 									
+	 									for (var i = 0; i < difference; i++) {
+	 										
+	 										htmlText +='<div class="col-lg-12 single-review"><div class = "reviewer-info-row"><div class = "reviewer-image-and-name"><div class = "reviewer-image-wrapper"><img src =' +  reviewsArr[i].userImg  + ' class = "reviewer-image"/></div><div class = "reviewer-username"><div class = "reviewer-username-row"><div class = "reviewer-username-cell">' + reviewsArr[i].name+'</div></div></div></div></div><p class="scrolling-description-row">Description: ' + reviewsArr[i].review + '</p></div>';
+	 									
+	 									}
+	 									
+	 									htmlText += $('.reviews-container').html();
+	 									
+	 									$('.reviews-container').html(htmlText);	
+	 								}
+	 			 		 		});
+	 				  			
 	 				  		}
 	 					});
 	 					poll();
@@ -758,6 +790,8 @@
 			  	})()
 			  	
 			});
+			
+    	});
  				
  			$("#writeReview").on("click", function() {
  				$("#reviewRow").toggle();
@@ -929,7 +963,7 @@
  		 		
  		 	});
  		 	
- 		});
+ 		//});
     </script>
 
 </html>

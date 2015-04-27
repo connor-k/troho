@@ -52,7 +52,7 @@ public class emailconfirm {
 		
 		URL url;	//this url will lead to an image of the troho logo
 		try {
-			url = new URL("https://bytebucket.org/troco/troco/raw/ffad4f08eb1510106b238d4e4365998a0cd25f55/WebContent/img/new-troho.png");
+			url = new URL("https://bitbucket.org/troco/troco/raw/ffad4f08eb1510106b238d4e4365998a0cd25f55/WebContent/img/new-troho.png");
 			String cid = email.embed(url, "Troho logo");
 			//set size and source of image, as well as text message
 			email.setHtmlMsg("<html><img style=width:160px height:200px src=\"cid:"+cid+"\">"+message+"</html>");
@@ -79,7 +79,7 @@ public class emailconfirm {
 	public static boolean emailConfirmed(String code, String id)
 	{
 		//successfully verified email
-		if (UserDataManager.verifyEmail(id, key))
+		if (UserDataManager.verifyEmail(id, code))
 		{
 			System.out.println("User ID " + id + " confirmed with key " + code);
 			return true; 

@@ -316,7 +316,7 @@ public class HousingDataManager {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				conn = DriverManager.getConnection("jdbc:mysql://localhost/Troho?user=root");
-				ps = conn.prepareStatement("SELECT * FROM Users WHERE facebookID=? AND housingKey=?");
+				ps = conn.prepareStatement("SELECT * FROM Reviews WHERE facebookID=? AND housingKey=?");
 				ps.setString(1, facebookID);
 				ps.setInt(2, housingLocation.housingKey);
 				rs = ps.executeQuery();

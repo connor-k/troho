@@ -88,6 +88,31 @@
 			var imgURL = null;
 			var fbID = null;
 			var email = null;
+			
+			var hideShowSubmit = function(){
+				FB.api('/me', function(response) {
+					var fbID = response.id;
+					var houseName = $('#introText').text();
+					var postData = {
+						"fbID": fbID, 
+						"houseName": houseName
+						};
+					
+					$.ajax({
+						url: "/troho/VerifiedUser",
+						type: "GET",
+						data: JSON.stringify(postData),
+						dataType: "JSON",
+						success:function(data){
+							console.log(data.reviewBool);
+							if(data.reviewBool == false) {
+								$("#rowWright").toggle();
+							}
+						}
+					});
+				});
+			}
+			
 			FB.api('/me', function(response) {
 				document.getElementById('user-sequence').style.display = "inline";
 				document.getElementById('welcome-message').innerHTML = 'Welcome ' + response.name + '!';

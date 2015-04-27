@@ -177,9 +177,10 @@ public class UserDataManager {
 			if (result == 0) {
 				System.out.println("UserDataManager.verifyEmail: FacebookID " + facebookID + " not "
 						+ "in database or didn't match validationKey, no changes made.");
+			} else {
+				// Note: finally block still executes to close connections before this return
+				return true;
 			}
-			// Note: finally block still executes to close connections before this return
-			return true;
 		} catch (SQLException sqle) {
 			// Note if an invalid housingKey was passed in, 
 			System.out.println ("UserDataManager SQLException: " + sqle.getMessage());

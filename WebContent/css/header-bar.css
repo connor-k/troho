@@ -20,9 +20,10 @@
 
 .image-container {
 	text-align: center;
-  	margin-top: -130px;
-  	width: 40%;
-  	margin-left:30.5%;
+  	margin-top: -100px;
+  	//margin-left: 220px;
+  	//width: 40%;
+  	//margin-left:30.5%;
 }
 
 .footer {
@@ -87,7 +88,17 @@
 	border-radius:50px;
 	border-style: solid;
 	border-width: 1px;
-	font-size:32px;
+	font-size:20px;
+	color: #ffcc00;
+}
+
+.search-bar {
+	background-color: rgba(0,0,0,0);
+	outline: 0;
+	border-width: 0px;
+	/width: 180px;
+	font-size: 24px;
+	margin-left:0px;
 	color: #ffcc00;
 }
 
@@ -99,16 +110,6 @@
 	color:#ffcc00;
 	cursor: pointer;
 	cursor: hand;
-}
-
-.search-bar {
-	background-color: rgba(0,0,0,0);
-	outline: 0;
-	border-width: 0px;
-	width: 180px;
-	font-size: 32px;
-	margin-left:0px;
-	color: #ffcc00;
 }
 
 ::-webkit-input-placeholder {
