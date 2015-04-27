@@ -29,6 +29,8 @@ public class FriendMapInfo extends HttpServlet {
 		Map<String, Vector<String>> hashMap = null;
 		String facebookID = request.getParameter("facebookID");
 		User user = UserDataManager.getUser(facebookID);
+		System.out.println("USER NAME " + user.name);
+		System.out.println("FRIENDS " + user.friendIDs );
 		if (user != null && user.friendIDs != null) {
 			hashMap = new HashMap<String, Vector<String>>();
 			for (int i = 0; i < user.friendIDs.length; ++i) {
@@ -46,7 +48,12 @@ public class FriendMapInfo extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		JSONObject jsonObject = new JSONObject(hashMap);
-		System.out.println("JSON OBJ" + jsonObject);
+		
+		System.out.println("USER FACEBOOKID " + user.facebookID);
+		System.out.println("User Friends " + user.friendIDs);
+		System.out.println("HashMap " + hashMap);
+		System.out.println("JSON OBJ " + jsonObject);
+		
 		out.print(jsonObject);
 		out.flush();
 	}
