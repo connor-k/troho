@@ -39,11 +39,11 @@ public class StartupListener implements ServletContextListener {
      */
     public void contextInitialized(ServletContextEvent arg0) {
         // Join with startupThread now to ensure db is initialized
-    	/*try {
+    	try {
 			startupThread.join();
 		} catch (InterruptedException ie) {
 			System.out.println("StartupListener startupThread ie: " + ie.getMessage());
-		}*/
+		}
     	
     	context = arg0.getServletContext();
         try {

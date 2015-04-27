@@ -16,7 +16,6 @@
 	if (search != null) {
 		SearchHelper helper = new SearchHelper();
 		location = helper.findHouse(search);
-		System.out.println(location + "HELLO ARUSH HERE");
 	}
 %>
 <!DOCTYPE html>
@@ -243,7 +242,7 @@
 		
 		<div class = "row" id="submitSearch">
 	        <div class = "add-review-button">
-	            <div class = "col-lg-12"  style = "padding-top: 8px; padding-bottom: 40px; font-size:20px; color:white; text-align:center"><a>Submit</a></div>
+	            <div class = "col-lg-12"  style = "padding-top: 8px; padding-bottom: 40px; font-size:20px; color:white; text-align:center"><a style = "color:rgba(125,125,125);text-decoration:none">Submit</a></div>
 	        </div>
         </div>
         
