@@ -719,7 +719,7 @@
 				dataType: "JSON",
 				success:function(data){
 					console.log("val = " + data.reviewBool);
-					if(data.reviewBool === 'false') {
+					if(data.reviewBool === 'true' || data.authBool ==='false') {
 						console.log("Bout to hide review");
 						$("#rowWrite").toggle();
 					}
