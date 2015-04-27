@@ -349,7 +349,7 @@
 					for (int j = 0; j < housesRecommendations.length; j++) {
 						HousingLocation location = housesRecommendations[j];				
 				%>
-				
+					
 				
 					<div class = "col-lg-3 col-md-6" style="margin-bottom:30px;"> 
 						<div class = "house-card">
@@ -398,21 +398,20 @@
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     
     <script>
- 	 	function setHousingLocation(e){
+ 	 	function setHousingLocation(e,fbID){
  	 		 		
  	 		document.getElementById("top-level-name").innerText = e.innerHTML;
  	 		var currLocation = e.innerHTML;
  	 		FB.api('/me', function(response) {
 				var fbID = response.id;
+				sessionStorage.user = fbID;
+				sessionStorage.test = 5;
  	 		
  	 			$.ajax({
 					  url: "/troho/UpdateUserHousingLocation",
 					  type: "POST",
 					  data: {fbID : fbID, currentHousingLocation : currLocation},
-					  dataType: "JSON",
-					  success: function(data) {
-						  console.log("HEY");
-					  }
+					  dataType: "JSON"
 				});
  	 		});
 		}
@@ -462,6 +461,8 @@
     		  	allMarkers.push(marker);	
    		  		
     		<%}%>
+    		
+    		
 
 			for(var i = 0; i < allMarkers.length;++i) {
 
@@ -558,34 +559,26 @@
 				}) (i,google);
 
 			}
+			
+			var facebookID = <%=fbID%>;
+			
+ 	 		//console.log(facebookID);
+			
+			$.ajax({
+				url: "/troho/FriendMapInfo",
+				type: "POST",
+				data: {'facebookID' : facebookID},
+				dataType: "JSON",
+				success:function(data) {
+					//console.log(data);
+				}
+			});
   		}
 
   		google.maps.event.addDomListener(window, 'load', initialize);
   		
   		$(window).load(function() {
   			
-  			/*FB.api('/me', function(response) {
-  				
-				var fbID = response.id;
- 
-			  	var postData = {
-					"facebookID":fbID
-				};
-			  	
-				console.log(postData);
-				
-				$.ajax({
-					url: "/troho/FriendMapInfo",
-					type: "POST",
-					data: JSON.stringify(postData),
-					dataType: "JSON",
-					success:function(data) {
-						console.log(data);
-						console.log("HEY");
-					}
-				});		  
-				
- 	 		});*/
   		  
   		});
 

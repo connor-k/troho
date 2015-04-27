@@ -102,16 +102,6 @@
 							ids.push(data[i].id);
 						}
 						console.log(ids);
-						var postdata = {
-								"fbID" : fbID, 
-							  "friends":ids,
-						  };
-						$.ajax({
-							  url: "/troho/UpdateFriends",
-							  type: "POST",
-							  data: JSON.stringify(postdata),
-							  dataType: "JSON"
-							});
 				      } else {
 				    	  console.log("didnt work");
 				      }

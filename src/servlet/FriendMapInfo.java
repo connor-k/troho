@@ -46,7 +46,7 @@ public class FriendMapInfo extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		JSONObject jsonObject = new JSONObject(hashMap);
-		System.out.println(jsonObject);
+		System.out.println("JSON OBJ" + jsonObject);
 		out.print(jsonObject);
 		out.flush();
 	}
