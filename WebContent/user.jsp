@@ -42,12 +42,15 @@
 <html>
 <head>
 
+<title><%=user.name%>'s User Page</title>
+
+<!-- CSS -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.0/css/bootstrapValidator.min.css" rel="stylesheet"/>
 <link rel="stylesheet" href="css/index.css">
 <link rel="stylesheet" href="css/user.css">
 <link href="css/header-bar.css" rel="stylesheet">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/bootstrap.css" rel="stylesheet">
-
 
 </head>
 
@@ -433,14 +436,12 @@
     
     <script>
     
-    
-    
     	window.onload = function() {
 	    	if(<%=user.verifiedEmail%>) {
-	    		document.getElementById("email-form-input").style.display = "none";
+	    		document.getElementById("email-form").style.display = "none";
 	    	}
 	    	else {
-	    		document.getElementById("email-form-input").style.display = "inline";
+	    		document.getElementById("email-form").style.display = "inline";
 	    	}
     	} 
     
