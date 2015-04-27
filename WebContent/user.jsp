@@ -459,7 +459,6 @@
    		  		
     		<%}%>
 
-			//console.log(allMarkers[0]);
 			for(var i = 0; i < allMarkers.length;++i) {
 
 				(function(index,google) {
