@@ -646,6 +646,7 @@
 	var hideShowSubmit = function(){
 		FB.api('/me', function(response) {
 			var fbID = response.id;
+			console.log
 			var houseName = $('#introText').text();
 			var postData = {
 				"fbID": fbID, 
@@ -657,9 +658,9 @@
 				type: "GET",
 				data: JSON.stringify(postData),
 				dataType: "JSON",
-				success:function(data){
-					console.log("val = " + data.reviewBool);
-					if(data.reviewBool === 'false') {
+				success:function(data) {
+					console.log("val = " + data.reviewBool + data.authBool);
+					if(data.reviewBool === 'true' || data.authBool ==='false') {
 						console.log("Bout to hide review");
 						$("#rowWrite").toggle();
 					}
@@ -749,10 +750,9 @@
 						
 	 		 			var polling = $.post( 'http://localhost:8080/troho/NumberOfReviews',houseName);
 	 					polling.done( function( reviewsOnServer ) {		
-	 				  		
+	 				  		console.log("reached poll");
 	 				  		if(localStorage.numberOfReviewsOnClient !== reviewsOnServer) {
 	 				  			var difference = reviewsOnServer - localStorage.numberOfReviewsOnClient;
-	 				  			localStorage.numberOfReviewsOnClient = reviewsOnServer;
 	 				  			console.log("Difference of " + difference);
 	 				  			var arr = [];
 	 				  			for(var i = 0; i < 6; i++) {
@@ -783,6 +783,7 @@
 	 									htmlText += $('.reviews-container').html();
 	 									
 	 									$('.reviews-container').html(htmlText);	
+	 									localStorage.numberOfReviewsOnClient = reviewsOnServer;
 	 								}
 	 			 		 		});
 	 				  			
@@ -955,14 +956,12 @@
 						var reviewsArr = data.reviews;
 						console.log(reviewsArr);
 						var htmlText = "";
-						for (var i = 0; i < reviewsArr.length; i++) {
-							
+						for (var i = 0; i < reviewsArr.length; i++) {				
 							htmlText += '<div class="col-lg-12 single-review"><div class = "reviewer-info-row">';
 							htmlText += '<div class = "reviewer-image-and-name"><div class = "reviewer-image-wrapper"><img src =' +  reviewsArr[i].userImg  + ' class = "reviewer-image"/>';
 							htmlText += '</div><div class = "reviewer-username"><div class = "reviewer-username-row"><div class = "reviewer-username-cell">' + reviewsArr[i].name+'</div></div></div></div>';
 							htmlText += '<span style="padding-left: 75%; font-size:1.2em;">' + reviewsArr[i].timeWritten + '</span></div>';
-							htmlText += '<p class="scrolling-description-row">Description: ' + reviewsArr[i].review + '</p></div>';
-						
+							htmlText += '<p class="scrolling-description-row">Description: ' + reviewsArr[i].review + '</p></div>';				
 						}
 						console.log(htmlText);
 						$(".reviews-container").html(htmlText);	

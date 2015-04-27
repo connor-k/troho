@@ -55,7 +55,6 @@ public class CreateUser extends HttpServlet {
 				System.out.println("In confirm");
 				emailconfirm confirm = new emailconfirm(email, fbID);
 			} catch (EmailException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
