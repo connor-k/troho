@@ -94,16 +94,19 @@
 					<div id="post-verified-email-address"><p style = "font-size:24px"> <%=stringUSCVerifiedEmail%> </p></div>
 
 					<form id="email-form" class="form-inline">
+					
 						<div class="form-group">
 							<label for="verification-email-input">USC Email</label> 
-							<input type="email" class="form-control" id="verification-email-input"
-								placeholder="tommytrojan@usc.edu">
+							<input type="text" name="email" class="form-control" id="verification-email-input"
+								placeholder="tommytrojan@usc.edu" 
+								data-bv-notempty data-bv-notempty-message="You're required to fill in an email">
 						</div>
+							<button type="button" onclick="sendVerificationEmail()" class="btn btn-default submit-button">Send Verification</button>
 						
-						<button type="button" onclick="sendVerificationEmail()" class="btn btn-default">Send
-							Verification</button>
+						
 					</form>
-
+					
+					
 					<div>
 						<div class="btn-group btn-group-lg" style="margin: 10px">
 							<button type="button" class="btn btn-default dropdown-toggle"
@@ -434,6 +437,62 @@
     <!-- Google Maps -->
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     
+    
+    <!-- Validator -->
+    <script src="js/validator.js"></script>
+    
+    <!-- Bootstrap Validator -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.0/js/bootstrapValidator.min.js" type="text/javascript"></script>
+
+	<!-- Email Verification -->
+	<script>
+	$( document ).ready(function() {
+		$('.submit-button').attr('disabled', true);
+	});
+	
+	$('#email-form').on('status.field.bv', function(e, data) {
+		    formIsValid = true;
+		    $('.form-group',$(this)).each( function() {
+		        formIsValid = formIsValid && $(this).hasClass('has-success');
+		    });
+		    
+		    if(formIsValid) {
+		    	$('.submit-button', $(this)).attr('disabled', false);
+		    	$('.submit-button', $(this)).css("margin", '0px');
+		    	console.log("hey3");
+		    } else {
+		        $('.submit-button', $(this)).attr('disabled', true);
+		        $('.submit-button', $(this)).css("margin-top", '-23px');
+		    }
+		});
+		
+		
+		$('#email-form').bootstrapValidator({
+		message: 'This value is not valid',	
+		feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+		fields: {
+				email: {
+					validators: {
+						notEmpty: {
+							message: "An email address is mandatory."
+								  }, // notEmpty
+						regexp: {
+							regexp: /([@]usc.edu)/,
+							message: "You need an @usc.edu email address"
+						}		  
+								} // validators
+						  }
+				} // fields
+				});
+		$('#myModal').on('shown.bs.modal', function() {
+		$('#email-form').bootstrapValidator('resetForm', true);
+		});
+		</script>
+	
     <script>
     
     	window.onload = function() {
