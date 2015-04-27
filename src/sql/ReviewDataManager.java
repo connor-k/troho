@@ -10,7 +10,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 
 public class ReviewDataManager {
 	/** Store a review in the db, with housing location set by the key
@@ -57,31 +56,6 @@ public class ReviewDataManager {
 				ps.setBoolean(i, tags[i - 9]);
 			}
 			ps.setInt(15, Integer.parseInt(rent));
-			ps.executeUpdate();
-			
-			// Now update that housinglocation's average rating fields
-			try {
-				ps.close();
-			} catch (SQLException e) { /* Do nothing */ }
-			ps = conn.prepareStatement("UPDATE HousingLocations SET averageManagement=?, "
-					+ "averageAmenities=?, averageLocation=?, averageNoise=?, "
-					+ "averageCommunityChillFactor=?, averageRent=? WHERE housingKey=?");
-			if (hl.reviews != null) {
-				ps.setString(1, new DecimalFormat("#.##").format((hl.managementScore * hl.reviews.length + Integer.parseInt(ratings[0])) / (hl.reviews.length + 1)));
-				ps.setString(2, new DecimalFormat("#.##").format((hl.amenitiesScore * hl.reviews.length + Integer.parseInt(ratings[1])) / (hl.reviews.length + 1)));
-				ps.setString(3, new DecimalFormat("#.##").format((hl.locationScore * hl.reviews.length + Integer.parseInt(ratings[2])) / (hl.reviews.length + 1)));
-				ps.setString(4, new DecimalFormat("#.##").format((hl.noiseScore * hl.reviews.length + Integer.parseInt(ratings[3])) / (hl.reviews.length + 1)));
-				ps.setString(5, new DecimalFormat("#.##").format((hl.communityChillFactorScore * hl.reviews.length + Integer.parseInt(ratings[4])) / (hl.reviews.length + 1)));
-				ps.setString(6, new DecimalFormat("#.##").format((hl.averageRent* hl.reviews.length + Integer.parseInt(rent))  / (hl.reviews.length + 1)));
-			} else {
-				ps.setString(1, new DecimalFormat("#.##").format(hl.managementScore));
-				ps.setString(2, new DecimalFormat("#.##").format(hl.amenitiesScore));
-				ps.setString(3, new DecimalFormat("#.##").format(hl.locationScore));
-				ps.setString(4, new DecimalFormat("#.##").format(hl.noiseScore));
-				ps.setString(5, new DecimalFormat("#.##").format(hl.communityChillFactorScore));
-				ps.setString(6, new DecimalFormat("#.##").format(hl.averageRent));
-			}
-			ps.setInt(7, housingKey);
 			ps.executeUpdate();
 		} catch (SQLException sqle) {
 			System.out.println ("ReviewDataManager SQLException: " + sqle.getMessage());
