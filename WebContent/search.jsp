@@ -1,5 +1,6 @@
 <%@page import="sql.HousingDataManager"%>
 <%@page import="sql.Review"%>
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="sql.UserDataManager"%>
 <%@page import="Trie.SearchHelper"%>
 <%@page import="sql.HousingLocation"%>
@@ -282,7 +283,7 @@
 					  		<div class = "result-bottom-half">
 					  			<div class="container">
 					  			<div class = "row">
-					  				<div class = "col-lg-4"> Price: <%= house.averageRent%></div>
+					  				<div class = "col-lg-4"> Price: <%= new DecimalFormat("#.##").format(house.averageRent) %> </div>
 									<div class = "col-lg-4"> Distance:<%=house.minutesWalking %> minutes</div>
 								</div>
 								<div class = "row">

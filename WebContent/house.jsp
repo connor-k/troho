@@ -3,6 +3,7 @@
 <%@page import="sql.UserDataManager"%>
 <%@page import="sql.HousingLocation"%>
 <%@page import="sql.User"%>
+<%@page import="java.text.DecimalFormat"%>
 <%@ page errorPage="404.html" %>
 
 
@@ -219,22 +220,22 @@
                 <div class = "col-lg-10 col-md-12" id="descriptionText" style="display:none">
                     <div class="row" id="firstRowDescription">
                         <div class="col-lg-8">
-                            <p class="descriptionRow">Location: Northside of Campus</p>
+                            <p class="descriptionRow">Location: <%=location.address %></p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-8">
-                            <p class="descriptionRow">Price: <%if (location != null) out.print(location.averageRent);  %>$/Month</p>
+                            <p class="descriptionRow">Price: <%if (location != null) out.print(new DecimalFormat("#.##").format(location.averageRent));  %>$/Month</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-8">
-                            <p class="descriptionRow">Bedrooms: Available</p>
+                            <p class="descriptionRow">Rooms: Available to lease</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <p class="descriptionRow">Description:<% if (location != null) out.print(location.description); %></p>
+                            <p class="descriptionRow">Description: <% if (location != null) out.print(location.description); %></p>
                         </div>
                     </div>
                 </div>
@@ -243,24 +244,10 @@
                 <div class = "col-lg-10 col-md-12" id="amenitiesText" style="display:none">
                     <div class="row" id="firstRowDescription">
                         <div class="col-lg-8">
-                            <p class="descriptionRow">AMENITIES: Northside of Campus</p>
+                            <p class="descriptionRow">Amenities: <%=location.amenities %></p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <p class="descriptionRow">Price: <%if (location != null) out.print(location.averageRent);  %>$/Month</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <p class="descriptionRow">Bedrooms: Available</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <p class="descriptionRow">Description:<% if (location != null) out.print(location.description); %></p>
-                        </div>
-                    </div>
+                    
                 </div>
                 
                 <div class = "col-lg-10 col-md-12" id="priceGraph">
@@ -273,24 +260,10 @@
                 <div class = "col-lg-10 col-md-12" id="floorPlan" style="display:none">
                     <div class="row" id="firstRowDescription">
                         <div class="col-lg-8">
-                            <p class="descriptionRow">FLOOR PLAN: Northside of Campus</p>
+                            <p class="descriptionRow">Floor Plan: <img style="margin-left:25%;" src="<%=location.floorplanURL %>" height="300" width="400"></p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <p class="descriptionRow">Price: <%if (location != null) out.print(location.averageRent);  %>$/Month</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <p class="descriptionRow">Bedrooms: Available</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <p class="descriptionRow">Description:<% if (location != null) out.print(location.description); %></p>
-                        </div>
-                    </div>
+            
                 </div>
                 
                 
