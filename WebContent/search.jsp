@@ -357,6 +357,18 @@
 		
 		$(document).ready(function() {
 			$("#submitSearch").on("click", function() {
+				search();
+
+ 			});
+	 		$('#search').bind('keypress', function(e) {
+				 var code = e.keyCode || e.which;
+				 if(code == 13) { //Enter keycode
+					 console.log("here");
+					search();
+				 }
+			});
+			
+			var search = function() { 
 				var managementScore = $("#managementBox").val();
 		 		var amenitiesScore = $("#amenitiesBox").val();
 		 		var locationScore = $("#locationBox").val();
@@ -400,9 +412,8 @@
 						$(".result").html(htmlText);	
 					}
 				});
- 			});
-			
-			
+			};				
+				
 			$('#locationBoxIn > .listElement').on("click", function(){
  			   $("#locationBox").text($(this).text());  
  			  $("#locationBox").val($(this).val());

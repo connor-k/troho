@@ -580,7 +580,8 @@
                     <%
                     if (location !=null && location.reviews != null) {
 	                    System.out.println("size: " + location.reviews.length);
-	                    for (int i =0; i < location.reviews.length; i++) {
+	                    for (int i = location.reviews.length - 1; i >= 0; i--) {
+	                    	System.out.println(i);
 	                    	Review temp = location.reviews[i];
 	                    	User user = UserDataManager.getUser(temp.facebookID);                    
                     %> 
@@ -591,10 +592,8 @@
                             <div class = "reviewer-image-and-name">
                                 
                                 <div class = "reviewer-image-wrapper">
-                                <img src = "<%=user.imageURL %>" class = "reviewer-image"/>
+                                	<img src = "<%=user.imageURL %>" class = "reviewer-image"/>
                                 </div>
-
-
                                 <div class = "reviewer-username">
                                     <div class = "reviewer-username-row">
                                         <div class = "reviewer-username-cell">
@@ -602,8 +601,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>
-
+                            <span style="padding-left: 75%; font-size:1.2em;"><%=temp.timeWritten %></span>
                         </div>
 
                         <p class="scrolling-description-row">Description: <%=temp.comment %></p>
@@ -642,7 +642,39 @@
     
     
     <script>
+    
+	var hideShowSubmit = function(){
+		FB.api('/me', function(response) {
+			var fbID = response.id;
+			var houseName = $('#introText').text();
+			var postData = {
+				"fbID": fbID, 
+				"houseName": houseName
+				};
+			console.log(postData);
+			$.ajax({
+				url: "/troho/UserReviewedHousing",
+				type: "GET",
+				data: JSON.stringify(postData),
+				dataType: "JSON",
+				success:function(data){
+					console.log("val = " + data.reviewBool);
+					if(data.reviewBool === 'false') {
+						console.log("Bout to hide review");
+						$("#rowWrite").toggle();
+					}
+				}
+			});
+		});
+	}
     	$(document).ready(function() {
+    		$("#descriptionText").show();
+    		$("#amenitiesText").hide();
+	    	$("#priceGraph").hide();
+	    	$("#floorPlan").hide();
+	    	
+		    $("#description-tab").addClass('active');	   
+		    
 		    var labelsData = [];
 		    var avgRentData = [];
 		    
@@ -686,39 +718,11 @@
 		            responsive: true,
 		            scaleShowLabels: true
 		        };
-	
-	    	var ctx1 = document.getElementById("chart1").getContext("2d");
-	
-		    
+	    	var ctx1 = document.getElementById("chart1").getContext("2d");	    
 		    $('#priceGraph').on('show', function (e) {
 		    	console.log("hey");
 		    	window.myNewChart = new Chart(ctx1).Line(lineChartData, line_chart_options);
 		    });
-	        
-			/*var hideShowSubmit = function(){
-				FB.api('/me', function(response) {
-					var fbID = response.id;
-					var houseName = $('#introText').text();
-					var postData = {
-						"fbID": fbID, 
-						"houseName": houseName
-						};
-					
-					$.ajax({
-						url: "/troho/VerifiedUser",
-						type: "GET",
-						data: JSON.stringify(postData),
-						dataType: "JSON",
-						success:function(data){
-							console.log(data.reviewBool);
-							if(data.reviewBool == false) {
-								$("#rowWright").toggle();
-							}
-						}
-					});
-				});
-			}*/
-	    
 		    (function ($) {
 		        $.each(['show', 'hide'], function (i, ev) {
 		          var el = $.fn[ev];
@@ -919,7 +923,11 @@
 						var htmlText = "";
 						for (var i = 0; i < reviewsArr.length; i++) {
 							
-							htmlText +='<div class="col-lg-12 single-review"><div class = "reviewer-info-row"><div class = "reviewer-image-and-name"><div class = "reviewer-image-wrapper"><img src =' +  reviewsArr[i].userImg  + ' class = "reviewer-image"/></div><div class = "reviewer-username"><div class = "reviewer-username-row"><div class = "reviewer-username-cell">' + reviewsArr[i].name+'</div></div></div></div></div><p class="scrolling-description-row">Description: ' + reviewsArr[i].review + '</p></div>';
+							htmlText += '<div class="col-lg-12 single-review"><div class = "reviewer-info-row">';
+							htmlText += '<div class = "reviewer-image-and-name"><div class = "reviewer-image-wrapper"><img src =' +  reviewsArr[i].userImg  + ' class = "reviewer-image"/>';
+							htmlText += '</div><div class = "reviewer-username"><div class = "reviewer-username-row"><div class = "reviewer-username-cell">' + reviewsArr[i].name+'</div></div></div></div>';
+							htmlText += '<span style="padding-left: 75%; font-size:1.2em;">' + reviewsArr[i].timeWritten + '</span></div>';
+							htmlText += '<p class="scrolling-description-row">Description: ' + reviewsArr[i].review + '</p></div>';
 						
 						}
 						console.log(htmlText);
