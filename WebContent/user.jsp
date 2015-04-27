@@ -399,16 +399,20 @@
     
     <script>
  	 	function setHousingLocation(e){
+ 	 		 		
  	 		document.getElementById("top-level-name").innerText = e.innerHTML;
  	 		var currLocation = e.innerHTML;
  	 		FB.api('/me', function(response) {
 				var fbID = response.id;
  	 		
- 	 		$.ajax({
-				  url: "/troho/UpdateUserHousingLocation",
-				  type: "POST",
-				  data: {fbID : fbID, currentHousingLocation : currLocation},
-				  dataType: "JSON"
+ 	 			$.ajax({
+					  url: "/troho/UpdateUserHousingLocation",
+					  type: "POST",
+					  data: {fbID : fbID, currentHousingLocation : currLocation},
+					  dataType: "JSON",
+					  success: function(data) {
+						  console.log("HEY");
+					  }
 				});
  	 		});
 		}
@@ -557,6 +561,33 @@
   		}
 
   		google.maps.event.addDomListener(window, 'load', initialize);
+  		
+  		$(window).load(function() {
+  			
+  			/*FB.api('/me', function(response) {
+  				
+				var fbID = response.id;
+ 
+			  	var postData = {
+					"facebookID":fbID
+				};
+			  	
+				console.log(postData);
+				
+				$.ajax({
+					url: "/troho/FriendMapInfo",
+					type: "POST",
+					data: JSON.stringify(postData),
+					dataType: "JSON",
+					success:function(data) {
+						console.log(data);
+						console.log("HEY");
+					}
+				});		  
+				
+ 	 		});*/
+  		  
+  		});
 
 	</script>
 
