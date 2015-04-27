@@ -408,6 +408,10 @@ hr {
 	background: #BABABA;
 }
 
+input[type='range'] {
+	cursor: ew-resize;
+}
+
 .slider {
 	width:70% !important;
 	margin-left:15%;
