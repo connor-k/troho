@@ -91,6 +91,8 @@
 			FB.api('/me', function(response) {
 				document.getElementById('user-sequence').style.display = "inline";
 				document.getElementById('welcome-message').innerHTML = 'Welcome ' + response.name + '!';
+				document.getElementById('log-out-sequence').style.display = "inline";
+				document.getElementById('log-out-message').innerHTML = '| Log Out';
 				name = response.name;
 				fbID = response.id;
 				email = response.email;
@@ -128,8 +130,6 @@
 	 				createUser(name, imgURL, fbID, email, ids);
 				});
 			});
-			document.getElementById('log-out-sequence').style.display = "inline";
-			document.getElementById('log-out-message').innerHTML = '| Log Out';
 		}
 		
 		function updateHeaderNotLoggedIn() {
@@ -147,7 +147,8 @@
 		function logOut() {
 			FB.logout(function(response){
 			});
-			location.reload();
+			var site = "/troho/index.jsp";
+			window.open(site,"_self")
 		}
 		
 		function goToUser() {
