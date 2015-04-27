@@ -38,7 +38,7 @@
 	cursor: hand;
 }
 
-#welcome-message, #log-in-message, #sign-up {
+#welcome-message, #log-in-message, #sign-up, #log-out-message {
 	vertical-align:middle;
 	font-size: 24px;
 	display:inline;

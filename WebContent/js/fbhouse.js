@@ -114,6 +114,12 @@
 			document.getElementById('log-in-sequence').style.display = "inline";
 		}
 		
+		function logOut() {
+			FB.logout(function(response){
+			});
+			location.reload();
+		}
+		
 		function logIn() {
 			FB.login(function(response){
 				  checkLoginState();

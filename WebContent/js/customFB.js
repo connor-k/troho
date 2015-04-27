@@ -82,6 +82,7 @@
 		// successful.  See statusChangeCallback() for when this call is made.
 		function updateHeaderSuccessfulLogIn() {
 			document.getElementById('log-in-sequence').style.display = "none";
+			
 			var name = null;
 			var imgURL = null;
 			var fbID = null;
@@ -113,11 +114,14 @@
 	 				createUser(name, imgURL, fbID, email);
 				});
 			});
+			document.getElementById('log-out-sequence').style.display = "inline";
+			document.getElementById('log-out-message').innerHTML = '| Log Out';
 		}
 		
 		function updateHeaderNotLoggedIn() {
 			document.getElementById('user-sequence').style.display = "none";
 			document.getElementById('log-in-sequence').style.display = "inline";
+			document.getElementById('log-out-sequence').style.display = "none";
 		}
 		
 		function logIn() {
@@ -125,6 +129,13 @@
 				  checkLoginState();
 				}, {scope: 'public_profile,user_friends, email'});
 		}
+		
+		function logOut() {
+			FB.logout(function(response){
+			});
+			location.reload();
+		}
+		
 		function goToUser() {
 			FB.api('/me', function(response) {
 				var site = "/troho/user.jsp?id=" + response.id;

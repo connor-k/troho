@@ -40,6 +40,9 @@
 				<div class="welcome" id="welcome-message"></div>
 				<img id="profile-image" src=" "></img>
 			</div>
+			<div id="log-out-sequence" onclick="logOut()">
+				<div id="log-out-message"></div>
+			</div>
 		</div>
 	</div>
 	
