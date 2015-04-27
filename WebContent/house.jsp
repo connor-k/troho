@@ -61,6 +61,11 @@
 			    margin: 60px auto 0px auto;
 			
 			}
+			.star {
+				display:inline-block;
+				width:30px;
+				height: auto;
+			}
 		</style>
 	<%
 	}
@@ -585,7 +590,7 @@
 	                    	Review temp = location.reviews[i];
 	                    	User user = UserDataManager.getUser(temp.facebookID);                    
                     %> 
-                    <div class="col-lg-12 single-review">
+                    <div class="col-lg-6 single-review">
 
                         <div class = "reviewer-info-row">
 
@@ -607,8 +612,65 @@
                         </div>
 
                         <p class="scrolling-description-row">Description: <%=temp.comment %></p>
-                    </div>
 
+                    </div>
+                       <div class = "star-container col-lg-4" style = "display:inline-block; margin-left:15px; margin-top:3px; ">
+                        	<br>       	
+                        	<br>
+	                      	Management Score
+	                        <br>
+	                        <% 
+                     			for (int k = 0; k < temp.noiseScore; k++) {
+	                     	%>
+	                        	<img src = "./img/star.png" class = "star"/>
+	                        <%
+                   				}                     	
+	                        %>
+	                        <br>
+	                        <br>
+	                        Amenities Score
+	                        <br>
+	                        <% 
+                     			for (int k = 0; k < temp.noiseScore; k++) {
+	                     	%>
+	                        	<img src = "./img/star.png" class = "star"/>
+	                        <%
+                   				}                     	
+	                        %>
+	                        <br>
+	                        <br>
+	                        Location Score
+	                        <br>
+	                        <% 
+                     			for (int k = 0; k < temp.noiseScore; k++) {
+	                     	%>
+	                        	<img src = "./img/star.png" class = "star"/>
+	                        <%
+                   				}                     	
+	                        %>
+	                        <br>
+	                        <br>
+	                        Chill Score
+	                        <br>
+	                        <% 
+                     			for (int k = 0; k < temp.noiseScore; k++) {
+	                     	%>
+	                        	<img src = "./img/star.png" class = "star"/>
+	                        <%
+                   				}                     	
+	                        %>
+	                        <br>
+	                        <br>
+	                        Noise Score
+	                        <br>
+	                        <% 
+                     			for (int k = 0; k < temp.noiseScore; k++) {
+	                     	%>
+	                        	<img src = "./img/star.png" class = "star"/>
+	                        <%
+                   				}                     	
+	                        %>
+                     	</div>
 					<%
 						}  
                     }
@@ -785,7 +847,29 @@
 	 										
 	 										console.log(i);
 	 										htmlText +='<div class="col-lg-12 single-review"><div class = "reviewer-info-row"><div class = "reviewer-image-and-name"><div class = "reviewer-image-wrapper"><img src =' +  reviewsArr[i].userImg  + ' class = "reviewer-image"/></div><div class = "reviewer-username"><div class = "reviewer-username-row"><div class = "reviewer-username-cell">' + reviewsArr[i].name+'</div></div></div></div></div><p class="scrolling-description-row">Description: ' + reviewsArr[i].review + '</p></div>';
-	 									
+	 										htmlText += '<div class = "star-container col-lg-4" style = "display:inline-block; margin-left:15px; margin-top:3px; ">';
+	 										
+	 										htmlText += '<br><br>Management Score<br>'
+	 			                     		for (var k = 0; k < reviewsArr[i].managementScore; k++) {
+	 				                        	htmlText += '<img src = "./img/star.png" class = "star"/>'
+	 			                     		}
+	 										htmlText += '<br><br>Amenities Score<br>'
+	 				                     		for (var k = 0; k < reviewsArr[i].amenitiesScore; k++) {
+	 					                        	htmlText += '<img src = "./img/star.png" class = "star"/>'
+	 				                     		}
+	 										htmlText += '<br><br>Location Score<br>'
+	 				                     		for (var k = 0; k < reviewsArr[i].locationScore; k++) {
+	 					                        	htmlText += '<img src = "./img/star.png" class = "star"/>'
+	 				                     		}
+	 										htmlText += '<br><br>Chill Score<br>'
+	 				                     		for (var k = 0; k < reviewsArr[i].chillScore; k++) {
+	 					                        	htmlText += '<img src = "./img/star.png" class = "star"/>'
+	 				                     		}
+	 										htmlText += '<br><br>Noise Score<br>'
+	 				                     		for (var k = 0; k < reviewsArr[i].noiseScore; k++) {
+	 					                        	htmlText += '<img src = "./img/star.png" class = "star"/>'
+	 				                     		}
+	 										htmlText+='</div>';
 	 									}
 	 									
 	 									htmlText += $('.reviews-container').html();
@@ -964,14 +1048,37 @@
 					dataType: "JSON",
 					success:function(data) {
 						var reviewsArr = data.reviews;
-						console.log(reviewsArr);
 						var htmlText = "";
 						for (var i = 0; i < reviewsArr.length; i++) {				
 							htmlText += '<div class="col-lg-12 single-review"><div class = "reviewer-info-row">';
 							htmlText += '<div class = "reviewer-image-and-name"><div class = "reviewer-image-wrapper"><img src =' +  reviewsArr[i].userImg  + ' class = "reviewer-image"/>';
 							htmlText += '</div><div class = "reviewer-username"><div class = "reviewer-username-row"><div class = "reviewer-username-cell">' + reviewsArr[i].name+'</div></div></div></div>';
 							htmlText += '<span style="padding-left: 75%; font-size:1.2em;">' + reviewsArr[i].timeWritten + '</span></div>';
-							htmlText += '<p class="scrolling-description-row">Description: ' + reviewsArr[i].review + '</p></div>';				
+							htmlText += '<p class="scrolling-description-row">Description: ' + reviewsArr[i].review + '</p></div>';	
+							
+							htmlText += '<div class = "star-container col-lg-4" style = "display:inline-block; margin-left:15px; margin-top:3px; ">';
+							
+							htmlText += '<br><br>Management Score<br>'
+                     		for (var k = 0; k < reviewsArr[i].managementScore; k++) {
+	                        	htmlText += '<img src = "./img/star.png" class = "star"/>'
+                     		}
+							htmlText += '<br><br>Amenities Score<br>'
+	                     		for (var k = 0; k < reviewsArr[i].amenitiesScore; k++) {
+		                        	htmlText += '<img src = "./img/star.png" class = "star"/>'
+	                     		}
+							htmlText += '<br><br>Location Score<br>'
+	                     		for (var k = 0; k < reviewsArr[i].locationScore; k++) {
+		                        	htmlText += '<img src = "./img/star.png" class = "star"/>'
+	                     		}
+							htmlText += '<br><br>Chill Score<br>'
+	                     		for (var k = 0; k < reviewsArr[i].chillScore; k++) {
+		                        	htmlText += '<img src = "./img/star.png" class = "star"/>'
+	                     		}
+							htmlText += '<br><br>Noise Score<br>'
+	                     		for (var k = 0; k < reviewsArr[i].noiseScore; k++) {
+		                        	htmlText += '<img src = "./img/star.png" class = "star"/>'
+	                     		}
+							htmlText+='</div>';
 						}
 						console.log(htmlText);
 						$(".reviews-container").html(htmlText);	
