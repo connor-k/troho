@@ -433,6 +433,8 @@
     
     <script>
     
+    
+    
     	window.onload = function() {
 	    	if(<%=user.verifiedEmail%>) {
 	    		document.getElementById("email-form-input").style.display = "none";
