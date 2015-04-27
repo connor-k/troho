@@ -448,100 +448,34 @@
     	function initialize() {
    	 		var mapCanvas = document.getElementById('map-canvas');
     		var mapOptions = {
-	          //center: new google.maps.LatLng(34.022228, -118.288829),
 	          center: new google.maps.LatLng(34.0245, -118.285),
 	          zoom: 15,
 	          mapTypeId: google.maps.MapTypeId.ROADMAP
 	        }
 
 	        var map = new google.maps.Map(mapCanvas,mapOptions);
+    		var allMarkers = [];
+    		
+    		<%HousingLocation[] housingLocations =  HousingDataManager.getAllHousingLocations();
+	   		for(int i = 0; i < housingLocations.length; i++) {
+	   			HousingLocation location = housingLocations[i];
+	   		
+	   		%>
+   		  		var marker = new google.maps.Marker({
+   		  			position: new google.maps.LatLng(<%=location.gpsLatitude%> , <%=location.gpsLongitude%>),
+   	     			map: map,
+   	      			title: '<%=location.locationName%>'
+   		  		});
+    		  		
+    		  	allMarkers.push(marker);	
+   		  		
+    		<%}%>
 
-	        var gatewayMarker = new google.maps.Marker({
-     			position: new google.maps.LatLng(34.022964, -118.279809),
-     			map: map,
-      			title: 'Gateway'
-  			});
-
-  			var iconMarker = new google.maps.Marker({
-     			position: new google.maps.LatLng(34.018375, -118.282053),
-     			map: map,
-      			title: 'Icon'
-  			});
-
-  			var cardinalMarker = new google.maps.Marker({
-     			position: new google.maps.LatLng(34.026244, -118.287239),
-     			map: map,
-      			title: 'Cardinal Gardens'
-  			});
-
-  			var lorenzoMarker = new google.maps.Marker({
-     			position: new google.maps.LatLng(34.027460, -118.272983),
-     			map: map,
-      			title: 'Lorenzo'
-  			});
-
-  			var northMarker = new google.maps.Marker({
-     			position: new google.maps.LatLng(34.020620, -118.281432),
-     			map: map,
-      			title: 'New North'
-  			});
-
-  			var parksideMarker = new google.maps.Marker({
-     			position: new google.maps.LatLng(34.018883, -118.290713),
-     			map: map,
-      			title: 'Parkside'
-  			});
-
-  			var shrineMarker = new google.maps.Marker({
-     			position: new google.maps.LatLng(34.024963, -118.279815),
-     			map: map,
-      			title: 'Shrine'
-  			});
-
-  			var westMarker = new google.maps.Marker({
-     			position: new google.maps.LatLng(34.026785, -118.275799),
-     			map: map,
-      			title: 'W. 27th Place'
-  			});
-
-  			var webMarker = new google.maps.Marker({
-     			position: new google.maps.LatLng(34.024719, -118.287704),
-     			map: map,
-      			title: 'W. 27th Place'
-  			});
-
-  			
-
-  			/*var allMarkers = [gatewayMarker, northMarker, westMarker, iconMarker, shrineMarker,
-  			parksideMarker, lorenzoMarker, cardinalMarker, webMarker];*/
-
-  			var allMarkers = [];
-
-  			allMarkers[0] = gatewayMarker;
-  			allMarkers[1] = northMarker;
-  			allMarkers[2] = westMarker;
-  			allMarkers[3] = iconMarker;
-  			allMarkers[4] = shrineMarker;
-  			allMarkers[5] = parksideMarker;
-  			allMarkers[6] = lorenzoMarker;
-  			allMarkers[7] = cardinalMarker;
-  			allMarkers[8] = webMarker;
-  			
-
-			/*google.maps.event.addListener(allMarkers[i], 'mouseover', function() {
-
-			});*/
-			//console.log(allMarkers[0]);
 			for(var i = 0; i < allMarkers.length;++i) {
-
-				/*google.maps.event.addListener(allMarkers[i], 'mouseover', function() {
-
-				});*/
 
 				(function(index,google) {
 					
 					google.maps.event.addListener(allMarkers[index], 'mouseover', function() {
-							//console.log(allMarkers[0]);
 						
 							var scale = Math.pow(2, map.getZoom());
 							var nw = new google.maps.LatLng(
@@ -549,22 +483,17 @@
 							    map.getBounds().getSouthWest().lng()
 							);
 							var worldCoordinateNW = map.getProjection().fromLatLngToPoint(nw);
-							//var worldCoordinate = map.getProjection().fromLatLngToPoint(gatewayMarker.getPosition());
+							
 							var worldCoordinate = map.getProjection().fromLatLngToPoint(allMarkers[index].getPosition());
 							var pixelOffset = new google.maps.Point(
 							    Math.floor((worldCoordinate.x - worldCoordinateNW.x) * scale),
 							    Math.floor((worldCoordinate.y - worldCoordinateNW.y) * scale)
 							);
 
-							var x = Math.floor((worldCoordinate.x - worldCoordinateNW.x) * scale) + 370;
-							var y = Math.floor((worldCoordinate.y - worldCoordinateNW.y) * scale) + 520;
+							var x = Math.floor((worldCoordinate.x - worldCoordinateNW.x) * scale);
+							var y = Math.floor((worldCoordinate.y - worldCoordinateNW.y) * scale);
 
 							console.log(x + "," + y);
-
-					    //$(document).click(function(e){
-
-					        //var x = e.pageX + 'px';
-					        //var y = e.pageY + 'px';
 
 					        var img = $('<img src="./img/CalvinHackSC.jpg" alt="myimage" class = "friend-circle" />');
 					        var div = $('<div>').css({
@@ -582,7 +511,7 @@
 					        div.addClass('markerToRemove');
 
 
-					        $(document.body).append(div);  
+					        $('#map-canvas').append(div);  
 
 					        x = x + 65;
 
