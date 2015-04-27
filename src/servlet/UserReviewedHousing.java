@@ -14,14 +14,14 @@ import sql.HousingDataManager;
 /**
  * Servlet implementation class VerifiedUser
  */
-@WebServlet("/VerifiedUser")
-public class VerifiedUser extends HttpServlet {
+@WebServlet("/UserReviewedHousing")
+public class UserReviewedHousing extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VerifiedUser() {
+    public UserReviewedHousing() {
         super();
         // TODO Auto-generated constructor stub
     }

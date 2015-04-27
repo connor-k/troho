@@ -80,6 +80,8 @@
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
 
+		
+
 		// Here we run a very simple test of the Graph API after login is
 		// successful.  See statusChangeCallback() for when this call is made.
 		function updateHeaderSuccessfulLogIn() {
@@ -89,29 +91,7 @@
 			var fbID = null;
 			var email = null;
 			
-			var hideShowSubmit = function(){
-				FB.api('/me', function(response) {
-					var fbID = response.id;
-					var houseName = $('#introText').text();
-					var postData = {
-						"fbID": fbID, 
-						"houseName": houseName
-						};
-					
-					$.ajax({
-						url: "/troho/VerifiedUser",
-						type: "GET",
-						data: JSON.stringify(postData),
-						dataType: "JSON",
-						success:function(data){
-							console.log(data.reviewBool);
-							if(data.reviewBool == false) {
-								$("#rowWright").toggle();
-							}
-						}
-					});
-				});
-			}
+
 			
 			FB.api('/me', function(response) {
 				document.getElementById('user-sequence').style.display = "inline";
@@ -123,6 +103,7 @@
 	 				imgURL = response.data.url;
 	 				document.getElementById('profile-image').setAttribute("src", imgURL);
 	 				createUser(name, imgURL, fbID, email);
+	 				console.log("Hiding review?");
 	 				hideShowSubmit();
 				});
 			});
