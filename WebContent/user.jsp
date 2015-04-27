@@ -90,7 +90,7 @@
 
 					<div id="post-verified-email-address"><p style = "font-size:24px"> <%=stringUSCVerifiedEmail%> </p></div>
 
-					<form id="email-form-input" class="form-inline">
+					<form id="email-form-input" class="form-inline" value="0">
 						<div class="form-group">
 							<label for="verification-email-input">USC Email</label> <input type="email"
 								class="form-control" id="verification-email-input"
@@ -433,16 +433,14 @@
     
     <script>
     
-    window.onload = function() {
-    	var email = document.getElementById("post-verified-email-address").innerText;
-    	console.log(email);
-    	if(email === 'Email Not Verified') {
-    		document.getElementById("email-form-input").style.display = "inline";
-    	}
-    	else {
-    		document.getElementById("email-form-input").style.display = "none";	
-    	}
-    }
+    	window.onload = function() {
+	    	if(<%=user.verifiedEmail%>) {
+	    		document.getElementById("email-form-input").style.display = "none";
+	    	}
+	    	else {
+	    		document.getElementById("email-form-input").style.display = "inline";
+	    	}
+    	} 
     
     	function sendVerificationEmail() {
 	 	 		var uscEmail = document.getElementById("verification-email-input").value;
