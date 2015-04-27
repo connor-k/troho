@@ -26,26 +26,33 @@ public class Validation extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		String key = request.getParameter("key");
-		String id = request.getParameter("id");
-		boolean valid = emailconfirm.emailConfirmed(key, id);
+		//get parameters passed into url 
+		String key = request.getParameter("key");	//random UUID code 
+		String id = request.getParameter("id");		//unique user fb ID
+		
+		//cross reference parameters with those stored in user database
+		boolean valid = emailconfirm.emailConfirmed(key, id);	
 		
 		response.setContentType("text/html");
 	    PrintWriter out = response.getWriter();
 	    
+	    //Display whether or not email was confirmed
 	    String title; 
 	    if(valid)
 	    	title = "Email confirmed!"; 
 	    else
 	    	title = "Email or verification key not valid."; 
-	    out.println("<h1>"+title+"</h1>"); 
+	    out.println("<h1>"+title+"</h1>"); 		//prints page header 
 	    
+	    //hyperlink to help redirect user back to home page 
 	    String urlstring = "href=http://localhost:8080/troho/index.jsp"; 
 		String hyperlink = "<a " + urlstring + ">click here</a>";
 	   
 		String redir = "You will be redirected shortly"; 
 	    redir += "<br>If not, please " + hyperlink; 
 	    out.println(redir); 
+	    
+	    //after 6 seconds, redirects user to home page 
 		response.setHeader("Refresh", "6; URL=http://localhost:8080/troho/index.jsp");
 	}
 	
