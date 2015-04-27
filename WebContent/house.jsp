@@ -173,6 +173,33 @@
                         %>
                      </div>
     			</div>
+    			<div class="col-lg-1"></div>
+    			<div class="col-lg-4 col-md-12 rating-categories-container">
+    				<p class="rating">Amenities Rating</p>
+                     <div class = "star-container" style = "display:inline-block; margin-left:15px; margin-top:3px; position:absolute;">
+                        <% if (location != null) {
+                     			for (int i = 0; i < location.amenitiesScore; i++) {
+                     	%>
+                        <img src = "./img/star.png" class = "star"/>
+                        <%
+                     			}
+                     	}
+                        %>
+                     </div>
+    			</div>
+    			<div class="col-lg-4 col-md-12 rating-categories-container">
+    				<p class="rating">Noise Rating</p>
+                     <div class = "star-container" style = "display:inline-block; margin-left:15px; margin-top:3px; position:absolute;">
+                        <% if (location != null) {
+                     			for (int i = 0; i < location.noiseScore; i++) {
+                     	%>
+                        <img src = "./img/star.png" class = "star"/>
+                        <%
+                     			}
+                     	}
+                        %>
+                     </div>
+    			</div>
     		</div>
     	</div>
 
