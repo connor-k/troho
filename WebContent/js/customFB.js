@@ -90,6 +90,8 @@
 			FB.api('/me', function(response) {
 				document.getElementById('user-sequence').style.display = "inline";
 				document.getElementById('welcome-message').innerHTML = 'Welcome ' + response.name + '!';
+				document.getElementById('log-out-sequence').style.display = "inline";
+				document.getElementById('log-out-message').innerHTML = '| Log Out';
 				name = response.name;
 				fbID = response.id;
 				email = response.email;
@@ -114,8 +116,6 @@
 	 				createUser(name, imgURL, fbID, email);
 				});
 			});
-			document.getElementById('log-out-sequence').style.display = "inline";
-			document.getElementById('log-out-message').innerHTML = '| Log Out';
 		}
 		
 		function updateHeaderNotLoggedIn() {
