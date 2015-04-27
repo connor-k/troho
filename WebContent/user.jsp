@@ -378,7 +378,18 @@
 				%>	
 			</div>
 		</div>
-		
+		<%         
+			if (user != null && user.isAdmin) {
+		%>
+			<div class = "row" style = "background-color: #c05049;">
+		        <div class = "add-admin-button">
+		            <div class = "col-lg-12"  style = "padding-top: 8px; padding-bottom: 40px; font-size:20px; color:white; text-align:center"><a href="/troho/admin.jsp">Admin Page</a></div>
+		        </div>
+	        </div>
+
+		<%
+			}
+		%>
 
 	</div>
 
