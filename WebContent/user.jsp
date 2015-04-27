@@ -17,14 +17,21 @@
 	}
 	
 	String currentHousingLocationName = null;
-	if(user.currentLocation == null)
-	{
+	if(user.currentLocation == null) {
 		currentHousingLocationName = "Housing Location Not Set";
 	}
-	else
-	{
+	else {
 		currentHousingLocationName = user.currentLocation.locationName;
 	}
+	
+	String stringUSCVerifiedEmail = null;
+	if(user.verifiedEmail) {
+		stringUSCVerifiedEmail = "Email Not Verified";
+	}
+	else {
+		stringUSCVerifiedEmail = user.email;
+	}
+	
 %>
 
 <!DOCTYPE html>
@@ -75,8 +82,19 @@
 				<div style = "text-align:center">
 					<p style = "font-size:40px"> <%= user.name %> </p>
 
-					<p style = "font-size:24px"> <%= user.email %> </p>
-					
+					<div id="post-verified-email-address"><p style = "font-size:24px"> <%=stringUSCVerifiedEmail%> </p></div>
+
+					<form class="form-inline">
+						<div class="form-group">
+							<label for="verification-email-input">USC Email</label> <input type="email"
+								class="form-control" id="verification-email-input"
+								placeholder="tommytrojan@usc.edu">
+						</div>
+						
+						<button type="button" onclick="sendVerificationEmail()" class="btn btn-default">Send
+							Verification</button>
+					</form>
+
 					<div>
 						<div class="btn-group btn-group-lg" style="margin: 10px">
 							<button type="button" class="btn btn-default dropdown-toggle"
@@ -409,7 +427,24 @@
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     
     <script>
- 	 	function setHousingLocation(e){
+ 	 	
+		    function sendVerificationEmail() {
+	 	 		var uscEmail = document.getElementById("verification-email-input").value;
+	 	 		console.log(uscEmail);
+	 	 		
+	 	 		FB.api('/me', function(response) {
+					var fbID = response.id;
+	 	 		
+	 	 		$.ajax({
+					  url: "/troho/SendUserVerificationEmail",
+					  type: "POST",
+					  data: {fbID : fbID, uscEmail : uscEmail},
+					  dataType: "JSON"
+					});
+	 	 		});
+		    }
+    
+    	function setHousingLocation(e){
  	 		document.getElementById("top-level-name").innerText = e.innerHTML;
  	 		var currLocation = e.innerHTML;
  	 		FB.api('/me', function(response) {

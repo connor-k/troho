@@ -727,7 +727,9 @@
 		
     	$(document).ready(function() {
 		   
-		    (function ($) {
+		    
+    		// Makes it so that you can recognize show, hide calls on div
+    		(function ($) {
 		        $.each(['show', 'hide'], function (i, ev) {
 		          var el = $.fn[ev];
 		          $.fn[ev] = function () {
@@ -736,8 +738,7 @@
 		          };
 		        });
 		      })(jQuery);
- 
- 			
+    		
  			var houseName = $('#introText').text();
  			sessionStorage.numberOfReviewsOnClient = 0;
  			

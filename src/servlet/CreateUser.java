@@ -44,20 +44,12 @@ public class CreateUser extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		System.out.println(request);
 		String name=request.getParameter("name"); 
 		String imgURL =request.getParameter("url"); 
 		String fbID =request.getParameter("fbID"); 
 		String email = request.getParameter("email");
 		System.out.println(email);
-		if(UserDataManager.createUser(name, email, imgURL, fbID) != null) { 
-			try {
-				System.out.println("In confirm");
-				emailconfirm confirm = new emailconfirm(email, fbID);
-			} catch (EmailException e) {
-				e.printStackTrace();
-			}
-		}
+		UserDataManager.createUser(name, email, imgURL, fbID); 
 	}
 
 }
