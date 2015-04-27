@@ -91,15 +91,32 @@
 				document.getElementById('welcome-message').innerHTML = 'Welcome ' + response.name + '!';
 				name = response.name;
 				fbID = response.id;
+				email = response.email;
 				FB.api('/me/friends', function(response) {
 					if (response && !response.error) {
-						console.log("Response " + response);
+						console.log("Response " + response.data);
+						var data = response.data;
+						var ids = [];
+						for (var i = 0; i < data.length; i++) {
+							console.log(data[i].id + " " + data[i].name);
+							ids.push(data[i].id);
+						}
+						console.log(ids);
+						var postdata = {
+								"fbID" : fbID, 
+							  "friends":ids,
+						  };
+						$.ajax({
+							  url: "/troho/UpdateFriends",
+							  type: "POST",
+							  data: JSON.stringify(postdata),
+							  dataType: "JSON"
+							});
 				      } else {
 				    	  console.log("didnt work");
 				      }
 					
 				});
-				email = response.email;
 				FB.api('/me/picture?width=500&height=500', function(response) {
 	 				imgURL = response.data.url;
 	 				document.getElementById('profile-image').setAttribute("src", imgURL);

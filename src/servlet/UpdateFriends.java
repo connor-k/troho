@@ -13,42 +13,48 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import sql.ReviewDataManager;
+import sql.UserDataManager;
 
 /**
- * Servlet implementation class FirstServlet
+ * Servlet implementation class UpdateFriends
  */
-@WebServlet("/SubmitReview")
-public class SubmitReview extends HttpServlet {
+@WebServlet("/UpdateFriends")
+public class UpdateFriends extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public UpdateFriends() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		System.out.println("HOUSING NAME "request.getParameter("housingname"));
 		JSONObject object = translateToJSON(request);
+		System.out.println(object);
 		JSONArray elements = object.names();
 		object = new JSONObject(elements.getString(0));
-		JSONArray ratings = object.getJSONArray("ratings");
-		String[] ratingsStringArray = new String[5];
-		for(int i = 0; i < ratings.length(); i++) {
-			ratingsStringArray[i] = Integer.toString(ratings.getInt(i));
+		JSONArray friendsJSON = object.getJSONArray("friends");
+		String id = object.getString("fbID");
+		String[] friends = new String[friendsJSON.length()];
+		for (int i = 0; i < friendsJSON.length(); i++) {
+			friends[i] = friendsJSON.getString(i);
+			System.out.println(friends[i]);
 		}
-		boolean [] tags = new boolean[6];
-		
-		JSONArray tagArray = object.getJSONArray("tags");
-		System.out.println(object);
-		for (int i = 0; i < 6; i++) {
-			tags[i] = tagArray.getBoolean(i);
-		}
-		
-		ReviewDataManager.createReview(object.getString("housingname"), object.getString("fbID"), object.getString("review"), ratingsStringArray, tags, Integer.toString(object.getInt("rent")));
-
+		UserDataManager.setFriends(id, friends);
 	}
-	//	public static void createReview(String housingName, String facebookID, String comment, String[] ratings, String rent) {
 
-	
 	public JSONObject translateToJSON(HttpServletRequest request) {
 		  JSONObject newObject = new JSONObject();
 		  Map<String,String[]> parameterMap = request.getParameterMap();
@@ -67,5 +73,5 @@ public class SubmitReview extends HttpServlet {
 		  }
 		  return newObject;
 	}
-
+	
 }
