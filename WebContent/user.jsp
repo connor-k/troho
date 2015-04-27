@@ -438,11 +438,9 @@
     	console.log(email);
     	if(email === 'Email Not Verified') {
     		document.getElementById("email-form-input").style.display = "inline";
-    		console.log("hey");
     	}
     	else {
     		document.getElementById("email-form-input").style.display = "none";	
-    		console.log
     	}
     }
     
