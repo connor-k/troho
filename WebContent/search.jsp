@@ -262,11 +262,15 @@
 						for (int i = 0; i < location.length; i++) {	
 							HousingLocation house = location[i];
 				%>
-					<div class="col-lg-12 single-result">
+					<div class="col-lg-12 single-result" style="position:relative;">
+						<a href="/troho/house.jsp?name=<%= house.locationName%>" style="color:white;">
+							<span class="span-link"></span>		
+						</a>
 						<div class = "row">
 							<div class = "result-top-half">
 								<div class = "col-lg-4 house-result-image">
-									<img src ="<%=house.imageURL%> "style = "width:200px;margin-top:40px"/>
+									
+										<img src ="<%=house.imageURL%> "style = "width:200px;margin-top:40px"/>
 								</div>
 								<div class = "col-lg-8" style = "margin-top:50px; font-size:60px;">
 									<p style = "text-align:center;"><%=house.locationName %></p>
@@ -402,7 +406,8 @@
 						var htmlText="";
 						for (i = 0; i < houses.length; i++) {
 							
-							htmlText+='<div class="col-lg-12 single-result"><div class = "row"><div class = "result-top-half"><div class = "col-lg-4 house-result-image"><img src = ' + houses[i].imageURL + ' style = "width:200px;margin-top:40px"/></div><div class = "col-lg-8" style = "margin-top:50px; font-size:60px;"><p style = "text-align:center;">' +houses[i].locationName  + '</p>';
+							htmlText+='<div class="col-lg-12 single-result"><a href="/troho/house.jsp?name=' + houses[i].locationName+'" style="color:white;"><span class="span-link"></span></a>';
+							htmlText += '<div class = "row"><div class = "result-top-half"><div class = "col-lg-4 house-result-image"><img src = ' + houses[i].imageURL + ' style = "width:200px;margin-top:40px"/></div><div class = "col-lg-8" style = "margin-top:50px; font-size:60px;"><p style = "text-align:center;">' +houses[i].locationName  + '</p>';
 			                htmlText+='<p style = "text-align:center;">' + houses[i].housingAddress + '</p></div></div></div><div class = "row" style = "padding-top:20px">';
 			                htmlText += '<div class = "result-bottom-half"><div class="container"><div class = "row"><div class = "col-lg-4"> Price:&#32;$' + parseFloat(Math.round(houses[i].price * 100) / 100).toFixed(2);
 				            htmlText += '</div><div class = "col-lg-4"> Distance:&#32;' + houses[i].distance + ' min walk</div></div><div class = "row">';

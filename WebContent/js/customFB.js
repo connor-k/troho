@@ -91,6 +91,14 @@
 				document.getElementById('welcome-message').innerHTML = 'Welcome ' + response.name + '!';
 				name = response.name;
 				fbID = response.id;
+				FB.api('/me/friends', function(response) {
+					if (response && !response.error) {
+						console.log("Response " + response);
+				      } else {
+				    	  console.log("didnt work");
+				      }
+					
+				});
 				email = response.email;
 				FB.api('/me/picture?width=500&height=500', function(response) {
 	 				imgURL = response.data.url;

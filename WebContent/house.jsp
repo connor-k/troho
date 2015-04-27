@@ -717,7 +717,7 @@
 				type: "GET",
 				data: JSON.stringify(postData),
 				dataType: "JSON",
-				success:function(data){
+				success:function(data) {
 					console.log("val = " + data.reviewBool);
 					if(data.reviewBool === 'true' || data.authBool ==='false') {
 						console.log("Bout to hide review");
