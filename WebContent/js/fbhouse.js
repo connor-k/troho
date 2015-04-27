@@ -117,7 +117,8 @@
 		function logOut() {
 			FB.logout(function(response){
 			});
-			location.reload();
+			var site = "/troho/index.jsp";
+			window.open(site,"_self")
 		}
 		
 		function logIn() {
