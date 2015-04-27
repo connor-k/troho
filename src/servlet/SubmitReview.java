@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -26,11 +27,8 @@ public class SubmitReview extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		System.out.println("HOUSING NAME "request.getParameter("housingname"));
-		JSONObject object = requestParamsToJSON(request);
+		JSONObject object = translateToJSON(request);
 		JSONArray elements = object.names();
-		for(int i = 0; i < elements.length(); i++) {
-			System.out.println(elements.getString(i) + i);
-		}
 		object = new JSONObject(elements.getString(0));
 		JSONArray ratings = object.getJSONArray("ratings");
 		String[] ratingsStringArray = new String[5];
@@ -38,27 +36,36 @@ public class SubmitReview extends HttpServlet {
 			ratingsStringArray[i] = Integer.toString(ratings.getInt(i));
 		}
 		boolean [] tags = new boolean[6];
+		
 		JSONArray tagArray = object.getJSONArray("tags");
+		System.out.println(object);
 		for (int i = 0; i < 6; i++) {
 			tags[i] = tagArray.getBoolean(i);
 		}
 		
-		//TODO: add tag functionality
 		ReviewDataManager.createReview(object.getString("housingname"), object.getString("fbID"), object.getString("review"), ratingsStringArray, tags, Integer.toString(object.getInt("rent")));
 
 	}
 	//	public static void createReview(String housingName, String facebookID, String comment, String[] ratings, String rent) {
 
 	
-	public JSONObject requestParamsToJSON(HttpServletRequest req) {
-		  JSONObject jsonObj = new JSONObject();
-		  Map<String,String[]> params = req.getParameterMap();
-		  for (Map.Entry<String,String[]> entry : params.entrySet()) {
-		    String v[] = entry.getValue();
-		    Object o = (v.length == 1) ? v[0] : v;
-		    jsonObj.put(entry.getKey(), o);
+	public JSONObject translateToJSON(HttpServletRequest request) {
+		  JSONObject newObject = new JSONObject();
+		  Map<String,String[]> parameterMap = request.getParameterMap();
+		  Iterator<Map.Entry<String,String[]>> mapIt = parameterMap.entrySet().iterator();
+		  
+		  while(mapIt.hasNext()) {
+			  Map.Entry<String,String[]> curr = mapIt.next();
+			  String [] result = curr.getValue();
+			  if(result.length != 1) {
+				  Object addObject = result;
+				  newObject.put(curr.getKey(), addObject);
+			  } else {
+				  Object addObject = result[0];
+				  newObject.put(curr.getKey(), addObject);
+			  }
 		  }
-		  return jsonObj;
+		  return newObject;
 	}
 
 }

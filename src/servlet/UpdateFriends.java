@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -14,59 +13,48 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import sql.Review;
-import sql.User;
 import sql.UserDataManager;
-import Trie.ReviewHelper;
 
 /**
- * Servlet implementation class ReviewServlet
+ * Servlet implementation class UpdateFriends
  */
-@WebServlet("/ReviewServlet")
-public class ReviewServlet extends HttpServlet {
+@WebServlet("/UpdateFriends")
+public class UpdateFriends extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public UpdateFriends() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Requesting info");
-		response.setContentType("application/json");
 		JSONObject object = translateToJSON(request);
 		System.out.println(object);
 		JSONArray elements = object.names();
 		object = new JSONObject(elements.getString(0));
-
-		String houseName = object.getString("houseName");
-		JSONArray tagArray = object.getJSONArray("tags");
-		
-		boolean [] tags = new boolean[6];
-		
-		for(int i = 0; i < tagArray.length(); i++) {
-			tags[i] = tagArray.getBoolean(i);
+		JSONArray friendsJSON = object.getJSONArray("friends");
+		String id = object.getString("fbID");
+		String[] friends = new String[friendsJSON.length()];
+		for (int i = 0; i < friendsJSON.length(); i++) {
+			friends[i] = friendsJSON.getString(i);
+			System.out.println(friends[i]);
 		}
-		
-		PrintWriter out = response.getWriter();
-		Review[] myReviews = ReviewHelper.pruneReviews(houseName, tags);
-		JSONArray reviewArray = new JSONArray();
-		
-		for(int i = 0; i < myReviews.length; i++) {
-			JSONObject reviewObject = new JSONObject();		
-			Review currReview = myReviews[i];
-			User user = UserDataManager.getUser(currReview.facebookID);
-			reviewObject.put("name", user.name);
-			reviewObject.put("userImg", user.imageURL);		
-			reviewObject.put("review", currReview.comment);	
-			reviewObject.put("timeWritten", currReview.timeWritten);
-			reviewArray.put(i, reviewObject);
-		}	
-
-		JSONObject obj = new JSONObject();
-		obj.put("reviews", reviewArray);
-		out.print(obj);
-		out.flush();
+		UserDataManager.setFriends(id, friends);
 	}
-	
+
 	public JSONObject translateToJSON(HttpServletRequest request) {
 		  JSONObject newObject = new JSONObject();
 		  Map<String,String[]> parameterMap = request.getParameterMap();
@@ -85,5 +73,5 @@ public class ReviewServlet extends HttpServlet {
 		  }
 		  return newObject;
 	}
-
+	
 }

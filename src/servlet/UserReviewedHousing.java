@@ -46,7 +46,7 @@ public class UserReviewedHousing extends HttpServlet {
 		boolean authBool = UserDataManager.getUser(fbID).verifiedEmail;
 		//Create String to send in response to get request
 		String jsonObject = "{\"reviewBool\": \"" + hasReviewed + "\", \"authBool\":\"" + authBool + "\"}";
-		
+		System.out.println(jsonObject);
 		// Assuming your json object is **jsonObject**, perform the following, it will return your json object  
 		out.print(jsonObject);
 		out.flush();
