@@ -694,8 +694,8 @@
 			
 			// Work in Progress
 		    /* $('#price-graph-tab').on('click', function (e) {
-			    var ctx = document.getElementById("chart1").getContext("2d");
-		    	window.myLine = new Chart(ctx).Line(lineChartData, line_chart_options);
+		    	console.log(window.myLine);
+				window.myLine.update();
 		    }); */
 
     </script>

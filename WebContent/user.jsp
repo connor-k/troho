@@ -76,7 +76,19 @@
 					<p style = "font-size:40px"> <%= user.name %> </p>
 
 					<p style = "font-size:24px"> <%= user.email %> </p>
-					
+
+
+					<form class="form-inline">
+						<div class="form-group">
+							<label for="exampleInputEmail2">USC Email</label> <input type="email"
+								class="form-control" id="exampleInputEmail2"
+								placeholder="jane.doe@usc.edu">
+						</div>
+						
+						<button type="submit" class="btn btn-default">Send
+							Verification</button>
+					</form>
+
 					<div>
 						<div class="btn-group btn-group-lg" style="margin: 10px">
 							<button type="button" class="btn btn-default dropdown-toggle"
