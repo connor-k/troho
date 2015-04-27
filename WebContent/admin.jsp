@@ -113,7 +113,6 @@
 			var gpsLongitude = document.getElementById("gpsLongitude").value;
 			var minutesWalking = document.getElementById("minutesWalking").value;
 			var minutesBiking = document.getElementById("minutesBiking").value;
-			var rent = document.getElementById("rent").value;
 
 			$.ajax({
 				url : "/troho/CreateHousingLocation",
@@ -130,7 +129,6 @@
 					gpsLongitude : gpsLongitude,
 					minutesWalking : minutesWalking,
 					minutesBiking : minutesBiking,
-					rent : rent,
 				},
 				dataType : "JSON"
 			});

@@ -227,7 +227,7 @@
 			 var code = e.keyCode || e.which;
 			 if(code == 13) { //Enter keycode
 				 var currentVal = $('#search').val();
-				var site = "/troho/search.jsp?search=" + currentVal;
+				var site = "/troho/search.jsp?search=" + currentVal + "#" + "submitSearch";
 			 	window.open(site,"_self")
 			 }
 		});

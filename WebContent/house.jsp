@@ -306,9 +306,9 @@
                 <div class = "col-lg-12" style = "padding-top: 40px; font-size:40px; color:white; text-align:center">Reviews</div>
             </div>
 
-            <div class = "row" id="rowWrite">
+            <div class = "row" id="rowWrite" style="display:none;">
                 <div class = "add-review-button">
-                    <div class = "col-lg-12" id="writeReview" style = "padding-top: 8px; padding-bottom: 40px; font-size:20px; color:white; text-align:center"><a>Write your own!</a></div>
+                    <div class = "col-lg-12" id="writeReview" style = " padding-top: 8px; padding-bottom: 40px; font-size:20px; color:white; text-align:center"><a>Write your own!</a></div>
                 </div>
             </div>
             
@@ -694,13 +694,6 @@
 				window.myLine = new Chart(ctx).Line(lineChartData, line_chart_options);
 				$("#description-tab").click();
 			}
-			
-			// Work in Progress
-		    /* $('#price-graph-tab').on('click', function (e) {
-		    	console.log(window.myLine);
-				window.myLine.update();
-		    }); */
-
     </script>
     
     
@@ -708,6 +701,7 @@
     
 	var hideShowSubmit = function(){
 		FB.api('/me', function(response) {
+			console.log("Calling api");
 			var fbID = response.id;
 			var houseName = $('#introText').text();
 			var postData = {
@@ -721,8 +715,8 @@
 				data: JSON.stringify(postData),
 				dataType: "JSON",
 				success:function(data) {
-					console.log("val = " + data.reviewBool);
-					if(data.reviewBool === 'true' || data.authBool ==='false') {
+					console.log("val = " + data.reviewBool + data.authBool);
+					if(data.reviewBool === 'false' && data.authBool ==='true') {
 						console.log("Bout to hide review");
 						$("#rowWrite").toggle();
 					}
@@ -916,6 +910,7 @@
  				$("#rowWrite").toggle(); 
  				$("#reviewRow").toggle();
  				$("#submitReview").toggle();
+ 		 	    // Preventing default action of the event
  			});
  		 	
  		 	$(".selector").on("click", function() {
