@@ -47,9 +47,9 @@
 
 		<div class = "row" style = "margin-top:160px;">
 
-			<div class = "col-lg-4"></div>
+			<div class = "col-xl-4"></div>
 
-			<div class = "search-container col-lg-4">
+			<div class = "search-container col-xl-4">
 				<div style = "color:#ffcc00; font-size:30px; text-align:center">We help Trojans find Housing</div>
 				<br>
 				<br>
@@ -62,7 +62,7 @@
 						<div>
 					        <div class="bar">
 					            <input type="text" id = "search" class="search-bar" placeholder="Find a house!" name="house">
-					            <input type="text" id = "fill-in" class="search-bar" placeholder="Find a house!" name="house" style = "color:#ffe9bb;z-index: -1; margin-left:-180px;position:absolute;">
+					            <input type="text" id = "fill-in" class="search-bar" placeholder="Find a house!" name="house" style = "color:#ffe9bb;z-index: -1; margin-left:-242px;position:absolute;">
 					        </div>
 					        
 						</div>
@@ -74,7 +74,7 @@
 
 			</div>
 
-			<div class = "col-lg-4"></div>
+			<div class = "col-xl-4"></div>
 
 		</div>
 
