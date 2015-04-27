@@ -647,16 +647,19 @@
 		    
 		    <% 
 		    	Object[] rentData = HousingDataManager.getRentOverTimeData(name);
-		    	String[] years = (String[])rentData[0];
-				Double[] averageRent = (Double[])rentData[1];
+		    	if (rentData != null){
+		    		String[] years = (String[])rentData[0];
+					Double[] averageRent = (Double[])rentData[1];
+				
 		    	
-				for (int i = 0; i < years.length && i < averageRent.length; ++i) 
-				{
-				%>
-					labelsData.push( <%=years[i]%>);
-					avgRentData.push(<%=averageRent[i]%>);
+					for (int i = 0; i < years.length && i < averageRent.length; ++i) 
+					{
+					%>
+						labelsData.push( <%=years[i]%>);
+						avgRentData.push(<%=averageRent[i]%>);
 			<%
-				}
+					}
+		    	}
 		    %>
 		    
 		    console.log(labelsData);
