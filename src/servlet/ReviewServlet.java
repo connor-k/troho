@@ -58,6 +58,11 @@ public class ReviewServlet extends HttpServlet {
 			reviewObject.put("userImg", user.imageURL);		
 			reviewObject.put("review", currReview.comment);	
 			reviewObject.put("timeWritten", currReview.timeWritten);
+			reviewObject.put("noiseScore", currReview.noiseScore);
+			reviewObject.put("locationScore", currReview.noiseScore);
+			reviewObject.put("chillScore", currReview.communityChillFactorScore);
+			reviewObject.put("managementScore", currReview.managementScore);
+			reviewObject.put("amenitiesScore", currReview.amenitiesScore);
 			reviewArray.put(i, reviewObject);
 		}	
 

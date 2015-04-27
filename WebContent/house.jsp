@@ -61,6 +61,11 @@
 			    margin: 60px auto 0px auto;
 			
 			}
+			.star {
+				display:inline-block;
+				width:30px;
+				height: auto;
+			}
 		</style>
 	<%
 	}
@@ -306,9 +311,9 @@
                 <div class = "col-lg-12" style = "padding-top: 40px; font-size:40px; color:white; text-align:center">Reviews</div>
             </div>
 
-            <div class = "row" id="rowWrite">
+            <div class = "row" id="rowWrite" style="display:none;">
                 <div class = "add-review-button">
-                    <div class = "col-lg-12" id="writeReview" style = "padding-top: 8px; padding-bottom: 40px; font-size:20px; color:white; text-align:center"><a>Write your own!</a></div>
+                    <div class = "col-lg-12" id="writeReview" style = " padding-top: 8px; padding-bottom: 40px; font-size:20px; color:white; text-align:center"><a>Write your own!</a></div>
                 </div>
             </div>
             
@@ -585,7 +590,7 @@
 	                    	Review temp = location.reviews[i];
 	                    	User user = UserDataManager.getUser(temp.facebookID);                    
                     %> 
-                    <div class="col-lg-12 single-review">
+                    <div class="col-lg-6 single-review">
 
                         <div class = "reviewer-info-row">
 
@@ -607,8 +612,65 @@
                         </div>
 
                         <p class="scrolling-description-row">Description: <%=temp.comment %></p>
-                    </div>
 
+                    </div>
+                       <div class = "star-container col-lg-4" style = "display:inline-block; margin-left:15px; margin-top:3px; ">
+                        	<br>       	
+                        	<br>
+	                      	Management Score
+	                        <br>
+	                        <% 
+                     			for (int k = 0; k < temp.noiseScore; k++) {
+	                     	%>
+	                        	<img src = "./img/star.png" class = "star"/>
+	                        <%
+                   				}                     	
+	                        %>
+	                        <br>
+	                        <br>
+	                        Amenities Score
+	                        <br>
+	                        <% 
+                     			for (int k = 0; k < temp.noiseScore; k++) {
+	                     	%>
+	                        	<img src = "./img/star.png" class = "star"/>
+	                        <%
+                   				}                     	
+	                        %>
+	                        <br>
+	                        <br>
+	                        Location Score
+	                        <br>
+	                        <% 
+                     			for (int k = 0; k < temp.noiseScore; k++) {
+	                     	%>
+	                        	<img src = "./img/star.png" class = "star"/>
+	                        <%
+                   				}                     	
+	                        %>
+	                        <br>
+	                        <br>
+	                        Chill Score
+	                        <br>
+	                        <% 
+                     			for (int k = 0; k < temp.noiseScore; k++) {
+	                     	%>
+	                        	<img src = "./img/star.png" class = "star"/>
+	                        <%
+                   				}                     	
+	                        %>
+	                        <br>
+	                        <br>
+	                        Noise Score
+	                        <br>
+	                        <% 
+                     			for (int k = 0; k < temp.noiseScore; k++) {
+	                     	%>
+	                        	<img src = "./img/star.png" class = "star"/>
+	                        <%
+                   				}                     	
+	                        %>
+                     	</div>
 					<%
 						}  
                     }
@@ -694,46 +756,42 @@
 				window.myLine = new Chart(ctx).Line(lineChartData, line_chart_options);
 				$("#description-tab").click();
 			}
-			
-			// Work in Progress
-		    /* $('#price-graph-tab').on('click', function (e) {
-		    	console.log(window.myLine);
-				window.myLine.update();
-		    }); */
-
     </script>
     
     
     <script>
     
-		var hideShowSubmit = function(){
-			FB.api('/me', function(response) {
-				var fbID = response.id;
-				var houseName = $('#introText').text();
-				var postData = {
-					"fbID": fbID, 
-					"houseName": houseName
-					};
-				console.log(postData);
-				$.ajax({
-					url: "/troho/UserReviewedHousing",
-					type: "GET",
-					data: JSON.stringify(postData),
-					dataType: "JSON",
-					success:function(data) {
-						console.log("val = " + data.reviewBool);
-						if(data.reviewBool === 'true' || data.authBool ==='false') {
-							console.log("Bout to hide review");
-							$("#rowWrite").toggle();
-						}
+	var hideShowSubmit = function(){
+		FB.api('/me', function(response) {
+			console.log("Calling api");
+			var fbID = response.id;
+			var houseName = $('#introText').text();
+			var postData = {
+				"fbID": fbID, 
+				"houseName": houseName
+				};
+			console.log(postData);
+			$.ajax({
+				url: "/troho/UserReviewedHousing",
+				type: "GET",
+				data: JSON.stringify(postData),
+				dataType: "JSON",
+				success:function(data) {
+					console.log("val = " + data.reviewBool + data.authBool);
+					if(data.reviewBool === 'false' && data.authBool ==='true') {
+						console.log("Bout to hide review");
+						$("#rowWrite").toggle();
 					}
-				});
+				}
 			});
-		}
+		});
+	};
 		
     	$(document).ready(function() {
 		   
-		    (function ($) {
+		    
+    		// Makes it so that you can recognize show, hide calls on div
+    		(function ($) {
 		        $.each(['show', 'hide'], function (i, ev) {
 		          var el = $.fn[ev];
 		          $.fn[ev] = function () {
@@ -742,8 +800,7 @@
 		          };
 		        });
 		      })(jQuery);
- 
- 			
+    		
  			var houseName = $('#introText').text();
  			sessionStorage.numberOfReviewsOnClient = 0;
  			
@@ -790,7 +847,29 @@
 	 										
 	 										console.log(i);
 	 										htmlText +='<div class="col-lg-12 single-review"><div class = "reviewer-info-row"><div class = "reviewer-image-and-name"><div class = "reviewer-image-wrapper"><img src =' +  reviewsArr[i].userImg  + ' class = "reviewer-image"/></div><div class = "reviewer-username"><div class = "reviewer-username-row"><div class = "reviewer-username-cell">' + reviewsArr[i].name+'</div></div></div></div></div><p class="scrolling-description-row">Description: ' + reviewsArr[i].review + '</p></div>';
-	 									
+	 										htmlText += '<div class = "star-container col-lg-4" style = "display:inline-block; margin-left:15px; margin-top:3px; ">';
+	 										
+	 										htmlText += '<br><br>Management Score<br>'
+	 			                     		for (var k = 0; k < reviewsArr[i].managementScore; k++) {
+	 				                        	htmlText += '<img src = "./img/star.png" class = "star"/>'
+	 			                     		}
+	 										htmlText += '<br><br>Amenities Score<br>'
+	 				                     		for (var k = 0; k < reviewsArr[i].amenitiesScore; k++) {
+	 					                        	htmlText += '<img src = "./img/star.png" class = "star"/>'
+	 				                     		}
+	 										htmlText += '<br><br>Location Score<br>'
+	 				                     		for (var k = 0; k < reviewsArr[i].locationScore; k++) {
+	 					                        	htmlText += '<img src = "./img/star.png" class = "star"/>'
+	 				                     		}
+	 										htmlText += '<br><br>Chill Score<br>'
+	 				                     		for (var k = 0; k < reviewsArr[i].chillScore; k++) {
+	 					                        	htmlText += '<img src = "./img/star.png" class = "star"/>'
+	 				                     		}
+	 										htmlText += '<br><br>Noise Score<br>'
+	 				                     		for (var k = 0; k < reviewsArr[i].noiseScore; k++) {
+	 					                        	htmlText += '<img src = "./img/star.png" class = "star"/>'
+	 				                     		}
+	 										htmlText+='</div>';
 	 									}
 	 									
 	 									htmlText += $('.reviews-container').html();
@@ -811,179 +890,204 @@
 			
     	});
  				
-		$("#writeReview").on("click", function() {
-			$("#reviewRow").toggle();
-			$("#submitReview").toggle();
-		});
-		
-		$(".filter-button").click(function() {			
-            $(this).toggleClass('active');
-        });
-		
-		
-		// Handles Switching Between Different Tabs
-		$(".rating-tab").click(function() {
-		      $('.active').removeClass('active')
-		       $(this).addClass('active');
-		       
-		      if($(this).attr('id') == "description-tab")
-		    	{
-		    	 	$("#descriptionText").show();
-		    	 	$("#amenitiesText").hide();
-		    	 	$("#priceGraph").hide();
-		    	 	$("#floorPlan").hide();
-		    	}
-		      else if($(this).attr('id') == "amenities-tab")
-		    	  {
-		    	 	$("#amenitiesText").show();	
-		    	  	$("#descriptionText").hide();
-		    	 	$("#priceGraph").hide();
-		    	 	$("#floorPlan").hide();
-		    	  }
-		      else if($(this).attr('id') == "price-graph-tab")
-		    	  {
-			    	$("#priceGraph").show();
-		    	  	$("#descriptionText").hide();
-		    	 	$("#amenitiesText").hide();
-		    	 	$("#floorPlan").hide();
-		    	  }
-		      else if($(this).attr('id') == "floor-plan-tab")
-		    	  {
-		    	 	$("#floorPlan").show();
-		    	  	$("#descriptionText").hide();
-		    	 	$("#amenitiesText").hide();
-		    	 	$("#priceGraph").hide();
-		    	  }
-		      else
-		    	  {}
-		});				
+ 			$("#writeReview").on("click", function() {
+ 				$("#reviewRow").toggle();
+ 				$("#submitReview").toggle();
+ 			});
+ 			
+ 			$(".filter-button").click(function() {			
+ 	            $(this).toggleClass('active');
+ 	        });
+ 			
+ 			
+ 			// Handles Switching Between Different Tabs
+ 			$(".rating-tab").click(function() {
+ 			      $('.active').removeClass('active')
+ 			       $(this).addClass('active');
+ 			       
+ 			      if($(this).attr('id') == "description-tab")
+ 			    	{
+ 			    	 	$("#descriptionText").show();
+ 			    	 	$("#amenitiesText").hide();
+ 			    	 	$("#priceGraph").hide();
+ 			    	 	$("#floorPlan").hide();
+ 			    	}
+ 			      else if($(this).attr('id') == "amenities-tab")
+ 			    	  {
+ 			    	 	$("#amenitiesText").show();	
+ 			    	  	$("#descriptionText").hide();
+ 			    	 	$("#priceGraph").hide();
+ 			    	 	$("#floorPlan").hide();
+ 			    	  }
+ 			      else if($(this).attr('id') == "price-graph-tab")
+ 			    	  {
+	 			    	$("#priceGraph").show();
+ 			    	  	$("#descriptionText").hide();
+ 			    	 	$("#amenitiesText").hide();
+ 			    	 	$("#floorPlan").hide();
+ 			    	  }
+ 			      else if($(this).attr('id') == "floor-plan-tab")
+ 			    	  {
+ 			    	 	$("#floorPlan").show();
+ 			    	  	$("#descriptionText").hide();
+ 			    	 	$("#amenitiesText").hide();
+ 			    	 	$("#priceGraph").hide();
+ 			    	  }
+ 			      else
+ 			    	  {}
+ 			});				
 
-	 	$("#submitReview").on("click", function() {
-			console.log("hello");
-			
-			FB.api('/me', function(response) {
-				var fbID = response.id;
-				var houseName = $("#introText").text();
-				var comment = null;
-				comment = $("#comment").val();
-	 		var rent = 900;
-	 		var managementPoints = $("#managementPoints").val();
-	 		var amenitiesPoints = $("#amenitiesPoints").val();
-	 		var locationPoints = $("#locationPoints").val();
-	 		var noisePoints = $("#noisePoints").val();
-	 		var chillFactorPoints = $("#chillFactorPoints").val();
-	 		var arr = []; 
-		 		if ($("#managementReviewTag").hasClass("active")) {
-		 			arr.push(true);
-		 		} else {
-		 			arr.push(false);
-		 		}
-		 		if ($("#noiseReviewTag").hasClass("active")) {
-		 			arr.push(true);
-		 		} else {
-		 			arr.push(false);
-		 		}
-		 		if ($("#locationReviewTag").hasClass("active")) {
-		 			arr.push(true);
-		 		} else {
-		 			arr.push(false);
-		 		}
-		 		if ($("#chillnessReviewTag").hasClass("active")) {
-		 			arr.push(true);
-		 		} else {
-		 			arr.push(false);
-		 		}
-		 		if ($("#amenitiesReviewTag").hasClass("active")) {
-		 			arr.push(true);
-		 		} else {
-		 			arr.push(false);
-		 		}
-		 		if ($("#priceReviewTag").hasClass("active")) {
-		 			arr.push(true);
-		 		} else {
-		 			arr.push(false);
-		 		}
-	 		var postData = {
-					"housingname": houseName, 
-					"fbID": fbID, 
-					"review": comment,
-					"ratings": [managementPoints, amenitiesPoints, locationPoints, noisePoints, chillFactorPoints], 
-					"rent": rent,
-					"tags":[arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]]
-					};
-			$.ajax({
-				url: "/troho/SubmitReview",
-				type: "POST",
-				data: JSON.stringify(postData),
-				dataType: "JSON"
-				});
-			});
-			$("#rowWrite").toggle(); 
-			$("#reviewRow").toggle();
-			$("#submitReview").toggle();
-		});
-	 	
-	 	$(".selector").on("click", function() {
-	 		console.log("pressed");
-	 		var arr = []; 
-	 		if ($("#managementTag").hasClass("active")) {
-	 			arr.push(true);
-	 		} else {
-	 			arr.push(false);
-	 		}
-	 		if ($("#noiseTag").hasClass("active")) {
-	 			arr.push(true);
-	 		} else {
-	 			arr.push(false);
-	 		}
-	 		if ($("#locationTag").hasClass("active")) {
-	 			arr.push(true);
-	 		} else {
-	 			arr.push(false);
-	 		}
-	 		if ($("#chillnessTag").hasClass("active")) {
-	 			arr.push(true);
-	 		} else {
-	 			arr.push(false);
-	 		}
-	 		if ($("#amenitiesTag").hasClass("active")) {
-	 			arr.push(true);
-	 		} else {
-	 			arr.push(false);
-	 		}
-	 		if ($("#priceTag").hasClass("active")) {
-	 			arr.push(true);
-	 		} else {
-	 			arr.push(false);
-	 		}
-	 		var houseName = $("#introText").text();
-	 		var postData = {
-				"houseName": houseName, 
-				"tags": [arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]]
-				};
-	 		$.ajax({
-	 			url: "/troho/ReviewServlet",
-			type: "POST",
-			data: JSON.stringify(postData),
-			dataType: "JSON",
-			success:function(data) {
-				var reviewsArr = data.reviews;
-				console.log(reviewsArr);
-				var htmlText = "";
-				for (var i = 0; i < reviewsArr.length; i++) {				
-					htmlText += '<div class="col-lg-12 single-review"><div class = "reviewer-info-row">';
-					htmlText += '<div class = "reviewer-image-and-name"><div class = "reviewer-image-wrapper"><img src =' +  reviewsArr[i].userImg  + ' class = "reviewer-image"/>';
-					htmlText += '</div><div class = "reviewer-username"><div class = "reviewer-username-row"><div class = "reviewer-username-cell">' + reviewsArr[i].name+'</div></div></div></div>';
-					htmlText += '<span style="padding-left: 75%; font-size:1.2em;">' + reviewsArr[i].timeWritten + '</span></div>';
-					htmlText += '<p class="scrolling-description-row">Description: ' + reviewsArr[i].review + '</p></div>';				
-				}
-				console.log(htmlText);
-				$(".reviews-container").html(htmlText);	
-			}
-	 		});
-	 		
-	 	});
-	 	
+ 		 	$("#submitReview").on("click", function() {
+ 				console.log("hello");
+ 				
+ 				FB.api('/me', function(response) {
+ 					var fbID = response.id;
+ 					var houseName = $("#introText").text();
+ 					var comment = null;
+ 					comment = $("#comment").val();
+			 		var rent = 900;
+			 		var managementPoints = $("#managementPoints").val();
+			 		var amenitiesPoints = $("#amenitiesPoints").val();
+			 		var locationPoints = $("#locationPoints").val();
+			 		var noisePoints = $("#noisePoints").val();
+			 		var chillFactorPoints = $("#chillFactorPoints").val();
+			 		var arr = []; 
+	 		 		if ($("#managementReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
+	 		 		if ($("#noiseReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
+	 		 		if ($("#locationReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
+	 		 		if ($("#chillnessReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
+	 		 		if ($("#amenitiesReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
+	 		 		if ($("#priceReviewTag").hasClass("active")) {
+	 		 			arr.push(true);
+	 		 		} else {
+	 		 			arr.push(false);
+	 		 		}
+			 		var postData = {
+							"housingname": houseName, 
+							"fbID": fbID, 
+							"review": comment,
+							"ratings": [managementPoints, amenitiesPoints, locationPoints, noisePoints, chillFactorPoints], 
+							"rent": rent,
+							"tags":[arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]]
+							};
+					$.ajax({
+						url: "/troho/SubmitReview",
+						type: "POST",
+						data: JSON.stringify(postData),
+						dataType: "JSON"
+ 					});
+ 				});
+ 				$("#rowWrite").toggle(); 
+ 				$("#reviewRow").toggle();
+ 				$("#submitReview").toggle();
+ 		 	    // Preventing default action of the event
+ 			});
+ 		 	
+ 		 	$(".selector").on("click", function() {
+ 		 		console.log("pressed");
+ 		 		var arr = []; 
+ 		 		if ($("#managementTag").hasClass("active")) {
+ 		 			arr.push(true);
+ 		 		} else {
+ 		 			arr.push(false);
+ 		 		}
+ 		 		if ($("#noiseTag").hasClass("active")) {
+ 		 			arr.push(true);
+ 		 		} else {
+ 		 			arr.push(false);
+ 		 		}
+ 		 		if ($("#locationTag").hasClass("active")) {
+ 		 			arr.push(true);
+ 		 		} else {
+ 		 			arr.push(false);
+ 		 		}
+ 		 		if ($("#chillnessTag").hasClass("active")) {
+ 		 			arr.push(true);
+ 		 		} else {
+ 		 			arr.push(false);
+ 		 		}
+ 		 		if ($("#amenitiesTag").hasClass("active")) {
+ 		 			arr.push(true);
+ 		 		} else {
+ 		 			arr.push(false);
+ 		 		}
+ 		 		if ($("#priceTag").hasClass("active")) {
+ 		 			arr.push(true);
+ 		 		} else {
+ 		 			arr.push(false);
+ 		 		}
+ 		 		var houseName = $("#introText").text();
+ 		 		var postData = {
+						"houseName": houseName, 
+						"tags": [arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]]
+						};
+ 		 		$.ajax({
+ 		 			url: "/troho/ReviewServlet",
+					type: "POST",
+					data: JSON.stringify(postData),
+					dataType: "JSON",
+					success:function(data) {
+						var reviewsArr = data.reviews;
+						var htmlText = "";
+						for (var i = 0; i < reviewsArr.length; i++) {				
+							htmlText += '<div class="col-lg-12 single-review"><div class = "reviewer-info-row">';
+							htmlText += '<div class = "reviewer-image-and-name"><div class = "reviewer-image-wrapper"><img src =' +  reviewsArr[i].userImg  + ' class = "reviewer-image"/>';
+							htmlText += '</div><div class = "reviewer-username"><div class = "reviewer-username-row"><div class = "reviewer-username-cell">' + reviewsArr[i].name+'</div></div></div></div>';
+							htmlText += '<span style="padding-left: 75%; font-size:1.2em;">' + reviewsArr[i].timeWritten + '</span></div>';
+							htmlText += '<p class="scrolling-description-row">Description: ' + reviewsArr[i].review + '</p></div>';	
+							
+							htmlText += '<div class = "star-container col-lg-4" style = "display:inline-block; margin-left:15px; margin-top:3px; ">';
+							
+							htmlText += '<br><br>Management Score<br>'
+                     		for (var k = 0; k < reviewsArr[i].managementScore; k++) {
+	                        	htmlText += '<img src = "./img/star.png" class = "star"/>'
+                     		}
+							htmlText += '<br><br>Amenities Score<br>'
+	                     		for (var k = 0; k < reviewsArr[i].amenitiesScore; k++) {
+		                        	htmlText += '<img src = "./img/star.png" class = "star"/>'
+	                     		}
+							htmlText += '<br><br>Location Score<br>'
+	                     		for (var k = 0; k < reviewsArr[i].locationScore; k++) {
+		                        	htmlText += '<img src = "./img/star.png" class = "star"/>'
+	                     		}
+							htmlText += '<br><br>Chill Score<br>'
+	                     		for (var k = 0; k < reviewsArr[i].chillScore; k++) {
+		                        	htmlText += '<img src = "./img/star.png" class = "star"/>'
+	                     		}
+							htmlText += '<br><br>Noise Score<br>'
+	                     		for (var k = 0; k < reviewsArr[i].noiseScore; k++) {
+		                        	htmlText += '<img src = "./img/star.png" class = "star"/>'
+	                     		}
+							htmlText+='</div>';
+						}
+						console.log(htmlText);
+						$(".reviews-container").html(htmlText);	
+					}
+ 		 		});
+ 		 		
+ 		 	});
+ 		 	
+ 		//});
     </script>
 
 </html>

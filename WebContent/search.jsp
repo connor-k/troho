@@ -179,11 +179,11 @@
 				<div class="btn-group">
 	                <button type="button" value ="0" id="managementBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
 	                <ul class="dropdown-menu scrollable-menu" id="managementBoxIn" role="menu">
-	                    <li value="1" class="listElement"><a >1 Star</a></li>
-	                    <li value="2" class="listElement"><a >2 Star</a></li>
-	                    <li value="3" class="listElement"><a >3 Star</a></li>
-	                    <li value="4" class="listElement"><a >4 Star</a></li>
-	                    <li value="5" class="listElement"><a >5 Star</a></li>
+	                    <li value="1" class="listElement"><a >Not important</a></li>
+	                    <li value="2" class="listElement"><a >Slightly important</a></li>
+	                    <li value="3" class="listElement"><a >Important</a></li>
+	                    <li value="4" class="listElement"><a >Very important</a></li>
+	                    <li value="5" class="listElement"><a >Extremely important</a></li>
 	                    <li value="0" class="listElement"><a>Any</a></li>
 	                </ul>
             	</div>
@@ -195,11 +195,11 @@
 				<div class="btn-group">
 	                <button type="button" value ="0" id="amenitiesBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
 	                <ul class="dropdown-menu scrollable-menu" id="amenitiesBoxIn" role="menu">
-	                    <li value="1" class="listElement"><a >1 Star</a></li>
-	                    <li value="2" class="listElement"><a >2 Star</a></li>
-	                    <li value="3" class="listElement"><a >3 Star</a></li>
-	                    <li value="4" class="listElement"><a >4 Star</a></li>
-	                    <li value="5" class="listElement"><a >5 Star</a></li>
+	                    <li value="1" class="listElement"><a >Not important</a></li>
+	                    <li value="2" class="listElement"><a >Slightly important</a></li>
+	                    <li value="3" class="listElement"><a >Important</a></li>
+	                    <li value="4" class="listElement"><a >Very important</a></li>
+	                    <li value="5" class="listElement"><a >Extremely important</a></li>
 	                    <li value="0" class="listElement"><a >Any</a></li>
 	                </ul>
             	</div>
@@ -210,11 +210,11 @@
 					<div class="btn-group">
 	                <button type="button" value ="0" id="chillBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
 	                <ul class="dropdown-menu scrollable-menu" id="chillBoxIn" role="menu">
-	                    <li value="1" class="listElement"><a >1 Star</a></li>
-	                    <li value="2" class="listElement"><a >2 Star</a></li>
-	                    <li value="3" class="listElement"><a >3 Star</a></li>
-	                    <li value="4" class="listElement"><a >4 Star</a></li>
-	                    <li value="5" class="listElement"><a >5 Star</a></li>
+	                    <li value="1" class="listElement"><a >Not important</a></li>
+	                    <li value="2" class="listElement"><a >Slightly important</a></li>
+	                    <li value="3" class="listElement"><a >Important</a></li>
+	                    <li value="4" class="listElement"><a >Very important</a></li>
+	                    <li value="5" class="listElement"><a >Extremely important</a></li>
 	                    <li value="0" class="listElement"><a >Any</a></li>
 	                </ul>
             	</div>
@@ -226,11 +226,11 @@
 				<div class="btn-group">
 	                <button type="button" value ="0" id ="locationBox" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Any <span class="caret"></span></button>
 	                <ul class="dropdown-menu scrollable-menu" id ="locationBoxIn" role="menu">
-	                    <li value="1" class="listElement"><a >1 Star</a></li>
-	                    <li value="2" class="listElement"><a >2 Star</a></li>
-	                    <li value="3" class="listElement"><a >3 Star</a></li>
-	                    <li value="4" class="listElement"><a >4 Star</a></li>
-	                    <li value="5" class="listElement"><a >5 Star</a></li>
+	                    <li value="1" class="listElement"><a >Not important</a></li>
+	                    <li value="2" class="listElement"><a >Slightly important</a></li>
+	                    <li value="3" class="listElement"><a >Important</a></li>
+	                    <li value="4" class="listElement"><a >Very important</a></li>
+	                    <li value="5" class="listElement"><a >Extremely important</a></li>
 	                    <li value="0" class="listElement"><a >Any</a></li>
 	                </ul>
             	</div>
@@ -374,6 +374,7 @@
 			});
 			
 			var search = function() { 
+			    event.preventDefault();
 				var managementScore = $("#managementBox").val();
 		 		var amenitiesScore = $("#amenitiesBox").val();
 		 		var locationScore = $("#locationBox").val();
@@ -396,7 +397,6 @@
 						"housingType":type,
 						"searchWords":searchWords
 						};
-		 		console.log(postData);
 		 		$.ajax({
 					url: "/troho/SearchFilter",
 					type: "POST",
@@ -418,6 +418,10 @@
 						$(".result").html(htmlText);	
 					}
 				});
+		   		 // Preventing default action of the event
+			    // Getting the height of the document
+			    var n = $(document).height();
+			    $('html, body').animate({ scrollTop: n-900 }, 700);
 			};				
 				
 			$('#locationBoxIn > .listElement').on("click", function(){
