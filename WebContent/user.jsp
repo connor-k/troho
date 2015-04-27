@@ -90,10 +90,10 @@
 
 					<div id="post-verified-email-address"><p style = "font-size:24px"> <%=stringUSCVerifiedEmail%> </p></div>
 
-					<form id="email-form-input" class="form-inline" value="0">
+					<form id="email-form" class="form-inline">
 						<div class="form-group">
-							<label for="verification-email-input">USC Email</label> <input type="email"
-								class="form-control" id="verification-email-input"
+							<label for="verification-email-input">USC Email</label> 
+							<input type="email" class="form-control" id="verification-email-input"
 								placeholder="tommytrojan@usc.edu">
 						</div>
 						
