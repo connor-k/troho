@@ -35,6 +35,7 @@ public class SendUserVerificationEmail extends HttpServlet {
 		String fbID =request.getParameter("fbID"); 
 		String uscEmail = request.getParameter("uscEmail");
 		
+		System.out.println("This is the USC email " + uscEmail);
 		UserDataManager.setEmail(fbID, uscEmail);
 		
 		try {

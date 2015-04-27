@@ -25,12 +25,16 @@
 	}
 	
 	String stringUSCVerifiedEmail = null;
+	
+	System.out.println("Verified Email: " + user.verifiedEmail);
+	
 	if(user.verifiedEmail) {
-		stringUSCVerifiedEmail = "Email Not Verified";
-	}
-	else {
 		stringUSCVerifiedEmail = user.email;
 	}
+	else {
+		stringUSCVerifiedEmail = "Email Not Verified";
+	}
+	System.out.println(stringUSCVerifiedEmail);
 	
 %>
 
@@ -66,8 +70,10 @@
 				<div class="welcome" id="welcome-message"></div>
 				<img id="profile-image" src=" "></img>
 			</div>
+			<div id="log-out-sequence" onclick="logOut()">
+				<div id="log-out-message"></div>
+			</div>
 		</div>
-
 	</div>
 
 	<br>
@@ -84,7 +90,7 @@
 
 					<div id="post-verified-email-address"><p style = "font-size:24px"> <%=stringUSCVerifiedEmail%> </p></div>
 
-					<form class="form-inline">
+					<form id="email-form-input" class="form-inline">
 						<div class="form-group">
 							<label for="verification-email-input">USC Email</label> <input type="email"
 								class="form-control" id="verification-email-input"
@@ -363,7 +369,6 @@
 				<div style = "color:#ffcc00;font-size:36px; margin-bottom:25px;">Recommendations</div>
 				<% 
 					HousingLocation[] housesRecommendations = PreferenceCalculator.findPreferences(fbID);
-					System.out.println(housesRecommendations.length);
 					for (int j = 0; j < housesRecommendations.length; j++) {
 						HousingLocation location = housesRecommendations[j];				
 				%>
@@ -427,8 +432,21 @@
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     
     <script>
- 	 	
-		    function sendVerificationEmail() {
+    
+    window.onload = function() {
+    	var email = document.getElementById("post-verified-email-address").innerText;
+    	console.log(email);
+    	if(email === 'Email Not Verified') {
+    		document.getElementById("email-form-input").style.display = "inline";
+    		console.log("hey");
+    	}
+    	else {
+    		document.getElementById("email-form-input").style.display = "none";	
+    		console.log
+    	}
+    }
+    
+    	function sendVerificationEmail() {
 	 	 		var uscEmail = document.getElementById("verification-email-input").value;
 	 	 		console.log(uscEmail);
 	 	 		
