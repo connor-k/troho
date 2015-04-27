@@ -524,7 +524,7 @@
     		
     		
 
-			for(var i = 0; i < allMarkers.length;++i) {
+			/*for(var i = 0; i < allMarkers.length;++i) {
 
 				(function(index,google) {
 					
@@ -583,7 +583,7 @@
 					        div.append(img);
 					        div.addClass('markerToRemove');     
 
-					        $(document.body).append(div); 
+					        $('#map-canvas').append(div); 
 
 					        x = x + 65;
 
@@ -602,7 +602,7 @@
 					        div.append(img);
 					        div.addClass('markerToRemove');     
 
-					        $(document.body).append(div); 
+					        $('#map-canvas').append(div); 
 
 					});
 
@@ -618,11 +618,9 @@
 
 				}) (i,google);
 
-			}
+			}*/
 			
 			var facebookID = <%=fbID%>;
-			
- 	 		//console.log(facebookID);
 			
 			$.ajax({
 				url: "/troho/FriendMapInfo",
@@ -630,7 +628,65 @@
 				data: {'facebookID' : facebookID},
 				dataType: "JSON",
 				success:function(data) {
-					//console.log(data);
+					
+					for (var location in data) {
+						if (data.hasOwnProperty(location)) {
+							
+							var index;
+							for(var i = 0; i < allMarkers.length; i++) {
+								if(allMarkers[i].title == location) {
+									index = i;
+								}
+							}
+						
+							var marker = allMarkers[index];
+														
+							for(i = 0; i < data[location].length; ++i) {
+												
+								google.maps.event.addListener(marker, 'mouseover', function() {
+									
+									var scale = Math.pow(2, map.getZoom());
+									var nw = new google.maps.LatLng(
+									    map.getBounds().getNorthEast().lat(),
+									    map.getBounds().getSouthWest().lng()
+									);
+									var worldCoordinateNW = map.getProjection().fromLatLngToPoint(nw);
+									
+									var worldCoordinate = map.getProjection().fromLatLngToPoint(allMarkers[index].getPosition());
+									var pixelOffset = new google.maps.Point(
+									    Math.floor((worldCoordinate.x - worldCoordinateNW.x) * scale),
+									    Math.floor((worldCoordinate.y - worldCoordinateNW.y) * scale)
+									);
+	
+									var x = Math.floor((worldCoordinate.x - worldCoordinateNW.x) * scale) + 35*i;
+									var y = Math.floor((worldCoordinate.y - worldCoordinateNW.y) * scale) - 50;
+								
+									
+							        var img = $('<img src=' + data[location] + ' alt="myimage" class = "friend-circle" />');
+							        var div = $('<div>').css({
+							            "position": "absolute",                    
+							            "left": x,
+							            "top": y,
+							            "background-color":"white",
+							            "overflow":"hidden",
+							            "height":"60px",
+							            "width":"60px",
+							            "border-radius":"30px"
+							        });
+	
+							        div.append(img);
+							        div.addClass('markerToRemove');
+							        $('#map-canvas').append(div);
+							        
+								});
+								
+								google.maps.event.addListener(marker, 'mouseout', function() {
+									$(".markerToRemove").remove();
+								});
+							}	
+						
+						}
+					}
 				}
 			});
   		}

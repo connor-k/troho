@@ -35,6 +35,7 @@ public class FriendMapInfo extends HttpServlet {
 			hashMap = new HashMap<String, Vector<String>>();
 			for (int i = 0; i < user.friendIDs.length; ++i) {
 				User friend = UserDataManager.getUser(user.friendIDs[i]);
+				System.out.println("FRIEND " + friend.name);
 				Vector<String> peopleHere = hashMap.get(friend.currentLocation.locationName);
 				if (peopleHere != null) {
 					peopleHere.add(friend.imageURL);
