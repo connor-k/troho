@@ -40,7 +40,7 @@ It was written for the CSCI 201 Final Project in Spring 2015.
  1. Download the source
  2. Create a war archive of the source (via jar or Eclipse EE)
  3. Install MySQL and start the localhost server instance
-    + For some mock data, either run the ```sql/CreateDatabase.sql``` script or change the file path in ```sql/Startup.jaba``` lines 86-87
+    + For some mock data, either run the ```sql/CreateDatabase.sql``` script or change the file path in ```sql/Startup.java``` lines 86-87
  4. Install Tomcat
     + Remember to configure the MySQL driver
  5. Move/copy the war file to the webapps folder of your Tomcat installation, and start the server
